@@ -8,6 +8,7 @@ import analyzer.event.InvocationEvent;
 import analyzer.event.LocationEvent;
 import analyzer.event.ProgramEvent;
 import analyzer.instrument.ThreadInstrumentor;
+import analyzer.option.AnalyzerOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.*;
@@ -34,7 +35,8 @@ public class FlakyTestAnalyzer extends SceneTransformer {
     @Override
     protected void internalTransform(String phaseName, Map<String, String> options) {
         // TODO: make it configurable
-        final AnalysisInput analysisInput = new AnalysisInput(Scene.v().getApplicationClasses(), "org.apache.zookeeper");
+        final AnalysisInput analysisInput = new AnalysisInput(AnalyzerOptions.getInstance(),
+                Scene.v().getApplicationClasses(), "org.apache.zookeeper");
         final AnalysisManager analysisManager = new AnalysisManager(analysisInput);
         final EventManager eventManager = new EventManager(analysisManager);
         eventManager.dump("tree.json");

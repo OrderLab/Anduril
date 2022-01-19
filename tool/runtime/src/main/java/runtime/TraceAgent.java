@@ -3,10 +3,12 @@ package runtime;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,6 +27,8 @@ public final class TraceAgent {
 //        }
 //    }
 
+    // for recording the number of active threads
+
     private static int threadNum = 0;
     private static final Object recordLock = new Object();
 
@@ -34,6 +38,8 @@ public final class TraceAgent {
             System.out.println("time=" + System.nanoTime() + "  " + name + " : " + (d == 1 ? "start" : "end  ") + "  #threads: " + threadNum);
         }
     }
+
+    // for recording the basic block traces
 
     static private final class Trace {
         private final String threadName;
@@ -51,11 +57,13 @@ public final class TraceAgent {
     static private final String traceRecordFileName = System.getProperty("flakyAgent.traceFile");
     static private final AtomicBoolean traceFlag = new AtomicBoolean(false);
     static private final CopyOnWriteArrayList<Trace> traces = new CopyOnWriteArrayList<>();
+    static private final AtomicBoolean stopTracing = new AtomicBoolean(false);
 
     static public void trace(final int id) {
         if (traceFlag.compareAndSet(false, true)) {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 //                System.out.println("flakyAgent shutdown hook >>>>");
+                stopTracing.set(true);
                 try (final PrintWriter printWriter = new PrintWriter(new FileWriter(traceRecordFileName))) {
 //                    Thread.sleep(500); // wait for other potentially active threads
                     for (final Trace trace : traces) {
@@ -64,7 +72,9 @@ public final class TraceAgent {
                 } catch (final Exception ignored) { }
             }));
         }
-        traces.add(new Trace(id));
+        if (!stopTracing.get()) {
+            traces.add(new Trace(id));
+        }
 //        if (stub != null) {
 //            try {
 //                stub.trace(Thread.currentThread().getName(), Thread.currentThread().hashCode(), id);
@@ -74,13 +84,16 @@ public final class TraceAgent {
 //        }
     }
 
+    // for fault injection
+
     static private final AtomicInteger injectionCounter = new AtomicInteger();
     static private final String injectionMark = "flaky test exception injection of TraceAgent";
     static private final int targetId = Integer.getInteger("flakyAgent.injectionId", -1);
     static private final int times = Integer.getInteger("flakyAgent.injectionTimes", 0);
-    static private final String exceptionName = System.getProperty("flakyAgent.fault");
+    static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
+    static private final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
 
-    static private Throwable createException(final String exceptionName) {
+    static public Throwable createException(final String exceptionName) {
         try {
             final ClassLoader loader = Thread.currentThread().getContextClassLoader();
             final Class<?> exceptionClass = Class.forName(exceptionName, true, loader);
@@ -99,16 +112,32 @@ public final class TraceAgent {
     }
 
     static public void inject(final int id) throws Throwable {
-        if (id == targetId) {
-            if (injectionCounter.incrementAndGet() == times) {
-                final Throwable t = createException(exceptionName);
-                if (t == null) {
-                    System.out.println("FlakyAgent: fail to construct the exception " + exceptionName);
-                } else {
-                    System.out.println("FlakyAgent: injected the exception " + exceptionName);
-                    throw t;
+        if (fixPointInjectionMode) {
+            if (id == targetId) {
+                if (injectionCounter.incrementAndGet() == times) {
+                    final Throwable t = createException(exceptionName);
+                    if (t == null) {
+                        System.out.println("FlakyAgent: fail to construct the exception " + exceptionName);
+                    } else {
+                        System.out.println("FlakyAgent: injected the exception " + exceptionName);
+                        throw t;
+                    }
                 }
             }
+        } else {
+            localInjectionManager.inject(id);
         }
+    }
+
+    static private LocalInjectionManager localInjectionManager = null;
+
+    static public void main(final String[] args) throws Throwable {
+        localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            localInjectionManager.dump();
+        }));
+        final Class<?> cls = Class.forName(args[3]);
+        final Method method = cls.getMethod("main", String[].class);
+        method.invoke(null, (Object) Arrays.copyOfRange(args, 4, args.length));
     }
 }

@@ -64,6 +64,13 @@ public final class ConditionEvent extends LocationEvent {
         if (lhs instanceof FieldRef) {
             preconditionLocations.addAll(analysisManager.slicingAnalysis.dataWrite.get(((FieldRef) lhs).getField()));
         }
+//        if (lhs instanceof InvokeExpr) {
+//            final SootMethod calleeMethod = ((InvokeExpr) lhs).getMethod();
+//            final SootClass calleeClass = calleeMethod.getDeclaringClass();
+//            if (analysisManager.analysisInput.classSet.contains(calleeClass)) {
+//                calleeMethod
+//            }
+//        }
         for (final GlobalSlicingAnalysis.Location loc : preconditionLocations) {
             frontiers.add(new LocationEvent(analysisManager.analysisInput.indexManager.index
                     .get(loc.method.getDeclaringClass()).get(loc.method).get(loc.unit)));

@@ -52,15 +52,15 @@ public final class EventManager {
         nodeIds.put(root.event, 0);
         nodes.put(root.event, root);
 
-//        for (final ProgramLocation loc : analysisManager.analysisInput.logEvents) {
-//            final ProgramEvent event = new LocationEvent(loc);
-//            if (!nodes.containsKey(event)) {
-//                final Node node = new Node(event, 0);
-//                queue.addLast(node);
-//                nodeIds.put(event, nodeIds.size());
-//                nodes.put(event, node);
-//            }
-//        }
+        for (final ProgramLocation loc : analysisManager.analysisInput.logEvents) {
+            final ProgramEvent event = new LocationEvent(loc);
+            if (!nodes.containsKey(event)) {
+                final Node node = new Node(event, 0);
+                queue.addLast(node);
+                nodeIds.put(event, nodeIds.size());
+                nodes.put(event, node);
+            }
+        }
         while (!queue.isEmpty()) {
             final Node node = queue.pollFirst();
             // TODO: remove the constraint
@@ -136,7 +136,7 @@ public final class EventManager {
     }
 
     public void instrumentInjections() {
-        for (final InjectionPoint injectionPoint : injectionPoints) {
+        for (final InjectionPoint injectionPoint : this.injectionPoints) {
             if (injectionPoint.callee instanceof ExternalInjectionEvent) {
                 injectionPoint.instrument();
             }

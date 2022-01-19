@@ -62,7 +62,8 @@ public final class ExceptionHandlingAnalysis {
 
     public boolean update = false; // for global interprocedural analysis
 
-    public ExceptionHandlingAnalysis(final AnalysisInput analysisInput, final SootMethod method, final Body body, final UnitGraph graph) {
+    public ExceptionHandlingAnalysis(final AnalysisInput analysisInput, final SootMethod method, final Body body,
+                                     final UnitGraph graph, final GlobalCallGraphAnalysis globalCallGraphAnalysis) {
         this.method = method;
         this.body = body;
         this.graph = graph;
@@ -105,7 +106,11 @@ public final class ExceptionHandlingAnalysis {
                     final SootMethod invocation = ((InvokeExpr) value).getMethod();
                     if (analysisInput.classSet.contains(invocation.getDeclaringClass())) {
                         internalCalls.put(unit, invocation);
-                        markMethodOccurrence(invocation, unit);
+                        for (final SootMethod virtualMethod : globalCallGraphAnalysis.virtualCalls.get(invocation)) {
+                            if (virtualMethod.hasActiveBody()) {
+                                markMethodOccurrence(virtualMethod, unit);
+                            }
+                        }
                         unitThrowingException.put(unit, new HashSet<>());
                     } else {
                         final List<SootClass> exceptions = invocation.getExceptions();

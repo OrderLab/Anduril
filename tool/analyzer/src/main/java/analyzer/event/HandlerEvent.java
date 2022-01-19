@@ -33,7 +33,12 @@ public final class HandlerEvent extends ProgramEvent {
                     if (analysis.internalCalls.containsKey(unit)) {
                         final InternalInjectionEvent injectionEvent =
                                 new InternalInjectionEvent(analysis.internalCalls.get(unit), exception);
-                        frontiers.add(injectionEvent);
+                        for (final SootMethod virtualMethod : analysisManager.callGraphAnalysis.virtualCalls
+                                .get(analysis.internalCalls.get(unit))) {
+                            if (virtualMethod.hasActiveBody()) {
+                                frontiers.add(new InternalInjectionEvent(virtualMethod, exception));
+                            }
+                        }
                         injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
                     } else if (analysis.libCalls.containsKey(unit)) {
                         final ExternalInjectionEvent injectionEvent =

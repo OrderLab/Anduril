@@ -20,13 +20,15 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
         this.exceptionMethod = exceptionMethod;
     }
 
+    private static final Set<Unit> emptySet = new HashSet<>();
+
     @Override
     public List<ProgramEvent> computeFrontiers(final AnalysisManager analysisManager) {
         if (!analysisManager.analysisInput.classSet.contains(exceptionMethod.getDeclaringClass())) {
             return new LinkedList<>();
         }
         final ExceptionHandlingAnalysis analysis = analysisManager.exceptionAnalysis.analyses.get(exceptionMethod);
-        for (final Unit unit : analysis.methodExceptions.get(this.exceptionType)) {
+        for (final Unit unit : analysis.methodExceptions.getOrDefault(this.exceptionType, emptySet)) {
             final ProgramLocation loc = analysisManager.analysisInput.indexManager.index
                     .get(exceptionMethod.getDeclaringClass()).get(exceptionMethod).get(unit);
             if (analysis.libCalls.containsKey(unit)) {
@@ -37,7 +39,12 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
             } else if (analysis.internalCalls.containsKey(unit)) {
                 final InternalInjectionEvent injectionEvent =
                         new InternalInjectionEvent(analysis.internalCalls.get(unit), this.exceptionType);
-                this.frontiers.add(injectionEvent);
+                for (final SootMethod virtualMethod : analysisManager.callGraphAnalysis.virtualCalls
+                        .get(analysis.internalCalls.get(unit))) {
+                    if (virtualMethod.hasActiveBody()) {
+                        frontiers.add(new InternalInjectionEvent(virtualMethod, this.exceptionType));
+                    }
+                }
                 injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
             } else {
                 this.frontiers.add(new LocationEvent(loc));

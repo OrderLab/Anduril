@@ -22,6 +22,9 @@ public class AnalyzerOptions {
     private List<String> input_list;
     private String main_class;
 
+    private String flaky_case;
+    private String failure_log_diff_locations_path;
+
     //a distributed system like HDFS can have multiple main classes as entries,
     // which would be needed in long running scanning phase
     private List<String> secondary_main_classes;
@@ -41,6 +44,22 @@ public class AnalyzerOptions {
 
     private AnalyzerOptions() {
 
+    }
+
+    public String getFlakyCase() {
+        return flaky_case;
+    }
+
+    void setFlakyCase(String flaky_case) {
+        this.flaky_case = flaky_case;
+    }
+
+    public String getDiffPath() {
+        return failure_log_diff_locations_path;
+    }
+
+    void setDiffPath(String failure_log_diff_locations_path) {
+        this.failure_log_diff_locations_path = failure_log_diff_locations_path;
     }
 
     public boolean isHelp() {

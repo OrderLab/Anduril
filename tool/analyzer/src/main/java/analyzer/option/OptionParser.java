@@ -38,6 +38,14 @@ public class OptionParser {
             .argName("phase key:val,key:val, ...").desc("list of phase option to be passed to Soot")
             .build();
 
+    private final Option flakyCase = Option.builder("fc").longOpt("flaky_case").hasArg()
+            .desc("flaky test jira issue name")
+            .build();
+
+    private final Option failureLogDiffLocations = Option.builder("fld").longOpt("failure_log_diff_locations")
+            .hasArg().desc("file of the failure log diff")
+            .build();
+
     private Option inputDirectoryList = Option.builder("i").longOpt("indir").hasArgs()
             .argName("directory directory ...")
             .desc("List of input directories that contain the class files of a subject software")
@@ -99,6 +107,8 @@ public class OptionParser {
         // accept a list of analysis names
         mOptions.addOption(analysisList);
         mOptions.addOption(phaseOptions);
+        mOptions.addOption(flakyCase);
+        mOptions.addOption(failureLogDiffLocations);
         mOptions.addOption(inputDirectoryList);
         mOptions.addOption(inputJarList);
         mOptions.addOption(classList);
@@ -165,6 +175,9 @@ public class OptionParser {
                 }
             }
             options.setSecondaryMainClassList(secMainClassList);
+
+            options.setFlakyCase(cmd.getOptionValue(this.flakyCase.getLongOpt()));
+            options.setDiffPath(cmd.getOptionValue(this.failureLogDiffLocations.getLongOpt()));
 
             boolean no_output = cmd.hasOption(noOutput.getLongOpt());
             boolean gen_executable = cmd.hasOption(genExecutable.getLongOpt());
