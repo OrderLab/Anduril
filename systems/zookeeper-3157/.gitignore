@@ -1,0 +1,82 @@
+# Java
+hs_err_pid*
+
+# Git
+*.orij
+*.rej
+
+# SVN
+.svn
+.revision
+
+# Eclipse
+.metadata
+.classpath
+.eclipse/
+.idea/
+.project
+.revision/
+.settings/
+.externalToolBuilders/
+local.properties
+.recommenders
+*.launch
+build/
+target/
+out/
+
+# Intellij
+*.ipr
+*.iws
+*.iml
+
+# NetBeans
+*~.nib
+nbbuild/
+nbproject/
+dist/
+nbdist/
+.ndb-gradle/
+.cproject
+.buildpath
+
+# Other
+*~
+logs/
+*.out
+*.log
+*.bak
+*.tmp
+tmp/**
+tmp/**/*
+.DS_Store
+.gradle
+*.patch
+*.swp
+
+# C
+tags
+.cproject
+.project
+obj
+zookeeper-client/zookeeper-client-c/core.*
+zookeeper-client/zookeeper-client-c/TEST-*.txt
+zookeeper-client/zookeeper-client-c/*.la
+zookeeper-client/zookeeper-client-c/*.lo
+zookeeper-client/zookeeper-client-c/*.o
+zookeeper-client/zookeeper-client-c/generated/
+src/java/generated/
+src/java/lib/ant-eclipse-*
+src/java/lib/ivy-*
+zookeeper-client/zookeeper-client-c/Makefile.in
+zookeeper-client/zookeeper-client-c/aclocal.m4
+zookeeper-client/zookeeper-client-c/autom4te.cache/
+zookeeper-client/zookeeper-client-c/compile
+zookeeper-client/zookeeper-client-c/config.guess
+zookeeper-client/zookeeper-client-c/config.h.in
+zookeeper-client/zookeeper-client-c/config.sub
+zookeeper-client/zookeeper-client-c/configure
+zookeeper-client/zookeeper-client-c/depcomp
+zookeeper-client/zookeeper-client-c/install-sh
+zookeeper-client/zookeeper-client-c/ltmain.sh
+zookeeper-client/zookeeper-client-c/missing
