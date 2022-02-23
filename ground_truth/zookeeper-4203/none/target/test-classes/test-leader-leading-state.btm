@@ -1,0 +1,12 @@
+# 在startZkServer前，检查zk的状态
+# check zk server state before startZkServer
+RULE startZkServer
+CLASS org.apache.zookeeper.server.quorum.Leader
+METHOD startZkServer
+HELPER org.apache.zookeeper.server.quorum.LeaderLeadingStateTest$StateMonitorHelper
+AT ENTRY
+IF $0.zk.state EQ org.apache.zookeeper.server.ZooKeeperServer$State.ERROR
+DO
+    traceln("zk server state: " + $0.zk.state);
+    killThread();
+ENDRULE

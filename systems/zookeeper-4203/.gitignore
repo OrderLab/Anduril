@@ -1,0 +1,110 @@
+#idea
+*.iml
+.idea
+
+# Java
+hs_err_pid*
+zookeeper-server/version-2/*
+
+# Git
+*.orij
+*.rej
+
+# SVN
+.svn
+.revision
+
+# Eclipse
+.metadata
+.classpath
+.eclipse/
+.idea/
+.project
+.revision/
+.settings/
+.externalToolBuilders/
+local.properties
+.recommenders
+*.launch
+build/
+target/
+out/
+
+# Intellij
+*.ipr
+*.iws
+*.iml
+
+# NetBeans
+*~.nib
+nbbuild/
+nbproject/
+dist/
+nbdist/
+.ndb-gradle/
+.cproject
+.buildpath
+nb-configuration.xml
+nbactions.xml
+
+# vscode
+classes
+.vscode
+
+# Other
+*~
+logs/
+*.out
+*.log
+*.bak
+*.tmp
+tmp/**
+tmp/**/*
+.DS_Store
+.gradle
+*.patch
+*.swp
+.ant-targets-build.xml
+
+# C
+tags
+.cproject
+.project
+obj
+zookeeper-server/src/main/resources/lib/ant-eclipse-*
+zookeeper-server/src/main/resources/lib/ivy-*
+zookeeper-server/src/main/java/org/apache/zookeeper/version/Info.java
+zookeeper-server/src/main/java/org/apache/zookeeper/version/VersionInfoMain.java
+zookeeper-server/src/test/resources/
+zookeeper-client/zookeeper-client-c/Makefile.in
+zookeeper-client/zookeeper-client-c/aclocal.m4
+zookeeper-client/zookeeper-client-c/autom4te.cache/
+zookeeper-client/zookeeper-client-c/compile
+zookeeper-client/zookeeper-client-c/config.guess
+zookeeper-client/zookeeper-client-c/config.h.in
+zookeeper-client/zookeeper-client-c/config.sub
+zookeeper-client/zookeeper-client-c/configure
+zookeeper-client/zookeeper-client-c/depcomp
+zookeeper-client/zookeeper-client-c/install-sh
+zookeeper-client/zookeeper-client-c/ltmain.sh
+zookeeper-client/zookeeper-client-c/missing
+zookeeper-client/zookeeper-client-c/.deps/
+zookeeper-client/zookeeper-client-c/.libs/
+zookeeper-client/zookeeper-client-c/Makefile
+zookeeper-client/zookeeper-client-c/cli_mt
+zookeeper-client/zookeeper-client-c/cli_st
+zookeeper-client/zookeeper-client-c/config.h
+zookeeper-client/zookeeper-client-c/config.status
+zookeeper-client/zookeeper-client-c/libtool
+zookeeper-client/zookeeper-client-c/load_gen
+zookeeper-client/zookeeper-client-c/stamp-h1
+zookeeper-client/zookeeper-client-c/build
+zookeeper-client/zookeeper-client-c/core.*
+zookeeper-client/zookeeper-client-c/TEST-*.txt
+zookeeper-client/zookeeper-client-c/*.la
+zookeeper-client/zookeeper-client-c/*.lo
+zookeeper-client/zookeeper-client-c/*.o
+zookeeper-client/zookeeper-client-c/generated/
+
+# Python
+*.py[cod]
