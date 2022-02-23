@@ -75,6 +75,9 @@ public final class TraceAgent {
         if (!stopTracing.get()) {
             traces.add(new Trace(id));
         }
+        if (!fixPointInjectionMode) {
+            localInjectionManager.trace(id);
+        }
 //        if (stub != null) {
 //            try {
 //                stub.trace(Thread.currentThread().getName(), Thread.currentThread().hashCode(), id);
@@ -91,7 +94,8 @@ public final class TraceAgent {
     static private final int targetId = Integer.getInteger("flakyAgent.injectionId", -1);
     static private final int times = Integer.getInteger("flakyAgent.injectionTimes", 0);
     static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
-    static private final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
+    static public final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
+    static public final boolean avoidBlockMode = Boolean.getBoolean("flakyAgent.avoidBlockMode");
 
     static public Throwable createException(final String exceptionName) {
         try {

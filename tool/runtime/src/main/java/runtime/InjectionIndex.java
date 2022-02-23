@@ -5,20 +5,22 @@ import javax.json.JsonObjectBuilder;
 import java.util.Objects;
 
 public final class InjectionIndex {
-    public final int id, occurrence;
+    public final int id, occurrence, block;
     public final String exceptionName;
 
-    public InjectionIndex(final int id, final String exceptionName, final int occurrence) {
+    public InjectionIndex(final int id, final String exceptionName, final int occurrence, final int block) {
         this.id = id;
         this.exceptionName = exceptionName;
         this.occurrence = occurrence;
+        this.block = block;
     }
 
     public JsonObjectBuilder dump() {
         return Json.createObjectBuilder()
                 .add("id", id)
                 .add("exception", exceptionName)
-                .add("occurrence", occurrence);
+                .add("occurrence", occurrence)
+                .add("block", block);
     }
 
     @Override

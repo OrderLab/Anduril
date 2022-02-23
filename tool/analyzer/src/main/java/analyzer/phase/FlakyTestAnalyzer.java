@@ -24,7 +24,7 @@ import java.util.Map;
  *
  */
 public class FlakyTestAnalyzer extends SceneTransformer {
-    //private static final Logger LOG = LoggerFactory.getLogger(FlakyTestAnalyzer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlakyTestAnalyzer.class);
 
     public static final PhaseInfo PHASE_INFO = new PhaseInfo("wjtp", "flaky",
             "Extract module entry points in the subject software", true, false);
@@ -39,8 +39,8 @@ public class FlakyTestAnalyzer extends SceneTransformer {
                 Scene.v().getApplicationClasses(), "org.apache.zookeeper");
         final AnalysisManager analysisManager = new AnalysisManager(analysisInput);
         final EventManager eventManager = new EventManager(analysisManager);
-        eventManager.dump("tree.json");
         analysisManager.instrument();
+        eventManager.dump("tree.json");
         eventManager.instrumentInjections();
 
 //        targetClass = Scene.v().getSootClass(

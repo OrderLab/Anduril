@@ -32,13 +32,14 @@ public class TraceInstrumentor {
     public void instrument() {
         final PatchingChain<Unit> units = basicBlockAnalysis.body.getUnits();
         basicBlockAnalysis.counterStart = counter;
-        for (final Unit unit : basicBlockAnalysis.basicBlocks.values()) {
+        for (final Map.Entry<Unit, Unit> entry : basicBlockAnalysis.basicBlocks.entrySet()) {
+            basicBlockAnalysis.ids.put(entry.getKey(), counter);
             LinkedList<Value> args = new LinkedList<>();
             args.add(IntConstant.v(counter));
             counter++;
             final StaticInvokeExpr traceExpr = Jimple.v().newStaticInvokeExpr(traceMethod.makeRef(), args);
             final InvokeStmt traceStmt = Jimple.v().newInvokeStmt(traceExpr);
-            units.insertBefore(traceStmt, unit);
+            units.insertBefore(traceStmt, entry.getValue());
         }
         basicBlockAnalysis.counterEnd = counter;
     }

@@ -11,6 +11,7 @@ import java.util.HashMap;
 public final class BasicBlockAnalysis {
     public final Body body;
     public final HashMap<Unit, Unit> basicBlocks; // basic block head -> instrumentation point
+    public final HashMap<Unit, Integer> ids = new HashMap<>(); // basic block head -> id
     public final HashMap<Unit, Unit> heads;
     public int counterStart, counterEnd;
 

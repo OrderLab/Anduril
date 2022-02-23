@@ -24,7 +24,7 @@ import soot.Transform;
 import soot.options.Options;
 
 public class AnalyzerMain {
-    //private static final Logger LOG = LoggerFactory.getLogger(AnalyzerMain.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AnalyzerMain.class);
     
     // Arguments passed through the command line
     static public AnalyzerOptions options;
@@ -102,10 +102,10 @@ public class AnalyzerMain {
             //LOG.info("Analyzer has run for " + (runtime / 60000) + " min. "
             //        + ((runtime % 60000) / 1000) + " sec. " + (runtime % 1000) + " ms.");
         } catch (StackOverflowError e ) {
-            //LOG.error( "Analyzer has run out of stack memory." );
+            LOG.error( "Analyzer has run out of stack memory." );
             throw e;
         } catch (OutOfMemoryError e) {
-            //LOG.error( "Soot has run out of the memory allocated to it by the Java VM." );
+            LOG.error( "Soot has run out of the memory allocated to it by the Java VM." );
             throw e;
         } catch (RuntimeException e) {
             e.printStackTrace();

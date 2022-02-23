@@ -1,3 +1,6 @@
+blockmap.txt
+tree.json
+logs/
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,maven,intellij+iml,macos,vim,cmake,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,intellij+iml,macos,vim,cmake,node

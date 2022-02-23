@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OptionParser {
 
-    //private static final Logger LOG = LoggerFactory.getLogger(OptionParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OptionParser.class);
 
     private Option analysisList = Option.builder("a").longOpt("analysis").hasArgs()
             .argName("name name ...")

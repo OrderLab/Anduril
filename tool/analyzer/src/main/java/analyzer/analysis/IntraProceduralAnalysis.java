@@ -17,7 +17,6 @@ public final class IntraProceduralAnalysis {
 
     public IntraProceduralAnalysis(final SootMethod method, final Body body) {
         this.body = body;
-        final BasicBlockAnalysis basicBlockAnalysis = new BasicBlockAnalysis(body);
         this.graph = new ExceptionalUnitGraph(body);
         this.dominatorAnalysis = new DominatorAnalysis(graph, body.getUnits());
         this.basicBlockAnalysis = new BasicBlockAnalysis(body);

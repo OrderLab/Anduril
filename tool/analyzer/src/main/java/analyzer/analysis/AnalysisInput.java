@@ -7,6 +7,8 @@ import analyzer.option.AnalyzerOptions;
 import analyzer.util.SootUtils;
 import index.IndexManager;
 import index.ProgramLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import soot.*;
 import soot.jimple.InvokeExpr;
 import soot.jimple.NewExpr;
@@ -15,6 +17,8 @@ import java.io.File;
 import java.util.*;
 
 public class AnalysisInput {
+    private static final Logger LOG = LoggerFactory.getLogger(AnalysisInput.class);
+
     public final IndexManager indexManager;
     public final Set<SootClass> classSet; // for checking existence
     public final List<SootClass> classes; // for enumeration (in the order of class name)
@@ -33,19 +37,24 @@ public class AnalysisInput {
         this.classSet = new HashSet<>(this.classes);
 
         if (options.getDiffPath() != null) {
-            try (final Scanner scanner = new Scanner(new File(options.getDiffPath()))) {
-                while (scanner.hasNext()) {
-                    final String name = scanner.next();
-                    final int line = scanner.nextInt();
-                    final ProgramLocation loc = indexManager.logEntries.get(new IndexManager.LogEntry(name, line));
-                    if (loc != null) {
+            final File diff_file = new File(options.getDiffPath());
+            if (diff_file.exists()) {
+                LOG.info("using diff log file {}", diff_file.getPath());
+                try (final Scanner scanner = new Scanner(diff_file)) {
+                    while (scanner.hasNext()) {
+                        final String name = scanner.next();
+                        final int line = scanner.nextInt();
+                        final ProgramLocation loc = indexManager.logEntries.get(new IndexManager.LogEntry(name, line));
+                        if (loc != null) {
 //                        System.out.println(loc.dump().build().toString());
-                        logEvents.add(loc);
-                    } else {
+                            logEvents.add(loc);
+                        } else {
 //                        System.out.println("null");
+                        }
                     }
-                }
-            } catch (final Exception ignored) {
+                } catch (final Exception ignored) { }
+            } else {
+                LOG.info("diff log file {} not exists", diff_file.getPath());
             }
         }
 

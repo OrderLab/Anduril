@@ -1,5 +1,6 @@
 package analyzer.event;
 
+import analyzer.analysis.BasicBlockAnalysis;
 import analyzer.instrument.TraceInstrumentor;
 import index.ProgramLocation;
 import soot.Value;
@@ -35,11 +36,15 @@ public final class InjectionPoint {
     }
 
     public JsonObjectBuilder dump(final EventManager eventManager) {
+        final BasicBlockAnalysis basicBlockAnalysis =
+                eventManager.analysisManager.getAnalysis(location.sootClass, location.sootMethod).basicBlockAnalysis;
+        final int blockId = basicBlockAnalysis.ids.get(basicBlockAnalysis.heads.get(location.unit));
         final JsonObjectBuilder builder = Json.createObjectBuilder()
                 .add("id", this.id)
                 .add("caller", eventManager.getId(this.caller))
                 .add("callee", eventManager.getId(this.callee))
-                .add("location", this.location.dump());
+                .add("location", this.location.dump())
+                .add("block", blockId);
         if (this.callee instanceof InternalInjectionEvent) {
             final InternalInjectionEvent trans = (InternalInjectionEvent) callee;
             builder.add("exception", trans.exceptionType.getName());

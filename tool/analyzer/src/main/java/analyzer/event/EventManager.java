@@ -40,8 +40,10 @@ public final class EventManager {
     }
 
     private final List<InjectionPoint> injectionPoints = new LinkedList<>();
+    public final AnalysisManager analysisManager;
 
     public EventManager(final AnalysisManager analysisManager) {
+        this.analysisManager = analysisManager;
 //        final Map<String, Object> options = new HashMap<>();
 //        options.put(JsonGenerator.PRETTY_PRINTING, true);
 //        this.jsonBuilderFactory = Json.createBuilderFactory(options);
