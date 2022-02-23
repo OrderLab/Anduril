@@ -83,10 +83,12 @@ public final class LocalInjectionManager {
             if (windowSize > injectionIds.length) {
                 this.threshold = injectionIds[injectionIds.length - 1];
             } else {
-                this.threshold = injectionIds[windowSize - 1];
+                this.threshold = INF;
             }
         }
     }
+
+    static private final int INF = 1000000000; // largest id
 
     public void inject(final int id) throws Throwable {
         if (!injected.get()) {
