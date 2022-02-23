@@ -33,6 +33,7 @@ do
 echo "Running experiment $id at $(date)"
 java \
 -cp $classes_dir:$jars:$SCRIPT_DIR \
+-Dbuild.test.dir=$SCRIPT_DIR/build \
 -DflakyAgent.traceFile=$trials_dir/trace-$id.txt \
 runtime.TraceAgent $trials_dir $SCRIPT_DIR/tree.json $trials_dir/injection-$id.json org.junit.runner.JUnitCore $testcase \
 > $trials_dir/output-$id.txt
