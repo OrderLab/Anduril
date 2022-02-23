@@ -18,6 +18,8 @@ testcase="org.apache.zookeeper.server.quorum.QuorumPeerMainTest"
 #byteman=""
 #for i in `find $HOME/.m2/repository/org/jboss/byteman/byteman/*/**.jar`; do byteman=$i; done
 
+mkdir -p $SCRIPT_DIR/build
+
 trials_dir=$SCRIPT_DIR/trials
 mkdir -p $trials_dir
 id=0
