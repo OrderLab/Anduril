@@ -96,6 +96,7 @@ public final class TraceAgent {
     static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
     static public final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
     static public final boolean avoidBlockMode = Boolean.getBoolean("flakyAgent.avoidBlockMode");
+    static public final int injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 1);
 
     static public Throwable createException(final String exceptionName) {
         try {

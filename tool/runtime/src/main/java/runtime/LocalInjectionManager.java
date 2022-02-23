@@ -100,12 +100,14 @@ public final class LocalInjectionManager {
                     final int occurrence = id2times.getOrDefault(id, 0) + 1;
                     id2times.put(id, occurrence);
                     final int block = thread2block.get(System.identityHashCode(Thread.currentThread()));
-//                    if (block2times.containsKey(block)) {
-//                        return;
-//                    }
-//                    block2times.put(block, 1);
+                    if (!TraceAgent.avoidBlockMode) {
+                        if (block2times.containsKey(block)) {
+                            return;
+                        }
+                        block2times.put(block, 1);
+                    }
                     final InjectionIndex index = new InjectionIndex(id, exception.getClass().getName(), occurrence, block);
-                    if (occurrence <= 1 && !injectionSet.containsKey(index)) {
+                    if (occurrence <= TraceAgent.injectionOccurrenceLimit && !injectionSet.containsKey(index)) {
                         if (injected.compareAndSet(false, true)) {
                             injectionPoint = index;
                             throw exception;
