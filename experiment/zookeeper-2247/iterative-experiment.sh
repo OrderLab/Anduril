@@ -2,10 +2,11 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-zk_dir="${SCRIPT_DIR}/../../systems/zookeeper-2247"
+case_name=zookeeper-2247
+zk_dir="${SCRIPT_DIR}/../../systems/$case_name"
 #btm_dir="${SCRIPT_DIR}/none"
 target="$zk_dir"/build
-classes_dir="$HOME/tmp/bytecode/zookeeper-2247/classes"
+classes_dir="$HOME/tmp/bytecode/$case_name/classes"
 #runtime_classes_dir="$SCRIPT_DIR/runtime-classes"
 #testclasses_dir="$target/test-classes"
 jars="."
@@ -17,6 +18,9 @@ for i in `find $JAVA_HOME -name "*.jar"`; do jars="$i:$jars"; done
 testcase="org.apache.zookeeper.server.quorum.QuorumPeerMainTest"
 #byteman=""
 #for i in `find $HOME/.m2/repository/org/jboss/byteman/byteman/*/**.jar`; do byteman=$i; done
+
+NODEJS=node
+GROUND_TRUTH=$SCRIPT_DIR/../../ground_truth/$case_name
 
 mkdir -p $SCRIPT_DIR/build
 
@@ -33,8 +37,14 @@ echo "Running experiment $id at $(date)"
 java \
 -cp $classes_dir:$jars:$SCRIPT_DIR \
 -Dbuild.test.dir=$SCRIPT_DIR/build \
+-DflakyAgent.avoidBlockMode=true \
+-DflakyAgent.feedback=true \
 -DflakyAgent.traceFile=$trials_dir/trace-$id.txt \
 runtime.TraceAgent $trials_dir $SCRIPT_DIR/tree.json $trials_dir/injection-$id.json org.junit.runner.JUnitCore $testcase \
 > $trials_dir/output-$id.txt
+sleep 1
+feedback="$($NODEJS $SCRIPT_DIR/diff-score.js $GROUND_TRUTH/good-run-log.txt $SCRIPT_DIR/trials/output-$id.txt $GROUND_TRUTH/diff_log.txt $SCRIPT_DIR/tree.json)"
+sed -i "3 i \ \ \ \ \"feedback\"\:\ $feedback," $SCRIPT_DIR/trials/injection-$id.json
 id=$(($id + 1))
+sleep 1
 done
