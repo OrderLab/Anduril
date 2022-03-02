@@ -17,6 +17,9 @@ byteman=""
 for i in `find $HOME/.m2/repository/org/jboss/byteman/byteman/*/**.jar`; do byteman=$i; done
 
 mkdir -p $SCRIPT_DIR/build
+for i in 1 2 3; do
+  rm -rf /tmp/zookeeper$i
+done
 
 java \
 -cp $btm_dir:$classes_dir:$testclasses_dir:$jars \

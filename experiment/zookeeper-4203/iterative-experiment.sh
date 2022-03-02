@@ -32,6 +32,9 @@ echo $$ >${SCRIPT_DIR}/pid.txt
 while :
 do
 echo "Running experiment $id at $(date)"
+for i in 1 2 3; do
+  rm -rf /tmp/zookeeper$i
+done
 java \
 -cp $btm_dir:$classes_dir:$jars:$SCRIPT_DIR \
 -Dbuild.test.dir=$SCRIPT_DIR/build \
