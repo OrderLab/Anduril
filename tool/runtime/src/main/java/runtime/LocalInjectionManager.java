@@ -1,5 +1,8 @@
 package runtime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.json.*;
 import javax.json.stream.JsonGenerator;
 import java.io.*;
@@ -9,6 +12,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class LocalInjectionManager {
+    private static final Logger LOG = LoggerFactory.getLogger(LocalInjectionManager.class);
 
     private final String trialsPath, injectionPointsPath, injectionResultPath;
     private final AtomicBoolean injected = new AtomicBoolean(false);
@@ -19,8 +23,8 @@ public final class LocalInjectionManager {
     private final ConcurrentMap<Integer, Integer> thread2block = new ConcurrentHashMap<>();
     private final ConcurrentMap<Integer, Integer> block2times = new ConcurrentHashMap<>();
     private int trialId = 0;
-    private int windowSize = 10;
-    private int threshold = -1;
+    private int windowSize = TraceAgent.slidingWindowSize;
+    private FeedbackManager feedbackManager = null;
 
     private static final JsonWriterFactory writerFactory;
 
@@ -51,7 +55,10 @@ public final class LocalInjectionManager {
                     id2exception.put(injectionId, exception);
                 }
             }
-        } catch (final IOException ignored) {
+            feedbackManager = new FeedbackManager(json);
+        } catch (final IOException e) {
+            LOG.error("Error while loading files", e);
+            System.exit(-1);
         }
         final File[] files = new File(this.trialsPath).listFiles((file, name) -> name.endsWith(".json"));
         int latestOK = -2; // avoid -1 + 1 == 0
@@ -70,6 +77,12 @@ public final class LocalInjectionManager {
                     }
                     continue;
                 }
+                if (TraceAgent.allowFeedback) {
+                    final JsonArray events = json.getJsonArray("feedback");
+                    for (int i = 0; i < events.size(); i++) {
+                        feedbackManager.deactivate(events.getInt(i));
+                    }
+                }
                 final int block = json.getInt("block");
                 final InjectionIndex index = new InjectionIndex(json.getInt("id"),
                         json.getString("exception"), json.getInt("occurrence"), block);
@@ -78,21 +91,19 @@ public final class LocalInjectionManager {
         }
         if (latestOK + 1 == this.trialId) {
             windowSize *= 2;
-        }
-        if (injectionIds != null) {
-            if (windowSize > injectionIds.length) {
-                this.threshold = injectionIds[injectionIds.length - 1];
-            } else {
-                this.threshold = INF;
+            if (windowSize > INF) {
+                windowSize = INF;
             }
         }
+        feedbackManager.calc(windowSize);
+        LOG.info("injection allow set: {}", feedbackManager.allowSet);
     }
 
     static private final int INF = 1000000000; // largest id
 
-    public void inject(final int id) throws Throwable {
+    public void inject(final int id, final int blockId) throws Throwable {
         if (!injected.get()) {
-            if (id > this.threshold) {
+            if (!feedbackManager.ifAllowed(id)) {
                 return;
             }
             final Throwable exception = id2exception.get(id);
@@ -101,14 +112,13 @@ public final class LocalInjectionManager {
                 synchronized (exception) {
                     final int occurrence = id2times.getOrDefault(id, 0) + 1;
                     id2times.put(id, occurrence);
-                    final int block = thread2block.get(System.identityHashCode(Thread.currentThread()));
                     if (!TraceAgent.avoidBlockMode) {
-                        if (block2times.containsKey(block)) {
+                        if (block2times.containsKey(blockId)) {
                             return;
                         }
-                        block2times.put(block, 1);
+                        block2times.put(blockId, 1);
                     }
-                    final InjectionIndex index = new InjectionIndex(id, exception.getClass().getName(), occurrence, block);
+                    final InjectionIndex index = new InjectionIndex(id, exception.getClass().getName(), occurrence, blockId);
                     if (occurrence <= TraceAgent.injectionOccurrenceLimit && !injectionSet.containsKey(index)) {
                         if (injected.compareAndSet(false, true)) {
                             injectionPoint = index;

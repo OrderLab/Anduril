@@ -34,6 +34,7 @@ public final class EventManager {
 
     private final Map<ProgramEvent, Node> nodes = new HashMap<>();
     private final Map<ProgramEvent, Integer> nodeIds = new HashMap<>();
+    public final int startingPointNumber;
 
     public final int getId(final ProgramEvent e) {
         return nodeIds.getOrDefault(e, -1);
@@ -63,6 +64,7 @@ public final class EventManager {
                 nodes.put(event, node);
             }
         }
+        this.startingPointNumber = nodes.size();
         while (!queue.isEmpty()) {
             final Node node = queue.pollFirst();
             // TODO: remove the constraint
@@ -125,6 +127,7 @@ public final class EventManager {
         }
         final JsonObject json = Json.createObjectBuilder()
                 .add("nodes", nodesJson)
+                .add("start", this.startingPointNumber)
                 .add("tree", treeJson)
                 .add("injections", injectionJson)
                 .build();

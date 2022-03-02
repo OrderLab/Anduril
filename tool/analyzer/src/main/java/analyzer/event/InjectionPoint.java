@@ -19,6 +19,7 @@ public final class InjectionPoint {
     public final ProgramEvent callee;
     public final ProgramLocation location;
     public final int id;
+    public int blockId = -1;
 
     public InjectionPoint(final ProgramEvent caller, final ProgramEvent callee, final ProgramLocation location, final int id) {
         this.caller = caller;
@@ -30,6 +31,7 @@ public final class InjectionPoint {
     public void instrument() {
         final List<Value> args = new LinkedList<>();
         args.add(IntConstant.v(this.id));
+        args.add(IntConstant.v(this.blockId));
         final StaticInvokeExpr injectExpr = Jimple.v().newStaticInvokeExpr(TraceInstrumentor.injectMethod.makeRef(), args);
         final InvokeStmt stmt = Jimple.v().newInvokeStmt(injectExpr);
         location.sootMethod.getActiveBody().getUnits().insertBefore(stmt, location.unit);
@@ -38,13 +40,13 @@ public final class InjectionPoint {
     public JsonObjectBuilder dump(final EventManager eventManager) {
         final BasicBlockAnalysis basicBlockAnalysis =
                 eventManager.analysisManager.getAnalysis(location.sootClass, location.sootMethod).basicBlockAnalysis;
-        final int blockId = basicBlockAnalysis.ids.get(basicBlockAnalysis.heads.get(location.unit));
+        this.blockId = basicBlockAnalysis.ids.get(basicBlockAnalysis.heads.get(location.unit));
         final JsonObjectBuilder builder = Json.createObjectBuilder()
                 .add("id", this.id)
                 .add("caller", eventManager.getId(this.caller))
                 .add("callee", eventManager.getId(this.callee))
                 .add("location", this.location.dump())
-                .add("block", blockId);
+                .add("block", this.blockId);
         if (this.callee instanceof InternalInjectionEvent) {
             final InternalInjectionEvent trans = (InternalInjectionEvent) callee;
             builder.add("exception", trans.exceptionType.getName());

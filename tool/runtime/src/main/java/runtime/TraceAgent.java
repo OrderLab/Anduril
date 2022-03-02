@@ -1,5 +1,8 @@
 package runtime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
@@ -14,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class TraceAgent {
+    private static final Logger LOG = LoggerFactory.getLogger(TraceAgent.class);
 //    static private TraceRemote stub = null;
 
 //    static {
@@ -96,6 +100,8 @@ public final class TraceAgent {
     static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
     static public final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
     static public final boolean avoidBlockMode = Boolean.getBoolean("flakyAgent.avoidBlockMode");
+    static public final boolean allowFeedback = Boolean.getBoolean("flakyAgent.feedback");
+    static public final int slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
     static public final int injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 1);
 
     static public Throwable createException(final String exceptionName) {
@@ -116,21 +122,21 @@ public final class TraceAgent {
         return null;
     }
 
-    static public void inject(final int id) throws Throwable {
+    static public void inject(final int id, final int blockId) throws Throwable {
         if (fixPointInjectionMode) {
             if (id == targetId) {
                 if (injectionCounter.incrementAndGet() == times) {
                     final Throwable t = createException(exceptionName);
                     if (t == null) {
-                        System.out.println("FlakyAgent: fail to construct the exception " + exceptionName);
+                        LOG.error("FlakyAgent: fail to construct the exception " + exceptionName);
                     } else {
-                        System.out.println("FlakyAgent: injected the exception " + exceptionName);
+//                        LOG.info("FlakyAgent: injected the exception " + exceptionName);
                         throw t;
                     }
                 }
             }
         } else {
-            localInjectionManager.inject(id);
+            localInjectionManager.inject(id, blockId);
         }
     }
 
