@@ -80,7 +80,7 @@ public final class LocalInjectionManager {
                 if (TraceAgent.allowFeedback) {
                     final JsonArray events = json.getJsonArray("feedback");
                     for (int i = 0; i < events.size(); i++) {
-                        feedbackManager.deactivate(events.getInt(i));
+                        feedbackManager.activate(events.getInt(i));
                     }
                 }
                 final int block = json.getInt("block");
