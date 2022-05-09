@@ -10,6 +10,7 @@ import soot.jimple.*;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -62,7 +63,12 @@ public final class ConditionEvent extends LocationEvent {
 //        System.out.println(lhs);
 //        System.out.println(rhs);
         if (lhs instanceof FieldRef) {
-            preconditionLocations.addAll(analysisManager.slicingAnalysis.dataWrite.get(((FieldRef) lhs).getField()));
+            final Collection<GlobalSlicingAnalysis.Location> writeLocations =
+                    analysisManager.slicingAnalysis.dataWrite.get(((FieldRef) lhs).getField());
+            // if the variable comes from external library (parent class), the locations are not initialized here
+            if (writeLocations != null) {
+                preconditionLocations.addAll(writeLocations);
+            }
         }
 //        if (lhs instanceof InvokeExpr) {
 //            final SootMethod calleeMethod = ((InvokeExpr) lhs).getMethod();
