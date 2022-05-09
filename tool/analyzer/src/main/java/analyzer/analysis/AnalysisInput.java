@@ -25,12 +25,11 @@ public class AnalysisInput {
     public ProgramEvent symptomEvent = null;
     public SootClass testClass = null;
     public SootMethod testMethod = null;
-    public final String prefix;
+    public final String prefix = System.getProperty("analysis.prefix", "org.apache.zookeeper");
 
     public final Set<ProgramLocation> logEvents = new HashSet<>();
 
-    public AnalysisInput(final AnalyzerOptions options, final Collection<SootClass> classes, final String prefix) {
-        this.prefix = prefix;
+    public AnalysisInput(final AnalyzerOptions options, final Collection<SootClass> classes) {
         this.indexManager = new IndexManager(classes, prefix);
         this.classes = new LinkedList<>(this.indexManager.classes.values());
         this.classes.sort(Comparator.comparing(SootClass::getName));

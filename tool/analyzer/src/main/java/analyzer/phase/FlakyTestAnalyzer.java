@@ -36,7 +36,7 @@ public class FlakyTestAnalyzer extends SceneTransformer {
     protected void internalTransform(String phaseName, Map<String, String> options) {
         // TODO: make it configurable
         final AnalysisInput analysisInput = new AnalysisInput(AnalyzerOptions.getInstance(),
-                Scene.v().getApplicationClasses(), "org.apache.zookeeper");
+                Scene.v().getApplicationClasses());
         final AnalysisManager analysisManager = new AnalysisManager(analysisInput);
         final EventManager eventManager = new EventManager(analysisManager);
         analysisManager.instrument();
