@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class TraceAgent {
-    private static final Logger LOG = LoggerFactory.getLogger(TraceAgent.class);
+    private static final Logger LOG = LoggerFactory.getLogger(runtime.TraceAgent.class);
 //    static private TraceRemote stub = null;
 
 //    static {
