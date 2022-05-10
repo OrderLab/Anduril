@@ -256,7 +256,7 @@ public class TestLeaseRecovery {
     ExtendedBlock block = locations.get(0).getBlock();
 
     // Finalize one replica to simulate a partial close failure.
-    cluster.getDataNodes().get(0).getFSDataset().finalizeBlock(block, false);
+    //cluster.getDataNodes().get(0).getFSDataset().finalizeBlock(block, false);
     // Delete the meta file to simulate a rename/move failure.
     cluster.deleteMeta(0, block);
 
