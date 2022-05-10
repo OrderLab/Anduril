@@ -37,9 +37,9 @@ public class TraceInstrumentor {
             LinkedList<Value> args = new LinkedList<>();
             args.add(IntConstant.v(counter));
             counter++;
-            final StaticInvokeExpr traceExpr = Jimple.v().newStaticInvokeExpr(traceMethod.makeRef(), args);
-            final InvokeStmt traceStmt = Jimple.v().newInvokeStmt(traceExpr);
-            units.insertBefore(traceStmt, entry.getValue());
+//            final StaticInvokeExpr traceExpr = Jimple.v().newStaticInvokeExpr(traceMethod.makeRef(), args);
+//            final InvokeStmt traceStmt = Jimple.v().newInvokeStmt(traceExpr);
+//            units.insertBefore(traceStmt, entry.getValue());
         }
         basicBlockAnalysis.counterEnd = counter;
     }
