@@ -4,13 +4,13 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 hd_dir="${SCRIPT_DIR}/../../systems/hdfs-12070"
 #runtime_classes_dir="$SCRIPT_DIR/runtime-classes"
-classes_dir="."
+classes_dir="$SCRIPT_DIR"
 for i in `find $hd_dir/hadoop-common-project/ -name "classes"`; do classes_dir="$i:$classes_dir"; done
 for i in `find $hd_dir/hadoop-hdfs-project/ -name "classes"`; do classes_dir="$i:$classes_dir"; done
-testclasses_dir="."
+testclasses_dir="$SCRIPT_DIR"
 for i in `find $hd_dir/hadoop-common-project/ -name "test-classes"`; do testclasses_dir="$i:$testclasses_dir"; done
 for i in `find $hd_dir/hadoop-hdfs-project/ -name "test-classes"`; do testclasses_dir="$i:$testclasses_dir"; done
-jars="."
+jars="$SCRIPT_DIR"
 for i in `find $hd_dir/hadoop-common-project/ -name "*.jar"`; do jars="$i:$jars"; done
 for i in `find $hd_dir/hadoop-hdfs-project/ -name "*.jar"`; do jars="$i:$jars"; done
 for i in `find $JAVA_HOME -name "*.jar"`; do jars="$i:$jars"; done
