@@ -307,7 +307,6 @@ public class BlockRecoveryWorker {
         }
       }
 
-      LOG.info("whz asdf failedList={}, successList={}", failedList.size(), successList.size());
       // If any of the data-nodes failed, the recovery fails, because
       // we never know the actual state of the replica on failed data-nodes.
       // The recovery should be started over.
