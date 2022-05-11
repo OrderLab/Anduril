@@ -181,5 +181,24 @@ public class AnalysisInput {
                 }
             }
         }
+
+        if (options.getFlakyCase().equals("hdfs-12248")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.TestRollingUpgrade");
+            this.testMethod = this.testClass.getMethod(
+                    "void queryForPreparation(org.apache.hadoop.hdfs.DistributedFileSystem)");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
