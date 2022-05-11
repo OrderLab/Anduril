@@ -9,7 +9,7 @@ function getEntries(f) {
 			const s = line.match(/\-\ [A-Z]+\ *\[.*\]\ \-\ /)[0]
 			const a = s.indexOf('[')
 			const b = s.lastIndexOf(':')
-			const c = s.indexOf('@')
+			const c = s.lastIndexOf('@')
 			const d = s.lastIndexOf(']')
 			entries.push({
 				th : s.substring(a + 1, b),
