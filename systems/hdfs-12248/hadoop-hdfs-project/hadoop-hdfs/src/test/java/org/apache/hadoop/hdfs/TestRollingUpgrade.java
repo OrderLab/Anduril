@@ -107,7 +107,7 @@ public class TestRollingUpgrade {
           }
         }
       });
-      ruEdit.await();
+      //ruEdit.await();
       RollingUpgradeInfo info = dfs
           .rollingUpgrade(RollingUpgradeAction.PREPARE);
       Assert.assertTrue(info.isStarted());
