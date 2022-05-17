@@ -164,12 +164,15 @@ m2.forEach((value, key) => {
 		})
 	}
 })
-// common.forEach(th => {
-// 	// console.log(th, pp(th).length)
-// 	pp(th).forEach(entry => {
-// 		console.log(entry.f, entry.nu)
-// 	})
-// })
+common.forEach(th => {
+	// console.log(th, pp(th).length)
+	pp(th).forEach(entry => {
+		const v = entry.f + ' ' + entry.nu
+		if (ground_truth_diff.has(v)) {
+			ground_truth_diff.delete(v)
+		}
+	})
+})
 
 
 const startNumber = spec_json.start

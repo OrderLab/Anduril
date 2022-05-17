@@ -5,7 +5,7 @@ const fs = require('fs')
 function getEntries(f) {
 	const entries = []
 	fs.readFileSync(f).toString().split('\n').forEach(line => {
-		if (line.match(/\[.*\]\ \-\ [A-Z]+\ *\[.*\]\ \-\ /) != null) {
+		if (line.match(/.*\ \-\ [A-Z]+\ *\[.*\]\ \-\ /) != null) {
 			const s = line.match(/\-\ [A-Z]+\ *\[.*\]\ \-\ /)[0]
 			const a = s.indexOf('[')
 			const b = s.lastIndexOf(':')
@@ -192,9 +192,15 @@ ground_truth_diff.forEach(v => {
 	})
 })
 
-var symptom = false
+var symptom = false, ending = false
 fs.readFileSync(bad_run_log).toString().split('\n').forEach(line => {
-	if (line.startsWith('java.lang.IllegalStateException: State error')) {
+  if (line.startsWith('Time: ')) {
+    ending = true
+  }
+  if (!ending) {
+    return
+  }
+	if (line.startsWith('org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for ')) {
 	  symptom = true
   }
 })
@@ -203,8 +209,6 @@ if (!symptom) {
 }
 
 console.log(result)
-
-
 
 // function qq(arr) {
 // 	arr.forEach(a => {
