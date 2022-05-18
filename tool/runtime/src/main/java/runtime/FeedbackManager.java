@@ -20,7 +20,8 @@ public class FeedbackManager {
     }
 
     public final Set<Integer> allowSet = new TreeSet<>();
-    public boolean ifAllowed(final int injectionId) {
+    // TODO: maybe concurrent set is better? without synchronized
+    public synchronized boolean ifAllowed(final int injectionId) {
         return allowSet.contains(injectionId);
     }
 

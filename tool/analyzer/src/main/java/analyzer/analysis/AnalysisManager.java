@@ -4,18 +4,13 @@ import analyzer.event.*;
 import analyzer.instrument.TraceInstrumentor;
 import index.ProgramLocation;
 import soot.*;
-import soot.jimple.IfStmt;
-import soot.jimple.InvokeExpr;
-import soot.jimple.NewExpr;
+import soot.jimple.*;
 import soot.toolkits.graph.BriefUnitGraph;
 import soot.toolkits.graph.UnitGraph;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class AnalysisManager {
     private final Map<SootClass, Map<SootMethod, IntraProceduralAnalysis>> intraproceduralAnalyses = new HashMap<>();
@@ -39,6 +34,20 @@ public final class AnalysisManager {
     }
 
     public void instrument() {
+        if (analysisInput.distributedMode) {
+            for (final SootClass c : analysisInput.mainClasses) {
+                final SootMethod method = c.getMethodByName("main");
+                final PatchingChain<Unit> units = method.retrieveActiveBody().getUnits();
+                Unit head = units.getFirst();
+                while (BasicBlockAnalysis.isLeadingStmt(head)) {
+                    head = units.getSuccOf(head);
+                }
+                final StaticInvokeExpr initExpr =
+                        Jimple.v().newStaticInvokeExpr(TraceInstrumentor.initMethod.makeRef(), new ArrayList<>());
+                final InvokeStmt initStmt = Jimple.v().newInvokeStmt(initExpr);
+                units.insertBefore(initStmt, head);
+            }
+        }
         try (final FileWriter writer = new FileWriter("blockmap.txt")) {
             for (final Map.Entry<SootClass, Map<SootMethod, IntraProceduralAnalysis>> m
                     : intraproceduralAnalyses.entrySet()) {

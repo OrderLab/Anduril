@@ -26,14 +26,28 @@ public class AnalysisInput {
     public SootClass testClass = null;
     public SootMethod testMethod = null;
     public final String prefix = System.getProperty("analysis.prefix", "org.apache.zookeeper");
+    public final boolean distributedMode = Boolean.getBoolean("analysis.distributedMode");
 
     public final Set<ProgramLocation> logEvents = new HashSet<>();
+    public final List<SootClass> mainClasses = new ArrayList<>();
 
     public AnalysisInput(final AnalyzerOptions options, final Collection<SootClass> classes) {
         this.indexManager = new IndexManager(classes, prefix);
         this.classes = new LinkedList<>(this.indexManager.classes.values());
         this.classes.sort(Comparator.comparing(SootClass::getName));
         this.classSet = new HashSet<>(this.classes);
+        for (final SootClass c : classes) {
+            if (c.getName().equals(options.getMainClass())) {
+                mainClasses.add(c);
+            } else if (!options.isSecondaryMainClassListEmpty()) {
+                for (final String name : options.getSecondaryMainClassList()) {
+                    if (c.getName().equals(name)) {
+                        mainClasses.add(c);
+                        break;
+                    }
+                }
+            }
+        }
 
         if (options.getDiffPath() != null) {
             final File diff_file = new File(options.getDiffPath());
@@ -193,6 +207,25 @@ public class AnalysisInput {
                         final SootMethod inv = ((InvokeExpr) value).getMethod();
                         if (inv.getName().equals("fail") &&
                                 inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (options.getFlakyCase().equals("hdfs-4233")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.ipc.Server$Handler");
+            this.testMethod = this.testClass.getMethod("void run()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("info") &&
+                                inv.getDeclaringClass().getName().equals("org.apache.commons.logging.Log") &&
+                                SootUtils.getLine(location.unit) == 1538) {
                             this.symptomEvent = new LocationEvent(location);
                             return;
                         }

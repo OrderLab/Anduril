@@ -40,7 +40,9 @@ public class IndexManager {
                                 final Value value = valueBox.getValue();
                                 if (value instanceof InvokeExpr) {
                                     final SootMethod log = ((InvokeExpr) value).getMethod();
-                                    if (log.getDeclaringClass().getName().equals("org.slf4j.Logger")) {
+                                    final String name = log.getDeclaringClass().getName();
+                                    if (name.equals("org.apache.commons.logging.Log") ||
+                                            name.equals("org.slf4j.Logger")) {
                                         switch (log.getName()) {
                                             case "error":
                                             case "info" :

@@ -3,18 +3,26 @@ package runtime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public final class TraceAgent {
     private static final Logger LOG = LoggerFactory.getLogger(runtime.TraceAgent.class);
@@ -103,6 +111,9 @@ public final class TraceAgent {
     static public final boolean allowFeedback = Boolean.getBoolean("flakyAgent.feedback");
     static public final int slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
     static public final int injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 1);
+    static public final String injectionPointsPath = System.getProperty("flaky.injectionPointsPath", "#");
+
+    protected static final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
 
     static public Throwable createException(final String exceptionName) {
         try {
@@ -122,7 +133,47 @@ public final class TraceAgent {
         return null;
     }
 
+    static public final boolean distributedMode = Boolean.getBoolean("flaky.distributedMode");
+    static public final boolean disableAgent = Boolean.getBoolean("flaky.disableAgent");
+    static public final int pid = Integer.getInteger("flaky.pid", -1);
+    static {
+        if (distributedMode && !disableAgent) {
+            try (final InputStream inputStream = new FileInputStream(injectionPointsPath);
+                 final JsonReader reader = Json.createReader(inputStream)) {
+                final JsonObject json = reader.readObject();
+                final JsonArray arr = json.getJsonArray("injections");
+                for (int i = 0; i < arr.size(); i++) {
+                    final JsonObject spec = arr.getJsonObject(i);
+                    final int injectionId = spec.getInt("id");
+                    final Throwable exception = TraceAgent.createException(spec.getString("exception"));
+                    if (exception != null) {
+                        id2exception.put(injectionId, exception);
+                    }
+                }
+            } catch (final IOException e) {
+                LOG.error("Error while loading files", e);
+                System.exit(-1);
+            }
+        }
+    }
+
     static public void inject(final int id, final int blockId) throws Throwable {
+        if (disableAgent) {
+            return;
+        }
+        if (distributedMode) {
+            final Throwable exception = id2exception.get(id);
+            if (exception != null) {
+                int decision = 0;
+                try {
+                    decision = getStub().inject(pid, id, blockId);
+                } catch (RemoteException ignored) { }
+                if (decision == 1) {
+                    throw exception;
+                }
+            }
+            return;
+        }
         if (fixPointInjectionMode) {
             if (id == targetId) {
                 if (injectionCounter.incrementAndGet() == times) {
@@ -140,15 +191,57 @@ public final class TraceAgent {
         }
     }
 
-    static private LocalInjectionManager localInjectionManager = null;
+    static public void initStub() {
+        if (distributedMode && !disableAgent) {
+            getStub();
+        }
+    }
+
+    private static final AtomicReference<TraceRemote> stub = new AtomicReference<>(null);
+    public static final int RMI_PORT = 1099;
+    public static final String RMI_NAME = "rmi_flaky";
+
+    static private TraceRemote getStub() {
+        return stub.updateAndGet(s -> {
+            if (s != null) {
+                return s;
+            }
+            try {
+                Registry registry = LocateRegistry.getRegistry(RMI_PORT);
+                return (TraceRemote) registry.lookup(RMI_NAME);
+            } catch (RemoteException | NotBoundException e) {
+                return null;
+            }
+        });
+    }
+
+    static private volatile LocalInjectionManager localInjectionManager = null;
+    static public volatile DistributedInjectionManager distributedInjectionManager = null;
+    static public final CountDownLatch waiter = new CountDownLatch(1);
 
     static public void main(final String[] args) throws Throwable {
-        localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            localInjectionManager.dump();
-        }));
-        final Class<?> cls = Class.forName(args[3]);
-        final Method method = cls.getMethod("main", String[].class);
-        method.invoke(null, (Object) Arrays.copyOfRange(args, 4, args.length));
+        // util for shutdown server
+        if (args.length == 0) {
+            getStub().shutdown();
+            return;
+        }
+        if (distributedMode) {
+            distributedInjectionManager = new DistributedInjectionManager(Integer.parseInt(args[0]), args[1], args[2], args[4]);
+            final Registry rmiRegistry = LocateRegistry.createRegistry(RMI_PORT);
+            final TraceStub s = new TraceStub();
+            rmiRegistry.rebind(RMI_NAME, UnicastRemoteObject.exportObject(s, 0));
+            LOG.info("Server started, waiting for the end ...");
+            waiter.await();
+            rmiRegistry.unbind(RMI_NAME);
+            UnicastRemoteObject.unexportObject(s, true);
+        } else {
+            localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                localInjectionManager.dump();
+            }));
+            final Class<?> cls = Class.forName(args[3]);
+            final Method method = cls.getMethod("main", String[].class);
+            method.invoke(null, (Object) Arrays.copyOfRange(args, 4, args.length));
+        }
     }
 }
