@@ -111,7 +111,7 @@ public final class TraceAgent {
     static public final boolean allowFeedback = Boolean.getBoolean("flakyAgent.feedback");
     static public final int slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
     static public final int injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 1);
-    static public final String injectionPointsPath = System.getProperty("flaky.injectionPointsPath", "#");
+    static public final String injectionPointsPath = System.getProperty("flakyAgent.injectionPointsPath", "#");
 
     protected static final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
 
@@ -133,9 +133,9 @@ public final class TraceAgent {
         return null;
     }
 
-    static public final boolean distributedMode = Boolean.getBoolean("flaky.distributedMode");
-    static public final boolean disableAgent = Boolean.getBoolean("flaky.disableAgent");
-    static public final int pid = Integer.getInteger("flaky.pid", -1);
+    static public final boolean distributedMode = Boolean.getBoolean("flakyAgent.distributedMode");
+    static public final boolean disableAgent = Boolean.getBoolean("flakyAgent.disableAgent");
+    static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
     static {
         if (distributedMode && !disableAgent) {
             try (final InputStream inputStream = new FileInputStream(injectionPointsPath);
@@ -226,7 +226,10 @@ public final class TraceAgent {
             return;
         }
         if (distributedMode) {
-            distributedInjectionManager = new DistributedInjectionManager(Integer.parseInt(args[0]), args[1], args[2], args[4]);
+            distributedInjectionManager = new DistributedInjectionManager(Integer.parseInt(args[0]), args[1], args[2], args[3]);
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                distributedInjectionManager.dump();
+            }));
             final Registry rmiRegistry = LocateRegistry.createRegistry(RMI_PORT);
             final TraceStub s = new TraceStub();
             rmiRegistry.rebind(RMI_NAME, UnicastRemoteObject.exportObject(s, 0));
