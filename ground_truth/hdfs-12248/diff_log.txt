@@ -116,3 +116,4 @@ NameNodeRpcServer 1302
 NameNodeRpcServer 1302
 FSNamesystem$LazyPersistFileScrubber 3985
 FSNamesystem$NameNodeEditLogRoller 3894
+StandbyCheckpointer$CheckpointerThread 447
