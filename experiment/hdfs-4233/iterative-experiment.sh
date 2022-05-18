@@ -49,7 +49,7 @@ sleep 1
 java -jar $runtime_jar # shutdown
 sleep 1
 
-feedback="$($NODEJS $SCRIPT_DIR/diff-score.js $SCRIPT_DIR/cluster $GROUND_TRUTH/bad-run-log $GROUND_TRUTH/diff_log.txt $SCRIPT_DIR/tree.json | paste -sd ' ' - )"
+feedback="$($NODEJS $SCRIPT_DIR/diff-score.js $GROUND_TRUTH/good-run-log $SCRIPT_DIR/cluster $GROUND_TRUTH/diff_log.txt $SCRIPT_DIR/tree.json | paste -sd ' ' - )"
 sed -i "3 i \ \ \ \ \"feedback\"\:\ $feedback," $SCRIPT_DIR/trials/injection-$id.json
 mv $SCRIPT_DIR/cluster/logs-* $trials_dir/$id
 
