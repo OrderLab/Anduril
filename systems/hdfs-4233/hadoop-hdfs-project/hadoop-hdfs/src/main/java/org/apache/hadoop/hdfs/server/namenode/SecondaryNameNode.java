@@ -129,15 +129,15 @@ public class SecondaryNameNode implements Runnable {
 
   /** {@inheritDoc} */
   public String toString() {
-    return getClass().getSimpleName() + " Status" 
-      + "\nName Node Address    : " + nameNodeAddr   
-      + "\nStart Time           : " + new Date(starttime)
-      + "\nLast Checkpoint Time : " + (lastCheckpointTime == 0? "--": new Date(lastCheckpointTime))
-      + "\nCheckpoint Period    : " + checkpointPeriod + " seconds"
-      + "\nCheckpoint Size      : " + StringUtils.byteDesc(checkpointTxnCount)
-                                    + " (= " + checkpointTxnCount + " bytes)" 
-      + "\nCheckpoint Dirs      : " + checkpointDirs
-      + "\nCheckpoint Edits Dirs: " + checkpointEditsDirs;
+    return getClass().getSimpleName(); // + " Status" 
+//      + "\nName Node Address    : " + nameNodeAddr   
+//      + "\nStart Time           : " + new Date(starttime)
+//      + "\nLast Checkpoint Time : " + (lastCheckpointTime == 0? "--": new Date(lastCheckpointTime))
+//      + "\nCheckpoint Period    : " + checkpointPeriod + " seconds"
+//      + "\nCheckpoint Size      : " + StringUtils.byteDesc(checkpointTxnCount)
+//                                    + " (= " + checkpointTxnCount + " bytes)" 
+//      + "\nCheckpoint Dirs      : " + checkpointDirs
+//      + "\nCheckpoint Edits Dirs: " + checkpointEditsDirs;
   }
 
   @VisibleForTesting
