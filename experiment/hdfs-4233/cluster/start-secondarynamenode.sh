@@ -13,4 +13,5 @@ HADOOP_CONF_DIR=$workspace/conf-$id \
 HADOOP_PID_DIR=$workspace/logs-$lid \
 HADOOP_LOG_DIR=$workspace/logs-$lid \
 HADOOP_OPTS="$HADOOP_OPTS" \
+HADOOP_CLASSPATH="$HADOOP_CLASSPATH" \
 $HADOOP_HOME/sbin/hadoop-daemon.sh start secondarynamenode

@@ -10,4 +10,5 @@ HADOOP_CONF_DIR=$workspace/conf-1 \
 HADOOP_PID_DIR=$workspace/logs-1 \
 HADOOP_LOG_DIR=$workspace/logs-1 \
 HADOOP_OPTS="$HADOOP_OPTS" \
+HADOOP_CLASSPATH="$HADOOP_CLASSPATH" \
 $HADOOP_HOME/bin/hdfs dfs $@

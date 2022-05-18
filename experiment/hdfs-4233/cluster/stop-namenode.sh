@@ -12,4 +12,5 @@ HADOOP_HOME=$HADOOP_HOME \
 HADOOP_CONF_DIR=$workspace/conf-$id \
 HADOOP_PID_DIR=$workspace/logs-$lid \
 HADOOP_LOG_DIR=$workspace/logs-$lid \
+HADOOP_CLASSPATH="$HADOOP_CLASSPATH" \
 $HADOOP_HOME/sbin/hadoop-daemon.sh stop namenode
