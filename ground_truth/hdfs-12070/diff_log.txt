@@ -146,3 +146,6 @@ CachingGetSpaceUsed$RefreshThread 183
 CachingGetSpaceUsed$RefreshThread 183
 CachingGetSpaceUsed$RefreshThread 183
 CachingGetSpaceUsed$RefreshThread 183
+MiniDFSCluster 2661
+MiniDFSCluster 2582
+MiniDFSCluster 2661
