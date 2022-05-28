@@ -13,11 +13,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="analyzer" target="8" />
-      <module name="index" target="8" />
-      <module name="runtime" target="8" />
+      <module name="analyzer" target="1.8" />
+      <module name="index" target="1.8" />
+      <module name="runtime" target="1.8" />
       <module name="server" target="8" />
-      <module name="sys" target="8" />
+      <module name="sys" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
