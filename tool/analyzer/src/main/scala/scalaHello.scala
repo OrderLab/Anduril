@@ -1,5 +1,7 @@
-class scalaHello {
+
+object scalaHello {
   def main(args: Array[String]): Unit = {
-    println("Hello scala")
+    val f = new importedInScala
+    f.printMessage()
   }
 }
