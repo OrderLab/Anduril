@@ -136,6 +136,7 @@ public final class TraceAgent {
     static public final boolean distributedMode = Boolean.getBoolean("flakyAgent.distributedMode");
     static public final boolean disableAgent = Boolean.getBoolean("flakyAgent.disableAgent");
     static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
+    static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
     static {
         if (distributedMode && !disableAgent) {
             try (final InputStream inputStream = new FileInputStream(injectionPointsPath);
@@ -158,6 +159,9 @@ public final class TraceAgent {
     }
 
     static public void inject(final int id, final int blockId) throws Throwable {
+        if (logInject) {
+            LOG.info("flaky record injection {}", id);
+        }
         if (disableAgent) {
             return;
         }
