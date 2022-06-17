@@ -12,6 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.G;
@@ -60,7 +62,7 @@ public class AnalyzerMain {
             }
             return true;
         }
-        if (PhaseManager.getInstance().enabledAnalyses() == 0) {
+        if (PhaseManager.getInstance().enabledAnalyses().size() == 0) {
             System.err.println("No analysis is specified.");
             System.err.println("Run with --list to see the list of analyses available");
             return false;
@@ -117,7 +119,8 @@ public class AnalyzerMain {
     /**
      * Register the analyses to run with Soot pack manager
      */
-    private void registerAnalyses() {
+    @VisibleForTesting
+    protected void registerAnalyses() {
         PhaseManager.getInstance().registerAnalysis(new FlakyTestAnalyzer(),
                 FlakyTestAnalyzer.PHASE_INFO);
     }

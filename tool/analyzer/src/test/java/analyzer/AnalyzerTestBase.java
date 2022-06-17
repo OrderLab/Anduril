@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import analyzer.option.AnalyzerOptions;
 import analyzer.option.OptionParser;
+import analyzer.phase.FlakyTestAnalyzer;
 import analyzer.phase.PhaseManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,13 +34,14 @@ public class AnalyzerTestBase {
         helper = new TestHelper();
 
         // Need to put ../common/target/classes as indir as well to load the McGrayAgent class
-        //String[] args = {"-o", "sootTestOutput", "-i", "target/test-classes",
-          //      "-a", TestHelper.PHASE_INFO.getFullName(), "-e",
-            //    "-p", "jb", "use-original-names:true"};
         String[] args = {"-o", "sootTestOutput", "-i",
-                "C:\\Users\\panji\\Desktop\\flaky-reproduction\\tool\\analyzer\\target\\test-classes",
-                "-a","wjtp.flaky" , "-e",
+                "/Users/panjia/Desktop/flaky-reproduction/tool/analyzer/target/test-classes",
+                "-a", TestHelper.PHASE_INFO.getFullName(), "-e",
                 "-p", "jb", "use-original-names:true"};
+        //String[] args = {"-o", "sootTestOutput", "-i",
+              //  "/Users/panjia/Desktop/flaky-reproduction/tool/analyzer/target/test-classes",
+              //  "-a","wjtp.flaky" , "-e",
+              //  "-p", "jb", "use-original-names:true"};
 
 
         // Chang Lou's comments on why we need to use a TestHelper phase:
@@ -49,16 +51,22 @@ public class AnalyzerTestBase {
         // e.g. java.lang.RuntimeException: No method source set for method xxx
         // we either save the info when we still have it, or we transform test case as a transformer
         // and run it, we chose the first one due to implementation complexity
+        PhaseManager.getInstance().addPhaseInfo(TestHelper.PHASE_INFO);
         OptionParser parser = new OptionParser();
-        AnalyzerOptions options = null;
-        options = parser.parse(args);
-        AnalyzerMain main = new AnalyzerMain(options);
-        //PhaseManager.getInstance().registerAnalysis(helper, TestHelper.PHASE_INFO);
+        AnalyzerOptions options = parser.parse(args);
+        AnalyzerMain main = new AnalyzerMain(options){
+            @Override
+            protected void registerAnalyses() {
+                PhaseManager.getInstance().registerAnalysis(new TestHelper(),
+                        TestHelper.PHASE_INFO);
+            }
+        };
+
         assertTrue(main.initialize());
 
         // The enabled analyses at this point must be only containing the TestHelper
-        //assertEquals(PhaseManager.getInstance().enabledAnalyses().size(), 1);
-        //assertTrue(PhaseManager.getInstance().enabledAnalyses().contains(TestHelper.PHASE_INFO.getFullName()));
+        assertEquals(PhaseManager.getInstance().enabledAnalyses().size(), 1);
+        assertTrue(PhaseManager.getInstance().enabledAnalyses().contains(TestHelper.PHASE_INFO.getFullName()));
 
         // Run the TestHelper analysis to retrieve the method body correctly.
         assertTrue(main.run());

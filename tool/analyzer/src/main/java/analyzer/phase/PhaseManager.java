@@ -1,11 +1,9 @@
 package analyzer.phase;
 
 import analyzer.util.SootUtils;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
+
 import soot.Transform;
 import soot.Transformer;
 
@@ -32,6 +30,13 @@ public class PhaseManager {
         enabledAnalysisSet = new HashSet<>();
     }
 
+    public void addPhaseInfo (PhaseInfo toBeAdd) {
+        PhaseInfo[] newPHASES = Arrays.copyOf(PHASES, PHASES.length + 1);
+        newPHASES[newPHASES.length - 1] = toBeAdd;
+        PHASES = newPHASES;
+        phaseInfoMap.put(toBeAdd.getFullName(),toBeAdd);
+    }
+
     public static PhaseManager getInstance() {
         if (instance == null) {
             instance = new PhaseManager();
@@ -56,8 +61,8 @@ public class PhaseManager {
         return false;
     }
 
-    public int enabledAnalyses() {
-        return enabledAnalysisSet.size();
+    public Set<String> enabledAnalyses() {
+        return enabledAnalysisSet;
     }
 
     public PhaseInfo getPhaseInfo(String name) {
