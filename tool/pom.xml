@@ -23,6 +23,5 @@
         <module>analyzer</module>
         <module>index</module>
         <module>runtime</module>
-        <module>server</module>
     </modules>
 </project>
