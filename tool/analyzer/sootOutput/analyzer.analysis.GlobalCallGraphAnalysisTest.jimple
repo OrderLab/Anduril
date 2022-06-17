@@ -1,0 +1,43 @@
+class analyzer.analysis.GlobalCallGraphAnalysisTest extends analyzer.AnalyzerTestBase
+{
+
+    void <init>()
+    {
+        analyzer.analysis.GlobalCallGraphAnalysisTest this;
+
+        this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
+
+        specialinvoke this.<analyzer.AnalyzerTestBase: void <init>()>();
+
+        return;
+    }
+
+    void testSimple()
+    {
+        analyzer.analysis.GlobalCallGraphAnalysisTest this;
+        soot.Scene $stack3;
+        java.lang.Class $stack4, $stack7;
+        java.lang.String $stack5, $stack9;
+        analyzer.TestHelper $stack8;
+
+        this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
+
+        $stack3 = staticinvoke <soot.Scene: soot.Scene v()>();
+
+        $stack4 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack5 = virtualinvoke $stack4.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $stack3.<soot.Scene: soot.SootClass loadClassAndSupport(java.lang.String)>($stack5);
+
+        $stack8 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
+
+        $stack7 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack9 = virtualinvoke $stack7.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $stack8.<analyzer.TestHelper: soot.Body getBody(java.lang.String,java.lang.String)>($stack9, "void run()");
+
+        return;
+    }
+}

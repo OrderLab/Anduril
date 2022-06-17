@@ -157,7 +157,7 @@ public class AnalyzerMain {
      * @return true if the initialization is successful; false otherwise
      */
     public boolean initialize() {
-        G.reset(); // reset Soot
+        //G.reset(); // reset Soot
         registerAnalyses(); // register analyses with Soot
 
         /* Setup Soot options */

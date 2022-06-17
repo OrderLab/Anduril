@@ -28,7 +28,7 @@ public class AnalyzerTestBase {
             //
             // Since we only need the TestHelper to give us the Soot class, we can just run it once
             // if we supply all the test classes upfront.
-            LOG.info("TestHelper has already been run...");
+            //LOG.info("TestHelper has already been run...");
             return;
         }
         helper = new TestHelper();
@@ -36,7 +36,7 @@ public class AnalyzerTestBase {
         // Need to put ../common/target/classes as indir as well to load the McGrayAgent class
         String[] args = {"-o", "sootTestOutput", "-i",
                 "/Users/panjia/Desktop/flaky-reproduction/tool/analyzer/target/test-classes",
-                "-a", TestHelper.PHASE_INFO.getFullName(), "-e",
+                "-a", TestHelper.PHASE_INFO.getFullName(), "-w",
                 "-p", "jb", "use-original-names:true"};
         //String[] args = {"-o", "sootTestOutput", "-i",
               //  "/Users/panjia/Desktop/flaky-reproduction/tool/analyzer/target/test-classes",
@@ -51,14 +51,15 @@ public class AnalyzerTestBase {
         // e.g. java.lang.RuntimeException: No method source set for method xxx
         // we either save the info when we still have it, or we transform test case as a transformer
         // and run it, we chose the first one due to implementation complexity
+        //PhaseManager.getInstance().registerAnalysis(new TestHelper(), TestHelper.PHASE_INFO);
         PhaseManager.getInstance().addPhaseInfo(TestHelper.PHASE_INFO);
         OptionParser parser = new OptionParser();
         AnalyzerOptions options = parser.parse(args);
         AnalyzerMain main = new AnalyzerMain(options){
             @Override
             protected void registerAnalyses() {
-                PhaseManager.getInstance().registerAnalysis(new TestHelper(),
-                        TestHelper.PHASE_INFO);
+                PhaseManager.getInstance().registerAnalysis(new TestHelper(), TestHelper.PHASE_INFO);
+                //LOG.info("Neglected");
             }
         };
 

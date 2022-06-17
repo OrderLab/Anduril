@@ -1,0 +1,144 @@
+public class analyzer.AnalyzerTestBase extends java.lang.Object
+{
+    private static final org.slf4j.Logger LOG;
+    protected static analyzer.AnalyzerMain analyzer;
+    protected static analyzer.TestHelper helper;
+
+    public void <init>()
+    {
+        analyzer.AnalyzerTestBase this;
+
+        this := @this: analyzer.AnalyzerTestBase;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void setup() throws java.lang.Exception
+    {
+        analyzer.option.AnalyzerOptions options;
+        org.slf4j.Logger $stack4;
+        analyzer.TestHelper $stack5, $stack6;
+        java.lang.String[] $stack7;
+        analyzer.phase.PhaseInfo $stack8, $stack12, $stack22;
+        java.lang.String $stack10, $stack23;
+        analyzer.phase.PhaseManager $stack11, $stack17, $stack20;
+        analyzer.option.OptionParser $stack13;
+        analyzer.AnalyzerTestBase$1 $stack15;
+        boolean $stack16, $stack24, $stack25;
+        java.util.Set $stack18, $stack21;
+        int $stack19;
+
+        $stack4 = <analyzer.AnalyzerTestBase: org.slf4j.Logger LOG>;
+
+        interfaceinvoke $stack4.<org.slf4j.Logger: void info(java.lang.String)>("AnalyzerTestBase setup");
+
+        $stack5 = <analyzer.AnalyzerTestBase: analyzer.TestHelper helper>;
+
+        if $stack5 == null goto label1;
+
+        return;
+
+     label1:
+        $stack6 = new analyzer.TestHelper;
+
+        specialinvoke $stack6.<analyzer.TestHelper: void <init>()>();
+
+        <analyzer.AnalyzerTestBase: analyzer.TestHelper helper> = $stack6;
+
+        $stack7 = newarray (java.lang.String)[10];
+
+        $stack7[0] = "-o";
+
+        $stack7[1] = "sootTestOutput";
+
+        $stack7[2] = "-i";
+
+        $stack7[3] = "/Users/panjia/Desktop/flaky-reproduction/tool/analyzer/target/test-classes";
+
+        $stack7[4] = "-a";
+
+        $stack8 = <analyzer.TestHelper: analyzer.phase.PhaseInfo PHASE_INFO>;
+
+        $stack10 = virtualinvoke $stack8.<analyzer.phase.PhaseInfo: java.lang.String getFullName()>();
+
+        $stack7[5] = $stack10;
+
+        $stack7[6] = "-w";
+
+        $stack7[7] = "-p";
+
+        $stack7[8] = "jb";
+
+        $stack7[9] = "use-original-names:true";
+
+        $stack11 = staticinvoke <analyzer.phase.PhaseManager: analyzer.phase.PhaseManager getInstance()>();
+
+        $stack12 = <analyzer.TestHelper: analyzer.phase.PhaseInfo PHASE_INFO>;
+
+        virtualinvoke $stack11.<analyzer.phase.PhaseManager: void addPhaseInfo(analyzer.phase.PhaseInfo)>($stack12);
+
+        $stack13 = new analyzer.option.OptionParser;
+
+        specialinvoke $stack13.<analyzer.option.OptionParser: void <init>()>();
+
+        options = virtualinvoke $stack13.<analyzer.option.OptionParser: analyzer.option.AnalyzerOptions parse(java.lang.String[])>($stack7);
+
+        $stack15 = new analyzer.AnalyzerTestBase$1;
+
+        specialinvoke $stack15.<analyzer.AnalyzerTestBase$1: void <init>(analyzer.option.AnalyzerOptions)>(options);
+
+        $stack16 = virtualinvoke $stack15.<analyzer.AnalyzerMain: boolean initialize()>();
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertTrue(boolean)>($stack16);
+
+        $stack17 = staticinvoke <analyzer.phase.PhaseManager: analyzer.phase.PhaseManager getInstance()>();
+
+        $stack18 = virtualinvoke $stack17.<analyzer.phase.PhaseManager: java.util.Set enabledAnalyses()>();
+
+        $stack19 = interfaceinvoke $stack18.<java.util.Set: int size()>();
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertEquals(int,int)>($stack19, 1);
+
+        $stack20 = staticinvoke <analyzer.phase.PhaseManager: analyzer.phase.PhaseManager getInstance()>();
+
+        $stack21 = virtualinvoke $stack20.<analyzer.phase.PhaseManager: java.util.Set enabledAnalyses()>();
+
+        $stack22 = <analyzer.TestHelper: analyzer.phase.PhaseInfo PHASE_INFO>;
+
+        $stack23 = virtualinvoke $stack22.<analyzer.phase.PhaseInfo: java.lang.String getFullName()>();
+
+        $stack24 = interfaceinvoke $stack21.<java.util.Set: boolean contains(java.lang.Object)>($stack23);
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertTrue(boolean)>($stack24);
+
+        $stack25 = virtualinvoke $stack15.<analyzer.AnalyzerMain: boolean run()>();
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertTrue(boolean)>($stack25);
+
+        return;
+    }
+
+    public static void teardown()
+    {
+        org.slf4j.Logger $stack0;
+
+        $stack0 = <analyzer.AnalyzerTestBase: org.slf4j.Logger LOG>;
+
+        interfaceinvoke $stack0.<org.slf4j.Logger: void info(java.lang.String)>("GrayAnalyzerTestBase teardown");
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        org.slf4j.Logger $stack0;
+
+        $stack0 = staticinvoke <org.slf4j.LoggerFactory: org.slf4j.Logger getLogger(java.lang.Class)>(class "Lanalyzer/AnalyzerTestBase;");
+
+        <analyzer.AnalyzerTestBase: org.slf4j.Logger LOG> = $stack0;
+
+        return;
+    }
+}

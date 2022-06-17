@@ -1,0 +1,106 @@
+public class analyzer.cases.SocketCnxAcceptor extends java.lang.Thread
+{
+    private volatile boolean stop;
+    java.net.ServerSocket ss;
+    int tickTime;
+    int initLimit;
+    boolean nodelay;
+
+    public void <init>()
+    {
+        analyzer.cases.SocketCnxAcceptor this;
+
+        this := @this: analyzer.cases.SocketCnxAcceptor;
+
+        specialinvoke this.<java.lang.Thread: void <init>()>();
+
+        this.<analyzer.cases.SocketCnxAcceptor: boolean stop> = 0;
+
+        return;
+    }
+
+    public void run()
+    {
+        analyzer.cases.SocketCnxAcceptor this;
+        java.net.ServerSocket $stack4;
+        int $stack6, $stack7, $stack8;
+        boolean $stack9, $stack14, $stack3;
+        java.lang.Thread $stack10;
+        java.lang.Exception $stack12;
+        java.net.SocketException $stack13;
+        java.net.Socket s;
+
+        this := @this: analyzer.cases.SocketCnxAcceptor;
+
+     label1:
+        $stack3 = this.<analyzer.cases.SocketCnxAcceptor: boolean stop>;
+
+        if $stack3 != 0 goto label7;
+
+     label2:
+        $stack4 = this.<analyzer.cases.SocketCnxAcceptor: java.net.ServerSocket ss>;
+
+        s = virtualinvoke $stack4.<java.net.ServerSocket: java.net.Socket accept()>();
+
+        $stack7 = this.<analyzer.cases.SocketCnxAcceptor: int tickTime>;
+
+        $stack6 = this.<analyzer.cases.SocketCnxAcceptor: int initLimit>;
+
+        $stack8 = $stack7 * $stack6;
+
+        virtualinvoke s.<java.net.Socket: void setSoTimeout(int)>($stack8);
+
+        $stack9 = this.<analyzer.cases.SocketCnxAcceptor: boolean nodelay>;
+
+        virtualinvoke s.<java.net.Socket: void setTcpNoDelay(boolean)>($stack9);
+
+        $stack10 = new java.lang.Thread;
+
+        specialinvoke $stack10.<java.lang.Thread: void <init>()>();
+
+        virtualinvoke $stack10.<java.lang.Thread: void start()>();
+
+     label3:
+        goto label1;
+
+     label4:
+        $stack13 := @caughtexception;
+
+        $stack14 = this.<analyzer.cases.SocketCnxAcceptor: boolean stop>;
+
+        if $stack14 == 0 goto label5;
+
+        this.<analyzer.cases.SocketCnxAcceptor: boolean stop> = 1;
+
+        goto label6;
+
+     label5:
+        throw $stack13;
+
+     label6:
+        goto label1;
+
+     label7:
+        goto label9;
+
+     label8:
+        $stack12 := @caughtexception;
+
+     label9:
+        return;
+
+        catch java.net.SocketException from label2 to label3 with label4;
+        catch java.lang.Exception from label1 to label7 with label8;
+    }
+
+    public void halt()
+    {
+        analyzer.cases.SocketCnxAcceptor this;
+
+        this := @this: analyzer.cases.SocketCnxAcceptor;
+
+        this.<analyzer.cases.SocketCnxAcceptor: boolean stop> = 1;
+
+        return;
+    }
+}

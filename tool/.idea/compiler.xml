@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="runtime" />
         <module name="index" />
         <module name="analyzer" />
-        <module name="runtime" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -16,6 +16,7 @@
       <module name="index" target="8" />
       <module name="runtime" target="8" />
       <module name="server" target="8" />
+      <module name="sys" target="8" />
       <module name="tool" target="8" />
     </bytecodeTargetLevel>
   </component>

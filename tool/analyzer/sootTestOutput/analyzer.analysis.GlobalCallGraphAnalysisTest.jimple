@@ -1,0 +1,116 @@
+class analyzer.analysis.GlobalCallGraphAnalysisTest extends analyzer.AnalyzerTestBase
+{
+
+    void <init>()
+    {
+        analyzer.analysis.GlobalCallGraphAnalysisTest this;
+
+        this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
+
+        specialinvoke this.<analyzer.AnalyzerTestBase: void <init>()>();
+
+        return;
+    }
+
+    void testSimple()
+    {
+        analyzer.analysis.GlobalCallGraphAnalysisTest this;
+        analyzer.TestHelper $stack3, $stack16;
+        java.lang.Class $stack4, $stack12, $stack15;
+        java.io.PrintStream $stack5;
+        java.util.Map $stack6, $stack9;
+        java.lang.String $stack7, $stack13, $stack17;
+        java.lang.Object $stack8;
+        int $stack10;
+        soot.Scene $stack11;
+
+        this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
+
+        $stack5 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack3 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
+
+        $stack6 = <analyzer.TestHelper: java.util.Map bodyMap>;
+
+        $stack4 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack7 = virtualinvoke $stack4.<java.lang.Class: java.lang.String getName()>();
+
+        $stack8 = interfaceinvoke $stack6.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack7);
+
+        $stack9 = (java.util.Map) $stack8;
+
+        $stack10 = interfaceinvoke $stack9.<java.util.Map: int size()>();
+
+        virtualinvoke $stack5.<java.io.PrintStream: void println(int)>($stack10);
+
+        $stack11 = staticinvoke <soot.Scene: soot.Scene v()>();
+
+        $stack12 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack13 = virtualinvoke $stack12.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $stack11.<soot.Scene: soot.SootClass loadClassAndSupport(java.lang.String)>($stack13);
+
+        $stack16 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
+
+        $stack15 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack17 = virtualinvoke $stack15.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $stack16.<analyzer.TestHelper: soot.Body getBody(java.lang.String,java.lang.String)>($stack17, "void run()");
+
+        return;
+    }
+
+    void testDifficult()
+    {
+        analyzer.analysis.GlobalCallGraphAnalysisTest this;
+        analyzer.TestHelper $stack3, $stack16;
+        java.lang.Class $stack4, $stack12, $stack15;
+        java.io.PrintStream $stack5;
+        java.util.Map $stack6, $stack9;
+        java.lang.String $stack7, $stack13, $stack17;
+        java.lang.Object $stack8;
+        int $stack10;
+        soot.Scene $stack11;
+
+        this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
+
+        $stack5 = <java.lang.System: java.io.PrintStream out>;
+
+        $stack3 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
+
+        $stack6 = <analyzer.TestHelper: java.util.Map bodyMap>;
+
+        $stack4 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack7 = virtualinvoke $stack4.<java.lang.Class: java.lang.String getName()>();
+
+        $stack8 = interfaceinvoke $stack6.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack7);
+
+        $stack9 = (java.util.Map) $stack8;
+
+        $stack10 = interfaceinvoke $stack9.<java.util.Map: int size()>();
+
+        virtualinvoke $stack5.<java.io.PrintStream: void println(int)>($stack10);
+
+        $stack11 = staticinvoke <soot.Scene: soot.Scene v()>();
+
+        $stack12 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack13 = virtualinvoke $stack12.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $stack11.<soot.Scene: soot.SootClass loadClassAndSupport(java.lang.String)>($stack13);
+
+        $stack16 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
+
+        $stack15 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+
+        $stack17 = virtualinvoke $stack15.<java.lang.Class: java.lang.String getName()>();
+
+        virtualinvoke $stack16.<analyzer.TestHelper: soot.Body getBody(java.lang.String,java.lang.String)>($stack17, "void run()");
+
+        return;
+    }
+}
