@@ -15,272 +15,130 @@ class analyzer.analysis.GlobalCallGraphAnalysisTest extends analyzer.AnalyzerTes
     void testMakingIndex()
     {
         analyzer.analysis.GlobalCallGraphAnalysisTest this;
-        java.util.Iterator l14, l5, l9, maps#11;
-        soot.Unit unit, sootMethod#14;
-        analyzer.TestHelper $stack17, $stack91;
-        java.lang.Class $stack18;
-        java.io.PrintStream $stack19, $stack58;
-        java.util.Map $stack20, $stack23, $stack37, $stack44, $stack46, $stack53, $stack55;
-        java.lang.String $stack21, $stack60, $stack68, $stack71, $stack74, $stack78, $stack79, $stack92, $stack93;
-        java.lang.Object $stack22, $stack35, $stack36, $stack42, $stack43, $stack45, $stack51, $stack52, $stack54, $stack56, $stack70, $stack86, $stack99;
-        int $stack24, $stack63, $stack66, $stack80, $stack81, id;
-        java.util.TreeMap $stack25;
-        java.util.HashMap $stack26, $stack27, $stack76, $stack87, $stack89;
-        soot.Scene $stack28;
-        soot.util.Chain $stack29;
-        boolean $stack31, $stack34, $stack40, $stack49, $stack72, $stack85, $stack97;
-        java.util.Set $stack32, $stack38, $stack47;
-        java.lang.StringBuilder $stack57, $stack61, $stack62, $stack64, $stack65, $stack67;
-        soot.SootMethod $stack59, sootMethod, shortClassName#12;
-        java.util.List $stack83;
-        soot.Body $stack94;
-        soot.UnitPatchingChain $stack95;
-        index.ProgramLocation $stack100, locations#15;
-        java.lang.Integer $stack102;
+        java.util.Iterator l1, l3, l5;
         soot.SootClass sootClass;
+        soot.SootMethod sootMethod, $stack39;
+        soot.Unit unit;
+        index.ProgramLocation loc;
+        java.util.Map $stack8, $stack13, $stack15, $stack21, $stack23, $stack25, $stack31, $stack33, $stack35;
+        java.util.Set $stack9, $stack16, $stack26;
+        boolean $stack11, $stack18, $stack28;
+        java.lang.Object $stack12, $stack14, $stack20, $stack22, $stack24, $stack30, $stack32, $stack34, $stack36;
+        java.lang.StringBuilder $stack37, $stack41, $stack42, $stack44, $stack45, $stack47;
+        java.io.PrintStream $stack38;
+        java.lang.String $stack40, $stack48;
+        int $stack43, $stack46;
 
         this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
 
-        $stack19 = <java.lang.System: java.io.PrintStream out>;
+        $stack8 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
 
-        $stack17 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
+        $stack9 = interfaceinvoke $stack8.<java.util.Map: java.util.Set keySet()>();
 
-        $stack20 = <analyzer.TestHelper: java.util.Map bodyMap>;
+        l1 = interfaceinvoke $stack9.<java.util.Set: java.util.Iterator iterator()>();
 
-        $stack18 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+     label1:
+        $stack11 = interfaceinvoke l1.<java.util.Iterator: boolean hasNext()>();
 
-        $stack21 = virtualinvoke $stack18.<java.lang.Class: java.lang.String getName()>();
+        if $stack11 == 0 goto label6;
 
-        $stack22 = interfaceinvoke $stack20.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack21);
+        $stack12 = interfaceinvoke l1.<java.util.Iterator: java.lang.Object next()>();
+
+        sootClass = (soot.SootClass) $stack12;
+
+        $stack13 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
+
+        $stack14 = interfaceinvoke $stack13.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
+
+        $stack15 = (java.util.Map) $stack14;
+
+        $stack16 = interfaceinvoke $stack15.<java.util.Map: java.util.Set keySet()>();
+
+        l3 = interfaceinvoke $stack16.<java.util.Set: java.util.Iterator iterator()>();
+
+     label2:
+        $stack18 = interfaceinvoke l3.<java.util.Iterator: boolean hasNext()>();
+
+        if $stack18 == 0 goto label5;
+
+        $stack20 = interfaceinvoke l3.<java.util.Iterator: java.lang.Object next()>();
+
+        sootMethod = (soot.SootMethod) $stack20;
+
+        $stack21 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
+
+        $stack22 = interfaceinvoke $stack21.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
 
         $stack23 = (java.util.Map) $stack22;
 
-        $stack24 = interfaceinvoke $stack23.<java.util.Map: int size()>();
+        $stack24 = interfaceinvoke $stack23.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootMethod);
 
-        virtualinvoke $stack19.<java.io.PrintStream: void println(int)>($stack24);
+        $stack25 = (java.util.Map) $stack24;
 
-        $stack25 = new java.util.TreeMap;
+        $stack26 = interfaceinvoke $stack25.<java.util.Map: java.util.Set keySet()>();
 
-        specialinvoke $stack25.<java.util.TreeMap: void <init>()>();
+        l5 = interfaceinvoke $stack26.<java.util.Set: java.util.Iterator iterator()>();
 
-        $stack26 = new java.util.HashMap;
+     label3:
+        $stack28 = interfaceinvoke l5.<java.util.Iterator: boolean hasNext()>();
 
-        specialinvoke $stack26.<java.util.HashMap: void <init>()>();
+        if $stack28 == 0 goto label4;
 
-        $stack27 = new java.util.HashMap;
+        $stack30 = interfaceinvoke l5.<java.util.Iterator: java.lang.Object next()>();
 
-        specialinvoke $stack27.<java.util.HashMap: void <init>()>();
+        unit = (soot.Unit) $stack30;
 
-        $stack28 = staticinvoke <soot.Scene: soot.Scene v()>();
+        $stack31 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
 
-        $stack29 = virtualinvoke $stack28.<soot.Scene: soot.util.Chain getApplicationClasses()>();
+        $stack32 = interfaceinvoke $stack31.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
 
-        l5 = interfaceinvoke $stack29.<soot.util.Chain: java.util.Iterator iterator()>();
+        $stack33 = (java.util.Map) $stack32;
 
-     label01:
-        $stack31 = interfaceinvoke l5.<java.util.Iterator: boolean hasNext()>();
+        $stack34 = interfaceinvoke $stack33.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootMethod);
 
-        if $stack31 == 0 goto label06;
+        $stack35 = (java.util.Map) $stack34;
 
-        $stack70 = interfaceinvoke l5.<java.util.Iterator: java.lang.Object next()>();
+        $stack36 = interfaceinvoke $stack35.<java.util.Map: java.lang.Object get(java.lang.Object)>(unit);
 
-        sootClass = (soot.SootClass) $stack70;
+        loc = (index.ProgramLocation) $stack36;
 
-        $stack71 = virtualinvoke sootClass.<soot.SootClass: java.lang.String getName()>();
+        $stack38 = <java.lang.System: java.io.PrintStream out>;
 
-        $stack72 = virtualinvoke $stack71.<java.lang.String: boolean startsWith(java.lang.String)>("analyzer.cases.");
+        $stack37 = new java.lang.StringBuilder;
 
-        if $stack72 == 0 goto label05;
+        specialinvoke $stack37.<java.lang.StringBuilder: void <init>()>();
 
-        $stack74 = virtualinvoke sootClass.<soot.SootClass: java.lang.String getName()>();
+        $stack39 = loc.<index.ProgramLocation: soot.SootMethod sootMethod>;
 
-        interfaceinvoke $stack25.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack74, sootClass);
+        $stack40 = virtualinvoke $stack39.<soot.SootMethod: java.lang.String toString()>();
 
-        $stack76 = new java.util.HashMap;
+        $stack41 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack40);
 
-        specialinvoke $stack76.<java.util.HashMap: void <init>()>();
+        $stack42 = virtualinvoke $stack41.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
 
-        interfaceinvoke $stack26.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(sootClass, $stack76);
+        $stack43 = loc.<index.ProgramLocation: int lineNumber>;
 
-        $stack78 = virtualinvoke sootClass.<soot.SootClass: java.lang.String getName()>();
+        $stack44 = virtualinvoke $stack42.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack43);
 
-        $stack79 = virtualinvoke sootClass.<soot.SootClass: java.lang.String getName()>();
+        $stack45 = virtualinvoke $stack44.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
 
-        $stack80 = virtualinvoke $stack79.<java.lang.String: int lastIndexOf(int)>(46);
+        $stack46 = loc.<index.ProgramLocation: int unitId>;
 
-        $stack81 = $stack80 + 1;
+        $stack47 = virtualinvoke $stack45.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack46);
 
-        virtualinvoke $stack78.<java.lang.String: java.lang.String substring(int)>($stack81);
+        $stack48 = virtualinvoke $stack47.<java.lang.StringBuilder: java.lang.String toString()>();
 
-        $stack83 = virtualinvoke sootClass.<soot.SootClass: java.util.List getMethods()>();
+        virtualinvoke $stack38.<java.io.PrintStream: void println(java.lang.String)>($stack48);
 
-        l9 = interfaceinvoke $stack83.<java.util.List: java.util.Iterator iterator()>();
+        goto label3;
 
-     label02:
-        $stack85 = interfaceinvoke l9.<java.util.Iterator: boolean hasNext()>();
+     label4:
+        goto label2;
 
-        if $stack85 == 0 goto label05;
+     label5:
+        goto label1;
 
-        $stack86 = interfaceinvoke l9.<java.util.Iterator: java.lang.Object next()>();
-
-        sootMethod = (soot.SootMethod) $stack86;
-
-        $stack87 = new java.util.HashMap;
-
-        specialinvoke $stack87.<java.util.HashMap: void <init>()>();
-
-        interfaceinvoke $stack76.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(sootMethod, $stack87);
-
-        $stack89 = new java.util.HashMap;
-
-        specialinvoke $stack89.<java.util.HashMap: void <init>()>();
-
-        interfaceinvoke $stack27.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(sootMethod, $stack89);
-
-        id = 0;
-
-        $stack91 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
-
-        $stack92 = virtualinvoke sootClass.<soot.SootClass: java.lang.String getName()>();
-
-        $stack93 = virtualinvoke sootMethod.<soot.SootMethod: java.lang.String getSubSignature()>();
-
-        $stack94 = virtualinvoke $stack91.<analyzer.TestHelper: soot.Body getBody(java.lang.String,java.lang.String)>($stack92, $stack93);
-
-        $stack95 = virtualinvoke $stack94.<soot.Body: soot.UnitPatchingChain getUnits()>();
-
-        l14 = virtualinvoke $stack95.<soot.UnitPatchingChain: java.util.Iterator iterator()>();
-
-     label03:
-        $stack97 = interfaceinvoke l14.<java.util.Iterator: boolean hasNext()>();
-
-        if $stack97 == 0 goto label04;
-
-        $stack99 = interfaceinvoke l14.<java.util.Iterator: java.lang.Object next()>();
-
-        unit = (soot.Unit) $stack99;
-
-        $stack100 = new index.ProgramLocation;
-
-        specialinvoke $stack100.<index.ProgramLocation: void <init>(soot.SootClass,soot.SootMethod,soot.Unit,int)>(sootClass, sootMethod, unit, id);
-
-        interfaceinvoke $stack87.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>(unit, $stack100);
-
-        $stack102 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(id);
-
-        interfaceinvoke $stack89.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack102, unit);
-
-        id = id + 1;
-
-        goto label03;
-
-     label04:
-        goto label02;
-
-     label05:
-        goto label01;
-
-     label06:
-        $stack32 = interfaceinvoke $stack26.<java.util.Map: java.util.Set keySet()>();
-
-        l5 = interfaceinvoke $stack32.<java.util.Set: java.util.Iterator iterator()>();
-
-     label07:
-        $stack34 = interfaceinvoke l5.<java.util.Iterator: boolean hasNext()>();
-
-        if $stack34 == 0 goto label12;
-
-        $stack35 = interfaceinvoke l5.<java.util.Iterator: java.lang.Object next()>();
-
-        sootClass = (soot.SootClass) $stack35;
-
-        $stack36 = interfaceinvoke $stack26.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
-
-        $stack37 = (java.util.Map) $stack36;
-
-        $stack38 = interfaceinvoke $stack37.<java.util.Map: java.util.Set keySet()>();
-
-        maps#11 = interfaceinvoke $stack38.<java.util.Set: java.util.Iterator iterator()>();
-
-     label08:
-        $stack40 = interfaceinvoke maps#11.<java.util.Iterator: boolean hasNext()>();
-
-        if $stack40 == 0 goto label11;
-
-        $stack42 = interfaceinvoke maps#11.<java.util.Iterator: java.lang.Object next()>();
-
-        shortClassName#12 = (soot.SootMethod) $stack42;
-
-        $stack43 = interfaceinvoke $stack26.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
-
-        $stack44 = (java.util.Map) $stack43;
-
-        $stack45 = interfaceinvoke $stack44.<java.util.Map: java.lang.Object get(java.lang.Object)>(shortClassName#12);
-
-        $stack46 = (java.util.Map) $stack45;
-
-        $stack47 = interfaceinvoke $stack46.<java.util.Map: java.util.Set keySet()>();
-
-        l9 = interfaceinvoke $stack47.<java.util.Set: java.util.Iterator iterator()>();
-
-     label09:
-        $stack49 = interfaceinvoke l9.<java.util.Iterator: boolean hasNext()>();
-
-        if $stack49 == 0 goto label10;
-
-        $stack51 = interfaceinvoke l9.<java.util.Iterator: java.lang.Object next()>();
-
-        sootMethod#14 = (soot.Unit) $stack51;
-
-        $stack52 = interfaceinvoke $stack26.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
-
-        $stack53 = (java.util.Map) $stack52;
-
-        $stack54 = interfaceinvoke $stack53.<java.util.Map: java.lang.Object get(java.lang.Object)>(shortClassName#12);
-
-        $stack55 = (java.util.Map) $stack54;
-
-        $stack56 = interfaceinvoke $stack55.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootMethod#14);
-
-        locations#15 = (index.ProgramLocation) $stack56;
-
-        $stack58 = <java.lang.System: java.io.PrintStream out>;
-
-        $stack57 = new java.lang.StringBuilder;
-
-        specialinvoke $stack57.<java.lang.StringBuilder: void <init>()>();
-
-        $stack59 = locations#15.<index.ProgramLocation: soot.SootMethod sootMethod>;
-
-        $stack60 = virtualinvoke $stack59.<soot.SootMethod: java.lang.String toString()>();
-
-        $stack61 = virtualinvoke $stack57.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack60);
-
-        $stack62 = virtualinvoke $stack61.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
-
-        $stack63 = locations#15.<index.ProgramLocation: int lineNumber>;
-
-        $stack64 = virtualinvoke $stack62.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack63);
-
-        $stack65 = virtualinvoke $stack64.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
-
-        $stack66 = locations#15.<index.ProgramLocation: int unitId>;
-
-        $stack67 = virtualinvoke $stack65.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack66);
-
-        $stack68 = virtualinvoke $stack67.<java.lang.StringBuilder: java.lang.String toString()>();
-
-        virtualinvoke $stack58.<java.io.PrintStream: void println(java.lang.String)>($stack68);
-
-        goto label09;
-
-     label10:
-        goto label08;
-
-     label11:
-        goto label07;
-
-     label12:
+     label6:
         return;
     }
 
