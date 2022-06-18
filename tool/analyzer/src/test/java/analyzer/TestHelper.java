@@ -34,7 +34,6 @@ public class TestHelper extends SceneTransformer {
                 Map<String, Body> map = new HashMap<>();
                 for (SootMethod m : c.getMethods()) {
                     if (m.hasActiveBody()) {
-                        System.out.println(m.getSubSignature());
                         // Here we must use subsignature instead of m.getName() to correctly
                         // deal with method overloading! Otherwise, we will later retrieve
                         // we method body that does not match the method!!!

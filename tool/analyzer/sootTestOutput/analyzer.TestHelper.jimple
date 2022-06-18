@@ -18,7 +18,7 @@ public class analyzer.TestHelper extends soot.SceneTransformer
     protected void internalTransform(java.lang.String, java.util.Map)
     {
         analyzer.TestHelper this;
-        java.lang.String phaseName, $stack14, $stack20, $stack22, $stack28, $stack34, $stack35;
+        java.lang.String phaseName, $stack14, $stack20, $stack22, $stack28, $stack33;
         java.util.Map options, $stack27;
         java.util.Iterator l3, l6;
         soot.SootClass c;
@@ -31,8 +31,7 @@ public class analyzer.TestHelper extends soot.SceneTransformer
         java.lang.StringBuilder $stack17, $stack19, $stack21;
         java.util.HashMap $stack23;
         java.util.List $stack24;
-        java.io.PrintStream $stack33;
-        soot.Body $stack36;
+        soot.Body $stack34;
 
         this := @this: analyzer.TestHelper;
 
@@ -102,17 +101,11 @@ public class analyzer.TestHelper extends soot.SceneTransformer
 
         if $stack31 == 0 goto label3;
 
-        $stack33 = <java.lang.System: java.io.PrintStream out>;
+        $stack33 = virtualinvoke m.<soot.SootMethod: java.lang.String getSubSignature()>();
 
-        $stack34 = virtualinvoke m.<soot.SootMethod: java.lang.String getSubSignature()>();
+        $stack34 = virtualinvoke m.<soot.SootMethod: soot.Body retrieveActiveBody()>();
 
-        virtualinvoke $stack33.<java.io.PrintStream: void println(java.lang.String)>($stack34);
-
-        $stack35 = virtualinvoke m.<soot.SootMethod: java.lang.String getSubSignature()>();
-
-        $stack36 = virtualinvoke m.<soot.SootMethod: soot.Body retrieveActiveBody()>();
-
-        interfaceinvoke $stack23.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack35, $stack36);
+        interfaceinvoke $stack23.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack33, $stack34);
 
      label3:
         goto label2;
