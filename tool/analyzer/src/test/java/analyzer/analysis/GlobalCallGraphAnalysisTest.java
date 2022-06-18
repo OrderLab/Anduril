@@ -9,9 +9,7 @@ import soot.*;
 import soot.jimple.InvokeExpr;
 import soot.tagkit.LineNumberTag;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,14 +28,12 @@ class GlobalCallGraphAnalysisTest  extends AnalyzerTestBase {
                 }
             }
         }
-
     }
 
     @Test
-    void testDifficult() {
-        System.out.println(helper.bodyMap.get(SocketCnxAcceptor.class.getName()).size());
-        SootClass targetCls = Scene.v().loadClassAndSupport(SocketCnxAcceptor.class.getName());
-
-        Body runMethod = helper.getBody(SocketCnxAcceptor.class.getName(), "void run()");
+    void testVirtualCallMap() {
+        List<SootClass> classList = new LinkedList<>(classes.values());
+        classList.sort(Comparator.comparing(SootClass::getName));
+        System.out.println(classSet.toString());
     }
 }

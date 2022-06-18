@@ -9,9 +9,10 @@ public final class GlobalCallGraphAnalysis {
     public final Map<SootMethod, Set<SootMethod>> virtualCalls = new HashMap<>();
     public final Map<SootMethod, Set<SootMethod>> forwardCallMap = new HashMap<>();
     public final Map<SootMethod, Map<SootMethod, Set<Unit>>> backwardCallMap = new HashMap<>();
-    public final AnalysisInput analysisInput;
+    public final List<SootClass> classes;
+    public final Set<SootClass> classSet;
     private void check(final String sig, final SootMethod method, final SootClass sc) {
-        if (method.isStatic() || method.isPrivate() || !analysisInput.classSet.contains(sc)) {
+        if (method.isStatic() || method.isPrivate() || !this.classSet.contains(sc)) {
             return;
         }
         try {
@@ -40,9 +41,10 @@ public final class GlobalCallGraphAnalysis {
             backwardEdges.put(caller, new HashSet<>(Collections.singletonList(unit)));
         }
     }
-    public GlobalCallGraphAnalysis(final AnalysisInput analysisInput) {
-        this.analysisInput = analysisInput;
-        for (final SootClass sootClass : analysisInput.classes) {
+    public GlobalCallGraphAnalysis(final List<SootClass> classes) {
+        this.classes = classes;
+        this.classSet = new HashSet<>(this.classes);
+        for (final SootClass sootClass : this.classes) {
             for (final SootMethod sootMethod : sootClass.getMethods()) {
                 final Set<SootMethod> calls = new HashSet<>();
                 virtualCalls.put(sootMethod, calls);
@@ -51,7 +53,7 @@ public final class GlobalCallGraphAnalysis {
                 }
             }
         }
-        for (final SootClass sootClass : analysisInput.classes) {
+        for (final SootClass sootClass : this.classes) {
             for (final SootMethod sootMethod : sootClass.getMethods()) {
                 if (sootMethod.hasActiveBody() && !sootMethod.isStatic() && !sootMethod.isPrivate() &&
                         !sootMethod.isConstructor()) {
@@ -62,14 +64,14 @@ public final class GlobalCallGraphAnalysis {
                 }
             }
         }
-        for (final SootClass sootClass : analysisInput.classes) {
+        for (final SootClass sootClass : this.classes) {
             for (final SootMethod sootMethod : sootClass.getMethods()) {
                 if (sootMethod.hasActiveBody()) {
                     backwardCallMap.put(sootMethod, new HashMap<>());
                 }
             }
         }
-        for (final SootClass sootClass : analysisInput.classes) {
+        for (final SootClass sootClass : this.classes) {
             for (final SootMethod sootMethod : sootClass.getMethods()) {
                 if (sootMethod.hasActiveBody()) {
                     final Body body = sootMethod.getActiveBody();
@@ -81,7 +83,7 @@ public final class GlobalCallGraphAnalysis {
                             if (value instanceof InvokeExpr) {
                                 final SootMethod method = ((InvokeExpr) value).getMethod();
                                 final SootClass sc = method.getDeclaringClass();
-                                if (analysisInput.classSet.contains(sc)) {
+                                if (this.classSet.contains(sc)) {
                                     if (method.isStatic() || method.isConstructor() || method.isPrivate()) {
                                         addBackwardCall(sootMethod, method, unit);
                                     } else {

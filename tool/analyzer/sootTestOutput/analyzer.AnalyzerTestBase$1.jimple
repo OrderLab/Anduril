@@ -20,22 +20,22 @@ final class analyzer.AnalyzerTestBase$1 extends analyzer.AnalyzerMain
         analyzer.AnalyzerTestBase$1 this;
         analyzer.phase.PhaseManager $stack1;
         analyzer.phase.PhaseInfo $stack3;
-        analyzer.TestHelper tmp$1958757239;
-        soot.Transformer tmp$1291752852;
+        analyzer.TestHelper tmp$1717491482;
+        soot.Transformer tmp$1647028001;
 
         this := @this: analyzer.AnalyzerTestBase$1;
 
         $stack1 = staticinvoke <analyzer.phase.PhaseManager: analyzer.phase.PhaseManager getInstance()>();
 
-        tmp$1958757239 = new analyzer.TestHelper;
+        tmp$1717491482 = new analyzer.TestHelper;
 
-        specialinvoke tmp$1958757239.<analyzer.TestHelper: void <init>()>();
+        specialinvoke tmp$1717491482.<analyzer.TestHelper: void <init>()>();
 
         $stack3 = <analyzer.TestHelper: analyzer.phase.PhaseInfo PHASE_INFO>;
 
-        tmp$1291752852 = (soot.Transformer) tmp$1958757239;
+        tmp$1647028001 = (soot.Transformer) tmp$1717491482;
 
-        virtualinvoke $stack1.<analyzer.phase.PhaseManager: soot.Transform registerAnalysis(soot.Transformer,analyzer.phase.PhaseInfo)>(tmp$1291752852, $stack3);
+        virtualinvoke $stack1.<analyzer.phase.PhaseManager: soot.Transform registerAnalysis(soot.Transformer,analyzer.phase.PhaseInfo)>(tmp$1647028001, $stack3);
 
         return;
     }

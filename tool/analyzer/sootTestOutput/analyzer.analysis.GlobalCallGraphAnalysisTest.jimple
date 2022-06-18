@@ -142,53 +142,43 @@ class analyzer.analysis.GlobalCallGraphAnalysisTest extends analyzer.AnalyzerTes
         return;
     }
 
-    void testDifficult()
+    void testVirtualCallMap()
     {
         analyzer.analysis.GlobalCallGraphAnalysisTest this;
-        analyzer.TestHelper $stack3, $stack16;
-        java.lang.Class $stack4, $stack12, $stack15;
-        java.io.PrintStream $stack5;
-        java.util.Map $stack6, $stack9;
-        java.lang.String $stack7, $stack13, $stack17;
-        java.lang.Object $stack8;
-        int $stack10;
-        soot.Scene $stack11;
+        java.util.LinkedList $stack3;
+        java.util.Map $stack4;
+        java.util.Collection $stack5;
+        java.util.function.Function $stack6;
+        java.util.Comparator $stack7;
+        java.util.HashSet $stack8;
+        java.io.PrintStream $stack9;
+        java.lang.String $stack10;
 
         this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
 
-        $stack5 = <java.lang.System: java.io.PrintStream out>;
+        $stack3 = new java.util.LinkedList;
 
-        $stack3 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
+        $stack4 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
 
-        $stack6 = <analyzer.TestHelper: java.util.Map bodyMap>;
+        $stack5 = interfaceinvoke $stack4.<java.util.Map: java.util.Collection values()>();
 
-        $stack4 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+        specialinvoke $stack3.<java.util.LinkedList: void <init>(java.util.Collection)>($stack5);
 
-        $stack7 = virtualinvoke $stack4.<java.lang.Class: java.lang.String getName()>();
+        $stack6 = dynamicinvoke "apply" <java.util.function.Function ()>() <java.lang.invoke.LambdaMetafactory: java.lang.invoke.CallSite metafactory(java.lang.invoke.MethodHandles$Lookup,java.lang.String,java.lang.invoke.MethodType,java.lang.invoke.MethodType,java.lang.invoke.MethodHandle,java.lang.invoke.MethodType)>(methodtype: java.lang.Object __METHODTYPE__(java.lang.Object), methodhandle: "REF_INVOKE_VIRTUAL" <soot.SootClass: java.lang.String getName()>, methodtype: java.lang.String __METHODTYPE__(soot.SootClass));
 
-        $stack8 = interfaceinvoke $stack6.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack7);
+        $stack7 = staticinvoke <java.util.Comparator: java.util.Comparator comparing(java.util.function.Function)>($stack6);
 
-        $stack9 = (java.util.Map) $stack8;
+        interfaceinvoke $stack3.<java.util.List: void sort(java.util.Comparator)>($stack7);
 
-        $stack10 = interfaceinvoke $stack9.<java.util.Map: int size()>();
+        $stack8 = new java.util.HashSet;
 
-        virtualinvoke $stack5.<java.io.PrintStream: void println(int)>($stack10);
+        specialinvoke $stack8.<java.util.HashSet: void <init>(java.util.Collection)>($stack3);
 
-        $stack11 = staticinvoke <soot.Scene: soot.Scene v()>();
+        $stack9 = <java.lang.System: java.io.PrintStream out>;
 
-        $stack12 = class "Lanalyzer/cases/SocketCnxAcceptor;";
+        $stack10 = virtualinvoke $stack8.<java.lang.Object: java.lang.String toString()>();
 
-        $stack13 = virtualinvoke $stack12.<java.lang.Class: java.lang.String getName()>();
-
-        virtualinvoke $stack11.<soot.Scene: soot.SootClass loadClassAndSupport(java.lang.String)>($stack13);
-
-        $stack16 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.TestHelper helper>;
-
-        $stack15 = class "Lanalyzer/cases/SocketCnxAcceptor;";
-
-        $stack17 = virtualinvoke $stack15.<java.lang.Class: java.lang.String getName()>();
-
-        virtualinvoke $stack16.<analyzer.TestHelper: soot.Body getBody(java.lang.String,java.lang.String)>($stack17, "void run()");
+        virtualinvoke $stack9.<java.io.PrintStream: void println(java.lang.String)>($stack10);
 
         return;
     }
