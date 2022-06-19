@@ -1,5 +1,0 @@
-public interface  analyzer.cases.callGraphAnalysis.Person extends java.lang.Object
-{
-
-    public abstract void disp();
-}

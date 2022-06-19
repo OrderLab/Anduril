@@ -45,7 +45,7 @@ class GlobalCallGraphAnalysisTest  extends AnalyzerTestBase {
 
     @Test
     void testBackwordCallMap() {
-        assertTrue(true);
+        assertTrue(false);
     }
 
 }
