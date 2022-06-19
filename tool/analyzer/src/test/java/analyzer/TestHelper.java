@@ -76,7 +76,7 @@ public class TestHelper extends SceneTransformer {
         for (SootMethod method : cls.getMethods()) {
             if (!method.hasActiveBody() && !cls.isInterface()) {
                 Body methodBody = getBody(className, method.getSubSignature());
-                //assertNotNull(methodBody);
+                assertNotNull(methodBody);
                 method.setActiveBody(methodBody);
             }
         }

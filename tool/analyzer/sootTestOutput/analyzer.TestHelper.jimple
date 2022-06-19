@@ -231,6 +231,8 @@ public class analyzer.TestHelper extends soot.SceneTransformer
 
         methodBody = virtualinvoke this.<analyzer.TestHelper: soot.Body getBody(java.lang.String,java.lang.String)>(className, $stack15);
 
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertNotNull(java.lang.Object)>(methodBody);
+
         virtualinvoke method.<soot.SootMethod: void setActiveBody(soot.Body)>(methodBody);
 
      label2:

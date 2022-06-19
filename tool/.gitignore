@@ -343,5 +343,8 @@ tags
 # Persistent undo
 [._]*.un~
 
+# Analyzer jimple output
+analyzer/sootOutput/*
+analyzer/sootTestOutput/*
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij+iml,macos,vim,cmake,node
 
