@@ -1,6 +1,7 @@
 package analyzer.analysis;
 
 import analyzer.AnalyzerTestBase;
+import analyzer.cases.callGraphAnalysis.BackwardUsage;
 import analyzer.cases.callGraphAnalysis.ChildClass;
 import analyzer.cases.callGraphAnalysis.ParentClass;
 import analyzer.cases.callGraphAnalysis.Person;
@@ -45,7 +46,24 @@ class GlobalCallGraphAnalysisTest  extends AnalyzerTestBase {
 
     @Test
     void testBackwordCallMap() {
-        assertTrue(false);
+        SootClass parentClass = classes.get(ParentClass.class.getName());
+        SootMethod parenMethod = parentClass.getMethod("void disp()");
+        SootClass childClass = classes.get(ChildClass.class.getName());
+        SootMethod childMethod = childClass.getMethod("void disp()");
+        SootClass callingClass = classes.get(BackwardUsage.class.getName());
+        //Method use1-4 call both
+        for (int i=1;i<5;i++) {
+            String methodName = "void use" + String.valueOf(i) + "()";
+            assertTrue(callGraphAnalysis.backwardCallMap.get(parenMethod).containsKey(callingClass.getMethod(methodName)));
+            assertTrue(callGraphAnalysis.backwardCallMap.get(parenMethod).get(callingClass.getMethod(methodName)).size() == 1);
+            assertTrue(callGraphAnalysis.backwardCallMap.get(childMethod).containsKey(callingClass.getMethod(methodName)));
+            assertTrue(callGraphAnalysis.backwardCallMap.get(parenMethod).get(callingClass.getMethod(methodName)).size() == 1);
+        }
+        //Method use5 only has potential call child one.
+        String last = "void use" + String.valueOf(5) + "()";
+        assertFalse(callGraphAnalysis.backwardCallMap.get(parenMethod).containsKey(callingClass.getMethod(last)));
+        assertTrue(callGraphAnalysis.backwardCallMap.get(childMethod).containsKey(callingClass.getMethod(last)));
+        assertTrue(callGraphAnalysis.backwardCallMap.get(childMethod).get(callingClass.getMethod(last)).size() == 1);
     }
 
 }
