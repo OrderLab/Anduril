@@ -3,7 +3,6 @@ package analyzer;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import analyzer.phase.PhaseInfo;
-import index.IndexManager;
 
 import java.util.HashMap;
 import java.util.Map;

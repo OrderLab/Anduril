@@ -1,0 +1,33 @@
+public class analyzer.cases.callGraphAnalysis.ParentClass extends java.lang.Object implements analyzer.cases.callGraphAnalysis.Person
+{
+
+    void <init>()
+    {
+        analyzer.cases.callGraphAnalysis.ParentClass this;
+        java.io.PrintStream $stack1;
+
+        this := @this: analyzer.cases.callGraphAnalysis.ParentClass;
+
+        specialinvoke this.<java.lang.Object: void <init>()>();
+
+        $stack1 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack1.<java.io.PrintStream: void println(java.lang.String)>("Constructor of Parent");
+
+        return;
+    }
+
+    public void disp()
+    {
+        analyzer.cases.callGraphAnalysis.ParentClass this;
+        java.io.PrintStream $stack1;
+
+        this := @this: analyzer.cases.callGraphAnalysis.ParentClass;
+
+        $stack1 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $stack1.<java.io.PrintStream: void println(java.lang.String)>("Parent Method");
+
+        return;
+    }
+}

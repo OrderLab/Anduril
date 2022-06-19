@@ -23,8 +23,8 @@ public class analyzer.AnalyzerTestBase extends java.lang.Object
     {
         analyzer.option.AnalyzerOptions options;
         java.util.Iterator l5, l9, l14, l17;
-        soot.SootClass sootClass, $stack99, $stack103;
-        java.lang.String shortClassName, name, l22, $stack30, $stack43, $stack51, $stack55, $stack58, $stack63, $stack64, $stack100;
+        soot.SootClass sootClass, $stack98;
+        java.lang.String shortClassName, name, l22, $stack30, $stack43, $stack51, $stack55, $stack58, $stack63, $stack64;
         soot.SootMethod sootMethod, log;
         soot.Unit unit;
         soot.ValueBox valueBox;
@@ -36,13 +36,13 @@ public class analyzer.AnalyzerTestBase extends java.lang.Object
         analyzer.phase.PhaseManager $stack31, $stack37, $stack40;
         analyzer.option.OptionParser $stack33;
         analyzer.AnalyzerTestBase$1 $stack35;
-        boolean $stack36, $stack44, $stack45, $stack49, $stack52, $stack70, $stack72, $stack82, $stack90, $stack94, $stack105, $stack108, $stack114, $stack115, $stack116, $stack117;
+        boolean $stack36, $stack44, $stack45, $stack49, $stack52, $stack70, $stack72, $stack82, $stack90, $stack94, $stack100, $stack103, $stack109, $stack110, $stack111, $stack112;
         java.util.Set $stack38, $stack41;
-        int $stack39, $stack65, $stack66, $stack102, $stack107, $stack111, id;
+        int $stack39, $stack65, $stack66, $stack102, $stack106, id;
         soot.Scene $stack46;
         soot.util.Chain $stack47;
         java.lang.Object $stack50, $stack71, $stack83, $stack92;
-        java.util.Map $stack54, $stack61, $stack77, $stack110;
+        java.util.Map $stack54, $stack61, $stack77, $stack105;
         java.util.HashMap $stack60, $stack74, $stack76;
         java.util.List $stack68, $stack88;
         soot.Body $stack79;
@@ -50,8 +50,7 @@ public class analyzer.AnalyzerTestBase extends java.lang.Object
         index.ProgramLocation $stack84;
         java.lang.Integer $stack86;
         soot.jimple.InvokeExpr $stack96;
-        java.io.PrintStream $stack98, $stack101;
-        index.IndexManager$LogEntry $stack109;
+        index.IndexManager$LogEntry $stack104;
         byte l23;
 
         $stack24 = <analyzer.AnalyzerTestBase: org.slf4j.Logger LOG>;
@@ -275,40 +274,26 @@ public class analyzer.AnalyzerTestBase extends java.lang.Object
 
         log = interfaceinvoke $stack96.<soot.jimple.InvokeExpr: soot.SootMethod getMethod()>();
 
-        $stack98 = <java.lang.System: java.io.PrintStream out>;
+        $stack98 = virtualinvoke log.<soot.SootMethod: soot.SootClass getDeclaringClass()>();
 
-        $stack99 = virtualinvoke log.<soot.SootMethod: soot.SootClass getDeclaringClass()>();
+        name = virtualinvoke $stack98.<soot.SootClass: java.lang.String getName()>();
 
-        $stack100 = virtualinvoke $stack99.<soot.SootClass: java.lang.String getName()>();
+        $stack100 = virtualinvoke name.<java.lang.String: boolean equals(java.lang.Object)>("org.apache.commons.logging.Log");
 
-        virtualinvoke $stack98.<java.io.PrintStream: void println(java.lang.String)>($stack100);
+        if $stack100 != 0 goto label06;
 
-        $stack101 = <java.lang.System: java.io.PrintStream out>;
+        $stack112 = virtualinvoke name.<java.lang.String: boolean equals(java.lang.Object)>("org.slf4j.Logger");
 
-        $stack102 = staticinvoke <analyzer.AnalyzerTestBase: int getLine(soot.Unit)>(unit);
-
-        virtualinvoke $stack101.<java.io.PrintStream: void println(int)>($stack102);
-
-        $stack103 = virtualinvoke log.<soot.SootMethod: soot.SootClass getDeclaringClass()>();
-
-        name = virtualinvoke $stack103.<soot.SootClass: java.lang.String getName()>();
-
-        $stack105 = virtualinvoke name.<java.lang.String: boolean equals(java.lang.Object)>("org.apache.commons.logging.Log");
-
-        if $stack105 != 0 goto label06;
-
-        $stack117 = virtualinvoke name.<java.lang.String: boolean equals(java.lang.Object)>("org.slf4j.Logger");
-
-        if $stack117 == 0 goto label13;
+        if $stack112 == 0 goto label13;
 
      label06:
         l22 = virtualinvoke log.<soot.SootMethod: java.lang.String getName()>();
 
         l23 = -1;
 
-        $stack107 = virtualinvoke l22.<java.lang.String: int hashCode()>();
+        $stack102 = virtualinvoke l22.<java.lang.String: int hashCode()>();
 
-        lookupswitch($stack107)
+        lookupswitch($stack102)
         {
             case 3237038: goto label08;
             case 3641990: goto label09;
@@ -318,36 +303,36 @@ public class analyzer.AnalyzerTestBase extends java.lang.Object
         };
 
      label07:
-        $stack108 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("error");
+        $stack103 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("error");
 
-        if $stack108 == 0 goto label11;
+        if $stack103 == 0 goto label11;
 
         l23 = 0;
 
         goto label11;
 
      label08:
-        $stack116 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("info");
+        $stack111 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("info");
 
-        if $stack116 == 0 goto label11;
+        if $stack111 == 0 goto label11;
 
         l23 = 1;
 
         goto label11;
 
      label09:
-        $stack115 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("warn");
+        $stack110 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("warn");
 
-        if $stack115 == 0 goto label11;
+        if $stack110 == 0 goto label11;
 
         l23 = 2;
 
         goto label11;
 
      label10:
-        $stack114 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("debug");
+        $stack109 = virtualinvoke l22.<java.lang.String: boolean equals(java.lang.Object)>("debug");
 
-        if $stack114 == 0 goto label11;
+        if $stack109 == 0 goto label11;
 
         l23 = 3;
 
@@ -362,15 +347,15 @@ public class analyzer.AnalyzerTestBase extends java.lang.Object
         };
 
      label12:
-        $stack110 = <analyzer.AnalyzerTestBase: java.util.Map logEntries>;
+        $stack105 = <analyzer.AnalyzerTestBase: java.util.Map logEntries>;
 
-        $stack109 = new index.IndexManager$LogEntry;
+        $stack104 = new index.IndexManager$LogEntry;
 
-        $stack111 = staticinvoke <analyzer.AnalyzerTestBase: int getLine(soot.Unit)>(unit);
+        $stack106 = staticinvoke <analyzer.AnalyzerTestBase: int getLine(soot.Unit)>(unit);
 
-        specialinvoke $stack109.<index.IndexManager$LogEntry: void <init>(java.lang.String,int)>(shortClassName, $stack111);
+        specialinvoke $stack104.<index.IndexManager$LogEntry: void <init>(java.lang.String,int)>(shortClassName, $stack106);
 
-        interfaceinvoke $stack110.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack109, $stack84);
+        interfaceinvoke $stack105.<java.util.Map: java.lang.Object put(java.lang.Object,java.lang.Object)>($stack104, $stack84);
 
      label13:
         goto label05;

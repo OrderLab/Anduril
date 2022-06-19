@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import analyzer.option.AnalyzerOptions;
 import analyzer.option.OptionParser;
-import analyzer.phase.FlakyTestAnalyzer;
 import analyzer.phase.PhaseManager;
 import index.IndexManager;
 import index.ProgramLocation;
@@ -116,8 +115,8 @@ public class AnalyzerTestBase {
                                     //System.out.println("Invoke!");
                                     //System.out.println(((InvokeExpr) value).getMethod().toString());
                                     final SootMethod log = ((InvokeExpr) value).getMethod();
-                                    System.out.println(log.getDeclaringClass().getName());
-                                    System.out.println(getLine(unit));
+                                    //System.out.println(log.getDeclaringClass().getName());
+                                    //System.out.println(getLine(unit));
                                     final String name = log.getDeclaringClass().getName();
                                     if (name.equals("org.apache.commons.logging.Log") ||
                                             name.equals("org.slf4j.Logger")) {

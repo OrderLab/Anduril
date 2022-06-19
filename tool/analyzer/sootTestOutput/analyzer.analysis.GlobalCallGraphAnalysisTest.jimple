@@ -1,5 +1,7 @@
 class analyzer.analysis.GlobalCallGraphAnalysisTest extends analyzer.AnalyzerTestBase
 {
+    private static final org.slf4j.Logger LOG;
+    public static analyzer.analysis.GlobalCallGraphAnalysis callGraphAnalysis;
 
     void <init>()
     {
@@ -12,173 +14,175 @@ class analyzer.analysis.GlobalCallGraphAnalysisTest extends analyzer.AnalyzerTes
         return;
     }
 
-    void testMakingIndex()
+    public static void makingCallGraphAnalysis()
     {
-        analyzer.analysis.GlobalCallGraphAnalysisTest this;
-        java.util.Iterator l1, l3, l5;
-        soot.SootClass sootClass;
-        soot.SootMethod sootMethod, $stack39;
-        soot.Unit unit;
-        index.ProgramLocation loc;
-        java.util.Map $stack8, $stack13, $stack15, $stack21, $stack23, $stack25, $stack31, $stack33, $stack35;
-        java.util.Set $stack9, $stack16, $stack26;
-        boolean $stack11, $stack18, $stack28;
-        java.lang.Object $stack12, $stack14, $stack20, $stack22, $stack24, $stack30, $stack32, $stack34, $stack36;
-        java.lang.StringBuilder $stack37, $stack41, $stack42, $stack44, $stack45, $stack47;
-        java.io.PrintStream $stack38;
-        java.lang.String $stack40, $stack48;
-        int $stack43, $stack46;
+        org.slf4j.Logger $stack1;
+        java.util.LinkedList $stack2;
+        java.util.Map $stack3;
+        java.util.Collection $stack4;
+        java.util.function.Function $stack5;
+        java.util.Comparator $stack6;
+        analyzer.analysis.GlobalCallGraphAnalysis $stack7;
 
-        this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
+        $stack1 = <analyzer.analysis.GlobalCallGraphAnalysisTest: org.slf4j.Logger LOG>;
 
-        $stack8 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
+        interfaceinvoke $stack1.<org.slf4j.Logger: void info(java.lang.String)>("ClassGraphAnalysis.....");
 
-        $stack9 = interfaceinvoke $stack8.<java.util.Map: java.util.Set keySet()>();
+        $stack2 = new java.util.LinkedList;
 
-        l1 = interfaceinvoke $stack9.<java.util.Set: java.util.Iterator iterator()>();
+        $stack3 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
 
-     label1:
-        $stack11 = interfaceinvoke l1.<java.util.Iterator: boolean hasNext()>();
+        $stack4 = interfaceinvoke $stack3.<java.util.Map: java.util.Collection values()>();
 
-        if $stack11 == 0 goto label6;
+        specialinvoke $stack2.<java.util.LinkedList: void <init>(java.util.Collection)>($stack4);
 
-        $stack12 = interfaceinvoke l1.<java.util.Iterator: java.lang.Object next()>();
+        $stack5 = dynamicinvoke "apply" <java.util.function.Function ()>() <java.lang.invoke.LambdaMetafactory: java.lang.invoke.CallSite metafactory(java.lang.invoke.MethodHandles$Lookup,java.lang.String,java.lang.invoke.MethodType,java.lang.invoke.MethodType,java.lang.invoke.MethodHandle,java.lang.invoke.MethodType)>(methodtype: java.lang.Object __METHODTYPE__(java.lang.Object), methodhandle: "REF_INVOKE_VIRTUAL" <soot.SootClass: java.lang.String getName()>, methodtype: java.lang.String __METHODTYPE__(soot.SootClass));
 
-        sootClass = (soot.SootClass) $stack12;
+        $stack6 = staticinvoke <java.util.Comparator: java.util.Comparator comparing(java.util.function.Function)>($stack5);
 
-        $stack13 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
+        interfaceinvoke $stack2.<java.util.List: void sort(java.util.Comparator)>($stack6);
 
-        $stack14 = interfaceinvoke $stack13.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
+        $stack7 = new analyzer.analysis.GlobalCallGraphAnalysis;
 
-        $stack15 = (java.util.Map) $stack14;
+        specialinvoke $stack7.<analyzer.analysis.GlobalCallGraphAnalysis: void <init>(java.util.List)>($stack2);
 
-        $stack16 = interfaceinvoke $stack15.<java.util.Map: java.util.Set keySet()>();
+        <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.analysis.GlobalCallGraphAnalysis callGraphAnalysis> = $stack7;
 
-        l3 = interfaceinvoke $stack16.<java.util.Set: java.util.Iterator iterator()>();
-
-     label2:
-        $stack18 = interfaceinvoke l3.<java.util.Iterator: boolean hasNext()>();
-
-        if $stack18 == 0 goto label5;
-
-        $stack20 = interfaceinvoke l3.<java.util.Iterator: java.lang.Object next()>();
-
-        sootMethod = (soot.SootMethod) $stack20;
-
-        $stack21 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
-
-        $stack22 = interfaceinvoke $stack21.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
-
-        $stack23 = (java.util.Map) $stack22;
-
-        $stack24 = interfaceinvoke $stack23.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootMethod);
-
-        $stack25 = (java.util.Map) $stack24;
-
-        $stack26 = interfaceinvoke $stack25.<java.util.Map: java.util.Set keySet()>();
-
-        l5 = interfaceinvoke $stack26.<java.util.Set: java.util.Iterator iterator()>();
-
-     label3:
-        $stack28 = interfaceinvoke l5.<java.util.Iterator: boolean hasNext()>();
-
-        if $stack28 == 0 goto label4;
-
-        $stack30 = interfaceinvoke l5.<java.util.Iterator: java.lang.Object next()>();
-
-        unit = (soot.Unit) $stack30;
-
-        $stack31 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map index>;
-
-        $stack32 = interfaceinvoke $stack31.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootClass);
-
-        $stack33 = (java.util.Map) $stack32;
-
-        $stack34 = interfaceinvoke $stack33.<java.util.Map: java.lang.Object get(java.lang.Object)>(sootMethod);
-
-        $stack35 = (java.util.Map) $stack34;
-
-        $stack36 = interfaceinvoke $stack35.<java.util.Map: java.lang.Object get(java.lang.Object)>(unit);
-
-        loc = (index.ProgramLocation) $stack36;
-
-        $stack38 = <java.lang.System: java.io.PrintStream out>;
-
-        $stack37 = new java.lang.StringBuilder;
-
-        specialinvoke $stack37.<java.lang.StringBuilder: void <init>()>();
-
-        $stack39 = loc.<index.ProgramLocation: soot.SootMethod sootMethod>;
-
-        $stack40 = virtualinvoke $stack39.<soot.SootMethod: java.lang.String toString()>();
-
-        $stack41 = virtualinvoke $stack37.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack40);
-
-        $stack42 = virtualinvoke $stack41.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
-
-        $stack43 = loc.<index.ProgramLocation: int lineNumber>;
-
-        $stack44 = virtualinvoke $stack42.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack43);
-
-        $stack45 = virtualinvoke $stack44.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  ");
-
-        $stack46 = loc.<index.ProgramLocation: int unitId>;
-
-        $stack47 = virtualinvoke $stack45.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($stack46);
-
-        $stack48 = virtualinvoke $stack47.<java.lang.StringBuilder: java.lang.String toString()>();
-
-        virtualinvoke $stack38.<java.io.PrintStream: void println(java.lang.String)>($stack48);
-
-        goto label3;
-
-     label4:
-        goto label2;
-
-     label5:
-        goto label1;
-
-     label6:
         return;
     }
 
     void testVirtualCallMap()
     {
         analyzer.analysis.GlobalCallGraphAnalysisTest this;
-        java.util.LinkedList $stack3;
-        java.util.Map $stack4;
-        java.util.Collection $stack5;
-        java.util.function.Function $stack6;
-        java.util.Comparator $stack7;
-        java.util.HashSet $stack8;
-        java.io.PrintStream $stack9;
-        java.lang.String $stack10;
+        soot.SootClass personInterface, parentSuperClass, $stack23, $stack34, $stack45;
+        soot.SootMethod dispInInterface, dispSuperClass, $stack24, $stack35, $stack46;
+        java.lang.Class $stack5, $stack10, $stack18, $stack29, $stack40;
+        java.util.Map $stack6, $stack11, $stack16, $stack20, $stack27, $stack31, $stack38, $stack42;
+        java.lang.String $stack7, $stack12, $stack21, $stack32, $stack43;
+        java.lang.Object $stack8, $stack13, $stack17, $stack22, $stack28, $stack33, $stack39, $stack44;
+        analyzer.analysis.GlobalCallGraphAnalysis $stack15, $stack26, $stack37;
+        java.util.Set $stack19, $stack30, $stack41;
+        boolean $stack25, $stack36, $stack47;
 
         this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
 
-        $stack3 = new java.util.LinkedList;
+        $stack6 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
 
-        $stack4 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
+        $stack5 = class "Lanalyzer/cases/callGraphAnalysis/Person;";
 
-        $stack5 = interfaceinvoke $stack4.<java.util.Map: java.util.Collection values()>();
+        $stack7 = virtualinvoke $stack5.<java.lang.Class: java.lang.String getName()>();
 
-        specialinvoke $stack3.<java.util.LinkedList: void <init>(java.util.Collection)>($stack5);
+        $stack8 = interfaceinvoke $stack6.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack7);
 
-        $stack6 = dynamicinvoke "apply" <java.util.function.Function ()>() <java.lang.invoke.LambdaMetafactory: java.lang.invoke.CallSite metafactory(java.lang.invoke.MethodHandles$Lookup,java.lang.String,java.lang.invoke.MethodType,java.lang.invoke.MethodType,java.lang.invoke.MethodHandle,java.lang.invoke.MethodType)>(methodtype: java.lang.Object __METHODTYPE__(java.lang.Object), methodhandle: "REF_INVOKE_VIRTUAL" <soot.SootClass: java.lang.String getName()>, methodtype: java.lang.String __METHODTYPE__(soot.SootClass));
+        personInterface = (soot.SootClass) $stack8;
 
-        $stack7 = staticinvoke <java.util.Comparator: java.util.Comparator comparing(java.util.function.Function)>($stack6);
+        dispInInterface = virtualinvoke personInterface.<soot.SootClass: soot.SootMethod getMethod(java.lang.String)>("void disp()");
 
-        interfaceinvoke $stack3.<java.util.List: void sort(java.util.Comparator)>($stack7);
+        $stack11 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
 
-        $stack8 = new java.util.HashSet;
+        $stack10 = class "Lanalyzer/cases/callGraphAnalysis/ParentClass;";
 
-        specialinvoke $stack8.<java.util.HashSet: void <init>(java.util.Collection)>($stack3);
+        $stack12 = virtualinvoke $stack10.<java.lang.Class: java.lang.String getName()>();
 
-        $stack9 = <java.lang.System: java.io.PrintStream out>;
+        $stack13 = interfaceinvoke $stack11.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack12);
 
-        $stack10 = virtualinvoke $stack8.<java.lang.Object: java.lang.String toString()>();
+        parentSuperClass = (soot.SootClass) $stack13;
 
-        virtualinvoke $stack9.<java.io.PrintStream: void println(java.lang.String)>($stack10);
+        dispSuperClass = virtualinvoke parentSuperClass.<soot.SootClass: soot.SootMethod getMethod(java.lang.String)>("void disp()");
+
+        $stack15 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.analysis.GlobalCallGraphAnalysis callGraphAnalysis>;
+
+        $stack16 = $stack15.<analyzer.analysis.GlobalCallGraphAnalysis: java.util.Map virtualCalls>;
+
+        $stack17 = interfaceinvoke $stack16.<java.util.Map: java.lang.Object get(java.lang.Object)>(dispInInterface);
+
+        $stack19 = (java.util.Set) $stack17;
+
+        $stack20 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
+
+        $stack18 = class "Lanalyzer/cases/callGraphAnalysis/ParentClass;";
+
+        $stack21 = virtualinvoke $stack18.<java.lang.Class: java.lang.String getName()>();
+
+        $stack22 = interfaceinvoke $stack20.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack21);
+
+        $stack23 = (soot.SootClass) $stack22;
+
+        $stack24 = virtualinvoke $stack23.<soot.SootClass: soot.SootMethod getMethod(java.lang.String)>("void disp()");
+
+        $stack25 = interfaceinvoke $stack19.<java.util.Set: boolean contains(java.lang.Object)>($stack24);
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertTrue(boolean)>($stack25);
+
+        $stack26 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.analysis.GlobalCallGraphAnalysis callGraphAnalysis>;
+
+        $stack27 = $stack26.<analyzer.analysis.GlobalCallGraphAnalysis: java.util.Map virtualCalls>;
+
+        $stack28 = interfaceinvoke $stack27.<java.util.Map: java.lang.Object get(java.lang.Object)>(dispInInterface);
+
+        $stack30 = (java.util.Set) $stack28;
+
+        $stack31 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
+
+        $stack29 = class "Lanalyzer/cases/callGraphAnalysis/ChildClass;";
+
+        $stack32 = virtualinvoke $stack29.<java.lang.Class: java.lang.String getName()>();
+
+        $stack33 = interfaceinvoke $stack31.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack32);
+
+        $stack34 = (soot.SootClass) $stack33;
+
+        $stack35 = virtualinvoke $stack34.<soot.SootClass: soot.SootMethod getMethod(java.lang.String)>("void disp()");
+
+        $stack36 = interfaceinvoke $stack30.<java.util.Set: boolean contains(java.lang.Object)>($stack35);
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertTrue(boolean)>($stack36);
+
+        $stack37 = <analyzer.analysis.GlobalCallGraphAnalysisTest: analyzer.analysis.GlobalCallGraphAnalysis callGraphAnalysis>;
+
+        $stack38 = $stack37.<analyzer.analysis.GlobalCallGraphAnalysis: java.util.Map virtualCalls>;
+
+        $stack39 = interfaceinvoke $stack38.<java.util.Map: java.lang.Object get(java.lang.Object)>(dispSuperClass);
+
+        $stack41 = (java.util.Set) $stack39;
+
+        $stack42 = <analyzer.analysis.GlobalCallGraphAnalysisTest: java.util.Map classes>;
+
+        $stack40 = class "Lanalyzer/cases/callGraphAnalysis/ChildClass;";
+
+        $stack43 = virtualinvoke $stack40.<java.lang.Class: java.lang.String getName()>();
+
+        $stack44 = interfaceinvoke $stack42.<java.util.Map: java.lang.Object get(java.lang.Object)>($stack43);
+
+        $stack45 = (soot.SootClass) $stack44;
+
+        $stack46 = virtualinvoke $stack45.<soot.SootClass: soot.SootMethod getMethod(java.lang.String)>("void disp()");
+
+        $stack47 = interfaceinvoke $stack41.<java.util.Set: boolean contains(java.lang.Object)>($stack46);
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertTrue(boolean)>($stack47);
+
+        return;
+    }
+
+    void testBackwordCallMap()
+    {
+        analyzer.analysis.GlobalCallGraphAnalysisTest this;
+
+        this := @this: analyzer.analysis.GlobalCallGraphAnalysisTest;
+
+        staticinvoke <org.junit.jupiter.api.Assertions: void assertTrue(boolean)>(1);
+
+        return;
+    }
+
+    static void <clinit>()
+    {
+        org.slf4j.Logger $stack0;
+
+        $stack0 = staticinvoke <org.slf4j.LoggerFactory: org.slf4j.Logger getLogger(java.lang.Class)>(class "Lanalyzer/analysis/GlobalCallGraphAnalysisTest;");
+
+        <analyzer.analysis.GlobalCallGraphAnalysisTest: org.slf4j.Logger LOG> = $stack0;
 
         return;
     }
