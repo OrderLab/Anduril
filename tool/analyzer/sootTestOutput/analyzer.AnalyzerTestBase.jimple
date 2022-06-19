@@ -78,7 +78,7 @@ public class analyzer.AnalyzerTestBase extends java.lang.Object
 
         $stack27[2] = "-i";
 
-        $stack27[3] = "/Users/panjia/Desktop/flaky-reproduction/tool/analyzer/target/test-classes";
+        $stack27[3] = "target/test-classes";
 
         $stack27[4] = "-a";
 

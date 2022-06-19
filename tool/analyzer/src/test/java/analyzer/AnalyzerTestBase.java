@@ -47,7 +47,7 @@ public class AnalyzerTestBase {
 
         // Need to put ../common/target/classes as indir as well to load the McGrayAgent class
         String[] args = {"-o", "sootTestOutput", "-i",
-                "/Users/panjia/Desktop/flaky-reproduction/tool/analyzer/target/test-classes",
+                "target/test-classes",
                 "-a", TestHelper.PHASE_INFO.getFullName(), "-w",
                 "-p", "jb", "use-original-names:true"};
         //String[] args = {"-o", "sootTestOutput", "-i",
