@@ -183,6 +183,11 @@ public final class ExceptionHandlingAnalysis {
     }
 
     public void updateExceptions() {
+        for (final Map.Entry<Unit, Set<SootClass>> entry : unitThrowingException.entrySet()) {
+            final Unit unit = entry.getKey();
+            final Set<SootClass> exceptions = entry.getValue();
+            updateThrow(unit, exceptions);
+        }
         boolean shouldContinue = true;
         while (shouldContinue) {
             shouldContinue = false;
@@ -197,13 +202,7 @@ public final class ExceptionHandlingAnalysis {
                     }
                 }
             }
-            for (final Map.Entry<Unit, Set<SootClass>> entry : unitThrowingException.entrySet()) {
-                final Unit unit = entry.getKey();
-                final Set<SootClass> exceptions = entry.getValue();
-                if (updateThrow(unit, exceptions)) {
-                    shouldContinue = true;
-                }
-            }
+
             for (final Map.Entry<Unit, Map<SootClass, Set<Unit>>> entry : throw2transit.entrySet()) {
                 final Unit unit = entry.getKey();
                 final Set<SootClass> exceptions = entry.getValue().keySet();
