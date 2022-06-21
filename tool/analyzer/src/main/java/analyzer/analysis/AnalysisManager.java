@@ -83,7 +83,7 @@ public final class AnalysisManager {
     public AnalysisManager(final AnalysisInput analysisInput) {
         this.analysisInput = analysisInput;
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(analysisInput.classes);
-        this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput, this.callGraphAnalysis);
+        this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis);
         for (final SootClass sc : analysisInput.classes) {
             analyzeClass(sc);
         }

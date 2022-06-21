@@ -11,16 +11,16 @@ public final class GlobalExceptionAnalysis {
     public final Map<SootMethod, Set<SootMethod>> usage = new HashMap<>(); // method -> methods using this method
     public static final Set<SootMethod> emptySet = new HashSet<>();
 
-    public GlobalExceptionAnalysis(final AnalysisInput analysisInput,
+    public GlobalExceptionAnalysis(final List<SootClass> classes,
                                    final GlobalCallGraphAnalysis globalCallGraphAnalysis) {
         // prepare the methods
-        for (final SootClass sootClass : analysisInput.classes) {
+        for (final SootClass sootClass : classes) {
             for (final SootMethod sootMethod : sootClass.getMethods()) {
                 if (sootMethod.hasActiveBody()) {
                     final Body body = sootMethod.getActiveBody();
                     final UnitGraph graph = new BriefUnitGraph(body);
                     final ExceptionHandlingAnalysis analysis =
-                            new ExceptionHandlingAnalysis(analysisInput, sootMethod, body, graph, globalCallGraphAnalysis);
+                            new ExceptionHandlingAnalysis(classes, sootMethod, body, graph, globalCallGraphAnalysis);
                     analyses.put(sootMethod, analysis);
                     for (final SootMethod method : analysis.methodOccurrences.keySet()) {
 //                        if (method.getName().equals("commit") &&

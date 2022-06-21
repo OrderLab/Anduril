@@ -3,6 +3,7 @@ package analyzer.analysis;
 import soot.*;
 import soot.jimple.DefinitionStmt;
 import soot.jimple.InvokeExpr;
+import soot.jimple.NewExpr;
 import soot.jimple.ThrowStmt;
 import soot.toolkits.graph.UnitGraph;
 
@@ -62,12 +63,13 @@ public final class ExceptionHandlingAnalysis {
 
     public boolean update = false; // for global interprocedural analysis
 
-    public ExceptionHandlingAnalysis(final AnalysisInput analysisInput, final SootMethod method, final Body body,
+    public ExceptionHandlingAnalysis(final List<SootClass> classes, final SootMethod method, final Body body,
                                      final UnitGraph graph, final GlobalCallGraphAnalysis globalCallGraphAnalysis) {
         this.method = method;
         this.body = body;
         this.graph = graph;
         this.units = body.getUnits();
+        Set<SootClass> classSet = new HashSet<>(classes);
         int counter = 0;
         // prepare ids, and infer throw locations for the variables carrying exceptions
         for (final Unit unit : units) {
@@ -76,11 +78,10 @@ public final class ExceptionHandlingAnalysis {
                 final Value lhs = ((DefinitionStmt) unit).getLeftOp();
                 if (lhs instanceof Local) {
                     final Value rhs = ((DefinitionStmt) unit).getRightOp();
-                    if (rhs instanceof InvokeExpr) {
-                        final SootMethod invocation = ((InvokeExpr) rhs).getMethod();
-                        if (invocation.isConstructor() &&
-                                SubTypingAnalysis.v().isThrowable(invocation.getDeclaringClass())) {
-                            final SootClass exception = invocation.getDeclaringClass();
+                    if (rhs instanceof NewExpr) {
+                        final SootClass invocationClass = ((NewExpr) rhs).getBaseType().getSootClass();
+                        if (SubTypingAnalysis.v().isThrowable(invocationClass)) {
+                            final SootClass exception = invocationClass;
                             unitCarryingException.put(unit, new HashSet<>(Collections.singletonList(exception)));
                             newExceptions.put(unit, exception);
                             searchThrowLocation(unit, (Local) lhs);
@@ -104,7 +105,7 @@ public final class ExceptionHandlingAnalysis {
                 final Value value = valueBox.getValue();
                 if (value instanceof InvokeExpr) {
                     final SootMethod invocation = ((InvokeExpr) value).getMethod();
-                    if (analysisInput.classSet.contains(invocation.getDeclaringClass())) {
+                    if (classSet.contains(invocation.getDeclaringClass())) {
                         internalCalls.put(unit, invocation);
                         for (final SootMethod virtualMethod : globalCallGraphAnalysis.virtualCalls.get(invocation)) {
                             if (virtualMethod.hasActiveBody()) {
