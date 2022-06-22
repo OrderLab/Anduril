@@ -57,5 +57,85 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
                 .get(Scene.v().loadClassAndSupport(IOException.class.getName())).contains(unitIds.get(3)));
         assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(4))
                 .get(Scene.v().loadClassAndSupport(IOException.class.getName())).size() == 1);
+        assertTrue(targetMethodAnalysis.methodExceptions.containsKey(Scene.v().loadClassAndSupport(IOException.class.getName())));
+    }
+
+    @Test
+    void complexLocalCase() {
+        SootClass target = classes.get(ExceptionExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void complexLocalCaught()");
+        ExceptionHandlingAnalysis targetMethodAnalysis = exceptionAnalysis.analyses.get(targetMethod);
+        Map<Integer, Unit> unitIds = methodUnitIds.get(targetMethod);
+        //for (Integer i :  unitIds.keySet()) {
+            //System.out.println(i);
+            //System.out.println(unitIds.get(i).toString());
+        //}
+        //System.out.println(targetMethodAnalysis.transit2throw.toString());
+        SootClass ioException = Scene.v().loadClassAndSupport(IOException.class.getName());
+        //$stack3 := @caughtexception={java.io.IOException=[throw $stack4]}
+        assertTrue(targetMethodAnalysis.transit2throw.containsKey(unitIds.get(6)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(6)).get(ioException).contains(unitIds.get(5)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(6)).get(ioException).size()==1);
+        //$stack3 := @caughtexception={java.io.IOException=[throw $stack4]}
+        assertTrue(targetMethodAnalysis.transit2throw.containsKey(unitIds.get(4)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(4)).get(ioException).contains(unitIds.get(3)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(4)).get(ioException).size()==1);
+        //Test for place whose exception can not be caught.
+        assertTrue(targetMethodAnalysis.methodExceptions.containsKey(ioException));
+        assertTrue(targetMethodAnalysis.methodExceptions.get(ioException).contains(unitIds.get(7)));
+    }
+
+    @Test
+    void internalCallingCase() {
+        SootClass target = classes.get(ExceptionExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void internalCalling()");
+        ExceptionHandlingAnalysis targetMethodAnalysis = exceptionAnalysis.analyses.get(targetMethod);
+        Map<Integer, Unit> unitIds = methodUnitIds.get(targetMethod);
+        //for (Integer i :  unitIds.keySet()) {
+        //System.out.println(i);
+        //System.out.println(unitIds.get(i).toString());
+        //}
+        //System.out.println(targetMethodAnalysis.transit2throw.toString());
+        SootClass ioException = Scene.v().loadClassAndSupport(IOException.class.getName());
+
+        //The local Variable name may change but unitIds will not change through each test.
+
+        //$$stack2 := @caughtexception={java.io.IOException=
+        // [virtualinvoke this.<analyzer.cases.exceptionHandlingAnalysis.ExceptionExample: void complexLocalCaught()>()]}
+        assertTrue(targetMethodAnalysis.transit2throw.containsKey(unitIds.get(3)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(3)).get(ioException).contains(unitIds.get(1)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(3)).get(ioException).size()==1);
+        //$stack3 := @caughtexception={java.io.IOException=[throw $stack2]}
+        assertTrue(targetMethodAnalysis.transit2throw.containsKey(unitIds.get(6)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(6)).get(ioException).contains(unitIds.get(4)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(6)).get(ioException).size()==1);
+        //Test for place whose exception can not be caught.
+        assertTrue(targetMethodAnalysis.methodExceptions.containsKey(ioException));
+        assertTrue(targetMethodAnalysis.methodExceptions.get(ioException).contains(unitIds.get(7)));
+    }
+
+    @Test
+    void externalCallingCase() {
+        SootClass target = classes.get(ExceptionExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void externalCalling()");
+        ExceptionHandlingAnalysis targetMethodAnalysis = exceptionAnalysis.analyses.get(targetMethod);
+        Map<Integer, Unit> unitIds = methodUnitIds.get(targetMethod);
+        //for (Integer i :  unitIds.keySet()) {
+         //System.out.println(i);
+        //System.out.println(unitIds.get(i).toString());
+        //}
+        //System.out.println(targetMethodAnalysis.transit2throw.toString());
+        SootClass ioException = Scene.v().loadClassAndSupport(IOException.class.getName());
+        //$stack4 := @caughtexception={java.io.IOException=[throw $stack5]}
+        assertTrue(targetMethodAnalysis.transit2throw.containsKey(unitIds.get(7)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(7)).get(ioException).contains(unitIds.get(5)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(7)).get(ioException).size()==1);
+        //$stack5 := @caughtexception=
+        // {java.io.IOException=[virtualinvoke $stack2.<java.net.ServerSocket: java.net.Socket accept()>()]}
+        assertTrue(targetMethodAnalysis.transit2throw.containsKey(unitIds.get(4)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(4)).get(ioException).contains(unitIds.get(2)));
+        assertTrue(targetMethodAnalysis.transit2throw.get(unitIds.get(4)).get(ioException).size()==1);
+        assertTrue(targetMethodAnalysis.methodExceptions.containsKey(ioException));
+        assertTrue(targetMethodAnalysis.methodExceptions.get(ioException).contains(unitIds.get(8)));
     }
 }
