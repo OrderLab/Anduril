@@ -24,7 +24,7 @@ public class IndexManager {
                 final Map<SootMethod, Map<Unit, ProgramLocation>> maps = new HashMap<>();
                 index.put(sootClass, maps);
                 final String shortClassName = sootClass.getName().substring(sootClass.getName().lastIndexOf('.') + 1);
-                for (final SootMethod sootMethod : sootClass.getMethods()) {
+                for (final SootMethod sootMethod : new ArrayList<SootMethod>(sootClass.getMethods())) {
                     if (sootMethod.hasActiveBody()) {
                         final Map<Unit, ProgramLocation> locations = new HashMap<>();
                         maps.put(sootMethod, locations);
