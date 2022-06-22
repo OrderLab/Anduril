@@ -233,5 +233,23 @@ public class AnalysisInput {
                 }
             }
         }
+
+        if (options.getFlakyCase().equals("hbase-20492")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.master.assignment.TestUnexpectedStateException");
+            this.testMethod = this.testClass.getMethod("void testUnableToAssign()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getDeclaringClass().getName().equals("org.apache.hadoop.hbase.master.assignment.TestUnexpectedStateException") &&
+                                inv.getName().equals("foo")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
