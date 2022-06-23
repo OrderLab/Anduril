@@ -25,7 +25,7 @@ public class LocationEvent extends ProgramEvent {
 
     @Override
     public List<ProgramEvent> computeFrontiers(final AnalysisManager analysisManager) {
-        final IntraProceduralAnalysis analysis = analysisManager.getAnalysis(this.location.sootClass, this.location.sootMethod);
+        final IntraProceduralAnalysis analysis = analysisManager.globalIntraProceduralAnalysis.getAnalysis(this.location.sootClass, this.location.sootMethod);
         final Unit blockHead = analysis.basicBlockAnalysis.heads.get(this.location.unit);
         if (analysis.basicBlockAnalysis.basicBlocks.get(blockHead) == blockHead) {
             final Unit dominator = analysis.dominatorAnalysis.dominators.get(blockHead);

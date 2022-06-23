@@ -28,7 +28,7 @@ public final class ConditionEvent extends LocationEvent {
     }
 
     private Value search(final Value value, final AnalysisManager analysisManager) {
-        final IntraProceduralAnalysis analysis = analysisManager.getAnalysis(location.sootClass, location.sootMethod);
+        final IntraProceduralAnalysis analysis = analysisManager.globalIntraProceduralAnalysis.getAnalysis(location.sootClass, location.sootMethod);
         final PatchingChain<Unit> units = location.sootMethod.getActiveBody().getUnits();
         for (Unit unit = analysis.basicBlockAnalysis.heads.get(location.unit); unit != location.unit; unit = units.getSuccOf(unit)) {
             if (unit instanceof DefinitionStmt) {

@@ -91,7 +91,7 @@ public final class GlobalSlicingAnalysis {
     }
 
     private Value search(final Value value, final SootClass sootClass, final SootMethod sootMethod, final Unit u) {
-        final IntraProceduralAnalysis analysis = this.analysisManager.getAnalysis(sootClass, sootMethod);
+        final IntraProceduralAnalysis analysis = this.analysisManager.globalIntraProceduralAnalysis.getAnalysis(sootClass, sootMethod);
         final PatchingChain<Unit> units = sootMethod.getActiveBody().getUnits();
         for (Unit unit = analysis.basicBlockAnalysis.heads.get(u); unit != u; unit = units.getSuccOf(unit)) {
             if (unit instanceof DefinitionStmt) {

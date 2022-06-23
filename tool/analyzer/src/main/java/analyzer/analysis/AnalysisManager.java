@@ -13,11 +13,12 @@ import java.io.IOException;
 import java.util.*;
 
 public final class AnalysisManager {
-    private final Map<SootClass, Map<SootMethod, IntraProceduralAnalysis>> intraproceduralAnalyses = new HashMap<>();
+    //private final Map<SootClass, Map<SootMethod, IntraProceduralAnalysis>> intraproceduralAnalyses = new HashMap<>();
     public final GlobalExceptionAnalysis exceptionAnalysis;
     public final GlobalSlicingAnalysis slicingAnalysis;
     public final GlobalCallGraphAnalysis callGraphAnalysis;
     public final AnalysisInput analysisInput;
+    public final GlobalIntraProceduralAnalysis globalIntraProceduralAnalysis;
 
     private int injectionCounter = 0;
     public InjectionPoint createInjectionPoint(final ProgramEvent caller, final ProgramEvent callee,
@@ -25,13 +26,6 @@ public final class AnalysisManager {
         return new InjectionPoint(caller, callee, location, injectionCounter++);
     }
 
-    public IntraProceduralAnalysis getAnalysis(final SootClass sootClass, final SootMethod sootMethod) {
-        final Map<SootMethod, IntraProceduralAnalysis> map = intraproceduralAnalyses.get(sootClass);
-        if (map == null) {
-            return null;
-        }
-        return map.get(sootMethod);
-    }
 
     public void instrument() {
         if (analysisInput.distributedMode) {
@@ -50,7 +44,7 @@ public final class AnalysisManager {
         }
         try (final FileWriter writer = new FileWriter("blockmap.txt")) {
             for (final Map.Entry<SootClass, Map<SootMethod, IntraProceduralAnalysis>> m
-                    : intraproceduralAnalyses.entrySet()) {
+                    : globalIntraProceduralAnalysis.intraproceduralAnalyses.entrySet()) {
                 for (final Map.Entry<SootMethod, IntraProceduralAnalysis> a : m.getValue().entrySet()) {
                     final BasicBlockAnalysis b = a.getValue().basicBlockAnalysis;
                     new TraceInstrumentor(b).instrument();
@@ -63,30 +57,12 @@ public final class AnalysisManager {
         }
     }
 
-    private void analyzeClass(final SootClass sootClass) {
-        final Map<SootMethod, IntraProceduralAnalysis> result = new HashMap<>();
-        intraproceduralAnalyses.put(sootClass, result);
-        for (final SootMethod method : sootClass.getMethods()) {
-            if (method.hasActiveBody()) {
-                final Body body = method.getActiveBody();
-                final IntraProceduralAnalysis a = new IntraProceduralAnalysis(method, body);
-                result.put(method, a);
-            }
-//            if (sootClass.getName()
-//                    .equals("org.apache.zookeeper.server.quorum.Leader$LearnerCnxAcceptor$LearnerCnxAcceptorHandler")) {
-//
-//            }
-//            System.out.println(method.getName());
-        }
-    }
 
     public AnalysisManager(final AnalysisInput analysisInput) {
         this.analysisInput = analysisInput;
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(analysisInput.classes);
         this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis);
-        for (final SootClass sc : analysisInput.classes) {
-            analyzeClass(sc);
-        }
+        this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(analysisInput.classes);
         this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput, this.callGraphAnalysis, this);
 //        SootClass c = Scene.v()
 //                .getSootClass("org.apache.zookeeper.server.quorum.Leader$LearnerCnxAcceptor$LearnerCnxAcceptorHandler");
