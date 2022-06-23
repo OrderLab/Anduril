@@ -37,12 +37,12 @@ public final class GlobalSlicingAnalysis {
     public GlobalCallGraphAnalysis globalCallGraphAnalysis;
     public GlobalIntraProceduralAnalysis globalIntraProceduralAnalysis;
 
-    public GlobalSlicingAnalysis(final AnalysisInput analysisInput,
+    public GlobalSlicingAnalysis(List<SootClass> classes,
                                  final GlobalCallGraphAnalysis globalCallGraphAnalysis,
                                  final GlobalIntraProceduralAnalysis globalIntraProceduralAnalysis) {
         this.globalCallGraphAnalysis = globalCallGraphAnalysis;
         this.globalIntraProceduralAnalysis = globalIntraProceduralAnalysis;
-        for (final SootClass sootClass : analysisInput.classes) {
+        for (final SootClass sootClass : classes) {
             for (final SootField f : sootClass.getFields()) {
                 dataWrite.put(f, new HashSet<>());
             }
@@ -51,7 +51,7 @@ public final class GlobalSlicingAnalysis {
             }
         }
         // TODO: parameter ref
-        for (final SootClass sootClass : analysisInput.classes) {
+        for (final SootClass sootClass : classes) {
             for (final SootMethod sootMethod : sootClass.getMethods()) {
                 if (sootMethod.hasActiveBody()) {
                     final Body body = sootMethod.getActiveBody();

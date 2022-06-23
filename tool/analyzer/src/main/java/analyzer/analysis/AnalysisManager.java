@@ -63,7 +63,7 @@ public final class AnalysisManager {
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(analysisInput.classes);
         this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis);
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(analysisInput.classes);
-        this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
+        this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput.classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
 //        SootClass c = Scene.v()
 //                .getSootClass("org.apache.zookeeper.server.quorum.Leader$LearnerCnxAcceptor$LearnerCnxAcceptorHandler");
 //        SootMethod m = c.getMethod("void acceptConnections()");
