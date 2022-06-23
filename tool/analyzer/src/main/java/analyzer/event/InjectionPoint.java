@@ -39,7 +39,7 @@ public final class InjectionPoint {
 
     public JsonObjectBuilder dump(final EventManager eventManager) {
         final BasicBlockAnalysis basicBlockAnalysis =
-                eventManager.analysisManager.getAnalysis(location.sootClass, location.sootMethod).basicBlockAnalysis;
+                eventManager.analysisManager.globalIntraProceduralAnalysis.getAnalysis(location.sootClass, location.sootMethod).basicBlockAnalysis;
         this.blockId = basicBlockAnalysis.ids.get(basicBlockAnalysis.heads.get(location.unit));
         final JsonObjectBuilder builder = Json.createObjectBuilder()
                 .add("id", this.id)

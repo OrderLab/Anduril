@@ -32,7 +32,7 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
     private static List<SootClass> classList;
 
     @BeforeAll
-    public static void makingCallGraphAnalysis() {
+    public static void makingCallGraphAndExceptionAnalysis() {
         LOG.info("ClassGraphAnalysis.....");
         classList = new LinkedList<>(classes.values());
         classList.sort(Comparator.comparing(SootClass::getName));

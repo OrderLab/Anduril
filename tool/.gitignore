@@ -346,5 +346,8 @@ tags
 # Analyzer jimple output
 analyzer/sootOutput/*.jimple
 analyzer/sootTestOutput/*.jimple
+
+#.idea file
+.idea/*
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij+iml,macos,vim,cmake,node
 
