@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GlobalIntraProceduralAnalysis {
-    public final Map<SootClass, Map<SootMethod, IntraProceduralAnalysis>> intraproceduralAnalyses = new HashMap<>();
+    public final Map<SootClass, Map<SootMethod, IntraProceduralAnalysis>> intraProceduralAnalyses = new HashMap<>();
 
     GlobalIntraProceduralAnalysis(List<SootClass> classes) {
         for (final SootClass sc : classes) {
@@ -19,7 +19,7 @@ public class GlobalIntraProceduralAnalysis {
 
     private void analyzeClass(final SootClass sootClass) {
         final Map<SootMethod, IntraProceduralAnalysis> result = new HashMap<>();
-        intraproceduralAnalyses.put(sootClass, result);
+        intraProceduralAnalyses.put(sootClass, result);
         for (final SootMethod method : sootClass.getMethods()) {
             if (method.hasActiveBody()) {
                 final Body body = method.getActiveBody();
@@ -35,7 +35,7 @@ public class GlobalIntraProceduralAnalysis {
     }
 
     public IntraProceduralAnalysis getAnalysis(final SootClass sootClass, final SootMethod sootMethod) {
-        final Map<SootMethod, IntraProceduralAnalysis> map = intraproceduralAnalyses.get(sootClass);
+        final Map<SootMethod, IntraProceduralAnalysis> map = intraProceduralAnalyses.get(sootClass);
         if (map == null) {
             return null;
         }

@@ -44,7 +44,7 @@ public final class AnalysisManager {
         }
         try (final FileWriter writer = new FileWriter("blockmap.txt")) {
             for (final Map.Entry<SootClass, Map<SootMethod, IntraProceduralAnalysis>> m
-                    : globalIntraProceduralAnalysis.intraproceduralAnalyses.entrySet()) {
+                    : globalIntraProceduralAnalysis.intraProceduralAnalyses.entrySet()) {
                 for (final Map.Entry<SootMethod, IntraProceduralAnalysis> a : m.getValue().entrySet()) {
                     final BasicBlockAnalysis b = a.getValue().basicBlockAnalysis;
                     new TraceInstrumentor(b).instrument();
