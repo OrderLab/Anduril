@@ -35,13 +35,13 @@ public final class GlobalSlicingAnalysis {
     public final Map<SootField, Set<Location>> dataWrite = new HashMap<>();
     public final Map<SootMethod, Set<Value>> retValues = new HashMap<>();
     public GlobalCallGraphAnalysis globalCallGraphAnalysis;
-    public AnalysisManager analysisManager;
+    public GlobalIntraProceduralAnalysis globalIntraProceduralAnalysis;
 
     public GlobalSlicingAnalysis(final AnalysisInput analysisInput,
                                  final GlobalCallGraphAnalysis globalCallGraphAnalysis,
-                                 final AnalysisManager analysisManager) {
+                                 final GlobalIntraProceduralAnalysis globalIntraProceduralAnalysis) {
         this.globalCallGraphAnalysis = globalCallGraphAnalysis;
-        this.analysisManager = analysisManager;
+        this.globalIntraProceduralAnalysis = globalIntraProceduralAnalysis;
         for (final SootClass sootClass : analysisInput.classes) {
             for (final SootField f : sootClass.getFields()) {
                 dataWrite.put(f, new HashSet<>());
@@ -91,7 +91,7 @@ public final class GlobalSlicingAnalysis {
     }
 
     private Value search(final Value value, final SootClass sootClass, final SootMethod sootMethod, final Unit u) {
-        final IntraProceduralAnalysis analysis = this.analysisManager.globalIntraProceduralAnalysis.getAnalysis(sootClass, sootMethod);
+        final IntraProceduralAnalysis analysis = this.globalIntraProceduralAnalysis.getAnalysis(sootClass, sootMethod);
         final PatchingChain<Unit> units = sootMethod.getActiveBody().getUnits();
         for (Unit unit = analysis.basicBlockAnalysis.heads.get(u); unit != u; unit = units.getSuccOf(unit)) {
             if (unit instanceof DefinitionStmt) {
