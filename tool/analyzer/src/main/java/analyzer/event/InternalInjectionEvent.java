@@ -76,4 +76,7 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
     public int hashCode() {
         return Objects.hash(super.hashCode(), exceptionMethod);
     }
+
+    @Override
+    public String toString() {return "internal_injection_event"+"  "+exceptionType.getName();}
 }

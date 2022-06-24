@@ -9,5 +9,6 @@ import java.util.List;
 public abstract class ProgramEvent {
     abstract public List<ProgramEvent> computeFrontiers(final AnalysisManager analysisManager);
     abstract public JsonObjectBuilder dump(final EventManager eventManager);
+    abstract public String toString();
 //    abstract public void parse(final JsonObject json);
 }

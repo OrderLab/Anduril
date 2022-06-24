@@ -1,6 +1,7 @@
 package analyzer.event;
 
 import analyzer.analysis.AnalysisManager;
+import analyzer.analysis.GlobalSlicingAnalysis;
 import analyzer.analysis.IntraProceduralAnalysis;
 import index.ProgramLocation;
 import soot.SootClass;
@@ -72,5 +73,10 @@ public class LocationEvent extends ProgramEvent {
     @Override
     public int hashCode() {
         return Objects.hash(location);
+    }
+
+    @Override
+    public String toString() {
+        return "Location Event"+"  "+location.unit.toString();
     }
 }

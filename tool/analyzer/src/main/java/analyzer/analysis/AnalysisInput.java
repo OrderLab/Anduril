@@ -31,6 +31,16 @@ public class AnalysisInput {
     public final Set<ProgramLocation> logEvents = new HashSet<>();
     public final List<SootClass> mainClasses = new ArrayList<>();
 
+    //Easy constructor to use for test
+    public AnalysisInput (IndexManager indexManager) {
+        this.indexManager = indexManager;
+        this.classes = new LinkedList<>(this.indexManager.classes.values());
+        this.classes.sort(Comparator.comparing(SootClass::getName));
+        this.classSet = new HashSet<>(this.classes);
+
+    }
+
+
     public AnalysisInput(final AnalyzerOptions options, final Collection<SootClass> classes) {
         this.indexManager = new IndexManager(classes, prefix);
         this.classes = new LinkedList<>(this.indexManager.classes.values());
