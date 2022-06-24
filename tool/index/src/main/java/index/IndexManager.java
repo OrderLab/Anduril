@@ -9,12 +9,19 @@ import javax.json.JsonObject;
 import java.util.*;
 
 public class IndexManager {
-    public final Map<String, SootClass> classes = new TreeMap<>();
-    public final Map<SootClass, Map<SootMethod, Map<Unit, ProgramLocation>>> index = new HashMap<>();
+    public Map<String, SootClass> classes = new TreeMap<>();
+    public Map<SootClass, Map<SootMethod, Map<Unit, ProgramLocation>>> index = new HashMap<>();
     public final Map<SootMethod, Map<Integer, Unit>> methodUnitIds = new HashMap<>();
     public final String prefix;
 
     public final Map<LogEntry, ProgramLocation> logEntries = new HashMap<>();
+
+    //Used for test
+    public IndexManager(Map<SootClass, Map<SootMethod, Map<Unit, ProgramLocation>>> index, Map<String, SootClass> classes) {
+        this.index = index;
+        this.classes = classes;
+        prefix = null;
+    }
 
     public IndexManager(final Collection<SootClass> classes, final String prefix) {
         this.prefix = prefix;

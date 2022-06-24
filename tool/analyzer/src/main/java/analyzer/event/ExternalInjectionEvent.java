@@ -45,4 +45,7 @@ public final class ExternalInjectionEvent extends ExceptionInjectionEvent {
     public int hashCode() {
         return Objects.hash(super.hashCode(), exceptionMethod);
     }
+
+    @Override
+    public String toString() {return "external_injection_event" +"  "+exceptionType.getName();}
 }

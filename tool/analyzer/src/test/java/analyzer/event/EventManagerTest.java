@@ -1,39 +1,69 @@
 package analyzer.event;
 
+import index.IndexManager;
 import analyzer.AnalyzerTestBase;
+import analyzer.analysis.AnalysisInput;
 import analyzer.analysis.AnalysisManager;
-import analyzer.analysis.GlobalCallGraphAnalysis;
-import analyzer.analysis.GlobalIntraProceduralAnalysis;
-import analyzer.analysis.GlobalSlicingAnalysis;
+import analyzer.cases.eventManager.EventGraphExample;
+import fj.Hash;
+import index.ProgramLocation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import soot.SootClass;
+import soot.*;
+import soot.jimple.InvokeExpr;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EventManagerTest extends AnalyzerTestBase {
 
     public static AnalysisManager analysisManager;
-    public static EventGraph eventGraph;
+
 
     @BeforeAll
     public static void makingIntraProceduralAnalysis() {
-        List<SootClass> classList = new LinkedList<>(classes.values());
-        classList.sort(Comparator.comparing(SootClass::getName));
-        analysisManager = new AnalysisManager(classList);
+        AnalysisInput analysisInput = new AnalysisInput(new IndexManager(index,classes));
+        analysisManager = new AnalysisManager(analysisInput);
+    }
 
-
-        //eventGraph = new EventGraph(analysisManager);
+    ProgramEvent findSymptom1(){
+        SootClass testClass = classes.get(EventGraphExample.class.getName());
+        SootMethod testMethod = testClass.getMethod("void run()");
+        for (final ProgramLocation location : index.get(testClass).get(testMethod).values()) {
+            for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                final Value value = valueBox.getValue();
+                if (value instanceof InvokeExpr) {
+                    //System.out.println(value);
+                    final SootMethod inv = ((InvokeExpr) value).getMethod();
+                    if (inv.getDeclaringClass().getName().equals("java.lang.AssertionError")) {
+                        //System.out.println("good"+location.unit);
+                        return new LocationEvent(location);
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     @Test
-    void dummy() {
+    void allExternal() {
+        ProgramEvent symptomEvent = findSymptom1();
+        //Make symptom event!
+        assertTrue(symptomEvent!=null);
 
+        Set<ProgramLocation> logEvents = new HashSet<>();
+        for (ProgramLocation p:logEntries.values()) {
+            System.out.println(p.unit.toString());
+            logEvents.add(p);
+        }
+        EventGraph eventGraph = new EventGraph(analysisManager,symptomEvent,logEvents);
+        for (EventGraph.Node p:eventGraph.bfs()) {
+            System.out.println(p.depth);
+            System.out.println(p.event.toString());
+        }
     }
+
 
 
 }

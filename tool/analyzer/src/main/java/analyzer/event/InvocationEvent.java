@@ -57,4 +57,9 @@ public final class InvocationEvent extends ProgramEvent {
     public int hashCode() {
         return Objects.hash(locationMethod);
     }
+
+    @Override
+    public String toString() {
+        return "Invocation Event" + "  "+locationClass.getName() +"  "+locationMethod.getSubSignature();
+    }
 }

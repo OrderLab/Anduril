@@ -69,6 +69,7 @@ public final class AnalysisManager {
 
     public AnalysisManager(final AnalysisInput analysisInput) {
         this.analysisInput = analysisInput;
+        System.out.println(analysisInput.classes);
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(analysisInput.classes);
         this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis);
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(analysisInput.classes);
