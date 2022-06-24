@@ -3,10 +3,7 @@ package analyzer.event;
 import analyzer.analysis.AnalysisManager;
 import index.ProgramLocation;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EventGraph {
 
@@ -28,11 +25,11 @@ public class EventGraph {
         }
     }
 
-    public EventGraph(final AnalysisManager analysisManager) {
+    public EventGraph(final AnalysisManager analysisManager, ProgramEvent symptomEvent, Set<ProgramLocation> logEvents) {
         this.root = new Node(null, -1);
 
         final LinkedList<EventGraph.Node> queue = new LinkedList<>();
-        final EventGraph.Node root = new EventGraph.Node(analysisManager.analysisInput.symptomEvent, 0);
+        final EventGraph.Node root = new EventGraph.Node(symptomEvent, 0);
         queue.addLast(root);
         nodeIds.put(root.event, 0);
         nodes.put(root.event, root);
@@ -40,7 +37,7 @@ public class EventGraph {
         this.root.out.add(root);
         //root.in.add(this.root);
 
-        for (final ProgramLocation loc : analysisManager.analysisInput.logEvents) {
+        for (final ProgramLocation loc : logEvents) {
             final ProgramEvent event = new LocationEvent(loc);
             if (!nodes.containsKey(event)) {
                 final EventGraph.Node node = new EventGraph.Node(event, 0);
@@ -80,6 +77,27 @@ public class EventGraph {
                 this.injectionPoints.addAll(((InternalInjectionEvent) node.event).injectionPoints);
             }
         }
+    }
+
+    public List<Node> bfs() {
+        Set<EventGraph.Node> visited = new HashSet<EventGraph.Node>();
+        List<Node> bfs = new LinkedList<>();
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.addLast(this.root);
+        while (!queue.isEmpty()) {
+            Node node = queue.pollFirst();
+            if (node != this.root) {
+                bfs.add(node);
+            }
+            for (Node n : node.out) {
+                if (!visited.contains(n)) {
+                    visited.add(n);
+                    queue.addLast(n);
+                }
+            }
+        }
+
+        return bfs;
     }
 
 

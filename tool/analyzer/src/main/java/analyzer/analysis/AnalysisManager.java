@@ -57,6 +57,15 @@ public final class AnalysisManager {
         }
     }
 
+//Used for test
+    public AnalysisManager(List<SootClass> classes) {
+        this.analysisInput = null;
+        this.callGraphAnalysis = new GlobalCallGraphAnalysis(classes);
+        this.exceptionAnalysis = new GlobalExceptionAnalysis(classes, this.callGraphAnalysis);
+        this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(classes);
+        this.slicingAnalysis = new GlobalSlicingAnalysis(classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
+    }
+
 
     public AnalysisManager(final AnalysisInput analysisInput) {
         this.analysisInput = analysisInput;

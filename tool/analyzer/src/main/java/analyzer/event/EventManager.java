@@ -36,7 +36,7 @@ public final class EventManager {
 //        options.put(JsonGenerator.PRETTY_PRINTING, true);
 //        this.jsonBuilderFactory = Json.createBuilderFactory(options);
 
-        this.eventGraph = new EventGraph(analysisManager);
+        this.eventGraph = new EventGraph(analysisManager,analysisManager.analysisInput.symptomEvent,analysisManager.analysisInput.logEvents);
 
         int internalInjections = 0, externalInjections = 0;
         for (final InjectionPoint injectionPoint : this.eventGraph.injectionPoints) {

@@ -31,6 +31,7 @@ public class AnalysisInput {
     public final Set<ProgramLocation> logEvents = new HashSet<>();
     public final List<SootClass> mainClasses = new ArrayList<>();
 
+
     public AnalysisInput(final AnalyzerOptions options, final Collection<SootClass> classes) {
         this.indexManager = new IndexManager(classes, prefix);
         this.classes = new LinkedList<>(this.indexManager.classes.values());
