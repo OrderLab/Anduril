@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>Apache HBase Downloads</title>
+  </properties>
+
+<body>
+<section name="Downloads">
+  <p>The below table lists mirrored release artifacts and their associated hashes and signatures
+  available ONLY at apache.org. The keys used to sign releases can be found in our published
+  <a href="https://downloads.apache.org/hbase/KEYS">KEYS</a> file. See
+  <a href="https://www.apache.org/dyn/closer.cgi#verify">Verify The Integrity Of The Files</a> for
+  how to verify your mirrored downloads.
+  </p>
+  <section name="Releases">
+  <table>
+    <tr>
+      <th>Version</th>
+      <th>Release Date</th>
+      <th>Compatibility Report</th>
+      <th>Changes</th>
+      <th>Release Notes</th>
+      <th>Download</th>
+      <th>Notices</th>
+    </tr>
+    <tr>
+      <td style="test-align: left">
+        3.0.0-alpha-1
+      </td>
+      <td style="test-align: left">
+        2021/07/20
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/api_compare_2.0.0_to_3.0.0-alpha-1RC0.html">3.0.0-alpha-1 vs 2.0.0</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/CHANGES.md">Changes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/RELEASENOTES.md">Release Notes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-src.tar.gz">src</a> (<a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-src.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-src.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-bin.tar.gz">bin</a> (<a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-bin.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-bin.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-client-bin.tar.gz">client-bin</a> (<a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-client-bin.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/3.0.0-alpha-1/hbase-3.0.0-alpha-1-client-bin.tar.gz.asc">asc</a>)
+      </td>
+      <td>
+        Testing only, not production ready
+      </td>
+    </tr>
+    <tr>
+      <td style="test-align: left">
+        2.4.8
+      </td>
+      <td style="test-align: left">
+        2021/11/03
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/2.4.8/api_compare_2.4.7_to_2.4.8RC0.html">2.4.8 vs 2.4.7</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/2.4.8/CHANGES.md">Changes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/2.4.8/RELEASENOTES.md">Release Notes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/2.4.8/hbase-2.4.8-src.tar.gz">src</a> (<a href="https://downloads.apache.org/hbase/2.4.8/hbase-2.4.8-src.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/2.4.8/hbase-2.4.8-src.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/2.4.8/hbase-2.4.8-bin.tar.gz">bin</a> (<a href="https://downloads.apache.org/hbase/2.4.8/hbase-2.4.8-bin.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/2.4.8/hbase-2.4.8-bin.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/2.4.8/hbase-2.4.8-client-bin.tar.gz">client-bin</a> (<a href="https://downloads.apache.org/hbase/2.4.8/hbase-2.4.8-client-bin.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/2.4.8/hbase-2.4.8-client-bin.tar.gz.asc">asc</a>)
+      </td>
+      <td><em>stable release</em></td>
+    </tr>
+    <tr>
+      <td style="test-align: left">
+        2.3.7
+      </td>
+      <td style="test-align: left">
+        2021/10/19
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/2.3.7/api_compare_2.3.6_to_2.3.7RC0.html">2.3.6 vs 2.3.7</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/2.3.7/CHANGES.md">Changes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/2.3.7/RELEASENOTES.md">Release Notes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/2.3.7/hbase-2.3.7-src.tar.gz">src</a> (<a href="https://downloads.apache.org/hbase/2.3.7/hbase-2.3.7-src.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/2.3.7/hbase-2.3.7-src.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/2.3.7/hbase-2.3.7-bin.tar.gz">bin</a> (<a href="https://downloads.apache.org/hbase/2.3.7/hbase-2.3.7-bin.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/2.3.7/hbase-2.3.7-bin.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/2.3.7/hbase-2.3.7-client-bin.tar.gz">client-bin</a> (<a href="https://downloads.apache.org/hbase/2.3.7/hbase-2.3.7-client-bin.tar.gz.sha512">sha512</a> <a href="https://downloads.apache.org/hbase/2.3.7/hbase-2.3.7-client-bin.tar.gz.asc">asc</a>)
+      </td>
+      <td />
+    </tr>
+    <tr>
+      <td style="test-align: left">
+        1.7.1
+      </td>
+      <td style="test-align: left">
+        2021/07/21
+      </td>
+      <td style="test-align: left">
+        <a href="https://downloads.apache.org/hbase/1.7.1/api_compare_1.7.0_to_1.7.1-RC0.html">1.7.0 vs 1.7.1</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://github.com/apache/hbase/blob/rel/1.7.1/CHANGES.txt">Changes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://issues.apache.org/jira/projects/HBASE/versions/12350241">Release Notes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/1.7.1/hbase-1.7.1-src.tar.gz">src</a> (<a href="https://apache.org/dist/hbase/1.7.1/hbase-1.7.1-src.tar.gz.sha512">sha512</a> <a href="https://apache.org/dist/hbase/1.7.1/hbase-1.7.1-src.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/1.7.1/hbase-1.7.1-bin.tar.gz">bin</a> (<a href="https://apache.org/dist/hbase/1.7.1/hbase-1.7.1-bin.tar.gz.sha512">sha512</a> <a href="https://apache.org/dist/hbase/1.7.1/hbase-1.7.1-bin.tar.gz.asc">asc</a>)
+      </td>
+      <td />
+    </tr>
+  </table>
+  </section>
+  <section name="Connectors">
+    <table>
+    <tr>
+      <th>Version</th>
+      <th>Release Date</th>
+      <th>Compatibility Report</th>
+      <th>Changes</th>
+      <th>Release Notes</th>
+      <th>Download</th>
+      <th>Notices</th>
+    </tr>
+    <tr>
+      <td style="test-align: left">
+        1.0.0
+      </td>
+      <td style="test-align: left">
+        2019/05/03
+      </td>
+      <td style="test-align: left">
+      </td>
+      <td style="test-align: left">
+        <a href="https://github.com/apache/hbase-connectors/blob/rel/1.0.0/CHANGELOG.md">Changes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://github.com/apache/hbase-connectors/blob/rel/1.0.0/RELEASENOTES.md">Release Notes</a>
+      </td>
+      <td style="test-align: left">
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/hbase-connectors-1.0.0/hbase-connectors-1.0.0-src.tar.gz">src</a> (<a href="https://www.apache.org/dist/hbase/hbase-connectors-1.0.0/hbase-connectors-1.0.0-src.tar.gz.sha512">sha512</a> <a href="https://www.apache.org/dist/hbase/hbase-connectors-1.0.0/hbase-connectors-1.0.0-src.tar.gz.asc">asc</a>) <br />
+        <a href="https://www.apache.org/dyn/closer.lua/hbase/hbase-connectors-1.0.0/hbase-connectors-1.0.0-bin.tar.gz">bin</a> (<a href="https://www.apache.org/dist/hbase/hbase-connectors-1.0.0/hbase-connectors-1.0.0-bin.tar.gz.sha512">sha512</a> <a href="https://www.apache.org/dist/hbase/hbase-connectors-1.0.0/hbase-connectors-1.0.0-bin.tar.gz.asc">asc</a>) <br />
+      </td>
+      <td>
+      </td>
+    </tr>
+    </table>
+  </section>
+  <section name="HBase Operator Tools">
+    <table>
+      <tr>
+        <th>Version</th>
+        <th>Release Date</th>
+        <th>Compatibility Report</th>
+        <th>Changes</th>
+        <th>Release Notes</th>
+        <th>Download</th>
+        <th>Notices</th>
+      </tr>
+      <tr>
+        <td style="test-align: left">
+          1.1.0
+        </td>
+        <td style="test-align: left">
+          2021/02/20
+        </td>
+        <td style="test-align: left">
+        </td>
+        <td style="test-align: left">
+          <a href="https://apache.org/dist/hbase/hbase-operator-tools-1.1.0/CHANGES.md">Changes</a>
+        </td>
+        <td style="test-align: left">
+          <a href="https://apache.org/dist/hbase/hbase-operator-tools-1.1.0/RELEASENOTES.md">Release Notes</a>
+        </td>
+        <td style="test-align: left">
+          <a href="https://www.apache.org/dyn/closer.lua/hbase/hbase-operator-tools-1.1.0/hbase-operator-tools-1.1.0-src.tar.gz">src</a> (<a href="https://www.apache.org/dist/hbase/hbase-operator-tools-1.1.0/hbase-operator-tools-1.1.0-src.tar.gz.sha512">sha512</a> <a href="https://www.apache.org/dist/hbase/hbase-operator-tools-1.1.0/hbase-operator-tools-1.1.0-src.tar.gz.asc">asc</a>) <br />
+          <a href="https://www.apache.org/dyn/closer.lua/hbase/hbase-operator-tools-1.1.0/hbase-operator-tools-1.1.0-bin.tar.gz">bin</a> (<a href="https://www.apache.org/dist/hbase/hbase-operator-tools-1.1.0/hbase-operator-tools-1.1.0-bin.tar.gz.sha512">sha512</a> <a href="https://www.apache.org/dist/hbase/hbase-operator-tools-1.1.0/hbase-operator-tools-1.1.0-bin.tar.gz.asc">asc</a>) <br />
+        </td>
+        <td>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <p>If you are looking for an old release that is not present here or on the
+  mirror, check the <a href="https://archive.apache.org/dist/hbase/">Apache Archive</a>.
+  </p>
+</section>
+</body>
+</document>

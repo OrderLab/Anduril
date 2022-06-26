@@ -1,0 +1,170 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.hadoop.hbase.master.cleaner;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hbase.HBaseClassTestRule;
+import org.apache.hadoop.hbase.HBaseTestingUtil;
+import org.apache.hadoop.hbase.Server;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.RegionInfo;
+import org.apache.hadoop.hbase.client.RegionInfoBuilder;
+import org.apache.hadoop.hbase.io.HFileLink;
+import org.apache.hadoop.hbase.testclassification.MasterTests;
+import org.apache.hadoop.hbase.testclassification.MediumTests;
+import org.apache.hadoop.hbase.util.CommonFSUtils;
+import org.apache.hadoop.hbase.util.HFileArchiveUtil;
+import org.apache.hadoop.hbase.util.MockServer;
+import org.apache.hadoop.hbase.zookeeper.ZKWatcher;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.rules.TestName;
+
+/**
+ * Test the HFileLink Cleaner. HFiles with links cannot be deleted until a link is present.
+ */
+@Category({ MasterTests.class, MediumTests.class })
+public class TestHFileLinkCleaner {
+
+  @ClassRule
+  public static final HBaseClassTestRule CLASS_RULE =
+    HBaseClassTestRule.forClass(TestHFileLinkCleaner.class);
+
+  private final static HBaseTestingUtil TEST_UTIL = new HBaseTestingUtil();
+
+  private static DirScanPool POOL;
+
+  @Rule
+  public TestName name = new TestName();
+
+  @BeforeClass
+  public static void setUp() {
+    POOL = DirScanPool.getHFileCleanerScanPool(TEST_UTIL.getConfiguration());
+  }
+
+  @AfterClass
+  public static void tearDown() {
+    POOL.shutdownNow();
+  }
+
+  @Test
+  public void testHFileLinkCleaning() throws Exception {
+    Configuration conf = TEST_UTIL.getConfiguration();
+    CommonFSUtils.setRootDir(conf, TEST_UTIL.getDataTestDir());
+    conf.set(HFileCleaner.MASTER_HFILE_CLEANER_PLUGINS, HFileLinkCleaner.class.getName());
+    Path rootDir = CommonFSUtils.getRootDir(conf);
+    FileSystem fs = FileSystem.get(conf);
+
+    final TableName tableName = TableName.valueOf(name.getMethodName());
+    final TableName tableLinkName = TableName.valueOf(name.getMethodName() + "-link");
+    final String hfileName = "1234567890";
+    final String familyName = "cf";
+
+    RegionInfo hri = RegionInfoBuilder.newBuilder(tableName).build();
+    RegionInfo hriLink = RegionInfoBuilder.newBuilder(tableLinkName).build();
+
+    Path archiveDir = HFileArchiveUtil.getArchivePath(conf);
+    Path archiveStoreDir = HFileArchiveUtil.getStoreArchivePath(conf,
+          tableName, hri.getEncodedName(), familyName);
+
+    // Create hfile /hbase/table-link/region/cf/getEncodedName.HFILE(conf);
+    Path familyPath = getFamilyDirPath(archiveDir, tableName, hri.getEncodedName(), familyName);
+    fs.mkdirs(familyPath);
+    Path hfilePath = new Path(familyPath, hfileName);
+    fs.createNewFile(hfilePath);
+
+    // Create link to hfile
+    Path familyLinkPath =
+      getFamilyDirPath(rootDir, tableLinkName, hriLink.getEncodedName(), familyName);
+    fs.mkdirs(familyLinkPath);
+    HFileLink.create(conf, fs, familyLinkPath, hri, hfileName);
+    Path linkBackRefDir = HFileLink.getBackReferencesDir(archiveStoreDir, hfileName);
+    assertTrue(fs.exists(linkBackRefDir));
+    FileStatus[] backRefs = fs.listStatus(linkBackRefDir);
+    assertEquals(1, backRefs.length);
+    Path linkBackRef = backRefs[0].getPath();
+
+    // Initialize cleaner
+    final long ttl = 1000;
+    conf.setLong(TimeToLiveHFileCleaner.TTL_CONF_KEY, ttl);
+    Server server = new DummyServer();
+    HFileCleaner cleaner = new HFileCleaner(1000, server, conf, fs, archiveDir, POOL);
+
+    // Link backref cannot be removed
+    cleaner.chore();
+    assertTrue(fs.exists(linkBackRef));
+    assertTrue(fs.exists(hfilePath));
+
+    // Link backref can be removed
+    fs.rename(CommonFSUtils.getTableDir(rootDir, tableLinkName),
+      CommonFSUtils.getTableDir(archiveDir, tableLinkName));
+    cleaner.chore();
+    assertFalse("Link should be deleted", fs.exists(linkBackRef));
+
+    // HFile can be removed
+    Thread.sleep(ttl * 2);
+    cleaner.chore();
+    assertFalse("HFile should be deleted", fs.exists(hfilePath));
+
+    // Remove everything
+    for (int i = 0; i < 4; ++i) {
+      Thread.sleep(ttl * 2);
+      cleaner.chore();
+    }
+    assertFalse("HFile should be deleted",
+      fs.exists(CommonFSUtils.getTableDir(archiveDir, tableName)));
+    assertFalse("Link should be deleted",
+      fs.exists(CommonFSUtils.getTableDir(archiveDir, tableLinkName)));
+  }
+
+  private static Path getFamilyDirPath(final Path rootDir, final TableName table,
+    final String region, final String family) {
+    return new Path(new Path(CommonFSUtils.getTableDir(rootDir, table), region), family);
+  }
+
+  static class DummyServer extends MockServer {
+
+    @Override
+    public Configuration getConfiguration() {
+      return TEST_UTIL.getConfiguration();
+    }
+
+    @Override
+    public ZKWatcher getZooKeeper() {
+      try {
+        return new ZKWatcher(getConfiguration(), "dummy server", this);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      return null;
+    }
+  }
+}

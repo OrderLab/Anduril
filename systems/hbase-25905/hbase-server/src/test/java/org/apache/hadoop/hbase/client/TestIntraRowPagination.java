@@ -1,0 +1,110 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.hadoop.hbase.client;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.HBaseClassTestRule;
+import org.apache.hadoop.hbase.HBaseTestingUtil;
+import org.apache.hadoop.hbase.HTestConst;
+import org.apache.hadoop.hbase.KeyValue;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.regionserver.HRegion;
+import org.apache.hadoop.hbase.regionserver.RegionScanner;
+import org.apache.hadoop.hbase.testclassification.ClientTests;
+import org.apache.hadoop.hbase.testclassification.SmallTests;
+import org.junit.ClassRule;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+/**
+ * Test scan/get offset and limit settings within one row through HRegion API.
+ */
+@Category({SmallTests.class, ClientTests.class})
+public class TestIntraRowPagination {
+
+  @ClassRule
+  public static final HBaseClassTestRule CLASS_RULE =
+      HBaseClassTestRule.forClass(TestIntraRowPagination.class);
+
+  private static HBaseTestingUtil TEST_UTIL = new HBaseTestingUtil();
+
+  /**
+   * Test from client side for scan with maxResultPerCF set
+   */
+  @Test
+  public void testScanLimitAndOffset() throws Exception {
+    //byte [] TABLE = HTestConst.DEFAULT_TABLE_BYTES;
+    byte [][] ROWS = HTestConst.makeNAscii(HTestConst.DEFAULT_ROW_BYTES, 2);
+    byte [][] FAMILIES = HTestConst.makeNAscii(HTestConst.DEFAULT_CF_BYTES, 3);
+    byte [][] QUALIFIERS = HTestConst.makeNAscii(HTestConst.DEFAULT_QUALIFIER_BYTES, 10);
+
+    TableDescriptorBuilder builder =
+      TableDescriptorBuilder.newBuilder(TableName.valueOf(HTestConst.DEFAULT_TABLE_BYTES));
+
+    RegionInfo info = RegionInfoBuilder.newBuilder(HTestConst.DEFAULT_TABLE).build();
+    for (byte[] family : FAMILIES) {
+      builder.setColumnFamily(ColumnFamilyDescriptorBuilder.of(family));
+    }
+    HRegion region = HBaseTestingUtil.createRegionAndWAL(info, TEST_UTIL.getDataTestDir(),
+        TEST_UTIL.getConfiguration(), builder.build());
+    try {
+      Put put;
+      Scan scan;
+      Result result;
+      boolean toLog = true;
+
+      List<Cell> kvListExp = new ArrayList<>();
+
+      int storeOffset = 1;
+      int storeLimit = 3;
+      for (int r = 0; r < ROWS.length; r++) {
+        put = new Put(ROWS[r]);
+        for (int c = 0; c < FAMILIES.length; c++) {
+          for (int q = 0; q < QUALIFIERS.length; q++) {
+            KeyValue kv = new KeyValue(ROWS[r], FAMILIES[c], QUALIFIERS[q], 1,
+                HTestConst.DEFAULT_VALUE_BYTES);
+            put.add(kv);
+            if (storeOffset <= q && q < storeOffset + storeLimit) {
+              kvListExp.add(kv);
+            }
+          }
+        }
+        region.put(put);
+      }
+
+      scan = new Scan();
+      scan.setRowOffsetPerColumnFamily(storeOffset);
+      scan.setMaxResultsPerColumnFamily(storeLimit);
+      RegionScanner scanner = region.getScanner(scan);
+      List<Cell> kvListScan = new ArrayList<>();
+      List<Cell> results = new ArrayList<>();
+      while (scanner.next(results) || !results.isEmpty()) {
+        kvListScan.addAll(results);
+        results.clear();
+      }
+      result = Result.create(kvListScan);
+      TestScannersFromClientSide.verifyResult(result, kvListExp, toLog,
+          "Testing scan with storeOffset and storeLimit");
+    } finally {
+      HBaseTestingUtil.closeRegionAndWAL(region);
+    }
+  }
+
+}
