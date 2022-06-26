@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-case_name=hbase-19608
+case_name=hbase-20492
 hb_dir="${SCRIPT_DIR}/../../systems/$case_name"
 t=0
 rm -rf $SCRIPT_DIR/deps
