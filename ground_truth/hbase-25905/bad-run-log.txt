@@ -1,0 +1,71 @@
+JUnit version 4.13
+2022-06-25T22:34:42,336 - INFO  [main:HBaseClassTestRule@98] - Test class org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck timeout: 13000 ms
+2022-06-25T22:34:44,056 - WARN  [Time-limited test:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-06-25T22:34:45,394 - INFO  [Time-limited test:AbstractFSWAL@481] - WAL configuration: blocksize=64 MB, rollsize=32 MB, prefix=wal, suffix=, logDir=/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271/log, archiveDir=/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271/oldlog, maxLogs=356
+2022-06-25T22:34:47,663 - INFO  [Time-limited test:AbstractFSWAL@839] - New WAL /home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271/log/wal.1656210886517
+.2022-06-25T22:34:48,679 - INFO  [Time-limited test:Waiter@184] - Waiting up to [10,000] milli-secs(wait.for.ratio=[1])
+2022-06-25T22:34:48,780 - WARN  [AsyncFSWAL-0-/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271:AsyncFSWAL@308] - sync failed
+java.io.IOException: inject error
+	at org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck.testRoll(TestAsyncFSWALRollStuck.java:194) ~[test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_275]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_275]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_275]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_275]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27) ~[junit-4.13.jar:4.13]
+	at org.apache.hadoop.hbase.SystemExitRule$1.evaluate(SystemExitRule.java:38) ~[test-classes/:?]
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:288) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:282) ~[junit-4.13.jar:4.13]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_275]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_275]
+2022-06-25T22:34:48,853 - WARN  [AsyncFSWAL-0-/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271:AsyncFSWAL@308] - sync failed
+java.io.IOException: inject error
+	at org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck.testRoll(TestAsyncFSWALRollStuck.java:195) ~[test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_275]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_275]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_275]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_275]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66) ~[junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27) ~[junit-4.13.jar:4.13]
+	at org.apache.hadoop.hbase.SystemExitRule$1.evaluate(SystemExitRule.java:38) ~[test-classes/:?]
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:288) ~[junit-4.13.jar:4.13]
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:282) ~[junit-4.13.jar:4.13]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_275]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_275]
+2022-06-25T22:34:48,879 - INFO  [pool-3-thread-1:AbstractFSWAL@835] - Rolled WAL /home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271/log/wal.1656210886517 with entries=2, filesize=285 B; new WAL /home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271/log/wal.1656210888854
+2022-06-25T22:34:49,908 - INFO  [AsyncFSWAL-0-/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271:AbstractFSWAL@1135] - Slow sync cost: 1001 ms, current pipeline: []
+2022-06-25T22:34:49,909 - INFO  [Time-limited test:AbstractFSWAL@835] - Rolled WAL /home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271/log/wal.1656210888854 with entries=2, filesize=285 B; new WAL /home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/767c7d80-83f3-bf9a-c2dc-81fc85bfa271/log/wal.1656210888881
+2022-06-25T22:34:49,940 - INFO  [Time-limited test:AbstractFSWAL@1023] - Closed WAL: AsyncFSWAL wal:(num 1656210888881)
+
+Time: 7.128
+
+OK (1 test)
+
