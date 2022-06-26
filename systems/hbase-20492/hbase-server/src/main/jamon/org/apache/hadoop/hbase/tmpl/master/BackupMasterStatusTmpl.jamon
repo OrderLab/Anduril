@@ -1,0 +1,77 @@
+<%doc>
+
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</%doc>
+<%args>
+HMaster master;
+</%args>
+<%import>
+java.util.*;
+org.apache.hadoop.hbase.ServerName;
+org.apache.hadoop.hbase.ClusterMetrics;
+org.apache.hadoop.hbase.master.HMaster;
+org.apache.hadoop.hbase.zookeeper.MasterAddressTracker;
+</%import>
+<%java>
+MasterAddressTracker masterAddressTracker = master.getMasterAddressTracker();
+</%java>
+
+<%if (!master.isActiveMaster()) %>
+    <%java>
+    ServerName active_master =
+        (masterAddressTracker == null) ? null : masterAddressTracker.getMasterAddress();
+    assert active_master != null : "Failed to retrieve master's ServerName!";
+    int infoPort = (masterAddressTracker == null) ? 0 : masterAddressTracker.getMasterInfoPort();
+    </%java>
+    <div class="row inner_header">
+        <div class="page-header">
+            <h1>Backup Master <small><% master.getServerName().getHostname() %></small></h1>
+        </div>
+    </div>
+    <h4>Current Active Master: <a href="//<% active_master.getHostname() %>:<% infoPort %>/master-status"
+        target="_blank"><% active_master.getHostname() %></a><h4>
+<%else>
+    <h2>Backup Masters</h2>
+
+    <table class="table table-striped">
+    <tr>
+        <th>ServerName</th>
+        <th>Port</th>
+        <th>Start Time</th>
+    </tr>
+    <%java>
+    Collection<ServerName> backup_masters = master.getClusterMetricsWithoutCoprocessor(
+        EnumSet.of(ClusterMetrics.Option.BACKUP_MASTERS)).getBackupMasterNames();
+    ServerName [] backupServerNames = backup_masters.toArray(new ServerName[backup_masters.size()]);
+    Arrays.sort(backupServerNames);
+    for (ServerName serverName : backupServerNames) {
+      int infoPort = (masterAddressTracker == null) ? 0 : masterAddressTracker
+          .getBackupMasterInfoPort(serverName);
+    </%java>
+    <tr>
+        <td><a href="//<% serverName.getHostname() %>:<% infoPort %>/master-status"
+            target="_blank"><% serverName.getHostname() %></a>
+        </td>
+        <td><% serverName.getPort() %></td>
+        <td><% new Date(serverName.getStartcode()) %></td>
+    </tr>
+    <%java>
+    }
+    </%java>
+    <tr><td>Total:<% backupServerNames.length %></td>
+    </table>
+</%if>
