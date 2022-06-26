@@ -5,8 +5,8 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 case_name=hbase-20492
 hb_dir="${SCRIPT_DIR}/../../systems/$case_name"
 classes_dir="$HOME/tmp/bytecode/${case_name}/classes"
-for i in $SCRIPT_DIR/deps/*; do classes_dir="$classes_dir:$i";done
 runtime_jar="$classes_dir/runtime-1.0-jar-with-dependencies.jar"
+for i in $SCRIPT_DIR/deps/*; do classes_dir="$classes_dir:$i";done
 jars="$SCRIPT_DIR"
 for i in `head -n1 $hb_dir/hbase-build-configuration/target/cached_classpath.txt|tr ':' '\n'`; do
   if [[ "$i" == *"hbase"* ]]; then
@@ -33,7 +33,7 @@ GROUND_TRUTH=$SCRIPT_DIR/../../ground_truth/$case_name
 java -noverify \
 -Dlog4j.configuration=file:$SCRIPT_DIR/log4j.properties \
 -cp $classes_dir:$jars:$runtime_jar \
--DflakyAgent.logInject=true \
+-DflakyAgent.logInject=false \
 -DflakyAgent.fixPointInjectionMode=true \
 -DflakyAgent.injectionId=1 \
 -DflakyAgent.injectionTimes=-1 \
