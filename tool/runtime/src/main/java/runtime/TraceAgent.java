@@ -20,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -136,6 +137,7 @@ public final class TraceAgent {
     static public final boolean distributedMode = Boolean.getBoolean("flakyAgent.distributedMode");
     static public final boolean disableAgent = Boolean.getBoolean("flakyAgent.disableAgent");
     static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
+    static public final int trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
     static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
     static {
         if (distributedMode && !disableAgent) {
@@ -222,6 +224,7 @@ public final class TraceAgent {
     static private volatile LocalInjectionManager localInjectionManager = null;
     static public volatile DistributedInjectionManager distributedInjectionManager = null;
     static public final CountDownLatch waiter = new CountDownLatch(1);
+    static final AtomicBoolean dumpFlag = new AtomicBoolean(false);
 
     static public void main(final String[] args) throws Throwable {
         // util for shutdown server
@@ -243,8 +246,24 @@ public final class TraceAgent {
             UnicastRemoteObject.unexportObject(s, true);
         } else {
             localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
+            if (trialTimeout != -1) {
+                new Thread(() -> {
+                    try {
+                        if (!waiter.await(trialTimeout, TimeUnit.SECONDS)) {
+                            LOG.warn("This trial times out with {} seconds", trialTimeout);
+                            if (dumpFlag.compareAndSet(false, true)) {
+                                localInjectionManager.dump();
+                            }
+                            System.exit(0);
+                        }
+                    } catch (InterruptedException ignored) { }
+                }).start();
+            }
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                localInjectionManager.dump();
+                if (dumpFlag.compareAndSet(false, true)) {
+                    localInjectionManager.dump();
+                }
+                waiter.countDown();
             }));
             final Class<?> cls = Class.forName(args[3]);
             final Method method = cls.getMethod("main", String[].class);
