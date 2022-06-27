@@ -26,7 +26,7 @@ done
 java \
 -cp $btm_dir:$classes_dir:$jars:$SCRIPT_DIR \
 -DflakyAgent.fixPointInjectionMode=true \
--DflakyAgent.injectionId=718 \
+-DflakyAgent.injectionId=599 \
 -DflakyAgent.injectionTimes=2 \
 -DflakyAgent.fault=java.io.IOException \
 -DflakyAgent.traceFile=$SCRIPT_DIR/trace.txt \
