@@ -207,15 +207,15 @@ public class OptionParser {
             if (extrac_cps != null) {
                 cp = StringUtils.join(":", extrac_cps);
             }
-            // Part of the tool, recipes and context manager factories will be converted to Soot
-            // classes, so we need to concatenate the current running jar to the class path.
-            Path path = null;
-            try {
-                path = Paths.get(AnalyzerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            } catch (Exception unhandled) {}
-            //System.out.println(path.toString());
-            //LOG.debug("Append " + path + " to Soot class path");
-            cp = path.toString() + ":" + cp;
+//             // Part of the tool, recipes and context manager factories will be converted to Soot
+//             // classes, so we need to concatenate the current running jar to the class path.
+//             Path path = null;
+//             try {
+//                 path = Paths.get(AnalyzerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+//             } catch (Exception unhandled) {}
+//             //System.out.println(path.toString());
+//             //LOG.debug("Append " + path + " to Soot class path");
+//             cp = path.toString() + ":" + cp;
             if (!inputList.isEmpty()) {
                 options.setClassPath(
                         String.format("%s:%s:%s:%s", cp, StringUtils.join(":", inputList),
