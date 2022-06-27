@@ -1,11 +1,11 @@
 JUnit version 4.13
-2022-06-25T22:37:13,136 - INFO  [main:HBaseClassTestRule@98] - Test class org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck timeout: 13000 ms
-2022-06-25T22:37:15,185 - WARN  [Time-limited test:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-2022-06-25T22:37:16,670 - INFO  [Time-limited test:AbstractFSWAL@481] - WAL configuration: blocksize=64 MB, rollsize=32 MB, prefix=wal, suffix=, logDir=/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/f5bf8b67-79ae-c336-81cb-f51376e83b37/log, archiveDir=/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/f5bf8b67-79ae-c336-81cb-f51376e83b37/oldlog, maxLogs=356
-2022-06-25T22:37:18,523 - INFO  [Time-limited test:AbstractFSWAL@839] - New WAL /home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/f5bf8b67-79ae-c336-81cb-f51376e83b37/log/wal.1656211037708
-.2022-06-25T22:37:19,529 - INFO  [Time-limited test:Waiter@184] - Waiting up to [10,000] milli-secs(wait.for.ratio=[1])
+2022-06-27T01:45:03,324 - INFO  [main:HBaseClassTestRule@98] - Test class org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck timeout: 20000 ms
+2022-06-27T01:45:04,808 - WARN  [Time-limited test:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-06-27T01:45:06,335 - INFO  [Time-limited test:AbstractFSWAL@481] - WAL configuration: blocksize=64 MB, rollsize=32 MB, prefix=wal, suffix=, logDir=/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/97557bf5-3cd8-f343-92db-9dc5d240e089/log, archiveDir=/home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/97557bf5-3cd8-f343-92db-9dc5d240e089/oldlog, maxLogs=176
+2022-06-27T01:45:07,927 - INFO  [Time-limited test:AbstractFSWAL@839] - New WAL /home/haoze/flaky-reproduction/experiment/hbase-25905/target/test-data/97557bf5-3cd8-f343-92db-9dc5d240e089/log/wal.1656308707218
+.2022-06-27T01:45:09,026 - INFO  [Time-limited test:Waiter@184] - Waiting up to [10,000] milli-secs(wait.for.ratio=[1])
 EE
-Time: 13.046
+Time: 20.032
 There were 2 failures:
 1) testRoll(org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck)
 java.lang.InterruptedException
@@ -14,7 +14,7 @@ java.lang.InterruptedException
 	at java.util.concurrent.CountDownLatch.await(CountDownLatch.java:231)
 	at org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck.testRoll(TestAsyncFSWALRollStuck.java:196)
 2) org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck
-org.junit.runners.model.TestTimedOutException: test timed out after 13 seconds
+org.junit.runners.model.TestTimedOutException: test timed out after 20 seconds
 	at sun.misc.Unsafe.park(Native Method)
 	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
 	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)

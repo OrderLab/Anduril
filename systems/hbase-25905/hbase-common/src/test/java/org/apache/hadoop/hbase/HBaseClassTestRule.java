@@ -61,7 +61,7 @@ public final class HBaseClassTestRule implements TestRule {
 
   // Each unit test has this timeout.
   //private static long PER_UNIT_TEST_TIMEOUT_MINS = 13;
-  private static long PER_UNIT_TEST_TIMEOUT_MS = 13000;
+  private static long PER_UNIT_TEST_TIMEOUT_MS = 20000;
 
   private final Class<?> clazz;
 
