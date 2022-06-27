@@ -34,8 +34,8 @@ mkdir -p ${OUT_DIR}
 JAVA_OPTS="-Danalysis.prefix=org.apache.hadoop.hbase" \
 $SCRIPT_DIR/analyzer.sh \
 -o $HOME/tmp/bytecode/$case_name/sootOutput \
+-x $extras \
 -i $alldirs \
 -fc $case_name \
 -fld $diff_log \
 
-#-x $extras \
