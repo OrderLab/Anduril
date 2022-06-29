@@ -244,6 +244,25 @@ public class AnalysisInput {
             }
         }
 
+        if (options.getFlakyCase().equals("hdfs-15963")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.TestDataTransferProtocol");
+            this.testMethod = this.testClass.getMethod(
+                    "void testReleaseVolumeRefIfExceptionThrown()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         if (options.getFlakyCase().equals("hbase-20492")) {
             this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.master.assignment.TestUnexpectedStateException");
             this.testMethod = this.testClass.getMethod("void testUnableToAssign()");
@@ -309,6 +328,24 @@ public class AnalysisInput {
                         final SootMethod inv = ((InvokeExpr) value).getMethod();
                         if (inv.getDeclaringClass().getName().equals("org.apache.hadoop.hbase.util.Bytes") &&
                                 inv.getName().equals("toBytes")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (options.getFlakyCase().equals("hbase-19893")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.client.TestRestoreSnapshotFromClient");
+            this.testMethod = this.testClass.getMethod("void testRestoreSnapshotAfterSplittingRegions()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
                             this.symptomEvent = new LocationEvent(location);
                             return;
                         }
