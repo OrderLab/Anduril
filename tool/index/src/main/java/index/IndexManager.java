@@ -23,10 +23,10 @@ public class IndexManager {
         prefix = null;
     }
 
-    public IndexManager(final Collection<SootClass> classes, final String prefix) {
+    public IndexManager(final Collection<SootClass> classes, final String prefix, final String secondaryPrefix) {
         this.prefix = prefix;
         for (final SootClass sootClass : classes) {
-            if (sootClass.getName().startsWith(prefix)) {
+            if (sootClass.getName().startsWith(prefix) || sootClass.getName().startsWith(secondaryPrefix)) {
                 this.classes.put(sootClass.getName(), sootClass);
                 final Map<SootMethod, Map<Unit, ProgramLocation>> maps = new HashMap<>();
                 index.put(sootClass, maps);

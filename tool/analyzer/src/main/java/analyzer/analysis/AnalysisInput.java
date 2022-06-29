@@ -25,14 +25,15 @@ public class AnalysisInput {
     public ProgramEvent symptomEvent = null;
     public SootClass testClass = null;
     public SootMethod testMethod = null;
-    public final String prefix = System.getProperty("analysis.prefix", "org.apache.zookeeper");
-    public final boolean distributedMode = Boolean.getBoolean("analysis.distributedMode");
+    public static final String prefix = System.getProperty("analysis.prefix", "org.apache.zookeeper");
+    public static final String secondaryPrefix = System.getProperty("analysis.secondaryPrefix", "#");
+    public static final boolean distributedMode = Boolean.getBoolean("analysis.distributedMode");
 
     public final Set<ProgramLocation> logEvents = new HashSet<>();
     public final List<SootClass> mainClasses = new ArrayList<>();
 
     //Easy constructor to use for test
-    public AnalysisInput (IndexManager indexManager) {
+    public AnalysisInput(IndexManager indexManager) {
         this.indexManager = indexManager;
         this.classes = new LinkedList<>(this.indexManager.classes.values());
         this.classes.sort(Comparator.comparing(SootClass::getName));
@@ -40,9 +41,8 @@ public class AnalysisInput {
 
     }
 
-
     public AnalysisInput(final AnalyzerOptions options, final Collection<SootClass> classes) {
-        this.indexManager = new IndexManager(classes, prefix);
+        this.indexManager = new IndexManager(classes, prefix, secondaryPrefix);
         this.classes = new LinkedList<>(this.indexManager.classes.values());
         this.classes.sort(Comparator.comparing(SootClass::getName));
         this.classSet = new HashSet<>(this.classes);
