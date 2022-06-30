@@ -353,5 +353,23 @@ public class AnalysisInput {
                 }
             }
         }
+
+        if (options.getFlakyCase().equals("hbase-15252")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.regionserver.wal.TestWALReplay");
+            this.testMethod = this.testClass.getMethod("void testDatalossWhenInputError()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
