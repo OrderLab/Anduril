@@ -22,7 +22,14 @@ testcase="org.apache.zookeeper.test.ZkDatabaseCorruptionTest"
 byteman=""
 for i in `find $HOME/.m2/repository/org/jboss/byteman/byteman/*/**.jar`; do byteman=$i; done
 
-NODEJS=node
+if [ -z "$(which node)" ]; then
+  if [ -f "$HOME/nodejs-install/bin/node" ]; then
+    NODEJS=$HOME/nodejs-install/bin/node
+  fi
+else
+  NODEJS=node
+fi
+
 GROUND_TRUTH=$SCRIPT_DIR/../../ground_truth/$case_name
 
 trials_dir=$SCRIPT_DIR/trials
