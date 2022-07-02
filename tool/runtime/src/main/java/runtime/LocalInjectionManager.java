@@ -2,6 +2,7 @@ package runtime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import runtime.exception.ExceptionBuilder;
 
 import javax.json.*;
 import javax.json.stream.JsonGenerator;
@@ -60,7 +61,7 @@ public class LocalInjectionManager {
                         id2name.put(injectionId, name);
                     }
                 } else {
-                    final Throwable exception = TraceAgent.createException(spec.getString("exception"));
+                    final Throwable exception = ExceptionBuilder.createException(spec.getString("exception"));
                     if (exception != null) {
                         id2exception.put(injectionId, exception);
                     }

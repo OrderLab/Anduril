@@ -2,13 +2,13 @@ package runtime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import runtime.exception.ExceptionBuilder;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.*;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -103,7 +103,6 @@ public final class TraceAgent {
     // for fault injection
 
     static private final AtomicInteger injectionCounter = new AtomicInteger();
-    static private final String injectionMark = "flaky test exception injection of TraceAgent";
     static private final int targetId = Integer.getInteger("flakyAgent.injectionId", -1);
     static private final int times = Integer.getInteger("flakyAgent.injectionTimes", 0);
     static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
@@ -115,24 +114,6 @@ public final class TraceAgent {
     static public final String injectionPointsPath = System.getProperty("flakyAgent.injectionPointsPath", "#");
 
     protected static final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
-
-    static public Throwable createException(final String exceptionName) {
-        try {
-            final ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            final Class<?> exceptionClass = Class.forName(exceptionName, true, loader);
-            final Constructor<?>[] cons = exceptionClass.getDeclaredConstructors();
-            for (final Constructor<?> ctr : cons) {
-                ctr.setAccessible(true);
-            }
-            try {
-                return (Throwable) exceptionClass.getConstructor(String.class).newInstance(injectionMark);
-            } catch (Exception ignored) { }
-            try {
-                return (Throwable) exceptionClass.getConstructor().newInstance();
-            } catch (Exception ignored) { }
-        } catch (final Exception ignored) { }
-        return null;
-    }
 
     static public final boolean distributedMode = Boolean.getBoolean("flakyAgent.distributedMode");
     static public final boolean disableAgent = Boolean.getBoolean("flakyAgent.disableAgent");
@@ -148,7 +129,7 @@ public final class TraceAgent {
                 for (int i = 0; i < arr.size(); i++) {
                     final JsonObject spec = arr.getJsonObject(i);
                     final int injectionId = spec.getInt("id");
-                    final Throwable exception = TraceAgent.createException(spec.getString("exception"));
+                    final Throwable exception = ExceptionBuilder.createException(spec.getString("exception"));
                     if (exception != null) {
                         id2exception.put(injectionId, exception);
                     }
@@ -183,7 +164,7 @@ public final class TraceAgent {
         if (fixPointInjectionMode) {
             if (id == targetId) {
                 if (injectionCounter.incrementAndGet() == times) {
-                    final Throwable t = createException(exceptionName);
+                    final Throwable t = ExceptionBuilder.createException(exceptionName);
                     if (t == null) {
                         LOG.error("FlakyAgent: fail to construct the exception " + exceptionName);
                     } else {
@@ -234,9 +215,7 @@ public final class TraceAgent {
         }
         if (distributedMode) {
             distributedInjectionManager = new DistributedInjectionManager(Integer.parseInt(args[0]), args[1], args[2], args[3]);
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                distributedInjectionManager.dump();
-            }));
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> distributedInjectionManager.dump()));
             final Registry rmiRegistry = LocateRegistry.createRegistry(RMI_PORT);
             final TraceStub s = new TraceStub();
             rmiRegistry.rebind(RMI_NAME, UnicastRemoteObject.exportObject(s, 0));

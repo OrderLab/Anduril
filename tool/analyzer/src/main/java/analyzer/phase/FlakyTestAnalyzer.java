@@ -3,6 +3,7 @@ package analyzer.phase;
 import analyzer.analysis.AnalysisInput;
 import analyzer.analysis.AnalysisManager;
 import analyzer.analysis.SubTypingAnalysis;
+import analyzer.baseline.BaselineAnalyzer;
 import analyzer.event.EventManager;
 import analyzer.event.InvocationEvent;
 import analyzer.event.LocationEvent;
@@ -32,8 +33,14 @@ public class FlakyTestAnalyzer extends SceneTransformer {
     public FlakyTestAnalyzer() {
     }
 
+    public static final boolean baseline = Boolean.getBoolean("analysis.baseline");
+
     @Override
     protected void internalTransform(String phaseName, Map<String, String> options) {
+        if (baseline) {
+            BaselineAnalyzer.run(AnalyzerOptions.getInstance());
+            return;
+        }
         // TODO: make it configurable
         final AnalysisInput analysisInput = new AnalysisInput(AnalyzerOptions.getInstance(),
                 Scene.v().getApplicationClasses());
