@@ -1,6 +1,7 @@
-target
-deps
+target/
+trials/
+deps/
 tree.json
+pid.txt
 blockmap.txt
 experiment.out
-trials/
