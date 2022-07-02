@@ -44,5 +44,8 @@ runtime.baseline.BaselineAgent $trials_dir $trials_dir/injection-$id.json org.ju
 > $trials_dir/output-$id.txt
 sleep 1
 id=$(($id + 1))
+if [ $id -gt 1000000 ]; then
+  break
+fi
 done
 
