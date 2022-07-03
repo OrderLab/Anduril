@@ -10,9 +10,13 @@ alldirs=$SCRIPT_DIR/../runtime/target/classes
 for i in `find $SRC_DIR -name "classes"`; do alldirs="$i $alldirs"; done
 for i in `find $SRC_DIR -name "test-classes"`; do alldirs="$i $alldirs"; done
 
+# more extra: /usr/lib/jvm/java-8-openjdk-amd64/jre/../lib/tools.jar
+
 extras=""
 for i in `head -n1 $SRC_DIR/target/cached_classpath.txt|tr ':' '\n'`; do
-  extras="$i $extras"
+  if [[ "$i" == *"/.m2/repository/"* ]]; then
+    extras="$i $extras"
+  fi
 done
 
 rm -rf ${OUT_DIR}
