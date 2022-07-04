@@ -29,12 +29,16 @@ done
 jars="$SCRIPT_DIR"
 for i in `find $ka_dir -name "dependant-libs-2.13.6"`; do
   for j in `find $i -name "*.jar"`; do
-    jars="$j:$jars";
+    if [[ "$j" != *"/slf4j-log4j12-1.7.30.jar" ]]; then
+      jars="$j:$jars";
+    fi
   done
 done 
 for i in `find $ka_dir -name "dependant-libs"`; do
   for j in `find $i -name "*.jar"`; do
-    jars="$j:$jars";
+    if [[ "$j" != *"/slf4j-log4j12-1.7.30.jar" ]]; then
+      jars="$j:$jars";
+    fi
   done
 done
 #Cached Dependencies
@@ -50,5 +54,5 @@ testmethod="org.apache.kafka.clients.consumer.internals.EagerConsumerCoordinator
 
 java \
 -jar $SCRIPT_DIR/junit-platform-console-standalone-1.7.0.jar \
--cp $classes_dir:$testclasses_dir:$jars \
+-cp "$ka_dir/core/build/dependant-libs-2.13.6/slf4j-log4j12-1.7.30.jar":$classes_dir:$testclasses_dir:$jars \
 --select-method $testmethod
