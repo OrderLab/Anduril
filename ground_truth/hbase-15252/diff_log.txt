@@ -1168,6 +1168,9 @@ BlockReceiver$PacketResponder 1348
 BlockReceiver$PacketResponder 1375
 BlockReceiver$PacketResponder 1348
 ScheduledChore 179
+BlockManager 3488
+BlockManager 3488
+BlockManager$ReplicationMonitor 3636
 FsDatasetAsyncDiskService$ReplicaFileDeleteTask 295
 FsDatasetAsyncDiskService$ReplicaFileDeleteTask 295
 FsDatasetAsyncDiskService$ReplicaFileDeleteTask 295
@@ -1198,11 +1201,12 @@ DFSOutputStream$DataStreamer 558
 BlockReceiver$PacketResponder 1312
 BlockReceiver$PacketResponder 1348
 FsDatasetImpl$LazyWriter 2955
+FsDatasetImpl$LazyWriter 2955
 DataXceiverServer 263
 FsDatasetImpl$LazyWriter 2955
-FsDatasetImpl$LazyWriter 2955
+FSNamesystem$LazyPersistFileScrubber 4771
+FSNamesystem$NameNodeEditLogRoller 4698
 DFSClient 954
-DFSInputStream 669
+RpcServer$Responder 962
 ProtobufLogReader 275
 TestWALReplay 1163
-Leases 149

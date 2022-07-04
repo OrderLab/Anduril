@@ -982,7 +982,7 @@ public class TestWALReplay {
     final long headerLength = stream.getPos();
     reader.close();
     FileSystem spyFs = spy(this.fs);
-    /*
+    
     doAnswer(new Answer<FSDataInputStream>() {
 
       @Override
@@ -999,7 +999,7 @@ public class TestWALReplay {
           @Override
           public Integer answer(InvocationOnMock invocation) throws Throwable {
             if (pos >= headerLength) {
-              throw new IOException("read over limit");
+              //throw new IOException("read over limit");
             }
             int b = (Integer) invocation.callRealMethod();
             if (b > 0) {
@@ -1021,7 +1021,7 @@ public class TestWALReplay {
         return stream;
       }
     }).when(spyFs).open(eq(editFile));
-    */
+    
     WAL wal2 = createWAL(this.conf);
     HRegion region2;
     try {
