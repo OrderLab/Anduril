@@ -255,6 +255,8 @@ public class AnalyzerMain {
     }
 
     public static void main(String[] args) {
+        addScalaDependencies();
+        addJunitDependencies();
         OptionParser parser = new OptionParser();
         AnalyzerOptions options = null;
         try {
@@ -289,5 +291,50 @@ public class AnalyzerMain {
         if (!main.initialize() || !main.run()) {
             System.exit(1);
         }
+    }
+    // in alphabetical order
+    private static final String[] scalaDependencies = new String[]{
+            "scala.runtime.java8.JFunction0$mcB$sp",
+            "scala.runtime.java8.JFunction0$mcD$sp",
+            "scala.runtime.java8.JFunction1$mcDD$sp",
+            "scala.runtime.java8.JFunction1$mcDJ$sp",
+            "scala.runtime.java8.JFunction0$mcI$sp",
+            "scala.runtime.java8.JFunction0$mcJ$sp",
+            "scala.runtime.java8.JFunction0$mcV$sp",
+            "scala.runtime.java8.JFunction0$mcZ$sp",
+            "scala.runtime.java8.JFunction1$mcID$sp",
+            "scala.runtime.java8.JFunction1$mcII$sp",
+            "scala.runtime.java8.JFunction1$mcJI$sp",
+            "scala.runtime.java8.JFunction1$mcJJ$sp",
+            "scala.runtime.java8.JFunction2$mcJJJ$sp",
+            "scala.runtime.java8.JFunction0$mcS$sp",
+            "scala.runtime.java8.JFunction1$mcVD$sp",
+            "scala.runtime.java8.JFunction1$mcVI$sp",
+            "scala.runtime.java8.JFunction2$mcVII$sp",
+            "scala.runtime.java8.JFunction1$mcVJ$sp",
+            "scala.runtime.java8.JFunction2$mcVJI$sp",
+            "scala.runtime.java8.JFunction1$mcZD$sp",
+            "scala.runtime.java8.JFunction1$mcZI$sp",
+            "scala.runtime.java8.JFunction1$mcZJ$sp",
+            "scala.runtime.java8.JFunction2$mcIII$sp",
+            "scala.runtime.java8.JFunction2$mcZII$sp",
+    };
+
+    private static void addScalaDependencies() {
+        for (final String d : scalaDependencies) {
+            Scene.v().addBasicClass(d, SootClass.HIERARCHY);
+        }
+    }
+
+    private static final String[] junitDependencies = new String[] {
+            "org.junit.jupiter.api.extension.AfterTestExecutionCallback",
+            "org.junit.jupiter.api.extension.BeforeTestExecutionCallback",  
+
+    };
+
+    private static void addJunitDependencies() {
+        for (final String d : junitDependencies) {
+            Scene.v().addBasicClass(d, SootClass.HIERARCHY);
+        }    
     }
 }

@@ -371,5 +371,39 @@ public class AnalysisInput {
                 }
             }
         }
+
+        if (options.getFlakyCase().equals("kafka-13419")) {
+            this.testClass = Scene.v().getSootClass("org.apache.kafka.clients.consumer.internals.ConsumerCoordinatorTest");
+            this.testMethod = this.testClass.getMethod("void testCommitOffsetIllegalGenerationShouldResetGenerationId()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+              for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.jupiter.api.Assertions")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        if (options.getFlakyCase().equals("kafka-12508")) {
+            this.testClass = Scene.v().getSootClass("org.apache.kafka.streams.integration.EmitOnChangeIntegrationTest");
+            this.testMethod = this.testClass.getMethod("void shouldEmitSameRecordAfterFailover()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+              for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("dummy_sym")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
