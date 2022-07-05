@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public final class BaselineAgent {
@@ -26,6 +27,12 @@ public final class BaselineAgent {
     static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
     static public final int trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
     static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
+
+    static private final int targetId = Integer.getInteger("flakyAgent.injectionId", -1);
+    static private final int times = Integer.getInteger("flakyAgent.injectionTimes", 0);
+    static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
+    static public final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
+    static private final AtomicInteger injectionCounter = new AtomicInteger();
 
     static private final ConcurrentMap<String, Throwable> exceptions = new ConcurrentHashMap<>();
     static private final Throwable sentinelException = new Exception("invalid injection");
@@ -38,6 +45,20 @@ public final class BaselineAgent {
         }
         if (logInject) {
             LOG.info("flaky record injection {}", id);
+        }
+        if (fixPointInjectionMode) {
+            if (id == targetId) {
+                if (injectionCounter.incrementAndGet() == times) {
+                    final Throwable t = ExceptionBuilder.createException(BaselineAgent.exceptionName);
+                    if (t == null) {
+                        LOG.error("FlakyAgent: fail to construct the exception " + BaselineAgent.exceptionName);
+                    } else {
+//                        LOG.info("FlakyAgent: injected the exception " + exceptionName);
+                        throw t;
+                    }
+                }
+            }
+            return;
         }
         final Throwable exception = exceptions.computeIfAbsent(exceptionName, e -> {
             final Throwable ex = ExceptionBuilder.createException(exceptionName);
