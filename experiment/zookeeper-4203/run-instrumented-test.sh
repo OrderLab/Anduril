@@ -25,9 +25,10 @@ done
 
 java \
 -cp $btm_dir:$classes_dir:$jars:$SCRIPT_DIR \
+-DflakyAgent.logInject=true \
 -DflakyAgent.fixPointInjectionMode=true \
--DflakyAgent.injectionId=599 \
--DflakyAgent.injectionTimes=2 \
+-DflakyAgent.injectionId=1 \
+-DflakyAgent.injectionTimes=-1 \
 -DflakyAgent.fault=java.io.IOException \
 -DflakyAgent.traceFile=$SCRIPT_DIR/trace.txt \
 org.junit.runner.JUnitCore $testcase
