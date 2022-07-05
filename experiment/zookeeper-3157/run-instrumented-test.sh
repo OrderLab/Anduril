@@ -2,10 +2,10 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-zk_dir="$1"
+case_name=zookeeper-3157
+zk_dir="${SCRIPT_DIR}/../../systems/$case_name"
 #btm_dir="${SCRIPT_DIR}/none"
 #target="$zk_dir"/zookeeper-server/target/
-case_name=zookeeper-3157
 classes_dir="$HOME/tmp/bytecode/$case_name/classes"
 #runtime_classes_dir="$HOME/tmp/bytecode/$case_name/runtime-classes"
 #testclasses_dir="$target/test-classes"
@@ -25,9 +25,10 @@ mkdir -p $SCRIPT_DIR/build
 java \
 -cp $classes_dir:$jars \
 -Dbuild.test.dir=$SCRIPT_DIR/build \
+-DflakyAgent.logInject=true \
 -DflakyAgent.fixPointInjectionMode=true \
--DflakyAgent.injectionId=$2 \
--DflakyAgent.injectionTimes=$3 \
--DflakyAgent.fault=$4 \
--DflakyAgent.traceFile=$5 \
+-DflakyAgent.injectionId=1 \
+-DflakyAgent.injectionTimes=-1 \
+-DflakyAgent.fault=java.io.IOException \
+-DflakyAgent.traceFile=asdf \
 org.junit.runner.JUnitCore $testcase
