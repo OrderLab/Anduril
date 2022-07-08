@@ -120,6 +120,7 @@ public final class TraceAgent {
     static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
     static public final int trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
     static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
+    static public final boolean recordOnthefly = Boolean.getBoolean("flakyAgent.recordOnthefly");
     static {
         if (distributedMode && !disableAgent) {
             try (final InputStream inputStream = new FileInputStream(injectionPointsPath);
@@ -161,20 +162,27 @@ public final class TraceAgent {
             }
             return;
         }
-        if (fixPointInjectionMode) {
-            if (id == targetId) {
-                if (injectionCounter.incrementAndGet() == times) {
-                    final Throwable t = ExceptionBuilder.createException(exceptionName);
-                    if (t == null) {
-                        LOG.error("FlakyAgent: fail to construct the exception " + exceptionName);
-                    } else {
-//                        LOG.info("FlakyAgent: injected the exception " + exceptionName);
-                        throw t;
+        try {
+            if (fixPointInjectionMode) {
+                if (id == targetId) {
+                    if (injectionCounter.incrementAndGet() == times) {
+                        final Throwable t = ExceptionBuilder.createException(exceptionName);
+                        if (t == null) {
+                            LOG.error("FlakyAgent: fail to construct the exception " + exceptionName);
+                        } else {
+//                            LOG.info("FlakyAgent: injected the exception " + exceptionName);
+                            throw t;
+                        }
                     }
                 }
+            } else {
+                localInjectionManager.inject(id, blockId);
             }
-        } else {
-            localInjectionManager.inject(id, blockId);
+        } catch(Throwable t) {
+            if (recordOnthefly && dumpFlag.compareAndSet(false, true)) {
+                localInjectionManager.dump();
+            }
+            throw t;
         }
     }
 

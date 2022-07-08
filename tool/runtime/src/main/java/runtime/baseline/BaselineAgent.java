@@ -27,6 +27,7 @@ public final class BaselineAgent {
     static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
     static public final int trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
     static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
+    static public final boolean recordOnthefly = Boolean.getBoolean("flakyAgent.recordOnthefly");
 
     static private final int targetId = Integer.getInteger("flakyAgent.injectionId", -1);
     static private final int times = Integer.getInteger("flakyAgent.injectionTimes", 0);
@@ -54,6 +55,9 @@ public final class BaselineAgent {
                         LOG.error("FlakyAgent: fail to construct the exception " + BaselineAgent.exceptionName);
                     } else {
 //                        LOG.info("FlakyAgent: injected the exception " + exceptionName);
+                        if (recordOnthefly && dumpFlag.compareAndSet(false, true)) {
+                            injectionManager.dump();
+                        }
                         throw t;
                     }
                 }
@@ -78,6 +82,9 @@ public final class BaselineAgent {
             }
         } else {
             if (injectionManager.inject(-1, id, occurrence, className, methodName, invocationName, line, exceptionName)) {
+                if (recordOnthefly && dumpFlag.compareAndSet(false, true)) {
+                    injectionManager.dump();
+                }
                 throw exception;
             }
         }

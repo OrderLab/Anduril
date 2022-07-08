@@ -25,7 +25,6 @@ fi
 GROUND_TRUTH=$SCRIPT_DIR/../../ground_truth/$case_name
 
 trials_dir=$SCRIPT_DIR/trials
-rm -rf $trials_dir
 mkdir -p $trials_dir
 id=0
 
@@ -39,6 +38,7 @@ java \
 -Dlog4j.configuration=file:$SCRIPT_DIR/log4j.properties \
 -cp $classes_dir:$jars:$runtime_jar \
 -DflakyAgent.avoidBlockMode=true \
+-DflakyAgent.recordOnthefly=true \
 -DflakyAgent.injectionOccurrenceLimit=3 \
 -DflakyAgent.feedback=true \
 -DflakyAgent.traceFile=$trials_dir/trace-$id.txt \
