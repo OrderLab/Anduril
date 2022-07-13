@@ -30,12 +30,6 @@
                     <source>8</source>
                     <target>8</target>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>none</phase>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
