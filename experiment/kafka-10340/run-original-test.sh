@@ -29,18 +29,36 @@ for i in `find $ka_dir -name "test"`; do
 done
 
 jars="$SCRIPT_DIR"
-
-for i in `head -n1 $SCRIPT_DIR/extra-depend.txt|tr ',' '\n'`; do
-  q=$(echo "$i"|sed 's#file:##')
-  if [[ "$i" != *"-SNAPSHOT.jar" ]]; then
-    jars="$q:$jars"
-  fi
+for i in `find $ka_dir -name "dependant-libs-2.13.5"`; do
+  for j in `find $i -name "*.jar"`; do
+    if [[ "$j" != *"-SNAPSHOT.jar" ]]; then
+      if [[ "$j" != *"/slf4j-log4j12-1.7.30.jar" ]]; then
+        jars="$j:$jars";
+      fi
+    fi
+  done
 done
-#for i in `cat $SCRIPT_DIR/extra-dependencies.txt`; do
-#    jars="$i:$jars";
+for i in `find $ka_dir -name "dependant-libs"`; do
+  for j in `find $i -name "*.jar"`; do
+    if [[ "$j" != *"-SNAPSHOT.jar" ]]; then
+      if [[ "$j" != *"/slf4j-log4j12-1.7.30.jar" ]]; then
+        jars="$j:$jars";
+      fi
+    fi
+  done
+done
+#for i in `head -n1 $SCRIPT_DIR/extra-depend.txt|tr ',' '\n'`; do
+#  q=$(echo "$i"|sed 's#file:##')
+#  echo $q
+#  if [[ "$i" != *"-SNAPSHOT.jar" ]]; then
+#    jars="$q:$jars"
+#  fi
 #done
-
-#for i in `find $JAVA_HOME -name "*.jar"`; do jars="$i:$jars"; done
+for i in `cat $SCRIPT_DIR/extra-dependencies.txt`; do
+  q=$(echo "$i"|sed "s#/home/tonypan#$HOME#")
+  jars="$q:$jars";
+done
+for i in `find $JAVA_HOME -name "*.jar"`; do jars="$i:$jars"; done
 testcase="org.apache.kafka.connect.integration.ConnectWorkerIntegrationTest"
 
 java \
