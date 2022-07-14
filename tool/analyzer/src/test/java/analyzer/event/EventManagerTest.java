@@ -5,7 +5,6 @@ import analyzer.AnalyzerTestBase;
 import analyzer.analysis.AnalysisInput;
 import analyzer.analysis.AnalysisManager;
 import analyzer.cases.eventManager.EventGraphExample;
-import fj.Hash;
 import index.ProgramLocation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
