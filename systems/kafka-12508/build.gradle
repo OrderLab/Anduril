@@ -54,6 +54,8 @@ allprojects {
     mavenCentral()
   }
 
+  apply plugin: 'java'
+
   dependencyUpdates {
     revision="release"
     resolutionStrategy {
