@@ -5,11 +5,11 @@ import parser.Log;
 import java.util.*;
 import java.util.function.Consumer;
 
-final class LogDiff {
+public final class LogDiff {
     private final Log good, bad;
     private final Map<String, ThreadDiff> common;
 
-    LogDiff(final Log good, final Log bad) {
+    public LogDiff(final Log good, final Log bad) {
         this.good = good;
         this.bad = bad;
         this.common = new HashMap<>();
@@ -48,13 +48,13 @@ final class LogDiff {
         }
     }
 
-    void dumpBadDiff(final Consumer<ThreadDiff.LogEntry> consumer) {
+    public void dumpBadDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) {
         for (final ThreadDiff diff : common.values()) {
             diff.dumpBadDiff(consumer);
         }
         for (final parser.LogEntry logEntry : this.bad.entries) {
             if (!common.containsKey(logEntry.thread)) {
-                consumer.accept(new ThreadDiff.LogEntry(logEntry));
+                consumer.accept(new ThreadDiff.ThreadLogEntry(logEntry));
             }
         }
     }

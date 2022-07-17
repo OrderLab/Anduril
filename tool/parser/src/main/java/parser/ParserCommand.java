@@ -1,8 +1,13 @@
 package parser;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import parser.diff.LogDiff;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -15,12 +20,25 @@ public final class ParserCommand {
         final Log good = getLogFromFilePath(cmd.getOptionValue("good"));
         final Log bad = getLogFromFilePath(cmd.getOptionValue("good"));
         if (cmd.hasOption("diff")) {
+            if (cmd.hasOption("output")) {
+                final File file = new File(cmd.getOptionValue("output"));
+                file.getParentFile().mkdirs(); // If the directory doesn't exist we need to create it
+                try (final PrintStream writer = new PrintStream(file)) {
+                    diffToOutput(good, bad, writer);
+                }
+            } else {
+                diffToOutput(good, bad, System.out);
+            }
         } else if (cmd.hasOption("feedback")) {
             final Log trial = getLogFromFilePath(cmd.getOptionValue("trial"));
             // TODO: finish the algorithm
         } else {
             throw new Exception("You must enter a command!");
         }
+    }
+
+    public static void diffToOutput(final Log good, final Log bad, final PrintStream printer) {
+        new LogDiff(good, bad).dumpBadDiff(printer::println);
     }
 
     static Log getLogFromFilePath(String path) throws IOException {
@@ -33,6 +51,10 @@ public final class ParserCommand {
 
     static CommandLine parseCommandLine(final String[] args) throws Exception {
         final Options options = new Options();
+
+        final Option output = new Option("o", "output", true, "output file");
+        output.setRequired(false);
+        options.addOption(output);
 
         final Option good = new Option("g", "good", true, "good run log");
         good.setRequired(true);
@@ -54,9 +76,9 @@ public final class ParserCommand {
         options.addOption(feedback);
 
         try {
-            return new DefaultParser().parse(options, args);
+            return new org.apache.commons.cli.DefaultParser().parse(options, args);
         } catch (org.apache.commons.cli.ParseException e) {
-            new HelpFormatter().printHelp("utility-name", options);
+            new org.apache.commons.cli.HelpFormatter().printHelp("utility-name", options);
             throw new Exception("fail to parse the arguments");
         }
     }

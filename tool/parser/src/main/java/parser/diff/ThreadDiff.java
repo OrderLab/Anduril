@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-final class ThreadDiff {
-    static final class LogEntry {
+public final class ThreadDiff {
+    public static final class ThreadLogEntry {
         final String file;
         final int line;
 
-        LogEntry(final parser.LogEntry logEntry) {
+        ThreadLogEntry(final parser.LogEntry logEntry) {
             this.file = logEntry.file;
             this.line = logEntry.fileLogLine;
         }
@@ -21,8 +21,8 @@ final class ThreadDiff {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof LogEntry)) return false;
-            LogEntry logEntry = (LogEntry) o;
+            if (!(o instanceof ThreadLogEntry)) return false;
+            ThreadLogEntry logEntry = (ThreadLogEntry) o;
             return line == logEntry.line && file.equals(logEntry.file);
         }
 
@@ -38,13 +38,13 @@ final class ThreadDiff {
     }
 
     public final String thread;
-    private final ArrayList<LogEntry> good, bad;
-    private final Patch<LogEntry> patch;
+    private final ArrayList<ThreadLogEntry> good, bad;
+    private final Patch<ThreadLogEntry> patch;
 
-    private static ArrayList<LogEntry> convertLogEntries(final ArrayList<parser.LogEntry> logEntries) {
-        final ArrayList<LogEntry> result = new ArrayList<LogEntry>(logEntries.size());
+    private static ArrayList<ThreadLogEntry> convertLogEntries(final ArrayList<parser.LogEntry> logEntries) {
+        final ArrayList<ThreadLogEntry> result = new ArrayList<ThreadLogEntry>(logEntries.size());
         for (final parser.LogEntry logEntry : logEntries) {
-            result.add(new LogEntry(logEntry));
+            result.add(new ThreadLogEntry(logEntry));
         }
         return result;
     }
@@ -56,8 +56,8 @@ final class ThreadDiff {
         this.patch = DiffUtils.diff(this.good, this.bad);
     }
 
-    void dumpBadDiff(final Consumer<LogEntry> consumer) {
-        for (final AbstractDelta<LogEntry> delta : this.patch.getDeltas()) {
+    void dumpBadDiff(final Consumer<ThreadLogEntry> consumer) {
+        for (final AbstractDelta<ThreadLogEntry> delta : this.patch.getDeltas()) {
             switch (delta.getType()) {
                 case CHANGE:
                 case INSERT:

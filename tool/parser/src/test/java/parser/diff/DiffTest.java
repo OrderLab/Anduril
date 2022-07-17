@@ -2,8 +2,10 @@ package parser.diff;
 
 import org.junit.jupiter.api.Test;
 import parser.LogTestUtil;
+import parser.ParserCommand;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -32,9 +34,14 @@ class DiffTest {
     void testLogDiff() throws IOException {
         for (final String bug : testCases) {
             final ArrayList<String> actual = new ArrayList<>(), expected = new ArrayList<>();
-            new LogDiff(LogTestUtil.getLog("ground-truth/" + bug + "/good-run-log.txt"),
-                    LogTestUtil.getLog("ground-truth/" + bug + "/bad-run-log.txt"))
-                    .dumpBadDiff(e -> actual.add(e.toString()));
+            ParserCommand.diffToOutput(LogTestUtil.getLog("ground-truth/" + bug + "/good-run-log.txt"),
+                    LogTestUtil.getLog("ground-truth/" + bug + "/bad-run-log.txt"),
+                    new PrintStream(System.out) {
+                        @Override
+                        public void println(final Object e) {
+                            actual.add(e.toString());
+                        }
+                    });
             for (final String text : LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log.txt")) {
                 if (!text.isEmpty()) {
                     expected.add(text);
