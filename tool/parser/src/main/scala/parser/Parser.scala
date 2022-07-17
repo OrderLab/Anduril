@@ -61,7 +61,7 @@ object Parser {
 
   // TODO: extract the test symptom, e.g., FAILURE
   // TODO: handle the first log entry which can follow the header at the same line
-  def parse(text: Array[String]): Log = {
+  def parseLog(text: Array[String]): Log = {
     val logEntries = mutable.ArrayBuffer.empty[LogEntry]
     var headerBuilder: Option[mutable.StringBuilder] = None
     var currentLogEntryBuilder: Option[LogEntryBuilder] = None

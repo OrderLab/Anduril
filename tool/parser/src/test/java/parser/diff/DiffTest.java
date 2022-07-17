@@ -23,6 +23,9 @@ class DiffTest {
             "zookeeper-3157",
             "zookeeper-3006",
             "zookeeper-4203",
+            "kafka-9374",
+            "kafka-12508",
+            "kafka-10340",
     };
 
     @Test

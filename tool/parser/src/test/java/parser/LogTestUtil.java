@@ -19,6 +19,6 @@ public class LogTestUtil {
     }
 
     public static Log getLog(String path) throws IOException {
-        return Parser.parse(getFileLines(path));
+        return Parser.parseLog(getFileLines(path));
     }
 }

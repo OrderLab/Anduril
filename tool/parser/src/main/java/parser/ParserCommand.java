@@ -28,7 +28,7 @@ public final class ParserCommand {
         try (final Stream<String> stream = Files.lines(Paths.get(path))) {
             stream.forEach(text::add);
         }
-        return Parser.parse(text.toArray(new String[0]));
+        return Parser.parseLog(text.toArray(new String[0]));
     }
 
     static CommandLine parseCommandLine(final String[] args) throws Exception {
