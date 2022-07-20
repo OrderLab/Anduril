@@ -18,7 +18,7 @@ public final class ParserCommand {
     public static void main(final String[] args) throws Exception {
         final CommandLine cmd = parseCommandLine(args);
         final Log good = getLogFromFilePath(cmd.getOptionValue("good"));
-        final Log bad = getLogFromFilePath(cmd.getOptionValue("good"));
+        final Log bad = getLogFromFilePath(cmd.getOptionValue("bad"));
         if (cmd.hasOption("diff")) {
             if (cmd.hasOption("output")) {
                 final File file = new File(cmd.getOptionValue("output"));
@@ -71,9 +71,9 @@ public final class ParserCommand {
                 "only compute the diff of the good run and the bad run");
         options.addOption(diff);
 
-        final Option feedback = new Option("f", "feedback", false,
-                "only compute the feedback based on the trial run, the good run and the bad run");
-        options.addOption(feedback);
+        final Option timeFeedback = new Option("tf", "time-feedback", true,
+                "compute the time-based feedback based on the trial run, the good run, the bad run");
+        options.addOption(timeFeedback);
 
         try {
             return new org.apache.commons.cli.DefaultParser().parse(options, args);
