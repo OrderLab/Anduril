@@ -55,7 +55,12 @@ public final class EventManager {
     public void dump(final String path) {
         final JsonArrayBuilder nodesJson = Json.createArrayBuilder();
         final JsonArrayBuilder treeJson = Json.createArrayBuilder();
-        for (final EventGraph.Node node : this.eventGraph.nodes.values()) {
+        // dump following the id order
+        final EventGraph.Node[] nodes = new EventGraph.Node[this.eventGraph.nodes.size()];
+        for (final Map.Entry<ProgramEvent, EventGraph.Node> entry : this.eventGraph.nodes.entrySet()) {
+            nodes[this.eventGraph.nodeIds.get(entry.getKey())] = entry.getValue();
+        }
+        for (final EventGraph.Node node : nodes) {
             nodesJson.add(node.event.dump(this));
             final JsonArrayBuilder childrenJson = Json.createArrayBuilder();
             for (final EventGraph.Node child : node.out) {
