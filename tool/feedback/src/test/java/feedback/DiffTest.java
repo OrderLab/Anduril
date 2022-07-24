@@ -8,6 +8,7 @@ import feedback.parser.LogTestUtil;
 import feedback.parser.ParserUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.opentest4j.AssertionFailedError;
 
 import javax.json.JsonObject;
 import javax.json.JsonString;
@@ -18,6 +19,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class DiffTest {
     private static final class DistributedCase {
@@ -102,11 +104,11 @@ final class DiffTest {
 
     private final Random random = new Random();
 
-    private String[] prepareArgs(final String bugDir, final List<String> option) {
+    private String[] prepareArgs(final String good, final String bad, final List<String> option) {
         final List<List<String>> cmd = Arrays.asList(
                 Collections.singletonList(this.random.nextBoolean() ? "--diff" : "-d"),
-                Arrays.asList(this.random.nextBoolean()? "--good" : "-g", bugDir + "/good-run-log"),
-                Arrays.asList(this.random.nextBoolean()? "--bad" : "-b", bugDir + "/bad-run-log"),
+                Arrays.asList(this.random.nextBoolean()? "--good" : "-g", good),
+                Arrays.asList(this.random.nextBoolean()? "--bad" : "-b", bad),
                 option);
         Collections.shuffle(cmd);
         final List<String> result = new ArrayList<>();
@@ -114,8 +116,8 @@ final class DiffTest {
         return result.toArray(new String[0]);
     }
 
-    private List<String> prepareEndToEndTest(final Path tempDir) throws IOException {
-        final List<String> cases = new ArrayList<>();
+    private ArrayList<String> prepareEndToEndTest(final Path tempDir) throws IOException {
+        final ArrayList<String> cases = new ArrayList<>();
         for (final String bug : testCases) {
             LogTestUtil.initTempFile("ground-truth/" + bug + "/good-run-log.txt",
                     tempDir.resolve(bug + "/good-run-log"));
@@ -131,17 +133,20 @@ final class DiffTest {
         return cases;
     }
 
-    private void testEndToEndDiff(final String rootDir, final String bug) throws Exception {
-        final String bugDir = rootDir + bug;
+    private void testEndToEndDiff(final Path tempDir, final String bug, final String good, final String bad)
+            throws Exception {
+        final String bugDir = tempDir + "/" + bug;
         final String outputFile = bugDir + ".txt";
         final String jsonFile = bugDir + ".json";
+        final String goodRun = tempDir + "/" + good;
+        final String badRun = tempDir + "/" + bad;
         final List<String> diff = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log.txt"));
         // test output
-        CommandLine.main(prepareArgs(bugDir, Arrays.asList(random.nextBoolean()? "--output" : "-o", outputFile)));
+        CommandLine.main(prepareArgs(goodRun, badRun, Arrays.asList(random.nextBoolean()? "--output" : "-o", outputFile)));
         assertEquals(diff, Arrays.stream(ParserUtil.getFileLines(outputFile)).sorted().collect(Collectors.toList()));
         // test json
         JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", bug).build(), jsonFile);
-        CommandLine.main(prepareArgs(bugDir, Arrays.asList(this.random.nextBoolean()? "--append" : "-a", jsonFile)));
+        CommandLine.main(prepareArgs(goodRun, badRun, Arrays.asList(this.random.nextBoolean()? "--append" : "-a", jsonFile)));
         final JsonObject json = JsonUtil.loadJson(jsonFile);
         assertEquals(diff, json.getJsonArray("diff").stream()
                 .map(v -> ((JsonString)v).getString()).sorted().collect(Collectors.toList()));
@@ -150,10 +155,37 @@ final class DiffTest {
 
     @Test
     void testEndToEndDiff(final @TempDir Path tempDir) throws Exception {
-        final List<String> cases = prepareEndToEndTest(tempDir);
-        final String rootDir = tempDir + "/";
-        for (final String bug : cases) {
-            testEndToEndDiff(rootDir, bug);
+        for (final String bug : prepareEndToEndTest(tempDir)) {
+            testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
+        }
+    }
+
+    @Test
+    void testEndToEndDiffShuffleError(final @TempDir Path tempDir) throws Exception {
+        final ArrayList<String> cases = prepareEndToEndTest(tempDir);
+        final ArrayList<String> shuffle = (ArrayList<String>) cases.clone();
+        Collections.shuffle(shuffle);
+        for (int i = 0; i < cases.size(); i++) {
+            final String expected = cases.get(i);
+            final String actual = shuffle.get(i);
+            if (expected.equals(actual)) {
+                testEndToEndDiff(tempDir, expected, expected + "/good-run-log", expected + "/bad-run-log");
+            } else {
+                assertThrows(AssertionFailedError.class, () ->
+                        testEndToEndDiff(tempDir, expected, actual + "/good-run-log", actual + "/bad-run-log"));
+            }
+        }
+    }
+
+    @Test
+    void testEndToEndDiffSwitchError(final @TempDir Path tempDir) throws Exception {
+        for (final String bug : prepareEndToEndTest(tempDir)) {
+            if (random.nextBoolean()) {
+                testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
+            } else {
+                assertThrows(AssertionFailedError.class, () ->
+                        testEndToEndDiff(tempDir, bug, bug + "/bad-run-log", bug + "/good-run-log"));
+            }
         }
     }
 }
