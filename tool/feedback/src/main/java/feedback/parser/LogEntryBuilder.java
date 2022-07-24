@@ -1,8 +1,10 @@
-package parser;
+package feedback.parser;
 
 import org.joda.time.DateTime;
 
-final class LogEntryBuilder {
+import java.io.Serializable;
+
+final class LogEntryBuilder implements Serializable {
     private final DateTime datetime;
     private final String type;
     private final String thread;

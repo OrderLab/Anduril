@@ -1,4 +1,4 @@
-package parser
+package feedback.parser
 
 import scala.collection.mutable
 

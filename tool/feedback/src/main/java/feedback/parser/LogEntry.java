@@ -1,4 +1,4 @@
-package parser;
+package feedback.parser;
 
 import org.joda.time.DateTime;
 

@@ -61,6 +61,6 @@
         <module>analyzer</module>
         <module>index</module>
         <module>runtime</module>
-        <module>parser</module>
+        <module>feedback</module>
     </modules>
 </project>

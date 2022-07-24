@@ -1,4 +1,4 @@
-package parser;
+package feedback.parser;
 
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 final class ParserTest {
-    private void testDatetime(String datetimeText, int y, int m, int d, int hr, int min, int s, int ms) {
+    private static void testDatetime(String datetimeText, int y, int m, int d, int hr, int min, int s, int ms) {
         assertEquals(new DateTime(y, m, d, hr, min, s, ms), Parser.parseDatetime(datetimeText));
     }
 
@@ -41,7 +41,7 @@ final class ParserTest {
         assertThrows(RuntimeException.class, () -> Parser.parseLogType("TRACK"));
     }
 
-    private void testLocation(String locationText, String thread, String file, int line) {
+    private static void testLocation(String locationText, String thread, String file, int line) {
         assertEquals(new scala.Tuple3<>(thread, file, line), Parser.parseLocation(locationText));
     }
 
@@ -80,7 +80,7 @@ final class ParserTest {
         testLocation("[asdf\nqwer\nzxcv:Bar$@999]", "asdf\nqwer\nzxcv", "Bar$", 999);
     }
 
-    private void testLogEntry(String text, String datetime, String type, String location, String msg) {
+    private static void testLogEntry(String text, String datetime, String type, String location, String msg) {
         assertEquals(new LogEntryBuilder(datetime, type, location, msg).buildWithoutLogLine(),
                 Parser.parseLogEntry(text).buildWithoutLogLine());
     }
@@ -161,5 +161,12 @@ final class ParserTest {
         final Log hbase_20492 = LogTestUtil.getLog("ground-truth/hbase-20492/good-run-log.txt");
         assertEquals(1468, hbase_20492.entries.length);
         assertEquals(hbase_20492.entries[1464].logLine, 1467);
+    }
+
+    @Test
+    void testLoadFile() throws IOException {
+        final String[] zookeeper_3157 = LogTestUtil.getFileLines("ground-truth/zookeeper-3157/bad-run-log.txt");
+        assertEquals(1170, zookeeper_3157.length);
+        assertEquals("JUnit version 4.12", zookeeper_3157[0]);
     }
 }

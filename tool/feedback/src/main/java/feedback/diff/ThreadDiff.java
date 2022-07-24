@@ -1,19 +1,21 @@
-package parser.diff;
+package feedback.diff;
 
 import com.github.difflib.DiffUtils;
 import com.github.difflib.patch.AbstractDelta;
 import com.github.difflib.patch.Patch;
+import feedback.parser.LogEntry;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public final class ThreadDiff {
+public final class ThreadDiff implements Serializable {
     public static final class ThreadLogEntry {
         final String file;
         final int line;
 
-        ThreadLogEntry(final parser.LogEntry logEntry) {
+        ThreadLogEntry(final LogEntry logEntry) {
             this.file = logEntry.file;
             this.line = logEntry.fileLogLine;
         }
@@ -41,15 +43,15 @@ public final class ThreadDiff {
     private final ArrayList<ThreadLogEntry> good, bad;
     private final Patch<ThreadLogEntry> patch;
 
-    private static ArrayList<ThreadLogEntry> convertLogEntries(final ArrayList<parser.LogEntry> logEntries) {
+    private static ArrayList<ThreadLogEntry> convertLogEntries(final ArrayList<LogEntry> logEntries) {
         final ArrayList<ThreadLogEntry> result = new ArrayList<ThreadLogEntry>(logEntries.size());
-        for (final parser.LogEntry logEntry : logEntries) {
+        for (final LogEntry logEntry : logEntries) {
             result.add(new ThreadLogEntry(logEntry));
         }
         return result;
     }
 
-    ThreadDiff(final String thread, final ArrayList<parser.LogEntry> good, final ArrayList<parser.LogEntry> bad) {
+    ThreadDiff(final String thread, final ArrayList<LogEntry> good, final ArrayList<LogEntry> bad) {
         this.thread = thread;
         this.good = convertLogEntries(good);
         this.bad = convertLogEntries(bad);
