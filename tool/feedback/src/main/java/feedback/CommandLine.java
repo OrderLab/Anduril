@@ -87,7 +87,7 @@ public final class CommandLine {
         final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
         final DistributedLog trial = new DistributedLog(cmd.getOptionValue("trial"));
         final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        Algorithm.computeLocationFeedback(good, bad, trial, spec, consumer);
+        Algorithms.computeLocationFeedback(good, bad, trial, spec, consumer);
     }
 
     private void computeTimeFeedback() throws Exception {
@@ -95,13 +95,13 @@ public final class CommandLine {
         final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
         final DistributedLog trial = new DistributedLog(cmd.getOptionValue("trial"));
         final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        Algorithm.computeTimeFeedback(good, bad, trial, spec, e -> {});
+        Algorithms.computeTimeFeedback(good, bad, trial, spec, e -> {});
     }
 
     private void computeDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) throws Exception {
         final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
         final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        Algorithm.computeDiff(good, bad, consumer);
+        Algorithms.computeDiff(good, bad, consumer);
     }
 
     static Options getOptions() {

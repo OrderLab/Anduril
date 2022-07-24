@@ -20,6 +20,11 @@ public final class ThreadDiff implements Serializable {
             this.line = logEntry.fileLogLine;
         }
 
+        public ThreadLogEntry(final String file, final int line) {
+            this.file = file;
+            this.line = line;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;

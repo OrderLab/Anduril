@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-final class JsonUtil {
+public final class JsonUtil {
     private static final JsonWriterFactory writerFactory;
 
     static {
@@ -21,10 +21,15 @@ final class JsonUtil {
         writerFactory = Json.createWriterFactory(options);
     }
 
-    static JsonObject loadJson(final Path path) throws IOException {
-        try (final InputStream inputStream = Files.newInputStream(path);
-             final JsonReader reader = Json.createReader(inputStream)) {
+    public static JsonObject loadJson(final InputStream inputStream) throws IOException {
+        try (final JsonReader reader = Json.createReader(inputStream)) {
             return reader.readObject();
+        }
+    }
+
+    static JsonObject loadJson(final Path path) throws IOException {
+        try (final InputStream inputStream = Files.newInputStream(path)) {
+            return loadJson(inputStream);
         }
     }
 

@@ -1,7 +1,9 @@
 package feedback.parser;
 
+import feedback.JsonUtil;
 import org.apache.commons.io.FileUtils;
 
+import javax.json.JsonObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +22,10 @@ public class LogTestUtil {
             text.add(reader.readLine());
         }
         return text.toArray(new String[0]);
+    }
+
+    public static JsonObject loadJson(final String path) throws IOException {
+        return JsonUtil.loadJson(LogTestUtil.class.getClassLoader().getResourceAsStream(path));
     }
 
     public static Log getLog(String path) throws IOException {
