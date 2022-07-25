@@ -48,10 +48,35 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>compile</id>
                         <goals>
                             <goal>compile</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
                             <goal>testCompile</goal>
                         </goals>
+                        <phase>test-compile</phase>
+                    </execution>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <!-- Run scala compiler in the process-test-resources phase,
+                         so that dependencies on Scala classes can be resolved later
+                         in the (Java) test-compile phase. However, JUnit test entries
+                         can not appear in Scala, otherwise we need Scala test plugin -->
+                    <execution>
+                        <id>scala-test-compile</id>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <phase>process-test-resources</phase>
                     </execution>
                 </executions>
             </plugin>

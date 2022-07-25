@@ -1,0 +1,29 @@
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/haoze/flaky-reproduction/systems/hdfs-4233/hadoop-dist/target/hadoop-0.23.6-SNAPSHOT/share/hadoop/common/lib/slf4j-log4j12-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/haoze/tmp/bytecode/hdfs-4233/runtime-1.0-jar-with-dependencies.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+java.io.IOException: Unable to start log segment 7: no journals successfully started.
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.startLogSegment(FSEditLog.java:835)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.rollEditLog(FSEditLog.java:797)
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.rollEditLog(FSImage.java:911)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.rollEditLog(FSNamesystem.java:3503)
+	at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.rollEditLog(NameNodeRpcServer.java:645)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.ipc.WritableRpcEngine$Server.call(WritableRpcEngine.java:394)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1530)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1526)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1212)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:1526)
+
+	at org.apache.hadoop.ipc.Client.call(Client.java:1088)
+	at org.apache.hadoop.ipc.WritableRpcEngine$Invoker.invoke(WritableRpcEngine.java:196)
+	at com.sun.proxy.$Proxy6.rollEditLog(Unknown Source)
+	at org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode.doCheckpoint(SecondaryNameNode.java:508)
+	at org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode.doWork(SecondaryNameNode.java:384)
+	at org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode.run(SecondaryNameNode.java:352)
+	at java.lang.Thread.run(Thread.java:748)

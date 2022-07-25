@@ -11,7 +11,6 @@ import org.junit.jupiter.api.io.TempDir;
 import org.opentest4j.AssertionFailedError;
 
 import javax.json.JsonObject;
-import javax.json.JsonString;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
@@ -22,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class DiffTest {
-    private static final class DistributedCase {
+    static final class DistributedCase {
         final String name;
         final String[] files;
         DistributedCase(final String name, final String... files) {
             this.name = name;
-            this.files = Arrays.stream(files).toArray(String[]::new);
+            this.files = files;
         }
 
         void prepareTempFiles(final Path tempDir) throws IOException {
@@ -39,16 +38,18 @@ final class DiffTest {
         }
     }
 
+    static final DistributedCase hdfs_4233 = new DistributedCase("hdfs-4233",
+            "good-run-log/logs-0/hadoop-haoze-secondarynamenode-razor2.log",
+            "good-run-log/logs-1/hadoop-haoze-namenode-razor2.log",
+            "good-run-log/logs-2/hadoop-haoze-datanode-razor2.log",
+            "good-run-log/logs-3/hadoop-haoze-datanode-razor2.log",
+            "bad-run-log/logs-0/hadoop-haoze-secondarynamenode-razor2.log",
+            "bad-run-log/logs-1/hadoop-haoze-namenode-razor2.log",
+            "bad-run-log/logs-2/hadoop-haoze-datanode-razor2.log",
+            "bad-run-log/logs-3/hadoop-haoze-datanode-razor2.log");
+
     private static final DistributedCase[] distributedCases = {
-            new DistributedCase("hdfs-4233",
-                    "good-run-log/logs-0/hadoop-haoze-secondarynamenode-razor2.log",
-                    "good-run-log/logs-1/hadoop-haoze-namenode-razor2.log",
-                    "good-run-log/logs-2/hadoop-haoze-datanode-razor2.log",
-                    "good-run-log/logs-3/hadoop-haoze-datanode-razor2.log",
-                    "bad-run-log/logs-0/hadoop-haoze-secondarynamenode-razor2.log",
-                    "bad-run-log/logs-1/hadoop-haoze-namenode-razor2.log",
-                    "bad-run-log/logs-2/hadoop-haoze-datanode-razor2.log",
-                    "bad-run-log/logs-3/hadoop-haoze-datanode-razor2.log"),
+            hdfs_4233,
     };
 
     private static final String[] testCases = {
@@ -148,8 +149,7 @@ final class DiffTest {
         JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", bug).build(), jsonFile);
         CommandLine.main(prepareArgs(goodRun, badRun, Arrays.asList(this.random.nextBoolean()? "--append" : "-a", jsonFile)));
         final JsonObject json = JsonUtil.loadJson(jsonFile);
-        assertEquals(diff, json.getJsonArray("diff").stream()
-                .map(v -> ((JsonString)v).getString()).sorted().collect(Collectors.toList()));
+        assertEquals(diff, JsonUtil.toStringStream(json.getJsonArray("diff")).sorted().collect(Collectors.toList()));
         assertEquals(bug, json.getString("bug"));
     }
 

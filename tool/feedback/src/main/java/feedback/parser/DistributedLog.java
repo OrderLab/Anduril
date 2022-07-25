@@ -19,7 +19,7 @@ public final class DistributedLog implements Serializable {
             Arrays.sort(this.dirs, Comparator.comparing(File::getName));
             this.logs = new Log[this.dirs.length];
             for (int i = 0; i < this.dirs.length; i++) {
-                final File[] files = this.dirs[i].listFiles();
+                final File[] files = this.dirs[i].listFiles((file, name) -> name.endsWith(".log"));
                 if (files.length != 1) {
                     throw new IOException("multiple log files for a single process");
                 }

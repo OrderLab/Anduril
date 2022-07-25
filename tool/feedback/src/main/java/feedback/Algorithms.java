@@ -42,7 +42,7 @@ final class Algorithms {
         final int eventNumber = spec.getInt("start");
         final Map<ThreadDiff.ThreadLogEntry, Integer> wanted = new HashMap<>();
         dumpExpectedDiff.accept(e -> wanted.put(e, 0));
-        if (wanted.size() + 1 != eventNumber) {
+        if (wanted.size() + (Symptoms.isSymptomLogged(spec)? 0 : 1) != eventNumber) {
             throw new Exception("wrong diff");
         }
         final JsonArray array = spec.getJsonArray("nodes");
@@ -70,7 +70,15 @@ final class Algorithms {
             }
         }
         dumpActualDiff.accept(wanted::remove);
-        wanted.values().forEach(consumer);
+        if (Symptoms.isSymptomLogged(spec)) {
+            wanted.values().forEach(i -> {
+                if (i != 0) {
+                    consumer.accept(i);
+                }
+            });
+        } else {
+            wanted.values().forEach(consumer);
+        }
     }
 
     static void computeLocationFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,
@@ -83,7 +91,9 @@ final class Algorithms {
             computeLocationFeedback(new LogDiff(good.logs[0], bad.logs[0])::dumpBadDiff,
                     new LogDiff(good.logs[0], trial.logs[0])::dumpBadDiff, spec, consumer);
         }
-        Symptoms.complementSymptom(trial, spec, consumer);
+        if (!Symptoms.checkSymptom(trial, spec)) {
+            consumer.accept(0);
+        }
     }
 
     static void computeTimeFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,

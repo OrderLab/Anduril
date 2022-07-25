@@ -2,7 +2,7 @@ package feedback.parser
 
 import scala.collection.mutable
 
-object Parser {
+private[parser] object Parser {
   private val year = """\d{4}"""
   private val month = """\d{2}"""
   private val day = """\d{2}"""

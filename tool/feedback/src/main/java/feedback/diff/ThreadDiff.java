@@ -1,8 +1,8 @@
 package feedback.diff;
 
-import com.github.difflib.DiffUtils;
-import com.github.difflib.patch.AbstractDelta;
-import com.github.difflib.patch.Patch;
+import difflib.Delta;
+import difflib.DiffUtils;
+import difflib.Patch;
 import feedback.parser.LogEntry;
 
 import java.io.Serializable;
@@ -64,11 +64,11 @@ public final class ThreadDiff implements Serializable {
     }
 
     void dumpBadDiff(final Consumer<ThreadLogEntry> consumer) {
-        for (final AbstractDelta<ThreadLogEntry> delta : this.patch.getDeltas()) {
+        for (final Delta<ThreadLogEntry> delta : this.patch.getDeltas()) {
             switch (delta.getType()) {
                 case CHANGE:
                 case INSERT:
-                    delta.getTarget().getLines().forEach(consumer);
+                    delta.getRevised().getLines().forEach(consumer);
                 default:
             }
         }

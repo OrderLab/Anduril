@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public final class JsonUtil {
     private static final JsonWriterFactory writerFactory;
@@ -64,5 +65,13 @@ public final class JsonUtil {
 
     static JsonObjectBuilder createObjectBuilder() {
         return Json.createObjectBuilder();
+    }
+
+    static Stream<Integer> toIntStream(final JsonArray array) {
+        return array.stream().map(v -> ((JsonNumber)v).intValue());
+    }
+
+    static Stream<String> toStringStream(final JsonArray array) {
+        return array.stream().map(v -> ((JsonString)v).getString());
     }
 }

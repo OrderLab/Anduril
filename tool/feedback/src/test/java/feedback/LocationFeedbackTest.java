@@ -5,7 +5,6 @@ import feedback.parser.ParserUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,58 +14,112 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class LocationFeedbackTest {
-    private static final class TestCase {
-        final String name;
-        final int[] instances;
-        TestCase(final String name, final int... instances) {
+    static abstract class BugCase {
+        private final String name;
+        private final int[] instances;
+        BugCase(final String name, final int[] instances) {
             this.name = name;
             this.instances = instances;
         }
-
-        void prepareTempFiles(final Path tempDir) throws IOException {
-            LogTestUtil.initTempFile("ground-truth/" + this.name + "/good-run-log.txt",
-                    tempDir.resolve(this.name + "/good-run-log"));
-            LogTestUtil.initTempFile("ground-truth/" + this.name + "/bad-run-log.txt",
-                    tempDir.resolve(this.name + "/bad-run-log"));
-            LogTestUtil.initTempFile("feedback/" + this.name + "/tree.json",
-                    tempDir.resolve(this.name + "/spec.json"));
-            for (int i = 0; i < this.instances.length; i++) {
-                LogTestUtil.initTempFile("feedback/" + this.name + "/output-" + this.instances[i] + ".txt",
-                        tempDir.resolve(this.name + "/output-" + i));
+        BugCase(final String name, final int caseNumber) {
+            this.name = name;
+            this.instances = new int[caseNumber];
+            for (int i = 0; i < caseNumber; i++) {
+                this.instances[i] = i;
             }
         }
 
-        void test(final Path tempDir) throws Exception {
+        abstract void prepareTempFiles(final Path tempDir) throws IOException;
+
+        final void test(final Path tempDir) throws Exception {
             this.prepareTempFiles(tempDir);
             final String dir = tempDir + "/" + this.name + "/";
             for (int i = 0; i < this.instances.length; i++) {
-                final List<Integer> expected =
-                        LogTestUtil.loadJson("feedback/" + this.name + "/injection-" + this.instances[i] + ".json")
-                                .getJsonArray("feedback").stream()
-                                .map(v -> ((JsonNumber)v).intValue()).sorted().collect(Collectors.toList());
+                final List<Integer> expected = JsonUtil.toIntStream(LogTestUtil.loadJson(
+                                "feedback/" + this.name + "/injection-" + this.instances[i] + ".json").getJsonArray("feedback"))
+                        .sorted().collect(Collectors.toList());
                 // test output
                 final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
-                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log",
-                        dir + "output-" + i, dir + "spec.json",
+                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
                         Arrays.asList(random.nextBoolean()? "--output" : "-o", outputFile)));
                 assertEquals(expected, Arrays.stream(ParserUtil.getFileLines(outputFile))
                         .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
                 // test json
                 final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
                 JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
-                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log",
-                        dir + "output-" + i, dir + "spec.json",
+                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
                         Arrays.asList(random.nextBoolean()? "--append" : "-a", jsonFile)));
                 final JsonObject json = JsonUtil.loadJson(jsonFile);
-                assertEquals(expected, json.getJsonArray("locationFeedback").stream()
-                        .map(v -> ((JsonNumber)v).intValue()).sorted().collect(Collectors.toList()));
+                assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("locationFeedback"))
+                        .sorted().collect(Collectors.toList()));
             }
         }
     }
 
-    private static TestCase[] cases = new TestCase[] {
+    static final class TestCase extends BugCase {
+        private TestCase(final String name, final int... instances) {
+            super(name, instances);
+        }
+
+        @Override
+        void prepareTempFiles(final Path tempDir) throws IOException {
+            LogTestUtil.initTempFile("ground-truth/" + super.name + "/good-run-log.txt",
+                    tempDir.resolve(super.name + "/good-run-log"));
+            LogTestUtil.initTempFile("ground-truth/" + super.name + "/bad-run-log.txt",
+                    tempDir.resolve(super.name + "/bad-run-log"));
+            LogTestUtil.initTempFile("feedback/" + super.name + "/tree.json",
+                    tempDir.resolve(super.name + "/spec.json"));
+            for (int i = 0; i < super.instances.length; i++) {
+                LogTestUtil.initTempFile("feedback/" + super.name + "/output-" + super.instances[i] + ".txt",
+                        tempDir.resolve(super.name + "/" + i));
+            }
+        }
+    }
+
+    static final class DistributedCase extends BugCase {
+        private final DiffTest.DistributedCase bug;
+        private final String[] files;
+        private DistributedCase(final DiffTest.DistributedCase bug, final int caseNumber, final String... files) {
+            super(bug.name, caseNumber);
+            this.bug = bug;
+            this.files = files;
+        }
+
+        @Override
+        void prepareTempFiles(final Path tempDir) throws IOException {
+            this.bug.prepareTempFiles(tempDir);
+            LogTestUtil.initTempFile("feedback/" + super.name + "/tree.json",
+                    tempDir.resolve(super.name + "/spec.json"));
+            for (int i = 0; i < super.instances.length; i++) {
+                final String filePrefix = "feedback/" + super.name + "/" + super.instances[i] + "/";
+                final Path tempPrefix = tempDir.resolve(super.name + "/" + i);
+                for (final String file : files) {
+                    LogTestUtil.initTempFile(filePrefix + file, tempPrefix.resolve(file));
+                }
+            }
+        }
+    }
+
+    private static BugCase[] cases = new BugCase[] {
             new TestCase("zookeeper-3006",
                     2695,1004,2696,558,2694,1001,554,2872,274,0,1000,281,2766),
+            new DistributedCase(DiffTest.hdfs_4233, 108,
+                    "logs-0/hadoop-haoze-secondarynamenode.pid",
+                    "logs-0/hadoop-haoze-secondarynamenode-razor7.log",
+                    "logs-0/hadoop-haoze-secondarynamenode-razor7.out",
+                    "logs-0/SecurityAuth-haoze.audit",
+                    "logs-1/hadoop-haoze-namenode.pid",
+                    "logs-1/hadoop-haoze-namenode-razor7.log",
+                    "logs-1/hadoop-haoze-namenode-razor7.out",
+                    "logs-1/SecurityAuth-haoze.audit",
+                    "logs-2/hadoop-haoze-datanode.pid",
+                    "logs-2/hadoop-haoze-datanode-razor7.log",
+                    "logs-2/hadoop-haoze-datanode-razor7.out",
+                    "logs-2/SecurityAuth-haoze.audit",
+                    "logs-3/hadoop-haoze-datanode.pid",
+                    "logs-3/hadoop-haoze-datanode-razor7.log",
+                    "logs-3/hadoop-haoze-datanode-razor7.out",
+                    "logs-3/SecurityAuth-haoze.audit"),
     };
 
     private static final Random random = new Random();
@@ -88,8 +141,8 @@ final class LocationFeedbackTest {
 
     @Test
     void testEnd2EndFeedback(final @TempDir Path tempDir) throws Exception {
-        for (final TestCase test : cases) {
-            test.test(tempDir);
+        for (final BugCase bug : cases) {
+            bug.test(tempDir);
         }
     }
 }

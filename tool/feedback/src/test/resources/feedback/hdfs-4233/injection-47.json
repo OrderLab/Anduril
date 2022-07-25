@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 3, 0, 2, 4, 1 ],
+    "pid": 0,
+    "id": 312,
+    "exception": "javax.security.auth.login.LoginException",
+    "occurrence": 1,
+    "block": 28353,
+    "trial_id": 47,
+    "window": 40
+}

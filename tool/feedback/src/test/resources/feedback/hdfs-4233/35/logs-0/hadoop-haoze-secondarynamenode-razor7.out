@@ -1,0 +1,21 @@
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/haoze/flaky-reproduction/systems/hdfs-4233/hadoop-dist/target/hadoop-0.23.6-SNAPSHOT/share/hadoop/common/lib/slf4j-log4j12-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/haoze/tmp/bytecode/hdfs-4233/runtime-1.0-jar-with-dependencies.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+java.io.IOException: java.lang.SecurityException: flaky test exception injection of TraceAgent
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at runtime.TraceAgent.createException(TraceAgent.java:128)
+	at runtime.TraceAgent.<clinit>(TraceAgent.java:151)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java)
+
+	at org.apache.hadoop.ipc.Client.call(Client.java:1088)
+	at org.apache.hadoop.ipc.WritableRpcEngine$Invoker.invoke(WritableRpcEngine.java:196)
+	at com.sun.proxy.$Proxy6.getTransactionID(Unknown Source)
+	at org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode.countUncheckpointedTxns(SecondaryNameNode.java:620)
+	at org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode.shouldCheckpointBasedOnCount(SecondaryNameNode.java:628)
+	at org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode.doWork(SecondaryNameNode.java:382)
+	at org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode.run(SecondaryNameNode.java:352)
+	at java.lang.Thread.run(Thread.java:748)

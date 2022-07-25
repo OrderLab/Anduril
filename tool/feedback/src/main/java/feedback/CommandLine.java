@@ -104,7 +104,7 @@ public final class CommandLine {
         Algorithms.computeDiff(good, bad, consumer);
     }
 
-    static Options getOptions() {
+    private static Options getOptions() {
         final Options options = new Options();
 
         final Option output = new Option("o", "output", true, "output file");
@@ -141,7 +141,7 @@ public final class CommandLine {
         return options;
     }
 
-    static org.apache.commons.cli.CommandLine parseCommandLine(final String[] args) throws Exception {
+    private static org.apache.commons.cli.CommandLine parseCommandLine(final String[] args) throws Exception {
         final Options options = getOptions();
         try {
             return new org.apache.commons.cli.DefaultParser().parse(options, args);
