@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import java.lang.management.ManagementFactory;
 public final class TraceAgent {
     private static final Logger LOG = LoggerFactory.getLogger(runtime.TraceAgent.class);
 //    static private TraceRemote stub = null;
@@ -144,7 +145,11 @@ public final class TraceAgent {
 
     static public void inject(final int id, final int blockId) throws Throwable {
         if (logInject) {
+            LOG.info(ManagementFactory.getRuntimeMXBean().getName());
             LOG.info("flaky record injection {}", id);
+            if (localInjectionManager == null) {
+                LOG.info("It is NULL");
+            }
         }
         if (disableAgent) {
             return;
@@ -241,7 +246,7 @@ public final class TraceAgent {
                             if (dumpFlag.compareAndSet(false, true)) {
                                 localInjectionManager.dump();
                             }
-                            System.exit(0);
+                            Runtime.getRuntime().halt(0);
                         }
                     } catch (InterruptedException ignored) { }
                 }).start();

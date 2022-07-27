@@ -257,6 +257,7 @@ public class AnalyzerMain {
     public static void main(String[] args) {
         addScalaDependencies();
         addJunitDependencies();
+        addextraDependencies();
         OptionParser parser = new OptionParser();
         AnalyzerOptions options = null;
         try {
@@ -337,4 +338,15 @@ public class AnalyzerMain {
             Scene.v().addBasicClass(d, SootClass.HIERARCHY);
         }    
     }
+
+    private static final String[] extraDependencies = new String[] {
+            "io.netty.channel.ChannelFutureListener",
+    };
+
+    private static void addextraDependencies() {
+        for (final String d : extraDependencies) {
+            Scene.v().addBasicClass(d, SootClass.HIERARCHY);
+        }    
+    }
+
 }
