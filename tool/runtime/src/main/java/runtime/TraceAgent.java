@@ -145,11 +145,7 @@ public final class TraceAgent {
 
     static public void inject(final int id, final int blockId) throws Throwable {
         if (logInject) {
-            LOG.info(ManagementFactory.getRuntimeMXBean().getName());
             LOG.info("flaky record injection {}", id);
-            if (localInjectionManager == null) {
-                LOG.info("It is NULL");
-            }
         }
         if (disableAgent) {
             return;
