@@ -28,6 +28,8 @@ rm -rf $trials_dir
 mkdir -p $trials_dir
 id=0
 
+trial_timeout=180
+
 echo "Experiment script pid: $$"
 echo $$ >${SCRIPT_DIR}/pid.txt
 
@@ -39,15 +41,28 @@ rm -rf *.log.*
 rm -rf build
 java -noverify \
 -cp $classes_dir:$jars:$runtime_jar \
+-DflakyAgent.recordOnthefly=true \
 -DflakyAgent.logInject=false \
 -DflakyAgent.avoidBlockMode=true \
 -DflakyAgent.injectionOccurrenceLimit=10000000 \
 -DflakyAgent.slidingWindow=10000000 \
--DflakyAgent.trialTimeout=180 \
+-DflakyAgent.trialTimeout=$trial_timeout \
 -DflakyAgent.feedback=false \
 -DflakyAgent.traceFile=$trials_dir/trace-$id.txt \
 runtime.TraceAgent $trials_dir $SCRIPT_DIR/tree.json $trials_dir/injection-$id.json org.junit.runner.JUnitCore $testcase \
-> $trials_dir/output-$id.txt 2>&1
+> $trials_dir/output-$id.txt 2>&1 &
+pid=$!
+pid_alive=1
+for ((s = 0; s < trial_timeout + 5; s++)); do
+  if [ $(ps -p $pid | wc -l) -eq 1 ]; then
+    pid_alive=0
+    break
+  fi
+  sleep 1
+done
+if [ $pid_alive -eq 1 ]; then
+  kill -9 $pid
+fi
 sleep 1
 #feedback="$($NODEJS $SCRIPT_DIR/diff-score.js $GROUND_TRUTH/good-run-log.txt $SCRIPT_DIR/trials/output-$id.txt $GROUND_TRUTH/diff_log.txt $SCRIPT_DIR/tree.json | paste -sd ' ' - )"
 #sed -i "3 i \ \ \ \ \"feedback\"\:\ $feedback," $SCRIPT_DIR/trials/injection-$id.json
