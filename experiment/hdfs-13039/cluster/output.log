@@ -1,0 +1,1492 @@
+2022-08-08 11:26:34,657 INFO GrayHDFSClientMain: running command [/home/tonypan/flaky-reproduction/experiment/hdfs-13039/cluster/conf-1, write, /2/test, 100]
+2022-08-08 11:26:34,954 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-08-08 11:26:35,398 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741825_1002
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,399 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741825_1002
+2022-08-08 11:26:35,405 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,460 INFO GrayHDFSClientMain: progress = 1, time = 802727860
+2022-08-08 11:26:35,473 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741827_1004
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,473 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741827_1004
+2022-08-08 11:26:35,475 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,502 INFO GrayHDFSClientMain: progress = 2, time = 845384120
+2022-08-08 11:26:35,507 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741829_1006
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,507 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741829_1006
+2022-08-08 11:26:35,508 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,529 INFO GrayHDFSClientMain: progress = 3, time = 872341734
+2022-08-08 11:26:35,537 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741831_1008
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,537 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741831_1008
+2022-08-08 11:26:35,539 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,556 INFO GrayHDFSClientMain: progress = 4, time = 899738309
+2022-08-08 11:26:35,573 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741833_1010
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,574 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741833_1010
+2022-08-08 11:26:35,576 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,600 INFO GrayHDFSClientMain: progress = 5, time = 943264597
+2022-08-08 11:26:35,607 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741835_1012
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,607 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741835_1012
+2022-08-08 11:26:35,609 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,629 INFO GrayHDFSClientMain: progress = 6, time = 972721256
+2022-08-08 11:26:35,637 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741837_1014
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,637 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741837_1014
+2022-08-08 11:26:35,638 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,654 INFO GrayHDFSClientMain: progress = 7, time = 998084522
+2022-08-08 11:26:35,662 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741839_1016
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,662 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741839_1016
+2022-08-08 11:26:35,663 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,682 INFO GrayHDFSClientMain: progress = 8, time = 1025810231
+2022-08-08 11:26:35,688 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741841_1018
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,688 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741841_1018
+2022-08-08 11:26:35,689 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,705 INFO GrayHDFSClientMain: progress = 9, time = 1048607501
+2022-08-08 11:26:35,709 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741843_1020
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,710 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741843_1020
+2022-08-08 11:26:35,711 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,726 INFO GrayHDFSClientMain: progress = 10, time = 1069536504
+2022-08-08 11:26:35,732 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741845_1022
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,732 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741845_1022
+2022-08-08 11:26:35,733 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,749 INFO GrayHDFSClientMain: progress = 11, time = 1092308283
+2022-08-08 11:26:35,754 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741847_1024
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,755 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741847_1024
+2022-08-08 11:26:35,755 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,770 INFO GrayHDFSClientMain: progress = 12, time = 1113426145
+2022-08-08 11:26:35,775 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741849_1026
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,776 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741849_1026
+2022-08-08 11:26:35,776 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,807 INFO GrayHDFSClientMain: progress = 13, time = 1150127960
+2022-08-08 11:26:35,895 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741851_1028
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,896 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741851_1028
+2022-08-08 11:26:35,897 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,915 INFO GrayHDFSClientMain: progress = 14, time = 1258136049
+2022-08-08 11:26:35,921 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741853_1030
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,921 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741853_1030
+2022-08-08 11:26:35,922 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,936 INFO GrayHDFSClientMain: progress = 15, time = 1279576900
+2022-08-08 11:26:35,941 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741855_1032
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,941 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741855_1032
+2022-08-08 11:26:35,943 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,958 INFO GrayHDFSClientMain: progress = 16, time = 1301278953
+2022-08-08 11:26:35,964 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741857_1034
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,964 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741857_1034
+2022-08-08 11:26:35,965 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:35,981 INFO GrayHDFSClientMain: progress = 17, time = 1324118195
+2022-08-08 11:26:35,987 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741859_1036
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:35,987 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741859_1036
+2022-08-08 11:26:35,988 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,002 INFO GrayHDFSClientMain: progress = 18, time = 1345703850
+2022-08-08 11:26:36,008 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741861_1038
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,008 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741861_1038
+2022-08-08 11:26:36,009 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,023 INFO GrayHDFSClientMain: progress = 19, time = 1366566206
+2022-08-08 11:26:36,029 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741863_1040
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,029 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741863_1040
+2022-08-08 11:26:36,030 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,044 INFO GrayHDFSClientMain: progress = 20, time = 1387112581
+2022-08-08 11:26:36,047 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741865_1042
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,048 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741865_1042
+2022-08-08 11:26:36,048 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,061 INFO GrayHDFSClientMain: progress = 21, time = 1405048523
+2022-08-08 11:26:36,068 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741867_1044
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,068 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741867_1044
+2022-08-08 11:26:36,069 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,082 INFO GrayHDFSClientMain: progress = 22, time = 1426072071
+2022-08-08 11:26:36,087 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741869_1046
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,087 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741869_1046
+2022-08-08 11:26:36,088 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,102 INFO GrayHDFSClientMain: progress = 23, time = 1445618686
+2022-08-08 11:26:36,106 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741871_1048
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,106 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741871_1048
+2022-08-08 11:26:36,107 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,121 INFO GrayHDFSClientMain: progress = 24, time = 1464362425
+2022-08-08 11:26:36,126 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741873_1050
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,126 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741873_1050
+2022-08-08 11:26:36,127 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,141 INFO GrayHDFSClientMain: progress = 25, time = 1484447209
+2022-08-08 11:26:36,148 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741875_1052
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,148 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741875_1052
+2022-08-08 11:26:36,149 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,163 INFO GrayHDFSClientMain: progress = 26, time = 1506342765
+2022-08-08 11:26:36,168 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741877_1054
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,168 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741877_1054
+2022-08-08 11:26:36,169 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,182 INFO GrayHDFSClientMain: progress = 27, time = 1525588821
+2022-08-08 11:26:36,187 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741879_1056
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,187 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741879_1056
+2022-08-08 11:26:36,188 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,202 INFO GrayHDFSClientMain: progress = 28, time = 1545527258
+2022-08-08 11:26:36,208 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741881_1058
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,208 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741881_1058
+2022-08-08 11:26:36,209 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,222 INFO GrayHDFSClientMain: progress = 29, time = 1565466672
+2022-08-08 11:26:36,228 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741883_1060
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,228 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741883_1060
+2022-08-08 11:26:36,229 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,243 INFO GrayHDFSClientMain: progress = 30, time = 1586089164
+2022-08-08 11:26:36,247 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741885_1062
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,247 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741885_1062
+2022-08-08 11:26:36,248 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,262 INFO GrayHDFSClientMain: progress = 31, time = 1605150174
+2022-08-08 11:26:36,269 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741887_1064
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,269 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741887_1064
+2022-08-08 11:26:36,270 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,285 INFO GrayHDFSClientMain: progress = 32, time = 1628212387
+2022-08-08 11:26:36,290 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741889_1066
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,290 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741889_1066
+2022-08-08 11:26:36,291 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,304 INFO GrayHDFSClientMain: progress = 33, time = 1647272480
+2022-08-08 11:26:36,310 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741891_1068
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,310 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741891_1068
+2022-08-08 11:26:36,311 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,324 INFO GrayHDFSClientMain: progress = 34, time = 1667272646
+2022-08-08 11:26:36,332 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741893_1070
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,332 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741893_1070
+2022-08-08 11:26:36,333 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,346 INFO GrayHDFSClientMain: progress = 35, time = 1689670970
+2022-08-08 11:26:36,350 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741895_1072
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,351 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741895_1072
+2022-08-08 11:26:36,351 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,365 INFO GrayHDFSClientMain: progress = 36, time = 1708139054
+2022-08-08 11:26:36,369 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741897_1074
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,370 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741897_1074
+2022-08-08 11:26:36,371 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,383 INFO GrayHDFSClientMain: progress = 37, time = 1726756596
+2022-08-08 11:26:36,390 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741899_1076
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,390 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741899_1076
+2022-08-08 11:26:36,391 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,404 INFO GrayHDFSClientMain: progress = 38, time = 1747207670
+2022-08-08 11:26:36,408 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741901_1078
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,409 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741901_1078
+2022-08-08 11:26:36,409 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,422 INFO GrayHDFSClientMain: progress = 39, time = 1765925567
+2022-08-08 11:26:36,426 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741903_1080
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,426 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741903_1080
+2022-08-08 11:26:36,427 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,440 INFO GrayHDFSClientMain: progress = 40, time = 1783642402
+2022-08-08 11:26:36,446 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741905_1082
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,446 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741905_1082
+2022-08-08 11:26:36,447 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,461 INFO GrayHDFSClientMain: progress = 41, time = 1804494165
+2022-08-08 11:26:36,467 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741907_1084
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,467 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741907_1084
+2022-08-08 11:26:36,469 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,481 INFO GrayHDFSClientMain: progress = 42, time = 1824671107
+2022-08-08 11:26:36,485 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741909_1086
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,486 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741909_1086
+2022-08-08 11:26:36,486 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,499 INFO GrayHDFSClientMain: progress = 43, time = 1842326597
+2022-08-08 11:26:36,505 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741911_1088
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,505 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741911_1088
+2022-08-08 11:26:36,506 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,518 INFO GrayHDFSClientMain: progress = 44, time = 1861377279
+2022-08-08 11:26:36,522 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741913_1090
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,522 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741913_1090
+2022-08-08 11:26:36,523 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,535 INFO GrayHDFSClientMain: progress = 45, time = 1878796049
+2022-08-08 11:26:36,541 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741915_1092
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,541 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741915_1092
+2022-08-08 11:26:36,542 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,554 INFO GrayHDFSClientMain: progress = 46, time = 1897992081
+2022-08-08 11:26:36,558 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741917_1094
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,558 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741917_1094
+2022-08-08 11:26:36,559 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,571 INFO GrayHDFSClientMain: progress = 47, time = 1914840586
+2022-08-08 11:26:36,576 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741919_1096
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,576 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741919_1096
+2022-08-08 11:26:36,577 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,590 INFO GrayHDFSClientMain: progress = 48, time = 1933422334
+2022-08-08 11:26:36,594 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741921_1098
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,594 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741921_1098
+2022-08-08 11:26:36,595 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,608 INFO GrayHDFSClientMain: progress = 49, time = 1951931240
+2022-08-08 11:26:36,612 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741923_1100
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,613 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741923_1100
+2022-08-08 11:26:36,614 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,627 INFO GrayHDFSClientMain: progress = 50, time = 1970319413
+2022-08-08 11:26:36,632 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741925_1102
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,632 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741925_1102
+2022-08-08 11:26:36,633 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,649 INFO GrayHDFSClientMain: progress = 51, time = 1992173536
+2022-08-08 11:26:36,653 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741927_1104
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,653 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741927_1104
+2022-08-08 11:26:36,654 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,668 INFO GrayHDFSClientMain: progress = 52, time = 2011505786
+2022-08-08 11:26:36,674 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741929_1106
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,674 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741929_1106
+2022-08-08 11:26:36,675 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,687 INFO GrayHDFSClientMain: progress = 53, time = 2030753547
+2022-08-08 11:26:36,693 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741931_1108
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,694 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741931_1108
+2022-08-08 11:26:36,695 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,711 INFO GrayHDFSClientMain: progress = 54, time = 2054205998
+2022-08-08 11:26:36,715 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741933_1110
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,715 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741933_1110
+2022-08-08 11:26:36,716 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,728 INFO GrayHDFSClientMain: progress = 55, time = 2071964345
+2022-08-08 11:26:36,733 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741935_1112
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,734 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741935_1112
+2022-08-08 11:26:36,734 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,748 INFO GrayHDFSClientMain: progress = 56, time = 2091646180
+2022-08-08 11:26:36,752 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741937_1114
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,752 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741937_1114
+2022-08-08 11:26:36,753 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,766 INFO GrayHDFSClientMain: progress = 57, time = 2109933708
+2022-08-08 11:26:36,770 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741939_1116
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,770 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741939_1116
+2022-08-08 11:26:36,771 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,784 INFO GrayHDFSClientMain: progress = 58, time = 2127825959
+2022-08-08 11:26:36,789 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741941_1118
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,790 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741941_1118
+2022-08-08 11:26:36,790 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,804 INFO GrayHDFSClientMain: progress = 59, time = 2147146368
+2022-08-08 11:26:36,810 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741943_1120
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,811 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741943_1120
+2022-08-08 11:26:36,812 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,825 INFO GrayHDFSClientMain: progress = 60, time = 2168923618
+2022-08-08 11:26:36,829 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741945_1122
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,829 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741945_1122
+2022-08-08 11:26:36,830 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,843 INFO GrayHDFSClientMain: progress = 61, time = 2186881619
+2022-08-08 11:26:36,847 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741947_1124
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,848 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741947_1124
+2022-08-08 11:26:36,848 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,861 INFO GrayHDFSClientMain: progress = 62, time = 2204742252
+2022-08-08 11:26:36,866 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741949_1126
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,867 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741949_1126
+2022-08-08 11:26:36,868 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,881 INFO GrayHDFSClientMain: progress = 63, time = 2224127864
+2022-08-08 11:26:36,888 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741951_1128
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,888 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741951_1128
+2022-08-08 11:26:36,889 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,903 INFO GrayHDFSClientMain: progress = 64, time = 2247061262
+2022-08-08 11:26:36,908 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741953_1130
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,908 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741953_1130
+2022-08-08 11:26:36,909 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,924 INFO GrayHDFSClientMain: progress = 65, time = 2267838602
+2022-08-08 11:26:36,929 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741955_1132
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,929 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741955_1132
+2022-08-08 11:26:36,929 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,942 INFO GrayHDFSClientMain: progress = 66, time = 2285205211
+2022-08-08 11:26:36,947 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741957_1134
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,947 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741957_1134
+2022-08-08 11:26:36,948 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,960 INFO GrayHDFSClientMain: progress = 67, time = 2303603975
+2022-08-08 11:26:36,966 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741959_1136
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,966 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741959_1136
+2022-08-08 11:26:36,967 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,978 INFO GrayHDFSClientMain: progress = 68, time = 2321717759
+2022-08-08 11:26:36,983 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741961_1138
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,983 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741961_1138
+2022-08-08 11:26:36,984 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:36,995 INFO GrayHDFSClientMain: progress = 69, time = 2338873057
+2022-08-08 11:26:36,998 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741963_1140
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:36,999 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741963_1140
+2022-08-08 11:26:36,999 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,013 INFO GrayHDFSClientMain: progress = 70, time = 2356122575
+2022-08-08 11:26:37,016 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741965_1142
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,016 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741965_1142
+2022-08-08 11:26:37,017 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,029 INFO GrayHDFSClientMain: progress = 71, time = 2372204292
+2022-08-08 11:26:37,033 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741967_1144
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,033 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741967_1144
+2022-08-08 11:26:37,034 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,046 INFO GrayHDFSClientMain: progress = 72, time = 2389356112
+2022-08-08 11:26:37,052 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741969_1146
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,052 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741969_1146
+2022-08-08 11:26:37,053 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,067 INFO GrayHDFSClientMain: progress = 73, time = 2410949961
+2022-08-08 11:26:37,072 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741971_1148
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,072 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741971_1148
+2022-08-08 11:26:37,073 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,084 INFO GrayHDFSClientMain: progress = 74, time = 2427499131
+2022-08-08 11:26:37,089 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741973_1150
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,089 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741973_1150
+2022-08-08 11:26:37,090 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,104 INFO GrayHDFSClientMain: progress = 75, time = 2447381000
+2022-08-08 11:26:37,107 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741975_1152
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,107 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741975_1152
+2022-08-08 11:26:37,108 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,120 INFO GrayHDFSClientMain: progress = 76, time = 2463084047
+2022-08-08 11:26:37,125 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741977_1154
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,125 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741977_1154
+2022-08-08 11:26:37,126 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,138 INFO GrayHDFSClientMain: progress = 77, time = 2481429573
+2022-08-08 11:26:37,142 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741979_1156
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,142 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741979_1156
+2022-08-08 11:26:37,143 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,153 INFO GrayHDFSClientMain: progress = 78, time = 2496998026
+2022-08-08 11:26:37,158 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741981_1158
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,158 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741981_1158
+2022-08-08 11:26:37,159 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,170 INFO GrayHDFSClientMain: progress = 79, time = 2513600578
+2022-08-08 11:26:37,173 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741983_1160
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,173 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741983_1160
+2022-08-08 11:26:37,174 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,185 INFO GrayHDFSClientMain: progress = 80, time = 2528377527
+2022-08-08 11:26:37,188 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741985_1162
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,188 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741985_1162
+2022-08-08 11:26:37,189 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,200 INFO GrayHDFSClientMain: progress = 81, time = 2543644862
+2022-08-08 11:26:37,203 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741987_1164
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,203 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741987_1164
+2022-08-08 11:26:37,204 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,215 INFO GrayHDFSClientMain: progress = 82, time = 2558951579
+2022-08-08 11:26:37,221 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741989_1166
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,221 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741989_1166
+2022-08-08 11:26:37,222 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,233 INFO GrayHDFSClientMain: progress = 83, time = 2576449317
+2022-08-08 11:26:37,239 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741991_1168
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,239 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741991_1168
+2022-08-08 11:26:37,240 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,252 INFO GrayHDFSClientMain: progress = 84, time = 2595833101
+2022-08-08 11:26:37,256 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741993_1170
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,256 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741993_1170
+2022-08-08 11:26:37,256 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,268 INFO GrayHDFSClientMain: progress = 85, time = 2611976535
+2022-08-08 11:26:37,274 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741995_1172
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,274 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741995_1172
+2022-08-08 11:26:37,275 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,287 INFO GrayHDFSClientMain: progress = 86, time = 2630341133
+2022-08-08 11:26:37,292 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741997_1174
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,292 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741997_1174
+2022-08-08 11:26:37,293 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,304 INFO GrayHDFSClientMain: progress = 87, time = 2647919406
+2022-08-08 11:26:37,307 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073741999_1176
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,308 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073741999_1176
+2022-08-08 11:26:37,308 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,320 INFO GrayHDFSClientMain: progress = 88, time = 2663550207
+2022-08-08 11:26:37,323 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742001_1178
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,323 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742001_1178
+2022-08-08 11:26:37,324 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,335 INFO GrayHDFSClientMain: progress = 89, time = 2678636311
+2022-08-08 11:26:37,340 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742003_1180
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,340 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742003_1180
+2022-08-08 11:26:37,341 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,352 INFO GrayHDFSClientMain: progress = 90, time = 2695769478
+2022-08-08 11:26:37,356 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742005_1182
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,357 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742005_1182
+2022-08-08 11:26:37,357 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,368 INFO GrayHDFSClientMain: progress = 91, time = 2712006489
+2022-08-08 11:26:37,374 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742007_1184
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,374 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742007_1184
+2022-08-08 11:26:37,375 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,386 INFO GrayHDFSClientMain: progress = 92, time = 2729668791
+2022-08-08 11:26:37,390 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742009_1186
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,390 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742009_1186
+2022-08-08 11:26:37,390 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,402 INFO GrayHDFSClientMain: progress = 93, time = 2745308528
+2022-08-08 11:26:37,406 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742011_1188
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,406 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742011_1188
+2022-08-08 11:26:37,407 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,418 INFO GrayHDFSClientMain: progress = 94, time = 2761951478
+2022-08-08 11:26:37,422 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742013_1190
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,422 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742013_1190
+2022-08-08 11:26:37,423 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,434 INFO GrayHDFSClientMain: progress = 95, time = 2777929184
+2022-08-08 11:26:37,439 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742015_1192
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,439 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742015_1192
+2022-08-08 11:26:37,440 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,452 INFO GrayHDFSClientMain: progress = 96, time = 2795883169
+2022-08-08 11:26:37,458 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742017_1194
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,458 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742017_1194
+2022-08-08 11:26:37,459 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,474 INFO GrayHDFSClientMain: progress = 97, time = 2817406639
+2022-08-08 11:26:37,478 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742019_1196
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,478 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742019_1196
+2022-08-08 11:26:37,479 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,490 INFO GrayHDFSClientMain: progress = 98, time = 2833851045
+2022-08-08 11:26:37,493 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742021_1198
+java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at com.google.protobuf.CodedOutputStream.refreshBuffer(CodedOutputStream.java:833)
+	at com.google.protobuf.CodedOutputStream.flush(CodedOutputStream.java:843)
+	at com.google.protobuf.AbstractMessageLite.writeDelimitedTo(AbstractMessageLite.java:91)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.send(Sender.java:82)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Sender.writeBlock(Sender.java:170)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1754)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,493 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742021_1198
+2022-08-08 11:26:37,494 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,505 INFO GrayHDFSClientMain: progress = 99, time = 2848916795
+2022-08-08 11:26:37,511 INFO hdfs.DataStreamer: Exception in createBlockOutputStream blk_1073742023_1200
+java.io.IOException: Got error, status=ERROR, status message , ack with firstBadLink as 127.0.0.1:17869
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil.checkBlockOpStatus(DataTransferProtoUtil.java:110)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1779)
+	at org.apache.hadoop.hdfs.DataStreamer.nextBlockOutputStream(DataStreamer.java:1680)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+2022-08-08 11:26:37,511 WARN hdfs.DataStreamer: Abandoning BP-702173212-10.0.0.215-1659972326999:blk_1073742023_1200
+2022-08-08 11:26:37,512 WARN hdfs.DataStreamer: Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17869,DS-3d8652bd-9f82-470b-b93c-0e0172e2171c,DISK]
+2022-08-08 11:26:37,522 INFO GrayHDFSClientMain: progress = 100, time = 2866011981

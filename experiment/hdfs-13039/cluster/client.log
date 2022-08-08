@@ -1,0 +1,3 @@
+2022-08-08 11:25:43,511 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-08-08 11:25:43,886 WARN erasurecode.ErasureCodeNative: ISA-L support is not available in your platform... using builtin-java codec where applicable
+2022-08-08 11:25:49,506 INFO GrayHDFSClientMain: Corruption Target is 27871
