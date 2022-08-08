@@ -1,10 +1,9 @@
 package feedback
 
 import feedback.parser.DistributedLog
-
 import javax.json.JsonObject
 
-object Symptoms {
+private[feedback] object Symptoms {
   private def error = throw new Exception("can't recognize the bug case")
 
   def isSymptomLogged(spec: JsonObject): Boolean = spec.getString("case") match {

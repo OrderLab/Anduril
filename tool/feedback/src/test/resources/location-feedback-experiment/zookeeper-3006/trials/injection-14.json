@@ -1,0 +1,10 @@
+
+{
+    "pid": -1,
+    "id": 52,
+    "exception": "java.io.IOException",
+    "occurrence": 1,
+    "block": 3522,
+    "trial_id": 14,
+    "window": 20
+}

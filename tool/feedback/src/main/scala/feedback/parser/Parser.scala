@@ -1,8 +1,9 @@
 package feedback.parser
 
+import feedback.time.InjectionRequestRecord
 import scala.collection.mutable
 
-private[parser] object Parser {
+private[feedback] object Parser {
   private val year = """\d{4}"""
   private val month = """\d{2}"""
   private val day = """\d{2}"""
@@ -10,7 +11,7 @@ private[parser] object Parser {
   private val minute = """\d{2}"""
   private val second = """\d{2}"""
   private val millisecond = """\d{3}"""
-  private val datetimeRegex = s"($year\\-$month\\-$day $hour\\:$minute\\:$second\\,$millisecond)"
+  val datetimeRegex = s"($year\\-$month\\-$day $hour\\:$minute\\:$second\\,$millisecond)"
 
   private val datetimeFormatter: org.joda.time.format.DateTimeFormatter =
     org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss,SSS")
@@ -18,7 +19,7 @@ private[parser] object Parser {
   def parseDatetime(datetimeText: String): org.joda.time.DateTime =
     org.joda.time.DateTime.parse(datetimeText, datetimeFormatter)
 
-  private val typeRegex = """(INFO |WARN |ERROR|DEBUG|TRACE)"""
+  val typeRegex = """(INFO |WARN |ERROR|DEBUG|TRACE)"""
   private val TypePattern4 = """(INFO|WARN) """.r
   private val TypePattern5 = """(ERROR|DEBUG|TRACE)""".r
 
@@ -59,34 +60,56 @@ private[parser] object Parser {
     case None => throw new RuntimeException(s"mismatch error: $text")
   }
 
+  private val InjectionRequestRecordPattern = """flaky record injection (\d+)""".r
+
+  private def recognizeInjection(logEntryBuilder: LogEntryBuilder): Option[InjectionRequestRecord] = {
+    if (logEntryBuilder.file.equals("TraceAgent") || logEntryBuilder.file.equals("BaselineAgent")) {
+      logEntryBuilder.getMsg match {
+        case InjectionRequestRecordPattern(injection) => Some(new InjectionRequestRecord(
+          logEntryBuilder.datetime, logEntryBuilder.thread, injection.toInt, logEntryBuilder.getLogLine))
+        case _ => None
+      }
+    } else None
+  }
+
   // TODO: extract the test symptom, e.g., FAILURE
   // TODO: handle the first log entry which can follow the header at the same line
   def parseLog(text: Array[String]): Log = {
     val logEntries = mutable.ArrayBuffer.empty[LogEntry]
+    val injectionRecords = mutable.ArrayBuffer.empty[InjectionRequestRecord]
     var headerBuilder: Option[mutable.StringBuilder] = None
     var currentLogEntryBuilder: Option[LogEntryBuilder] = None
     Array.tabulate(text.length) { index =>
       val line = text(index)
-      parseLogEntryOptional(line) match {
-        // finish the previous appender
-        case Some(logEntryBuilder) =>
-          logEntryBuilder.setLogLine(index + 1)  // the line number is array index + 1
-          currentLogEntryBuilder.map(logEntries += _.build())  // store the previous log entry if any
-          currentLogEntryBuilder = Some(logEntryBuilder)
-        // append to the current appender
+      parseLogSetOptional(line) match {
+        case Some(numbers) =>
         case None =>
-          currentLogEntryBuilder match {
-            // the current log entry is not finished
+          parseLogEntryOptional(line) match {
+            // finish the previous appender
             case Some(logEntryBuilder) =>
-              logEntryBuilder.appendNewLine(line)
-            // still in the header phase
-            case None =>
-              headerBuilder match {
-                // at the very beginning of the log file
+              logEntryBuilder.setLogLine(index + 1)  // the line number is array index + 1
+              recognizeInjection(logEntryBuilder) match {
+                case Some(injectionRecord) =>
+                  injectionRecords += injectionRecord  // record an injection request
                 case None =>
-                  headerBuilder = Some(new mutable.StringBuilder(line))
-                case Some(builder) =>
-                  builder.append("\n").append(line)
+                  currentLogEntryBuilder.map(logEntries += _.build())  // store the previous log entry if any
+                  currentLogEntryBuilder = Some(logEntryBuilder)
+              }
+            // append to the current appender
+            case None =>
+              currentLogEntryBuilder match {
+                // the current log entry is not finished
+                case Some(logEntryBuilder) =>
+                  logEntryBuilder.appendNewLine(line)
+                // still in the header phase
+                case None =>
+                  headerBuilder match {
+                    // at the very beginning of the log file
+                    case None =>
+                      headerBuilder = Some(new mutable.StringBuilder(line))
+                    case Some(builder) =>
+                      builder.append("\n").append(line)
+                  }
               }
           }
       }
@@ -98,6 +121,33 @@ private[parser] object Parser {
       case None => null
       case Some(builder) => builder.toString
     }
-    new Log(header, logEntries.toArray)
+    new Log(header, logEntries.toArray, injectionRecords.toArray)
+  }
+
+  private val LogDirPattern = """logs-(\d+)""".r
+
+  def parseLogDirId(text: String): Int = text match {
+    case LogDirPattern(id) => id.toInt
+  }
+
+  private val numbersRegex = """([0-9 ,]*)"""
+  private val FeedbackLogPattern1 =
+    s"$datetimeRegex - $typeRegex \\[.*\\] - injection allow set: \\[$numbersRegex\\]".r
+  private val FeedbackLogPattern2 =
+    s"$datetimeRegex \\[myid:\\] - $typeRegex \\[.*\\] - injection allow set: \\[$numbersRegex\\]".r
+
+  private def parseLogSetOptional(text: String): Option[Array[Int]] = {
+    def parseNumbers(numbers: String): Array[Int] =
+      if (numbers.isEmpty) Array.empty[Int] else numbers.split(""",\s""").map(_.toInt)
+    text match {
+      case FeedbackLogPattern1(_, _, numbers) => Some(parseNumbers(numbers))
+      case FeedbackLogPattern2(_, _, numbers) => Some(parseNumbers(numbers))
+      case _ => None
+    }
+  }
+
+  def parseLogSet(text: String): Array[Int] = parseLogSetOptional(text) match {
+    case Some(numbers) => numbers
+    case None => throw new RuntimeException(s"mismatch error: $text")
   }
 }

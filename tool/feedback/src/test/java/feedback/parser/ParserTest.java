@@ -169,4 +169,15 @@ final class ParserTest {
         assertEquals(1170, zookeeper_3157.length);
         assertEquals("JUnit version 4.12", zookeeper_3157[0]);
     }
+
+    @Test
+    void testLogDirId() {
+        assertEquals(0, Parser.parseLogDirId("logs-0"));
+        assertEquals(1, Parser.parseLogDirId("logs-1"));
+        assertEquals(2, Parser.parseLogDirId("logs-2"));
+        assertEquals(3, Parser.parseLogDirId("logs-3"));
+        assertThrows(RuntimeException.class, () -> Parser.parseLogDirId("logs-0/"));
+        assertThrows(RuntimeException.class, () -> Parser.parseLogDirId("/logs-1"));
+        assertThrows(RuntimeException.class, () -> Parser.parseLogDirId("./logs-2"));
+    }
 }

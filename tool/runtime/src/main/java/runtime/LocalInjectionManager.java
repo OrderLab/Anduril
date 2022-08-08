@@ -3,6 +3,7 @@ package runtime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.exception.ExceptionBuilder;
+import runtime.time.TimeFeedbackManager;
 
 import javax.json.*;
 import javax.json.stream.JsonGenerator;
@@ -15,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class LocalInjectionManager {
     private static final Logger LOG = LoggerFactory.getLogger(LocalInjectionManager.class);
 
-    protected final String trialsPath, injectionPointsPath, injectionResultPath;
+    protected final String trialsPath, specPath, injectionResultPath;
 
     protected final AtomicBoolean injected = new AtomicBoolean(false);
     protected volatile InjectionIndex injectionPoint = null;
@@ -25,7 +26,7 @@ public class LocalInjectionManager {
 
     private final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
     private final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
-    private final ConcurrentMap<Integer, Integer> thread2block = new ConcurrentHashMap<>();
+//    private final ConcurrentMap<Integer, Integer> thread2block = new ConcurrentHashMap<>();
     private final ConcurrentMap<Integer, Integer> block2times = new ConcurrentHashMap<>();
 
     protected int trialId = 0;
@@ -34,7 +35,7 @@ public class LocalInjectionManager {
 
     private static final JsonWriterFactory writerFactory;
 
-    static protected final int INF = 1000000000; // largest id
+    static public final int INF = 1_000_000_000; // largest id
 
     static {
         final Map<String, Object> options = new HashMap<>();
@@ -43,12 +44,12 @@ public class LocalInjectionManager {
     }
 
     public LocalInjectionManager(final String trialsPath,
-                                 final String injectionPointsPath,
+                                 final String specPath,
                                  final String injectionResultPath) {
         this.trialsPath = trialsPath;
-        this.injectionPointsPath = injectionPointsPath;
+        this.specPath = specPath;
         this.injectionResultPath = injectionResultPath;
-        try (final InputStream inputStream = new FileInputStream(this.injectionPointsPath);
+        try (final InputStream inputStream = new FileInputStream(this.specPath);
              final JsonReader reader = Json.createReader(inputStream)) {
             final JsonObject json = reader.readObject();
             final JsonArray arr = json.getJsonArray("injections");
@@ -67,7 +68,11 @@ public class LocalInjectionManager {
                     }
                 }
             }
-            feedbackManager = new FeedbackManager(json);
+            if (TraceAgent.isTimeFeedback) {
+                feedbackManager = new TimeFeedbackManager(json, TraceAgent.timePriorityTable);
+            } else {
+                feedbackManager = new FeedbackManager(json);
+            }
         } catch (final IOException e) {
             LOG.error("Error while loading files", e);
             System.exit(-1);
@@ -108,12 +113,14 @@ public class LocalInjectionManager {
             }
         }
         feedbackManager.calc(windowSize);
-        LOG.info("injection allow set: {}", feedbackManager.allowSet);
+        if (!TraceAgent.isTimeFeedback) {
+            LOG.info("injection allow set: {}", feedbackManager.allowSet);
+        }
     }
 
     public void inject(final int id, final int blockId) throws Throwable {
         if (!injected.get()) {
-            if (!feedbackManager.ifAllowed(id)) {
+            if (!TraceAgent.isTimeFeedback && !feedbackManager.isAllowed(id)) {
                 return;
             }
             final Throwable exception = id2exception.get(id);
@@ -129,20 +136,27 @@ public class LocalInjectionManager {
                         block2times.put(blockId, 1);
                     }
                     final InjectionIndex index = new InjectionIndex(-1, id, exception.getClass().getName(), occurrence, blockId);
-                    if (occurrence <= TraceAgent.injectionOccurrenceLimit && !injectionSet.containsKey(index)) {
-                        if (injected.compareAndSet(false, true)) {
+                    if (TraceAgent.isTimeFeedback) {
+                        if (feedbackManager.isAllowed(id, occurrence) && !injectionSet.containsKey(index) &&
+                                injected.compareAndSet(false, true)) {
                             injectionPoint = index;
                             throw exception;
                         }
+                        return;
+                    }
+                    if (occurrence <= TraceAgent.injectionOccurrenceLimit && !injectionSet.containsKey(index) &&
+                            injected.compareAndSet(false, true)) {
+                        injectionPoint = index;
+                        throw exception;
                     }
                 }
             }
         }
     }
-
-    public void trace(final int id) {
-        thread2block.put(System.identityHashCode(Thread.currentThread()), id);
-    }
+//
+//    public void trace(final int id) {
+//        thread2block.put(System.identityHashCode(Thread.currentThread()), id);
+//    }
 
     public void dump() {
         final JsonObjectBuilder json;

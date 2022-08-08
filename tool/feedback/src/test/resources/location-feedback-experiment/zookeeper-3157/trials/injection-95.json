@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 17, 13, 9, 12, 1, 8 ],
+    "pid": -1,
+    "id": 832,
+    "exception": "java.nio.channels.ClosedChannelException",
+    "occurrence": 2,
+    "block": 317,
+    "trial_id": 95,
+    "window": 80
+}

@@ -25,7 +25,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import java.lang.management.ManagementFactory;
 public final class TraceAgent {
     private static final Logger LOG = LoggerFactory.getLogger(runtime.TraceAgent.class);
 //    static private TraceRemote stub = null;
@@ -89,9 +88,9 @@ public final class TraceAgent {
         if (!stopTracing.get()) {
             traces.add(new Trace(id));
         }
-        if (!fixPointInjectionMode) {
-            localInjectionManager.trace(id);
-        }
+//        if (!fixPointInjectionMode) {
+//            localInjectionManager.trace(id);
+//        }
 //        if (stub != null) {
 //            try {
 //                stub.trace(Thread.currentThread().getName(), Thread.currentThread().hashCode(), id);
@@ -122,6 +121,8 @@ public final class TraceAgent {
     static public final int trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
     static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
     static public final boolean recordOnthefly = Boolean.getBoolean("flakyAgent.recordOnthefly");
+    static public final boolean isTimeFeedback = Boolean.getBoolean("flakyAgent.timeFeedback");
+    static public final String timePriorityTable = System.getProperty("flakyAgent.timePriorityTable", "#");
     static {
         if (distributedMode && !disableAgent) {
             try (final InputStream inputStream = new FileInputStream(injectionPointsPath);

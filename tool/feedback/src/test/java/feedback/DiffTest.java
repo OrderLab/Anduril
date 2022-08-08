@@ -56,8 +56,8 @@ final class DiffTest {
             "hbase-15252",
             "hbase-19608",
 //            "hbase-25905",
-//            "hbase-18137",
-//            "hbase-20492",
+            "hbase-18137",
+            "hbase-20492",
             "hdfs-12070",
             "hdfs-15963",
             "hdfs-12248",
@@ -103,7 +103,7 @@ final class DiffTest {
         }
     }
 
-    private final Random random = new Random();
+    private final Random random = new Random(System.currentTimeMillis());
 
     private String[] prepareArgs(final String good, final String bad, final List<String> option) {
         final List<List<String>> cmd = Arrays.asList(

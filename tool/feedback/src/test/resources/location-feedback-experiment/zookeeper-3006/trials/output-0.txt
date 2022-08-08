@@ -1,0 +1,1 @@
+2022-06-27 00:58:58,750 [myid:] - INFO  [main:LocalInjectionManager@110] - injection allow set: [3, 5, 10, 11, 12, 14, 15, 16, 17, 18]

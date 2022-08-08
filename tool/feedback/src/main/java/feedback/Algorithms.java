@@ -8,6 +8,7 @@ import feedback.parser.DistributedLog;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,6 +85,7 @@ final class Algorithms {
     static void computeLocationFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,
                                         final JsonObject spec, final Consumer<Integer> consumer) throws Exception {
         check(good, bad);
+        check(good, trial);
         if (good.distributed) {
             computeLocationFeedback(new DistributedLogDiff(good, bad)::dumpBadDiff,
                     new DistributedLogDiff(good, trial)::dumpBadDiff, spec, consumer);
@@ -96,8 +98,25 @@ final class Algorithms {
         }
     }
 
-    static void computeTimeFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,
-                                    final JsonObject spec, final Consumer<Object[]> consumer) throws Exception {
+//    static void computeTimeFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,
+//                                    final JsonObject spec, final Consumer<FeedbackTable> consumer) throws Exception {
+//        check(good, bad);
+//        check(good, trial);
+//        if (good.distributed) {
+//            for (int i = 0; i < good.logs.length; i++) {
+//                final FeedbackTable table = computeTimeFeedback(good.logs[i], bad.logs[i], trial.logs[i], spec);
+//                table.setPid(Parser.parseLogDirId(good.dirs[i].getName()));
+//                consumer.accept(table);
+//            }
+//        } else {
+//            computeTimeFeedback(good.logs[0], bad.logs[0], trial.logs[0], spec);
+//        }
+//    }
+//
+
+    static Serializable computeTimeFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,
+                                            final JsonObject spec) throws Exception {
         check(good, bad);
+        check(good, trial);
     }
 }

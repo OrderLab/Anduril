@@ -9,7 +9,11 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.io.File;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.function.Consumer;
 
 public final class CommandLine {
@@ -28,6 +32,11 @@ public final class CommandLine {
             final File file = new File(cmd.getOptionValue("append"));
             final JsonObject json = JsonUtil.loadJson(file);
             JsonUtil.dumpJson(this.jsonHandler(json).build(), file);
+        } else if (cmd.hasOption("object")) {
+            try (final ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                    Files.newOutputStream(Paths.get(cmd.getOptionValue("object"))))) {
+                objectOutputStream.writeObject(this.objectHandler());
+            }
         } else {
             if (cmd.hasOption("output")) {
                 final File file = new File(cmd.getOptionValue("output"));
@@ -44,21 +53,21 @@ public final class CommandLine {
     private JsonObjectBuilder jsonHandler(final JsonObject json) throws Exception {
         final JsonObjectBuilder result = JsonUtil.json2builder(json);
         if (cmd.hasOption("location-feedback")) {
-            if (json.containsKey("locationFeedback")) {
+            if (json.containsKey("feedback")) {
                 throw new Exception("location feedback result existed at json");
             }
             final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
             this.computeLocationFeedback(array::add);
-            result.add("locationFeedback", array);
+            result.add("feedback", array);
         }
-        if (cmd.hasOption("time-feedback")) {
-            if (json.containsKey("timeFeedback")) {
-                throw new Exception("time feedback result existed at json");
-            }
-            final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
-            this.computeTimeFeedback();
-            result.add("timeFeedback", array);
-        }
+//        if (cmd.hasOption("time-feedback")) {
+//            if (json.containsKey("timeFeedback")) {
+//                throw new Exception("time feedback result existed at json");
+//            }
+//            final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
+//            this.computeTimeFeedback(e -> {});
+//            result.add("timeFeedback", array);
+//        }
         if (cmd.hasOption("diff")) {
             if (json.containsKey("diff")) {
                 throw new Exception("diff result existed at json");
@@ -74,12 +83,19 @@ public final class CommandLine {
         if (cmd.hasOption("location-feedback")) {
             this.computeLocationFeedback(printer::println);
         }
-        if (cmd.hasOption("time-feedback")) {
-            this.computeTimeFeedback();
-        }
+//        if (cmd.hasOption("time-feedback")) {
+//            this.computeTimeFeedback(e -> {});
+//        }
         if (cmd.hasOption("diff")) {
             this.computeDiff(printer::println);
         }
+    }
+
+    private Serializable objectHandler() throws Exception {
+        if (cmd.hasOption("time-feedback")) {
+            return this.computeTimeFeedback();
+        }
+        throw new Exception("nothing to produce");
     }
 
     private void computeLocationFeedback(final Consumer<Integer> consumer) throws Exception {
@@ -90,12 +106,12 @@ public final class CommandLine {
         Algorithms.computeLocationFeedback(good, bad, trial, spec, consumer);
     }
 
-    private void computeTimeFeedback() throws Exception {
+    private Serializable computeTimeFeedback() throws Exception {
         final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
         final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
         final DistributedLog trial = new DistributedLog(cmd.getOptionValue("trial"));
         final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        Algorithms.computeTimeFeedback(good, bad, trial, spec, e -> {});
+        return Algorithms.computeTimeFeedback(good, bad, trial, spec);
     }
 
     private void computeDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) throws Exception {
@@ -112,6 +128,9 @@ public final class CommandLine {
 
         final Option append = new Option("a", "append", true, "append to json");
         options.addOption(append);
+
+        final Option object = new Option("obj", "object", true, "append to binary object");
+        options.addOption(object);
 
         final Option good = new Option("g", "good", true, "good run log");
         options.addOption(good);

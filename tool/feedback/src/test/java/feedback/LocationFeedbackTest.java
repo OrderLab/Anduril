@@ -50,7 +50,7 @@ final class LocationFeedbackTest {
                 CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
                         Arrays.asList(random.nextBoolean()? "--append" : "-a", jsonFile)));
                 final JsonObject json = JsonUtil.loadJson(jsonFile);
-                assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("locationFeedback"))
+                assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("feedback"))
                         .sorted().collect(Collectors.toList()));
             }
         }
@@ -122,7 +122,7 @@ final class LocationFeedbackTest {
                     "logs-3/SecurityAuth-haoze.audit"),
     };
 
-    private static final Random random = new Random();
+    private static final Random random = new Random(System.currentTimeMillis());
 
     private static String[] prepareArgs(final String good, final String bad, final String trial, final String spec,
                                         final List<String> option) {
@@ -140,7 +140,7 @@ final class LocationFeedbackTest {
     }
 
     @Test
-    void testEnd2EndFeedback(final @TempDir Path tempDir) throws Exception {
+    void testEnd2EndLocationFeedback(final @TempDir Path tempDir) throws Exception {
         for (final BugCase bug : cases) {
             bug.test(tempDir);
         }

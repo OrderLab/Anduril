@@ -5,11 +5,12 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 final class LogEntryBuilder implements Serializable {
-    private final DateTime datetime;
-    private final String type;
-    private final String thread;
-    private final String file;
-    private final int fileLine;
+    public final DateTime datetime;
+    public final String type;
+    public final String thread;
+    public final String file;
+    public final int fileLine;
+
     private int logLine;
     private final StringBuilder msg;
 
@@ -28,6 +29,10 @@ final class LogEntryBuilder implements Serializable {
         this.logLine = logLine;
     }
 
+    int getLogLine() {
+        return this.logLine;
+    }
+
     void appendNewLine(String s) {
         this.msg.append('\n').append(s);
     }
@@ -37,6 +42,10 @@ final class LogEntryBuilder implements Serializable {
             throw new RuntimeException("Bad log line");
         }
         return new LogEntry(datetime, type, thread, file, fileLine, msg.toString(), logLine);
+    }
+
+    String getMsg() {
+        return msg.toString();
     }
 
     LogEntry buildWithoutLogLine() {

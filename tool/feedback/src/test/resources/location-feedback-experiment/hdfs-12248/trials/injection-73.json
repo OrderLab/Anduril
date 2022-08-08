@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 6, 30, 27, 0 ],
+    "pid": -1,
+    "id": 18112,
+    "exception": "java.nio.charset.CharacterCodingException",
+    "occurrence": 2,
+    "block": 192577,
+    "trial_id": 73,
+    "window": 160
+}

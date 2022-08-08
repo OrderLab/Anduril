@@ -1,8 +1,5 @@
 package feedback.diff;
 
-import difflib.Delta;
-import difflib.DiffUtils;
-import difflib.Patch;
 import feedback.parser.LogEntry;
 
 import java.io.Serializable;
@@ -45,13 +42,13 @@ public final class ThreadDiff implements Serializable {
     }
 
     public final String thread;
-    private final ArrayList<ThreadLogEntry> good, bad;
-    private final Patch<ThreadLogEntry> patch;
+    private final ThreadLogEntry[] good, bad;
+    private final FastDiff<ThreadLogEntry> diff;
 
-    private static ArrayList<ThreadLogEntry> convertLogEntries(final ArrayList<LogEntry> logEntries) {
-        final ArrayList<ThreadLogEntry> result = new ArrayList<ThreadLogEntry>(logEntries.size());
-        for (final LogEntry logEntry : logEntries) {
-            result.add(new ThreadLogEntry(logEntry));
+    private static ThreadLogEntry[] convertLogEntries(final ArrayList<LogEntry> logEntries) {
+        final ThreadLogEntry[] result = new ThreadLogEntry[logEntries.size()];
+        for (int i = 0; i < logEntries.size(); i++) {
+            result[i] = new ThreadLogEntry(logEntries.get(i));
         }
         return result;
     }
@@ -60,17 +57,10 @@ public final class ThreadDiff implements Serializable {
         this.thread = thread;
         this.good = convertLogEntries(good);
         this.bad = convertLogEntries(bad);
-        this.patch = DiffUtils.diff(this.good, this.bad);
+        this.diff = new FastDiff<>(this.good, this.bad);
     }
 
     void dumpBadDiff(final Consumer<ThreadLogEntry> consumer) {
-        for (final Delta<ThreadLogEntry> delta : this.patch.getDeltas()) {
-            switch (delta.getType()) {
-                case CHANGE:
-                case INSERT:
-                    delta.getRevised().getLines().forEach(consumer);
-                default:
-            }
-        }
+        this.diff.badOnly.forEach(consumer);
     }
 }

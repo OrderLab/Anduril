@@ -1,0 +1,11 @@
+
+{
+    "feedback": [    5, 19, 18, 17,  2, 16, 20,   13,  9, 14,  6, 12,  1,  8,    7, 10,  0 ],
+    "pid": -1,
+    "id": 2642,
+    "exception": "java.lang.SecurityException",
+    "occurrence": 2,
+    "block": 13427,
+    "trial_id": 285,
+    "window": 320
+}
