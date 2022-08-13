@@ -109,9 +109,8 @@ public final class CommandLine {
     private Serializable computeTimeFeedback() throws Exception {
         final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
         final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        final DistributedLog trial = new DistributedLog(cmd.getOptionValue("trial"));
         final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        return Algorithms.computeTimeFeedback(good, bad, trial, spec);
+        return Algorithms.computeTimeFeedback(good, bad, spec);
     }
 
     private void computeDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) throws Exception {

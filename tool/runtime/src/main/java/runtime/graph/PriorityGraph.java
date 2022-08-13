@@ -7,6 +7,7 @@ import runtime.time.TimePriorityTable;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 public class PriorityGraph {
@@ -136,7 +137,8 @@ public class PriorityGraph {
         }
     }
 
-    public void calculatePriorities(final int start, final int initialPriority, final TimePriorityTable timePriorityTable) {
+    public void calculatePriorities(final int start, final int initialPriority,
+                                    final BiConsumer<Integer, Integer> consumer) {
         final LinkedList<Integer> queue = new LinkedList<>();
         final LinkedList<Integer> weights = new LinkedList<>();
         queue.add(start);
@@ -157,11 +159,7 @@ public class PriorityGraph {
                     }
                     if (m1 != null && m1.containsKey(child)) {
                         for (final Integer injectionId : m1.get(child)) {
-                            final Map<TimePriorityTable.Key, TimePriorityTable.UtilityReducer> injections =
-                                    timePriorityTable.injections.get(injectionId);
-                            if (injections != null) {
-                                injections.forEach((k, v) -> v.add(start, weight));
-                            }
+                            consumer.accept(injectionId, weight);
                         }
                     }
                 }

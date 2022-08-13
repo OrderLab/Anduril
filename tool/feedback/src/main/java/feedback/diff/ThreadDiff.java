@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 
 public final class ThreadDiff implements Serializable {
     public static final class ThreadLogEntry {
-        final String file;
-        final int line;
+        public final String file;
+        public final int line;
 
         ThreadLogEntry(final LogEntry logEntry) {
             this.file = logEntry.file;

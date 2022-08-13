@@ -1,16 +1,17 @@
 package runtime.time;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
 
 public final class TimePriorityTable implements Serializable {
     public final boolean distributed;
     public final int nodes;
-    public final Map<Integer, Map<Key, UtilityReducer>> injections;
-    public final Map<BoundaryKey, Integer> boundaries;
+
+    // injection -> (pid,occur) -> log -> priority
+    public final Map<Integer, Map<Key, UtilityReducer>> injections = new TreeMap<>();
+
+    // (pid,injection) -> # of occur
+    public final Map<BoundaryKey, Integer> boundaries = new HashMap<>();
 
     public final static class Key implements Serializable {
         public final int pid, occurrence;
@@ -55,7 +56,7 @@ public final class TimePriorityTable implements Serializable {
     }
 
     public final static class UtilityReducer implements Serializable {
-        private Map<Integer, Integer> timePriorities = new TreeMap<>();
+        public Map<Integer, Integer> timePriorities = new TreeMap<>();  // location -> time priority
         private long utility = 0;
         private int size = 0;
 
@@ -74,13 +75,9 @@ public final class TimePriorityTable implements Serializable {
         }
     }
 
-    public TimePriorityTable(final boolean distributed, final int nodes,
-                             final Map<Integer, Map<Key, UtilityReducer>> injections,
-                             final Map<BoundaryKey, Integer> boundaries) {
+    public TimePriorityTable(final boolean distributed, final int nodes) {
         this.distributed = distributed;
         this.nodes = nodes;
-        this.injections = injections;
-        this.boundaries = boundaries;
     }
 
 //    public TimePriorityTable(final TreeMap<Integer, int[]> standalone) {

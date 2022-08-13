@@ -60,7 +60,14 @@ public class TimeFeedbackManager extends FeedbackManager {
     @Override
     public void calc(final int windowSize) {
         for (int i = 0; i < super.graph.startNumber; i++) {
-            super.graph.calculatePriorities(i, super.active.getOrDefault(i, 0), this.timePriorityTable);
+            final int finalI = i;
+            super.graph.calculatePriorities(i, super.active.getOrDefault(i, 0), (injectionId, weight) -> {
+                final Map<TimePriorityTable.Key, TimePriorityTable.UtilityReducer> injections =
+                        timePriorityTable.injections.get(injectionId);
+                if (injections != null) {
+                    injections.forEach((k, v) -> v.add(finalI, weight));
+                }
+            });
         }
         final ArrayList<Long> priorities = new ArrayList<>(
                 this.timePriorityTable.boundaries.values().stream().reduce(0, Integer::sum));

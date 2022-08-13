@@ -4,11 +4,12 @@ import feedback.diff.DistributedLogDiff;
 import feedback.diff.LogDiff;
 import feedback.diff.ThreadDiff;
 import feedback.parser.DistributedLog;
+import feedback.time.TimeFeedbackAlgorithms;
+import runtime.time.TimePriorityTable;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.File;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,25 +99,30 @@ final class Algorithms {
         }
     }
 
-//    static void computeTimeFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,
-//                                    final JsonObject spec, final Consumer<FeedbackTable> consumer) throws Exception {
-//        check(good, bad);
-//        check(good, trial);
-//        if (good.distributed) {
-//            for (int i = 0; i < good.logs.length; i++) {
-//                final FeedbackTable table = computeTimeFeedback(good.logs[i], bad.logs[i], trial.logs[i], spec);
-//                table.setPid(Parser.parseLogDirId(good.dirs[i].getName()));
-//                consumer.accept(table);
-//            }
-//        } else {
-//            computeTimeFeedback(good.logs[0], bad.logs[0], trial.logs[0], spec);
-//        }
-//    }
-//
-
-    static Serializable computeTimeFeedback(final DistributedLog good, final DistributedLog bad, final DistributedLog trial,
-                                            final JsonObject spec) throws Exception {
+    static TimePriorityTable computeTimeFeedback(final DistributedLog good, final DistributedLog bad,
+                                                 final JsonObject spec) throws Exception {
         check(good, bad);
-        check(good, trial);
+        final int eventNumber = spec.getInt("start");
+        final ThreadDiff.ThreadLogEntry[] events = new ThreadDiff.ThreadLogEntry[eventNumber];
+        final JsonArray array = spec.getJsonArray("nodes");
+        final boolean isSymptomLogged = Symptoms.isSymptomLogged(spec);
+        for (int i = 0; i < array.size(); i++) {
+            final JsonObject node = array.getJsonObject(i);
+            final int id = node.getInt("id");
+            if (id >= eventNumber) {
+                continue;
+            }
+            if (id == 0 && !isSymptomLogged) {
+                continue;
+            }
+            if (!node.getString("type").equals("location_event")) {
+                throw new Exception("wrong diff");
+            }
+            final JsonObject location = node.getJsonObject("location");
+            final String cls = location.getString("class");
+            events[id] = new ThreadDiff.ThreadLogEntry(
+                    cls.substring(cls.lastIndexOf('.') + 1), location.getInt("line_number"));
+        }
+        return TimeFeedbackAlgorithms.computeTimeFeedback(events, spec, good, bad);
     }
 }
