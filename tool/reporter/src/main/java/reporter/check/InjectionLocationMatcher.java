@@ -6,20 +6,23 @@ class InjectionLocationMatcher {
 
     public static final class InjectionLocation {
         public final String injectionClass;
+        public final String method;
         public final String invocation;
         public final String exception;
 
-        InjectionLocation(final String injectionClass,
+        InjectionLocation(final String injectionClass, final String method,
                           final String invocation, final String exception) {
             this.injectionClass = injectionClass;
+            this.method = method;
             this.invocation = invocation;
             this.exception = exception;
         }
 
         public boolean match (JsonObject loc) {
-            return injectionClass.equals(loc.getString("class"))
-                    && invocation.equals(loc.getString("invocation"))
-                    && exception.equals(loc.getString("exception"));
+            return (injectionClass == null || injectionClass.equals(loc.getString("class")))
+                    && (method == null || method.equals(loc.getString("method")))
+                    && (invocation == null || invocation.equals(loc.getString("invocation")))
+                    && (exception == null || exception.equals(loc.getString("exception")));
         }
     }
 
@@ -27,13 +30,26 @@ class InjectionLocationMatcher {
 
     InjectionLocationMatcher(JsonObject spec) {
         //hard-coded
+        String injectionClass = null;
+        String method = null;
+        String invocation = null;
+        String exception = null;
         switch(spec.getString("case")) {
             case "hdfs-4233":
                 targetPoints = new InjectionLocation[1];
-                final String injectionClass = "org.apache.hadoop.hdfs.server.namenode.EditLogFileOutputStream";
-                final String invocation = "void <init>(java.io.File,java.lang.String)";
-                final String exception = "java.io.FileNotFoundException";
-                targetPoints[0] = new InjectionLocation(injectionClass,invocation,exception);
+                injectionClass = "org.apache.hadoop.hdfs.server.namenode.EditLogFileOutputStream";
+                invocation = "void <init>(java.io.File,java.lang.String)";
+                exception = "java.io.FileNotFoundException";
+                targetPoints[0] = new InjectionLocation(injectionClass,method,invocation,exception);
+                break;
+
+            case "hdfs-12248":
+                targetPoints = new InjectionLocation[1];
+                injectionClass = "org.apache.hadoop.hdfs.server.namenode.TransferFsImage";
+                method = "org.apache.hadoop.hdfs.server.namenode.TransferFsImage$TransferResult uploadImageFromStorage(java.net.URL,org.apache.hadoop.conf.Configuration,org.apache.hadoop.hdfs.server.namenode.NNStorage,org.apache.hadoop.hdfs.server.namenode.NNStorage$NameNodeFile,long,org.apache.hadoop.hdfs.util.Canceler)";
+                invocation = "void <init>(java.net.URL,java.lang.String)";
+                exception = "java.net.MalformedURLException";
+                targetPoints[0] = new InjectionLocation(injectionClass,method,invocation,exception);
                 break;
 
             default:
