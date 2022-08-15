@@ -144,7 +144,13 @@ public class LocalInjectionManager {
                         }
                         return;
                     }
-                    if (occurrence <= TraceAgent.injectionOccurrenceLimit && !injectionSet.containsKey(index) &&
+                    final boolean ok;
+                    if (TraceAgent.isProbabilityFeedback) {
+                        ok = Math.random() < TraceAgent.probability;
+                    } else {
+                        ok = occurrence <= TraceAgent.injectionOccurrenceLimit;
+                    }
+                    if (ok && !injectionSet.containsKey(index) &&
                             injected.compareAndSet(false, true)) {
                         injectionPoint = index;
                         throw exception;

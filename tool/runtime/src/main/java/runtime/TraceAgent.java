@@ -122,6 +122,9 @@ public final class TraceAgent {
     static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
     static public final boolean recordOnthefly = Boolean.getBoolean("flakyAgent.recordOnthefly");
     static public final boolean isTimeFeedback = Boolean.getBoolean("flakyAgent.timeFeedback");
+    static public final boolean isProbabilityFeedback = Boolean.getBoolean("flakyAgent.probabilityFeedback");
+
+    static public final double probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
     static public final String timePriorityTable = System.getProperty("flakyAgent.timePriorityTable", "#");
     static {
         if (distributedMode && !disableAgent) {
