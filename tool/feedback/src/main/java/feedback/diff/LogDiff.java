@@ -50,6 +50,7 @@ public final class LogDiff implements Serializable {
         }
     }
 
+    // don't filter the duplicate entries
     public void dumpBadDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) {
         for (final ThreadDiff diff : common.values()) {
             diff.dumpBadDiff(consumer);

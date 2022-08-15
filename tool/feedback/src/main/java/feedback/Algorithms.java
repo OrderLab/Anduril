@@ -22,7 +22,7 @@ final class Algorithms {
         }
         if (good.distributed &&
                 !Arrays.equals(Arrays.stream(good.dirs).map(File::getName).toArray(String[]::new),
-                        Arrays.stream(good.dirs).map(File::getName).toArray(String[]::new))) {
+                        Arrays.stream(bad.dirs).map(File::getName).toArray(String[]::new))) {
             throw new Exception("distributed log not matched");
         }
     }

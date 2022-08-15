@@ -14,14 +14,14 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class LocationFeedbackTest {
-    static abstract class BugCase {
+    private static abstract class BugCase {
         private final String name;
         private final int[] instances;
-        BugCase(final String name, final int[] instances) {
+        private BugCase(final String name, final int[] instances) {
             this.name = name;
             this.instances = instances;
         }
-        BugCase(final String name, final int caseNumber) {
+        private BugCase(final String name, final int caseNumber) {
             this.name = name;
             this.instances = new int[caseNumber];
             for (int i = 0; i < caseNumber; i++) {
@@ -31,7 +31,7 @@ final class LocationFeedbackTest {
 
         abstract void prepareTempFiles(final Path tempDir) throws IOException;
 
-        final void test(final Path tempDir) throws Exception {
+        private void test(final Path tempDir) throws Exception {
             this.prepareTempFiles(tempDir);
             final String dir = tempDir + "/" + this.name + "/";
             for (int i = 0; i < this.instances.length; i++) {
@@ -56,7 +56,7 @@ final class LocationFeedbackTest {
         }
     }
 
-    static final class TestCase extends BugCase {
+    private static final class TestCase extends BugCase {
         private TestCase(final String name, final int... instances) {
             super(name, instances);
         }
@@ -76,7 +76,7 @@ final class LocationFeedbackTest {
         }
     }
 
-    static final class DistributedCase extends BugCase {
+    private static final class DistributedCase extends BugCase {
         private final DiffTest.DistributedCase bug;
         private final String[] files;
         private DistributedCase(final DiffTest.DistributedCase bug, final int caseNumber, final String... files) {

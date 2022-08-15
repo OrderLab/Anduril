@@ -15,13 +15,13 @@ final class TimelineTest {
 
     @RepeatedTest(10)
     void testRandomCount() {
-        final Boolean[] timeline = new Boolean[random.nextInt(1000) + 10];
+        final Boolean[] timeline = new Boolean[random.nextInt(1_000) + 10];
         for (int i = 0; i < timeline.length; i++) {
             timeline[i] = random.nextBoolean();
         }
         final TimeFeedbackAlgorithms.UpdateAgent<Boolean, Integer> agent =
                 new TimeFeedbackAlgorithms.UpdateAgent<>(timeline, b -> b);
-        for (int i_ = random.nextInt(1000) + 10; i_ > 0; i_--) {
+        for (int i_ = random.nextInt(1_000) + 10; i_ > 0; i_--) {
             int x, y;
             do {
                 x = random.nextInt(timeline.length);
@@ -112,7 +112,7 @@ final class TimelineTest {
     void testRandomTimeline() {
         final BiConsumer<Function<Integer, Integer>, Function<Integer, Integer>> testRandom = (f, b) -> {
             testTimeline(generateRandomTimeline(
-                    random.nextInt(1000),
+                    random.nextInt(1_000),
                     random.nextInt(50) + 1,
                     random.nextInt(500) + 1),
                     f, b);
@@ -129,7 +129,7 @@ final class TimelineTest {
         final Function<Integer, Integer>[] distances = new Function[]{
                 w -> w,
                 randomConstant(100),
-                randomConstant(1000),
+                randomConstant(1_000),
                 randomLinear(10, 10),
                 randomLinear(100, 100),
                 randomQuad(10, 10, 10),

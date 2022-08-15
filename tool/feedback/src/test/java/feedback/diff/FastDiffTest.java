@@ -21,7 +21,7 @@ final class FastDiffTest {
     }
 
     @RepeatedTest(10)
-    void testFastDiff() {
+    void testRandomFastDiff() {
         final int x = random.nextInt(10_000) + 1;
         final int y = random.nextInt(10_000) + 1;
         final int bound = random.nextInt(10) + 3;

@@ -13,7 +13,7 @@ private[feedback] object Parser {
   private val millisecond = """\d{3}"""
   val datetimeRegex = s"($year\\-$month\\-$day $hour\\:$minute\\:$second\\,$millisecond)"
 
-  private val datetimeFormatter: org.joda.time.format.DateTimeFormatter =
+  val datetimeFormatter: org.joda.time.format.DateTimeFormatter =
     org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss,SSS")
 
   def parseDatetime(datetimeText: String): org.joda.time.DateTime =

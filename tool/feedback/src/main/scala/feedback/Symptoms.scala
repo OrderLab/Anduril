@@ -13,14 +13,13 @@ private[feedback] object Symptoms {
     case _ => error
   }
 
-  private def singletonMap(t: (java.lang.Integer, Option[LogEntry])) = t match {
-    case (node, entry) => entry.map(e => java.util.Collections.singletonMap(node, java.util.Arrays.asList(e)))
-  }
+  private def singletonMap(node: java.lang.Integer, entry: Option[LogEntry]) =
+    entry.map(e => java.util.Collections.singletonMap(node, java.util.Arrays.asList(e)))
 
   private def findSymptom(trial: DistributedLog, spec: JsonObject) = spec.getString("case") match {
     case "zookeeper-3006" =>
       require(!trial.distributed)
-      singletonMap (-1, trial.logs(0).entries.find(_.msg.contains(
+      singletonMap(-1, trial.logs(0).entries.find(_.msg.contains(
         "\n1) testAbsentRecentSnapshot(org.apache.zookeeper.test.ZkDatabaseCorruptionTest)\njava.lang.NullPointerException\n")))
     case "hdfs-4233" =>
       require(trial.distributed)
@@ -28,7 +27,7 @@ private[feedback] object Symptoms {
         case (dir, i) => dir.getName.equals(s"logs-$i")
       })
       val node = 1
-      singletonMap (node, trial.logs(node).entries.find(entry =>
+      singletonMap(node, trial.logs(node).entries.find(entry =>
         entry.file.equals("Server$Handler") &&
           entry.fileLogLine == 1538 &&
           entry.`type`.equals("INFO") &&

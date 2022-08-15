@@ -60,6 +60,7 @@ public final class ThreadDiff implements Serializable {
         this.diff = new FastDiff<>(this.good, this.bad);
     }
 
+    // don't filter the duplicate entries
     void dumpBadDiff(final Consumer<ThreadLogEntry> consumer) {
         this.diff.badOnly.forEach(consumer);
     }

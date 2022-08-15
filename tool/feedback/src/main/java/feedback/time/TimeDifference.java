@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 
 public final class TimeDifference {
     public final DateTime good, bad;
+    // a valid difference must < 1 hour = 3,600,000 ms
     public final long difference;  // bad - good
 
     public TimeDifference(final DateTime good, final DateTime bad) {
@@ -28,14 +29,6 @@ public final class TimeDifference {
 
     public TimeDifference(final DateTime good, final DateTime bad, final TimeDifference timeDifference) {
         this(timeDifference.good2bad(good), bad);
-    }
-
-    // a valid difference must < 1 hour = 3,600,000 ms
-    public int getTimeScore() {
-        if (difference < 0) {
-            return -3 * (int) difference;
-        }
-        return (int) difference;
     }
 
     public DateTime good2bad(final DateTime good) {

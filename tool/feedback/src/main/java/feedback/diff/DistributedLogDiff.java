@@ -22,6 +22,7 @@ public final class DistributedLogDiff implements Serializable {
         }
     }
 
+    // filter the duplicate entries, but the log diff don't filter
     public void dumpBadDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) {
         final Set<ThreadDiff.ThreadLogEntry> entries = new HashSet<>();
         for (final LogDiff diff : this.diffs) {
