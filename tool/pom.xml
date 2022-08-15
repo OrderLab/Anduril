@@ -87,5 +87,6 @@
         <module>index</module>
         <module>runtime</module>
         <module>feedback</module>
+        <module>reporter</module>
     </modules>
 </project>
