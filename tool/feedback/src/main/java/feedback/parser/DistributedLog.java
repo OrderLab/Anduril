@@ -1,5 +1,8 @@
 package feedback.parser;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -8,6 +11,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public final class DistributedLog implements Serializable {
+    private final static Logger LOG = LoggerFactory.getLogger(DistributedLog.class);
+
     public final File[] dirs;
     public final Log[] logs;
     public final boolean distributed;
@@ -27,7 +32,12 @@ public final class DistributedLog implements Serializable {
             }
         } else {
             this.dirs = new File[]{rootDir};
-            this.logs = new Log[]{Log.load(rootDir)};
+            final Log log = Log.load(rootDir);
+            if (log.testResult == null) {
+                LOG.warn("can't find test result");
+                throw new IOException("can't find test result");
+            }
+            this.logs = new Log[]{log};
         }
     }
 
@@ -37,5 +47,9 @@ public final class DistributedLog implements Serializable {
 
     public DistributedLog(final Path path) throws IOException {
         this(path.toFile());
+    }
+
+    public enum LogFileType {
+        TRIAL, GOOD, BAD
     }
 }

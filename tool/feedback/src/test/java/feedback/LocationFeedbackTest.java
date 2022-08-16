@@ -100,7 +100,7 @@ final class LocationFeedbackTest {
         }
     }
 
-    private static BugCase[] cases = new BugCase[] {
+    private static final BugCase[] cases = new BugCase[] {
             new TestCase("zookeeper-3006",
                     2695,1004,2696,558,2694,1001,554,2872,274,0,1000,281,2766),
             new DistributedCase(DiffTest.hdfs_4233, 108,

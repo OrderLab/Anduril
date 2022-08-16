@@ -12,11 +12,13 @@ public final class Log implements Serializable {
     public final String header;   // header might be null
     public final LogEntry[] entries;
     public final InjectionRequestRecord[] injections;
+    public final TestResult testResult;
 
-    Log(final String header, final LogEntry[] entries, final InjectionRequestRecord[] injections) {
+    Log(final String header, final LogEntry[] entries, final InjectionRequestRecord[] injections, final TestResult result) {
         this.header = header;
         this.entries = entries;
         this.injections = injections;
+        this.testResult = result;
     }
 
     public static Log load(final Path path) throws IOException {

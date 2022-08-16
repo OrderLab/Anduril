@@ -1,21 +1,23 @@
 package feedback
 
-import feedback.time.LogType
+import feedback.parser.DistributedLog.LogFileType
+import feedback.parser.Parser
 import org.joda.time.DateTime
+import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
 private[feedback] object FeedbackTestUtil {
   private val CaseDirPattern = """([a-zA-Z]+)_(\d+)""".r
 
   def parseCaseDirName(text: String): String = text match {
-    case CaseDirPattern(system, number) => s"${system.toLowerCase}-${number}"
+    case CaseDirPattern(system, number) => s"${system.toLowerCase}-$number"
   }
 
-  private def getDateTimeLiteral(time: DateTime): String = time.toString(feedback.parser.Parser.datetimeFormatter)
+  private def getDateTimeLiteral(time: DateTime): String = time.toString(Parser.datetimeFormatter)
 
-  private val injectionLimit       = 1000000;
-  private val injectionDigitLimit  = 7;
-  private val occurrenceLimit      = 1000000;
-  private val occurrenceDigitLimit = 7;
+  private val injectionLimit       = 1000000
+  private val injectionDigitLimit  = 7
+  private val occurrenceLimit      = 1000000
+  private val occurrenceDigitLimit = 7
 
   private def injectionFormat(injection: Int, occurrence: Int): String = {
     require(0 <= injection)
@@ -33,18 +35,17 @@ private[feedback] object FeedbackTestUtil {
   private def msgFormat(msg: String): String =
     s"%-${msgLimit}s".format(org.apache.commons.lang3.StringUtils.abbreviate(msg, msgLimit))
 
-  def logEntryTimingFormat(datetime: DateTime, logType: LogType.Value, msg: String): String = {
+  def logEntryTimingFormat(datetime: DateTime, logType: LogFileType, msg: String): String = {
     val literal = s"${getDateTimeLiteral(datetime)} ${msgFormat(msg)}"
     val padding = " " * literal.length
     logType match {
-      case LogType.TRIAL => s"${literal}   ${padding}   ${padding}"
-      case LogType.GOOD  => s"${padding}   ${literal}   ${padding}"
-      case LogType.BAD   => s"${padding}   ${padding}   ${literal}"
+      case LogFileType.TRIAL => s"$literal   $padding   $padding"
+      case LogFileType.GOOD  => s"$padding   $literal   $padding"
+      case LogFileType.BAD   => s"$padding   $padding   $literal"
     }
   }
 
-  private val timeFormatter: org.joda.time.format.DateTimeFormatter =
-    org.joda.time.format.DateTimeFormat.forPattern("HH:mm:ss,SSS")
+  private val timeFormatter: DateTimeFormatter = DateTimeFormat.forPattern("HH:mm:ss,SSS")
 
   private def getTimeLiteral(time: DateTime): String = time.toString(timeFormatter)
 

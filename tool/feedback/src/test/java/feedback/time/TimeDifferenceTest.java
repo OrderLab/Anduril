@@ -40,20 +40,13 @@ final class TimeDifferenceTest {
 
         abstract void prepareTempFiles(final Path tempDir) throws IOException;
         abstract void print(final Consumer<String> printer);
-        abstract void print(final List<Timing> timeline, final Consumer<String> printer);
 
-        static class Timing {
-            private final DateTime time;
+        static class Timestamp extends Timing {
             private final String literal;
 
-            private Timing(final DateTime time, final String literal) {
-                this.time = time;
+            private Timestamp(final DateTime datetime, final String literal) {
+                super(datetime);
                 this.literal = literal;
-            }
-
-            @Override
-            public String toString() {
-                return this.literal;
             }
         }
     }
@@ -78,40 +71,39 @@ final class TimeDifferenceTest {
             final TimeDifference trial2bad = new TimeDifference(super.trial, super.bad);
             final TimeDifference good2bad = new TimeDifference(super.good, super.bad);
             final Log trial = super.trial.logs[0], good = super.good.logs[0], bad = super.bad.logs[0];
-            final List<Timing> timeline = new ArrayList<>(
+            final List<Timestamp> timeline = new ArrayList<>(
                     trial.injections.length + trial.entries.length + good.entries.length + bad.entries.length);
             final Map<Integer, Integer> occurrences = new TreeMap<>();
             Arrays.stream(trial.injections).forEach(injection -> timeline.add(
                     new Injection(trial2bad.good2bad(injection.datetime), injection.injection,
                             occurrences.merge(injection.injection, 1, Integer::sum))));
             Arrays.stream(trial.entries).forEach(entry -> timeline.add(
-                    new LogEntry(trial2bad.good2bad(entry.datetime), LogType.TRIAL(), entry.msg)));
+                    new LogEntry(trial2bad.good2bad(entry.datetime), DistributedLog.LogFileType.TRIAL, entry.msg)));
             Arrays.stream(good.entries).forEach(entry -> timeline.add(
-                    new LogEntry(good2bad.good2bad(entry.datetime), LogType.GOOD(), entry.msg)));
+                    new LogEntry(good2bad.good2bad(entry.datetime), DistributedLog.LogFileType.GOOD, entry.msg)));
             Arrays.stream(bad.entries).forEach(entry -> timeline.add(
-                    new LogEntry(entry.datetime, LogType.BAD(), entry.msg)));
-            timeline.sort(Comparator.comparing(timing -> timing.time)); // use stable merge sort
+                    new LogEntry(entry.datetime, DistributedLog.LogFileType.BAD, entry.msg)));
+            Collections.sort(timeline); // use stable merge sort
             this.print(timeline, printer);
         }
 
-        @Override
-        void print(final List<Timing> timeline, final Consumer<String> printer) {
+        void print(final List<Timestamp> timeline, final Consumer<String> printer) {
             // each line:  trial log   good log   bad log
             int count = 0;
             DateTime begin = null, end = null;
-            for (final Timing timing : timeline) {
+            for (final Timestamp timing : timeline) {
                 if (timing instanceof Injection) {
                     if (count == 0) {
-                        begin = timing.time;
+                        begin = timing.datetime;
                     }
-                    end = timing.time;
+                    end = timing.datetime;
                     count++;
                 } else {
                     if (count != 0) {
                         printer.accept(FeedbackTestUtil.getInjectionInterval(count, begin, end));
                         count = 0;
                     }
-                    printer.accept(timing.toString());
+                    printer.accept(timing.literal);
                 }
             }
             if (count != 0) {
@@ -119,14 +111,14 @@ final class TimeDifferenceTest {
             }
         }
 
-        static final class Injection extends Timing {
+        static final class Injection extends Timestamp {
             Injection(final DateTime time, final int injection, final int occurrence) {
                 super(time, FeedbackTestUtil.injectionTimingFormat(time, injection, occurrence));
             }
         }
 
-        static final class LogEntry extends Timing {
-            LogEntry(final DateTime time, final scala.Enumeration.Value type, final String msg) {
+        static final class LogEntry extends Timestamp {
+            LogEntry(final DateTime time, final DistributedLog.LogFileType type, final String msg) {
                 super(time, FeedbackTestUtil.logEntryTimingFormat(time, type, msg));
             }
         }

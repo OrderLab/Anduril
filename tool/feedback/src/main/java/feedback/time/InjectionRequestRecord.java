@@ -2,14 +2,15 @@ package feedback.time;
 
 import org.joda.time.DateTime;
 
-public final class InjectionRequestRecord {
-    public final DateTime datetime;
+import java.io.Serializable;
+
+public final class InjectionRequestRecord extends Timing implements Serializable {
     public final String thread;
     public final int injection;
     public final int logLine;
 
     public InjectionRequestRecord(DateTime datetime, String thread, int injection, int logLine) {
-        this.datetime = datetime;
+        super(datetime);
         this.thread = thread;
         this.injection = injection;
         this.logLine = logLine;

@@ -27,10 +27,6 @@ public final class TimeDifference {
         this.difference = this.bad.getMillis() - this.good.getMillis();
     }
 
-    public TimeDifference(final DateTime good, final DateTime bad, final TimeDifference timeDifference) {
-        this(timeDifference.good2bad(good), bad);
-    }
-
     public DateTime good2bad(final DateTime good) {
         return good.plus(this.difference);
     }

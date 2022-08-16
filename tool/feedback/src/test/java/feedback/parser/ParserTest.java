@@ -28,11 +28,11 @@ final class ParserTest {
 
     @Test
     void testLogType() {
-        assertEquals("INFO", Parser.parseLogType("INFO "));
-        assertEquals("WARN", Parser.parseLogType("WARN "));
-        assertEquals("ERROR", Parser.parseLogType("ERROR"));
-        assertEquals("DEBUG", Parser.parseLogType("DEBUG"));
-        assertEquals("TRACE", Parser.parseLogType("TRACE"));
+        assertEquals(LogType.INFO, Parser.parseLogType("INFO "));
+        assertEquals(LogType.WARN, Parser.parseLogType("WARN "));
+        assertEquals(LogType.ERROR, Parser.parseLogType("ERROR"));
+        assertEquals(LogType.DEBUG, Parser.parseLogType("DEBUG"));
+        assertEquals(LogType.TRACE, Parser.parseLogType("TRACE"));
     }
 
     @Test
@@ -81,7 +81,7 @@ final class ParserTest {
     }
 
     private static void testLogEntry(String text, String datetime, String type, String location, String msg) {
-        assertEquals(new LogEntryBuilder(datetime, type, location, msg).buildWithoutLogLine(),
+        assertEquals(LogEntryBuilder.create(datetime, type, location, msg).buildWithoutLogLine(),
                 Parser.parseLogEntry(text).buildWithoutLogLine());
     }
 
@@ -147,7 +147,7 @@ final class ParserTest {
     @Test
     void testLog() throws IOException {
         final Log zookeeper_3157 = LogTestUtil.getLog("ground-truth/zookeeper-3157/bad-run-log.txt");
-        assertEquals("JUnit version 4.12", zookeeper_3157.header);
+        assertEquals("JUnit version 4.12\n", zookeeper_3157.header);
         assertEquals(513, zookeeper_3157.entries.length);
         assertEquals("No test.method specified. using default methods.", zookeeper_3157.entries[0].msg);
         assertEquals(58, zookeeper_3157.entries[2].fileLogLine);
@@ -156,11 +156,22 @@ final class ParserTest {
 
         final Log hdfs_12248 = LogTestUtil.getLog("ground-truth/hdfs-12248/good-run-log.txt");
         assertTrue(hdfs_12248.header.startsWith("JUnit version 4.11\n"));
-        assertTrue(hdfs_12248.header.endsWith("\nSLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]"));
+        assertTrue(hdfs_12248.header.endsWith("\nSLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]\n"));
 
         final Log hbase_20492 = LogTestUtil.getLog("ground-truth/hbase-20492/good-run-log.txt");
         assertEquals(1468, hbase_20492.entries.length);
         assertEquals(hbase_20492.entries[1464].logLine, 1467);
+    }
+
+    @Test
+    void testHeader() {
+        final Log log = Parser.parseLog(new String[]{
+                "asdf",
+                "qwer2021-08-20 01:04:01,539 [myid:2] - ERROR [Thread-1:ManagedUtil@114] - Problems",
+                "2021-08-20 01:04:01,352 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING",
+                ".2021-08-09 16:30:30,110 - INFO  [main:ZKTestCase$1@58] - STARTING",
+        });
+        assertEquals("asdf\nqwer", log.header);
     }
 
     @Test
@@ -179,5 +190,15 @@ final class ParserTest {
         assertThrows(RuntimeException.class, () -> Parser.parseLogDirId("logs-0/"));
         assertThrows(RuntimeException.class, () -> Parser.parseLogDirId("/logs-1"));
         assertThrows(RuntimeException.class, () -> Parser.parseLogDirId("./logs-2"));
+    }
+
+    @Test
+    void testExceptionParser() throws IOException {
+        ExceptionParserUtil.runAllTests();
+    }
+
+    @Test
+    void testTestResultParser() {
+        TestResultParserUtil.runAllTests();
     }
 }

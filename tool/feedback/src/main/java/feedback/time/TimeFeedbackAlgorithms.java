@@ -16,19 +16,12 @@ import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 public final class TimeFeedbackAlgorithms {
-    private static abstract class Timing {
-        final DateTime time;
-        Timing(final DateTime time) {
-            this.time = time;
-        }
-    }
-
     private static final class InjectionTiming extends Timing {
         final int pid;
         final int injection;
         final int occurrence;
-        InjectionTiming(final DateTime time, final int pid, final int injection, final int occurrence) {
-            super(time);
+        InjectionTiming(final DateTime datetime, final int pid, final int injection, final int occurrence) {
+            super(datetime);
             this.pid = pid;
             this.injection = injection;
             this.occurrence = occurrence;
@@ -36,15 +29,15 @@ public final class TimeFeedbackAlgorithms {
     }
 
     private static class LogTiming extends Timing {
-        LogTiming(final DateTime time) {
-            super(time);
+        LogTiming(final DateTime datetime) {
+            super(datetime);
         }
     }
 
     private static final class CriticalLogTiming extends LogTiming {
         final int id;
-        CriticalLogTiming(final DateTime time, final int id) {
-            super(time);
+        CriticalLogTiming(final DateTime datetime, final int id) {
+            super(datetime);
             this.id = id;
         }
     }
@@ -90,11 +83,11 @@ public final class TimeFeedbackAlgorithms {
             putLog.accept(-1, bad.logs[0].entries);
         }
         if (!isSymptomLogged) {
-            Symptoms.getSymptom(bad, spec).forEach((pid, entries) -> entries.forEach(entry ->
-                    timeline.add(new CriticalLogTiming(entry.datetime, 0))));
+            Symptoms.getSymptom(bad, spec).forEach((pid, timings) -> timings.forEach(timing ->
+                    timeline.add(new CriticalLogTiming(timing.datetime, 0))));
         }
         // list sort is stable merge sort; don't use array sort, which is unstable quick sort and discards the order
-        timeline.sort(Comparator.comparing(timing -> timing.time));
+        Collections.sort(timeline);
         final TimePriorityTable table = new TimePriorityTable(bad.distributed, bad.logs.length);
         return computeTimeFeedback(timeline.toArray(new Timing[0]), events.length, new PriorityGraph(spec), table);
     }
@@ -138,9 +131,9 @@ public final class TimeFeedbackAlgorithms {
      * @param update     the agent for update
      */
     static <T, U> void updateTimeline(final T[] timeline,
-                                   final Predicate<T> isTarget,
-                                   final Function<T, U> getId,
-                                   final UpdateAgent<T, U> update) {
+                                      final Predicate<T> isTarget,
+                                      final Function<T, U> getId,
+                                      final UpdateAgent<T, U> update) {
         int prev = -1;
         int next = 0;
         while (next < timeline.length && !isTarget.test(timeline[next])) {
