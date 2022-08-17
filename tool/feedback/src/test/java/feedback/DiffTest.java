@@ -103,13 +103,13 @@ final class DiffTest {
         }
     }
 
-    private final Random random = new Random(System.currentTimeMillis());
+    private static final Random random = new Random(System.currentTimeMillis());
 
-    private String[] prepareArgs(final String good, final String bad, final List<String> option) {
+    private static String[] prepareArgs(final String good, final String bad, final List<String> option) {
         final List<List<String>> cmd = Arrays.asList(
-                Collections.singletonList(this.random.nextBoolean() ? "--diff" : "-d"),
-                Arrays.asList(this.random.nextBoolean()? "--good" : "-g", good),
-                Arrays.asList(this.random.nextBoolean()? "--bad" : "-b", bad),
+                Collections.singletonList(random.nextBoolean() ? "--diff" : "-d"),
+                Arrays.asList(random.nextBoolean()? "--good" : "-g", good),
+                Arrays.asList(random.nextBoolean()? "--bad" : "-b", bad),
                 option);
         Collections.shuffle(cmd);
         final List<String> result = new ArrayList<>();
@@ -117,7 +117,7 @@ final class DiffTest {
         return result.toArray(new String[0]);
     }
 
-    private ArrayList<String> prepareEndToEndTest(final Path tempDir) throws IOException {
+    static ArrayList<String> prepareEndToEndTest(final Path tempDir) throws IOException {
         final ArrayList<String> cases = new ArrayList<>();
         for (final String bug : testCases) {
             LogTestUtil.initTempFile("ground-truth/" + bug + "/good-run-log.txt",

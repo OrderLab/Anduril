@@ -300,6 +300,7 @@ private[feedback] object Parser {
     case FAIL_JUnit4(msg, time, _, failures, _, _) =>
       parseSingleTestFailure(failures) match {
         case (testMethod, testClass, exceptions) =>
+          require(exceptions.length > 0)
           Some(msg, FAIL(parseDuration(time), testMethod, testClass, exceptions))
       }
     case JUnit5Pattern(msg, time, successful, failed) =>  // TODO: extract the failure content
