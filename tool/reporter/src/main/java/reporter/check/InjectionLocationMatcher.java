@@ -18,11 +18,11 @@ class InjectionLocationMatcher {
             this.exception = exception;
         }
 
-        public boolean match (JsonObject loc) {
-            return (injectionClass == null || injectionClass.equals(loc.getString("class")))
-                    && (method == null || method.equals(loc.getString("method")))
-                    && (invocation == null || invocation.equals(loc.getString("invocation")))
-                    && (exception == null || exception.equals(loc.getString("exception")));
+        public boolean match (JsonObject injection) {
+            return (injectionClass == null || injectionClass.equals(injection.getJsonObject("location").getString("class")))
+                    && (method == null || method.equals(injection.getJsonObject("location").getString("method")))
+                    && (invocation == null || invocation.equals(injection.getString("invocation")))
+                    && (exception == null || exception.equals(injection.getString("exception")));
         }
     }
 
@@ -57,9 +57,9 @@ class InjectionLocationMatcher {
         }
     }
 
-    public boolean match(JsonObject loc) {
+    public boolean match(JsonObject injection) {
         for (InjectionLocation targetPoint : targetPoints) {
-            if (targetPoint.match(loc)) {
+            if (targetPoint.match(injection)) {
                 return true;
             }
         }

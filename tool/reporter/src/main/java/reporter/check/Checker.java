@@ -22,8 +22,7 @@ public class Checker {
         for (int i = 0; i < arr.size(); i++) {
             final JsonObject injection = arr.getJsonObject(i);
             final int injectionId = injection.getInt("id");
-            final JsonObject loc = injection.getJsonObject("location");
-            if (matcher.match(loc)) {
+            if (matcher.match(injection)) {
                 targetSet.add(injectionId);
             }
         }
