@@ -36,4 +36,8 @@ object Symptoms {
 
   def findResultEvent(log: Log, spec: JsonObject): Option[Timing] =
     findResultEvent(log, spec.getString("case"))
+
+  def hasResultEvent(log: Log, spec: JsonObject): Boolean =
+    findResultEvent(log, spec.getString("case")).isDefined
+
 }

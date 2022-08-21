@@ -1,6 +1,6 @@
 package reporter;
 
-import feedback.parser.DistributedLog;
+import feedback.log.Log;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
@@ -45,18 +45,18 @@ public class CommandLine {
         int index = 0;
         while (index <= 1000000) {
             //Get parsed log files and injection points id.
-            DistributedLog trial = loader.getDistributedLog(index);
+            Log trial = loader.getDistributedLog(index);
             int injectionId = loader.getInjectionId(index);
 
             if (checker.checkTrial(trial, injectionId)) {
 
                 System.out.println("The Index of first trial that reproduce the bug: " + index);
 
-                DateTime start = loader.getDistributedLog(0).logs[0].entries[0].datetime;
-                int length = trial.logs[0].entries.length;
-                DateTime end = trial.logs[0].entries[length - 1].datetime;
-                Duration elapsed = new Duration(start,end);
-                System.out.println("The elapsed time to reproduce is : " + elapsed.toString());
+                //DateTime start = loader.getDistributedLog(0).logs[0].entries[0].datetime;
+                //int length = trial.logs[0].entries.length;
+                //DateTime end = trial.logs[0].entries[length - 1].datetime;
+                //Duration elapsed = new Duration(start,end);
+                //System.out.println("The elapsed time to reproduce is : " + elapsed.toString());
                 continue;
             }
             index++;

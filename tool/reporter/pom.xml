@@ -45,7 +45,7 @@
         <configuration>
             <archive>
                 <manifest>
-                    <mainClass>feedback.CommandLine</mainClass>
+                    <mainClass>reporter.CommandLine</mainClass>
                 </manifest>
             </archive>
             <descriptorRefs>
