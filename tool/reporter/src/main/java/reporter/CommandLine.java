@@ -37,9 +37,9 @@ public class CommandLine {
         final Checker checker = new Checker(spec);
         final DistributedLogLoader loader;
         if (cmd.hasOption("distributed")) {
-            loader = new DistributedLogLoader(cmd.getOptionValue("trial"), true);
+            loader = new DistributedLogLoader(cmd.getOptionValue("trial-directory"), true);
         } else {
-            loader = new DistributedLogLoader(cmd.getOptionValue("trial"), false);
+            loader = new DistributedLogLoader(cmd.getOptionValue("trial-directory"), false);
         }
         //Traverse through all the trials
         int index = 0;
@@ -47,7 +47,7 @@ public class CommandLine {
             //Get parsed log files and injection points id.
             Log trial = loader.getDistributedLog(index);
             int injectionId = loader.getInjectionId(index);
-
+System.out.println(index);
             if (checker.checkTrial(trial, injectionId)) {
 
                 System.out.println("The Index of first trial that reproduce the bug: " + index);
