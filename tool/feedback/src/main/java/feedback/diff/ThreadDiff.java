@@ -1,54 +1,68 @@
 package feedback.diff;
 
-import feedback.parser.LogEntry;
+import feedback.log.entry.LogEntry;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public final class ThreadDiff implements Serializable {
-    public static final class ThreadLogEntry {
-        public final String file;
-        public final int line;
+public final class ThreadDiff implements DiffDump {
+    public static final class CodeLocation {
+        public final String classname;
+        public final int fileLogLine;
 
-        ThreadLogEntry(final LogEntry logEntry) {
-            this.file = logEntry.file;
-            this.line = logEntry.fileLogLine;
+        CodeLocation(final LogEntry logEntry) {
+            this.classname = logEntry.classname();
+            this.fileLogLine = logEntry.fileLogLine();
         }
 
-        public ThreadLogEntry(final String file, final int line) {
-            this.file = file;
-            this.line = line;
+        public CodeLocation(final String classname, final int fileLogLine) {
+            this.classname = classname;
+            this.fileLogLine = fileLogLine;
         }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof ThreadLogEntry)) return false;
-            ThreadLogEntry logEntry = (ThreadLogEntry) o;
-            return line == logEntry.line && file.equals(logEntry.file);
+            if (!(o instanceof CodeLocation)) return false;
+            CodeLocation that = (CodeLocation) o;
+            return fileLogLine == that.fileLogLine && classname.equals(that.classname);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(file, line);
+            return Objects.hash(classname, fileLogLine);
         }
 
         @Override
         public String toString() {
-            return file + " " + line;
+            return classname + " " + fileLogLine;
+        }
+    }
+
+    final static class Builder {
+        final String thread;
+        final ArrayList<LogEntry> good, bad;
+
+        Builder(final String thread, final ArrayList<LogEntry> good, final ArrayList<LogEntry> bad) {
+            this.thread = thread;
+            this.good = good;
+            this.bad = bad;
+        }
+
+        ThreadDiff build() {
+            return new ThreadDiff(thread, good, bad);
         }
     }
 
     public final String thread;
-    private final ThreadLogEntry[] good, bad;
-    private final FastDiff<ThreadLogEntry> diff;
+    private final CodeLocation[] good, bad;
+    private final FastDiff<CodeLocation> diff;
 
-    private static ThreadLogEntry[] convertLogEntries(final ArrayList<LogEntry> logEntries) {
-        final ThreadLogEntry[] result = new ThreadLogEntry[logEntries.size()];
+    private static CodeLocation[] convertLogEntries(final ArrayList<LogEntry> logEntries) {
+        final CodeLocation[] result = new CodeLocation[logEntries.size()];
         for (int i = 0; i < logEntries.size(); i++) {
-            result[i] = new ThreadLogEntry(logEntries.get(i));
+            result[i] = new CodeLocation(logEntries.get(i));
         }
         return result;
     }
@@ -61,7 +75,8 @@ public final class ThreadDiff implements Serializable {
     }
 
     // don't filter the duplicate entries
-    void dumpBadDiff(final Consumer<ThreadLogEntry> consumer) {
-        this.diff.badOnly.forEach(consumer);
+    @Override
+    public void dumpBadDiff(final Consumer<CodeLocation> action) {
+        this.diff.badOnly.forEach(action);
     }
 }

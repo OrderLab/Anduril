@@ -1,7 +1,8 @@
 package feedback;
 
 import feedback.diff.ThreadDiff;
-import feedback.parser.DistributedLog;
+import feedback.log.Log;
+import feedback.parser.LogParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
@@ -14,6 +15,7 @@ import java.io.PrintStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 public final class CommandLine {
@@ -60,14 +62,15 @@ public final class CommandLine {
             this.computeLocationFeedback(array::add);
             result.add("feedback", array);
         }
-//        if (cmd.hasOption("time-feedback")) {
+        if (cmd.hasOption("time-feedback")) {
+            throw new Exception("not support");
 //            if (json.containsKey("timeFeedback")) {
 //                throw new Exception("time feedback result existed at json");
 //            }
 //            final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
 //            this.computeTimeFeedback(e -> {});
 //            result.add("timeFeedback", array);
-//        }
+        }
         if (cmd.hasOption("diff")) {
             if (json.containsKey("diff")) {
                 throw new Exception("diff result existed at json");
@@ -83,9 +86,9 @@ public final class CommandLine {
         if (cmd.hasOption("location-feedback")) {
             this.computeLocationFeedback(printer::println);
         }
-//        if (cmd.hasOption("time-feedback")) {
-//            this.computeTimeFeedback(e -> {});
-//        }
+        if (cmd.hasOption("time-feedback")) {
+            throw new Exception("not support");
+        }
         if (cmd.hasOption("diff")) {
             this.computeDiff(printer::println);
         }
@@ -98,25 +101,29 @@ public final class CommandLine {
         throw new Exception("nothing to produce");
     }
 
-    private void computeLocationFeedback(final Consumer<Integer> consumer) throws Exception {
-        final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
-        final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        final DistributedLog trial = new DistributedLog(cmd.getOptionValue("trial"));
-        final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        Algorithms.computeLocationFeedback(good, bad, trial, spec, consumer);
+    // WARN: we assume cmd is thread-safe (or will not change)
+
+    private void computeLocationFeedback(final Consumer<Integer> action) throws Exception {
+        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> trial = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
+        final Future<JsonObject> spec = ScalaUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        Algorithms.computeLocationFeedback(good.get(), bad.get(), trial.get(), spec.get(), action);
     }
 
     private Serializable computeTimeFeedback() throws Exception {
-        final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
-        final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        return Algorithms.computeTimeFeedback(good, bad, spec);
+        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<JsonObject> spec = ScalaUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        return Algorithms.computeTimeFeedback(good.get(), bad.get(), spec.get());
     }
 
-    private void computeDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) throws Exception {
-        final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
-        final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        Algorithms.computeDiff(good, bad, consumer);
+    private void computeDiff(final Consumer<ThreadDiff.CodeLocation> action) throws Exception {
+        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ScalaUtil.submit(() -> {
+            return LogParser.parseLog(cmd.getOptionValue("bad"));
+        });
+        Algorithms.computeDiff(good.get(), bad.get(), action);
     }
 
     private static Options getOptions() {

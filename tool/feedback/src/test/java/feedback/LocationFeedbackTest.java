@@ -1,6 +1,6 @@
 package feedback;
 
-import feedback.parser.LogTestUtil;
+import feedback.log.LogTestUtil;
 import feedback.parser.ParserUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -9,6 +9,7 @@ import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,29 +30,44 @@ final class LocationFeedbackTest {
             }
         }
 
-        abstract void prepareTempFiles(final Path tempDir) throws IOException;
+        abstract void prepareTempFiles(final String prefix, final Path tempDir) throws IOException;
 
         private void test(final Path tempDir) throws Exception {
-            this.prepareTempFiles(tempDir);
+            this.prepareTempFiles("ground-truth/", tempDir);
             final String dir = tempDir + "/" + this.name + "/";
-            for (int i = 0; i < this.instances.length; i++) {
+            for (int i_ = 0; i_ < this.instances.length; i_++) {
+                final int i = i_;
                 final List<Integer> expected = JsonUtil.toIntStream(LogTestUtil.loadJson(
-                                "feedback/" + this.name + "/injection-" + this.instances[i] + ".json").getJsonArray("feedback"))
+                        "feedback/" + this.name + "/injection-" + this.instances[i] + ".json").getJsonArray("feedback"))
                         .sorted().collect(Collectors.toList());
-                // test output
-                final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
-                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
-                        Arrays.asList(random.nextBoolean()? "--output" : "-o", outputFile)));
-                assertEquals(expected, Arrays.stream(ParserUtil.getFileLines(outputFile))
-                        .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
+                final Future<Boolean> outputTest = ScalaUtil.submit(() -> {
+                    try {
+                        // test output
+                        final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
+                        CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
+                                Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
+                        assertEquals(expected, Arrays.stream(ParserUtil.getFileLines(outputFile))
+                                .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
+                    } catch (final Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 // test json
-                final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
-                JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
-                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
-                        Arrays.asList(random.nextBoolean()? "--append" : "-a", jsonFile)));
-                final JsonObject json = JsonUtil.loadJson(jsonFile);
-                assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("feedback"))
-                        .sorted().collect(Collectors.toList()));
+                final Future<Boolean> jsonTest = ScalaUtil.submit(() -> {
+                    try {
+                        final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
+                        JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
+                        CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
+                                Arrays.asList(random.nextBoolean() ? "--append" : "-a", jsonFile)));
+                        final JsonObject json = JsonUtil.loadJson(jsonFile);
+                        assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("feedback"))
+                                .sorted().collect(Collectors.toList()));
+                    } catch (final Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                outputTest.get();
+                jsonTest.get();
             }
         }
     }
@@ -62,10 +78,10 @@ final class LocationFeedbackTest {
         }
 
         @Override
-        void prepareTempFiles(final Path tempDir) throws IOException {
-            LogTestUtil.initTempFile("ground-truth/" + super.name + "/good-run-log.txt",
+        void prepareTempFiles(final String prefix, final Path tempDir) throws IOException {
+            LogTestUtil.initTempFile(prefix + super.name + "/good-run-log.txt",
                     tempDir.resolve(super.name + "/good-run-log"));
-            LogTestUtil.initTempFile("ground-truth/" + super.name + "/bad-run-log.txt",
+            LogTestUtil.initTempFile(prefix + super.name + "/bad-run-log.txt",
                     tempDir.resolve(super.name + "/bad-run-log"));
             LogTestUtil.initTempFile("feedback/" + super.name + "/tree.json",
                     tempDir.resolve(super.name + "/spec.json"));
@@ -86,8 +102,8 @@ final class LocationFeedbackTest {
         }
 
         @Override
-        void prepareTempFiles(final Path tempDir) throws IOException {
-            this.bug.prepareTempFiles(tempDir);
+        void prepareTempFiles(final String prefix, final Path tempDir) throws IOException {
+            this.bug.prepareTempFiles(prefix, tempDir);
             LogTestUtil.initTempFile("feedback/" + super.name + "/tree.json",
                     tempDir.resolve(super.name + "/spec.json"));
             for (int i = 0; i < super.instances.length; i++) {

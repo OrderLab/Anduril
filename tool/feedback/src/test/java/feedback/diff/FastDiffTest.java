@@ -2,6 +2,7 @@ package feedback.diff;
 
 import difflib.Delta;
 import difflib.DiffUtils;
+import feedback.ScalaUtil;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.ArrayList;
@@ -21,20 +22,22 @@ final class FastDiffTest {
     }
 
     @RepeatedTest(10)
-    void testRandomFastDiff() {
-        final int x = random.nextInt(10_000) + 1;
-        final int y = random.nextInt(10_000) + 1;
-        final int bound = random.nextInt(10) + 3;
-        final ArrayList<Integer> good = generate(x, bound), bad = generate(y, bound);
-        int expected = bad.size();
-        for (final Delta<Integer> delta : DiffUtils.diff(good, bad).getDeltas()) {
-            switch (delta.getType()) {
-                case CHANGE:
-                case INSERT:
-                    expected -= delta.getRevised().getLines().size();
-                default:
+    void testRandomFastDiff() throws Exception {
+        ScalaUtil.runTasks(0, 3, i_ -> {
+            final int x = random.nextInt(10_000) + 1;
+            final int y = random.nextInt(10_000) + 1;
+            final int bound = random.nextInt(10) + 3;
+            final ArrayList<Integer> good = generate(x, bound), bad = generate(y, bound);
+            int expected = bad.size();
+            for (final Delta<Integer> delta : DiffUtils.diff(good, bad).getDeltas()) {
+                switch (delta.getType()) {
+                    case CHANGE:
+                    case INSERT:
+                        expected -= delta.getRevised().getLines().size();
+                    default:
+                }
             }
-        }
-        assertEquals(expected, new FastDiff<>(good.toArray(new Integer[0]), bad.toArray(new Integer[0])).common);
+            assertEquals(expected, new FastDiff<>(good.toArray(new Integer[0]), bad.toArray(new Integer[0])).common);
+        });
     }
 }

@@ -12,4 +12,8 @@ public final class ScalaTestUtil {
     public static void assertTrue(final boolean condition) {
         org.junit.jupiter.api.Assertions.assertTrue(condition);
     }
+
+    public static <T> void assertArrayEquals(final T[] expected, final T[] actual) {
+        org.junit.jupiter.api.Assertions.assertArrayEquals(expected, actual);
+    }
 }

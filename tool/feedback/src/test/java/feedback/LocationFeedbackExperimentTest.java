@@ -1,7 +1,7 @@
 package feedback;
 
-import feedback.parser.LogTestUtil;
-import feedback.parser.Parser;
+import feedback.log.LogTestUtil;
+import feedback.parser.TextParser;
 import org.junit.jupiter.api.Test;
 import runtime.FeedbackManager;
 import runtime.LocalInjectionManager;
@@ -10,6 +10,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -96,7 +98,7 @@ final class LocationFeedbackExperimentTest {
                 final String[] lines = LogTestUtil.getFileLines(
                         "location-feedback-experiment/" + this.name + "/trials/output-" + i + ".txt");
                 assertEquals(1, lines.length);
-                feedback.test(windowSize, Parser.parseLogSet(lines[0]));
+                feedback.test(windowSize, TextParser.parseLogSet(lines[0]));
                 // the last trial is generally flawed
                 // a trial without injection should not contribute to the feedback
                 if (i != this.n - 1 && injection.containsKey("id")) {
@@ -110,9 +112,13 @@ final class LocationFeedbackExperimentTest {
     }
 
     @Test
-    void testLocationFeedbackExperiments() throws IOException {
-        for (final BugCase bug : cases) {
-            bug.test();
-        }
+    void testLocationFeedbackExperiments() throws Exception {
+        ScalaUtil.runTasks(cases, bug -> {
+            try {
+                bug.test();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
