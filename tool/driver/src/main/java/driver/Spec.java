@@ -108,7 +108,7 @@ final class Spec {
         path.setRequired(true);
         options.addOption(path);
 
-        final Option yes = new Option("y", "yes", true, "say yes to warning prompt");
+        final Option yes = new Option("y", "yes", false, "say yes to warning prompt");
         options.addOption(yes);
 
         final Option spec = new Option("spec", "injection-spec", true,
