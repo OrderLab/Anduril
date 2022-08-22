@@ -9,4 +9,5 @@ HADOOP_HOME=$HADOOP_HOME \
 HADOOP_CONF_DIR=$workspace/conf-1 \
 HADOOP_PID_DIR=$workspace/logs-1 \
 HADOOP_LOG_DIR=$workspace/logs-1 \
+HADOOP_CLASSPATH="$HADOOP_CLASSPATH" \
 $HADOOP_HOME/bin/hdfs namenode -format gray

@@ -2,7 +2,7 @@
 
 workspace=$(cd "$(dirname "${BASH_SOURCE-$0}")"; pwd)
 
-if [ $1 -ne 2 ] && [ $1 -ne 3 ] && [ $1 -ne 4 ]  && [ $1 -ne 5 ]; then
+if [ $1 -ne 1 ] && [ $1 -ne 2 ] && [ $1 -ne 3 ]  && [ $1 -ne 4 ]; then
   echo "exit due to wrong argument"
   exit 1
 fi
