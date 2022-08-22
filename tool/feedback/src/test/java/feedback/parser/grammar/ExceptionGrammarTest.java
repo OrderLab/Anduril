@@ -1,11 +1,12 @@
 package feedback.parser.grammar;
 
+import feedback.FeedbackTestBase;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-final class ExceptionGrammarTest {
+final class ExceptionGrammarTest extends FeedbackTestBase {
     @Test
     void testMore() {
         final String trace = " at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)\n\tat org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)\n\t  ... 3 more";

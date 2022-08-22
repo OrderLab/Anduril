@@ -1,11 +1,10 @@
 package feedback.parser
 
 import feedback.ThreadUtil
-import feedback.log.{DistributedWorkloadLog, Log, LogFile, TestResult, UnitTestLog}
+import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
 
 import java.io.File
 import java.nio.file.Path
-import java.util.concurrent.Callable
 
 object LogParser {
   def parseLog(rootDir: File): Log = {

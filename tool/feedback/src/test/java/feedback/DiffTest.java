@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final class DiffTest {
+final class DiffTest extends FeedbackTestBase {
     static final class DistributedCase {
         final String name;
         final String[] files;

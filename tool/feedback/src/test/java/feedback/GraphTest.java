@@ -7,7 +7,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class GraphTest {
+final class GraphTest extends FeedbackTestBase {
     private static final Random random = new Random(System.currentTimeMillis());
     static final int INF = 1_000_000_000;
 

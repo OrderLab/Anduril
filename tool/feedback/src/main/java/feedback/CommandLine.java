@@ -26,7 +26,11 @@ public final class CommandLine {
     }
 
     public static void main(final String[] args) throws Exception {
-        new CommandLine(parseCommandLine(args)).run();
+        try {
+            new CommandLine(parseCommandLine(args)).run();
+        } finally {
+            ThreadUtil.shutdown();
+        }
     }
 
     private void run() throws Exception {

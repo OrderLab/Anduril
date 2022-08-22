@@ -11,7 +11,7 @@ import java.nio.file.Path;
 
 import static feedback.ScalaTestUtil.assertTrue;
 
-final class SymptomTest {
+final class SymptomTest extends FeedbackTestBase {
     private static void test(final Path tempDir, final String bug) {
         final Path bugDir = tempDir.resolve(bug);
         final Log good = LogParser.parseLog(bugDir.resolve("good-run-log"));

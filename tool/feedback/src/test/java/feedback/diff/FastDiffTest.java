@@ -2,6 +2,7 @@ package feedback.diff;
 
 import difflib.Delta;
 import difflib.DiffUtils;
+import feedback.FeedbackTestBase;
 import feedback.ScalaUtil;
 import org.junit.jupiter.api.RepeatedTest;
 
@@ -10,7 +11,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class FastDiffTest {
+final class FastDiffTest extends FeedbackTestBase {
     private static final Random random = new Random(System.currentTimeMillis());
 
     private static ArrayList<Integer> generate(final int n, final int bound) {

@@ -10,12 +10,10 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class LocationFeedbackExperimentTest {
+final class LocationFeedbackExperimentTest extends FeedbackTestBase {
     private static final BugCase[] cases = new BugCase[]{
 //            new BugCase("hdfs-12248", 3173),  // cost ~2 min
             new BugCase("hdfs-4233", 109),

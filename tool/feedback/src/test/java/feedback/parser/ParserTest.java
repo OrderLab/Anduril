@@ -1,5 +1,6 @@
 package feedback.parser;
 
+import feedback.FeedbackTestBase;
 import feedback.log.LogFile;
 import feedback.log.LogTestUtil;
 import feedback.log.entry.LogEntry;
@@ -13,7 +14,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-final class ParserTest {
+final class ParserTest extends FeedbackTestBase {
     private static final Random random = new Random(System.currentTimeMillis());
 
     private static void testDatetime(String datetimeText, int y, int m, int d, int hr, int min, int s, int ms) {

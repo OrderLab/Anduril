@@ -4,6 +4,8 @@ import feedback.log.LogTestUtil;
 import feedback.parser.ParserUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -14,7 +16,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class LocationFeedbackTest {
+final class LocationFeedbackTest extends FeedbackTestBase {
+    private static final Logger LOG = LoggerFactory.getLogger(LocationFeedbackTest.class);
+
     private static abstract class BugCase {
         private final String name;
         private final int[] instances;
@@ -157,8 +161,13 @@ final class LocationFeedbackTest {
 
     @Test
     void testEnd2EndLocationFeedback(final @TempDir Path tempDir) throws Exception {
-        for (final BugCase bug : cases) {
-            bug.test(tempDir);
-        }
+        LOG.info("testEnd2EndLocationFeedback is expected to run for {} seconds", 40);
+        ScalaUtil.runTasks(cases, bug -> {
+            try {
+                bug.test(tempDir);
+            } catch (final Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
