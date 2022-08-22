@@ -16,7 +16,7 @@ public final class ThreadInstrumentor {
         this.runMethod = runMethod;
         this.body = runMethod.getActiveBody();
     }
-
+   /*
     public void instrument() {
         final String name = sootClass.getName();
         final PatchingChain<Unit> units = body.getUnits();
@@ -42,4 +42,5 @@ public final class ThreadInstrumentor {
             final StaticInvokeExpr traceExpr = Jimple.v().newStaticInvokeExpr(TraceInstrumentor.recordMethod.makeRef(), args);
             return Jimple.v().newInvokeStmt(traceExpr);
     }
+    */
 }
