@@ -115,7 +115,9 @@ final class ProcessController {
                             }
                         }
                     }
-                    ids.forEach(ProcessController::kill);
+                    for (final int id : ids) {
+                        kill(id);
+                    }
                     success = true;
                 } catch (final Exception e) {
                     LOG.warn("retry due to error when killing processes", e);
@@ -133,11 +135,12 @@ final class ProcessController {
         }
     }
 
-    static void kill(final int pid) {
+    static void kill(final int pid) throws InterruptedException {
         if (pid == Driver.driverPid) {
             return;
         }
         boolean success = false;
+        int backoff = 1_000;
         while (!success) {
             try {
                 final ProcessBuilder pb = new ProcessBuilder();
@@ -147,6 +150,8 @@ final class ProcessController {
                 success = true;
             } catch (final Exception e) {
                 LOG.warn("retry due to error when killing process {}", pid, e);
+                Thread.sleep(backoff);
+                backoff *= 2;
             }
         }
     }
