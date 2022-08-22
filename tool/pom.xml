@@ -115,5 +115,6 @@
         <module>runtime</module>
         <module>feedback</module>
         <module>reporter</module>
+        <module>driver</module>
     </modules>
 </project>

@@ -1,6 +1,16 @@
 package runtime.config;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Properties;
+import java.util.Set;
+
 public final class Config {
+
+    public static int getTimeout(final Properties properties) {
+        return Integer.parseInt(properties.getProperty("flakyAgent.trialTimeout", "-1"));
+    }
+
     // common for experiment and baseline
     public double probability;
 
@@ -39,11 +49,25 @@ public final class Config {
         baselinePolicy = System.getProperty("baseline.policy", "");
     }
 
+    private static final String[] baselineProperties = new String[] {
+            "flakyAgent.fault",
+            "flakyAgent.distributedMode",
+            "flakyAgent.disableAgent",
+            "flakyAgent.logInject",
+            "flakyAgent.recordOnthefly",
+            "flakyAgent.fixPointInjectionMode",
+            "flakyAgent.pid",
+            "flakyAgent.trialTimeout",
+            "flakyAgent.injectionId",
+            "flakyAgent.injectionTimes",
+            "baseline.probability",
+            "baseline.policy",
+    };
+
     // experiment only
     public boolean avoidBlockMode;   // { TraceAgent.avoidBlockMode == false } ==> avoid the blocks encountered
     public boolean allowFeedback;
     public String injectionPointsPath;
-    public String traceRecordFileName;
     public String timePriorityTable;
     public boolean isTimeFeedback;
     public boolean isProbabilityFeedback;
@@ -53,7 +77,6 @@ public final class Config {
     private void setExperimentOnlyDefaultValues() {
         probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
 
-        traceRecordFileName = System.getProperty("flakyAgent.traceFile");
         timePriorityTable = System.getProperty("flakyAgent.timePriorityTable", "#");
         injectionPointsPath = System.getProperty("flakyAgent.injectionPointsPath", "#");
 
@@ -65,6 +88,28 @@ public final class Config {
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
     }
+
+    private static final String[] experimentProperties = new String[] {
+            "flakyAgent.fault",
+            "flakyAgent.distributedMode",
+            "flakyAgent.disableAgent",
+            "flakyAgent.logInject",
+            "flakyAgent.recordOnthefly",
+            "flakyAgent.fixPointInjectionMode",
+            "flakyAgent.pid",
+            "flakyAgent.trialTimeout",
+            "flakyAgent.injectionId",
+            "flakyAgent.injectionTimes",
+            "flakyAgent.probability",
+            "flakyAgent.timePriorityTable",
+            "flakyAgent.injectionPointsPath",
+            "flakyAgent.avoidBlockMode",
+            "flakyAgent.feedback",
+            "flakyAgent.timeFeedback",
+            "flakyAgent.probabilityFeedback",
+            "flakyAgent.injectionOccurrenceLimit",
+            "flakyAgent.slidingWindow",
+    };
 
     private Config() { }
 
@@ -80,5 +125,23 @@ public final class Config {
         config.setCommonDefaultValues();
         config.setExperimentOnlyDefaultValues();
         return config;
+    }
+
+    public static void checkBaselineConfig(final Properties properties) throws Exception {
+        final Set<String> set = new HashSet<>(Arrays.asList(baselineProperties));
+        for (final String name: properties.stringPropertyNames()) {
+            if (!set.contains(name)) {
+                throw new Exception("invalid config name: " + name);
+            }
+        }
+    }
+
+    public static void checkExperimentConfig(final Properties properties) throws Exception {
+        final Set<String> set = new HashSet<>(Arrays.asList(experimentProperties));
+        for (final String name: properties.stringPropertyNames()) {
+            if (!set.contains(name)) {
+                throw new Exception("invalid config name: " + name);
+            }
+        }
     }
 }
