@@ -2,6 +2,7 @@ package runtime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import runtime.config.Config;
 import runtime.exception.ExceptionBuilder;
 
 import javax.json.Json;
@@ -25,7 +26,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import java.lang.management.ManagementFactory;
 public final class TraceAgent {
     private static final Logger LOG = LoggerFactory.getLogger(runtime.TraceAgent.class);
 //    static private TraceRemote stub = null;
@@ -43,88 +43,74 @@ public final class TraceAgent {
 
     // for recording the number of active threads
 
-    private static int threadNum = 0;
-    private static final Object recordLock = new Object();
+//    private static int threadNum = 0;
+//    private static final Object recordLock = new Object();
 
-    static public void threadRecord(final String name, final int d) {
-        synchronized (recordLock) {
-            threadNum += d;
-            System.out.println("time=" + System.nanoTime() + "  " + name + " : " + (d == 1 ? "start" : "end  ") + "  #threads: " + threadNum);
-        }
-    }
+//    static public void threadRecord(final String name, final int d) {
+//        synchronized (recordLock) {
+//            threadNum += d;
+//            System.out.println("time=" + System.nanoTime() + "  " + name + " : " + (d == 1 ? "start" : "end  ") + "  #threads: " + threadNum);
+//        }
+//    }
 
     // for recording the basic block traces
 
-    static private final class Trace {
-        private final String threadName;
-        private final int threadHash;
-        private final int index;
-
-        private Trace(int index) {
-            final Thread cur = Thread.currentThread();
-            this.threadName = cur.getName();
-            this.threadHash = cur.hashCode();
-            this.index = index;
-        }
-    }
-
-    static private final String traceRecordFileName = System.getProperty("flakyAgent.traceFile");
-    static private final AtomicBoolean traceFlag = new AtomicBoolean(false);
-    static private final CopyOnWriteArrayList<Trace> traces = new CopyOnWriteArrayList<>();
-    static private final AtomicBoolean stopTracing = new AtomicBoolean(false);
-
-    static public void trace(final int id) {
-        if (traceFlag.compareAndSet(false, true)) {
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//                System.out.println("flakyAgent shutdown hook >>>>");
-                stopTracing.set(true);
-                try (final PrintWriter printWriter = new PrintWriter(new FileWriter(traceRecordFileName))) {
-//                    Thread.sleep(500); // wait for other potentially active threads
-                    for (final Trace trace : traces) {
-                        printWriter.printf("%s,%d,%d\n", trace.threadName, trace.threadHash, trace.index);
-                    }
-                } catch (final Exception ignored) { }
-            }));
-        }
-        if (!stopTracing.get()) {
-            traces.add(new Trace(id));
-        }
-        if (!fixPointInjectionMode) {
-            localInjectionManager.trace(id);
-        }
-//        if (stub != null) {
-//            try {
-//                stub.trace(Thread.currentThread().getName(), Thread.currentThread().hashCode(), id);
-//            } catch (final RemoteException ignored) {
-//                // ==
-//            }
+//    static private final class Trace {
+//        private final String threadName;
+//        private final int threadHash;
+//        private final int index;
+//
+//        private Trace(int index) {
+//            final Thread cur = Thread.currentThread();
+//            this.threadName = cur.getName();
+//            this.threadHash = cur.hashCode();
+//            this.index = index;
 //        }
-    }
+//    }
+
+//    static private final String traceRecordFileName = System.getProperty("flakyAgent.traceFile");
+//    static private final AtomicBoolean traceFlag = new AtomicBoolean(false);
+//    static private final CopyOnWriteArrayList<Trace> traces = new CopyOnWriteArrayList<>();
+//    static private final AtomicBoolean stopTracing = new AtomicBoolean(false);
+
+//    static public void trace(final int id) {
+//        if (traceFlag.compareAndSet(false, true)) {
+//            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+////                System.out.println("flakyAgent shutdown hook >>>>");
+//                stopTracing.set(true);
+//                try (final PrintWriter printWriter = new PrintWriter(new FileWriter(traceRecordFileName))) {
+////                    Thread.sleep(500); // wait for other potentially active threads
+//                    for (final Trace trace : traces) {
+//                        printWriter.printf("%s,%d,%d\n", trace.threadName, trace.threadHash, trace.index);
+//                    }
+//                } catch (final Exception ignored) { }
+//            }));
+//        }
+//        if (!stopTracing.get()) {
+//            traces.add(new Trace(id));
+//        }
+////        if (!fixPointInjectionMode) {
+////            localInjectionManager.trace(id);
+////        }
+////        if (stub != null) {
+////            try {
+////                stub.trace(Thread.currentThread().getName(), Thread.currentThread().hashCode(), id);
+////            } catch (final RemoteException ignored) {
+////                // ==
+////            }
+////        }
+//    }
 
     // for fault injection
 
     static private final AtomicInteger injectionCounter = new AtomicInteger();
-    static private final int targetId = Integer.getInteger("flakyAgent.injectionId", -1);
-    static private final int times = Integer.getInteger("flakyAgent.injectionTimes", 0);
-    static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
-    static public final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
-    static public final boolean avoidBlockMode = Boolean.getBoolean("flakyAgent.avoidBlockMode");
-    static public final boolean allowFeedback = Boolean.getBoolean("flakyAgent.feedback");
-    static public final int slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
-    static public final int injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 1);
-    static public final String injectionPointsPath = System.getProperty("flakyAgent.injectionPointsPath", "#");
+    public static final Config config = Config.getDefaultExperimentConfig();
 
     protected static final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
 
-    static public final boolean distributedMode = Boolean.getBoolean("flakyAgent.distributedMode");
-    static public final boolean disableAgent = Boolean.getBoolean("flakyAgent.disableAgent");
-    static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
-    static public final int trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
-    static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
-    static public final boolean recordOnthefly = Boolean.getBoolean("flakyAgent.recordOnthefly");
     static {
-        if (distributedMode && !disableAgent) {
-            try (final InputStream inputStream = new FileInputStream(injectionPointsPath);
+        if (config.distributedMode && !config.disableAgent) {
+            try (final InputStream inputStream = new FileInputStream(config.injectionPointsPath);
                  final JsonReader reader = Json.createReader(inputStream)) {
                 final JsonObject json = reader.readObject();
                 final JsonArray arr = json.getJsonArray("injections");
@@ -144,18 +130,18 @@ public final class TraceAgent {
     }
 
     static public void inject(final int id, final int blockId) throws Throwable {
-        if (logInject) {
-            LOG.info("flaky record injection {} ", id);
+        if (config.logInject) {
+            LOG.info("flaky record injection {}", id);
         }
-        if (disableAgent) {
+        if (config.disableAgent) {
             return;
         }
-        if (distributedMode) {
+        if (config.distributedMode) {
             final Throwable exception = id2exception.get(id);
             if (exception != null) {
                 int decision = 0;
                 try {
-                    decision = getStub().inject(pid, id, blockId);
+                    decision = getStub().inject(config.pid, id, blockId);
                 } catch (RemoteException ignored) { }
                 if (decision == 1) {
                     throw exception;
@@ -164,12 +150,12 @@ public final class TraceAgent {
             return;
         }
         try {
-            if (fixPointInjectionMode) {
-                if (id == targetId) {
-                    if (injectionCounter.incrementAndGet() == times) {
-                        final Throwable t = ExceptionBuilder.createException(exceptionName);
+            if (config.fixPointInjectionMode) {
+                if (id == config.targetId) {
+                    if (injectionCounter.incrementAndGet() == config.times) {
+                        final Throwable t = ExceptionBuilder.createException(config.exceptionName);
                         if (t == null) {
-                            LOG.error("FlakyAgent: fail to construct the exception " + exceptionName);
+                            LOG.error("FlakyAgent: fail to construct the exception " + config.exceptionName);
                         } else {
 //                            LOG.info("FlakyAgent: injected the exception " + exceptionName);
                             throw t;
@@ -180,7 +166,7 @@ public final class TraceAgent {
                 localInjectionManager.inject(id, blockId);
             }
         } catch(Throwable t) {
-            if (recordOnthefly && dumpFlag.compareAndSet(false, true)) {
+            if (config.recordOnthefly && dumpFlag.compareAndSet(false, true)) {
                 localInjectionManager.dump();
             }
             throw t;
@@ -188,7 +174,7 @@ public final class TraceAgent {
     }
 
     static public void initStub() {
-        if (distributedMode && !disableAgent) {
+        if (config.distributedMode && !config.disableAgent) {
             getStub();
         }
     }
@@ -206,7 +192,6 @@ public final class TraceAgent {
                 Registry registry = LocateRegistry.getRegistry(RMI_PORT);
                 return (TraceRemote) registry.lookup(RMI_NAME);
             } catch (RemoteException | NotBoundException e) {
-                LOG.info(e.getMessage());
                 return null;
             }
         });
@@ -223,7 +208,7 @@ public final class TraceAgent {
             getStub().shutdown();
             return;
         }
-        if (distributedMode) {
+        if (config.distributedMode) {
             distributedInjectionManager = new DistributedInjectionManager(Integer.parseInt(args[0]), args[1], args[2], args[3]);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> distributedInjectionManager.dump()));
             final Registry rmiRegistry = LocateRegistry.createRegistry(RMI_PORT);
@@ -235,11 +220,11 @@ public final class TraceAgent {
             UnicastRemoteObject.unexportObject(s, true);
         } else {
             localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
-            if (trialTimeout != -1) {
+            if (config.trialTimeout != -1) {
                 new Thread(() -> {
                     try {
-                        if (!waiter.await(trialTimeout, TimeUnit.SECONDS)) {
-                            LOG.warn("This trial times out with {} seconds", trialTimeout);
+                        if (!waiter.await(config.trialTimeout, TimeUnit.SECONDS)) {
+                            LOG.warn("This trial times out with {} seconds", config.trialTimeout);
                             if (dumpFlag.compareAndSet(false, true)) {
                                 localInjectionManager.dump();
                             }
@@ -260,3 +245,4 @@ public final class TraceAgent {
         }
     }
 }
+
