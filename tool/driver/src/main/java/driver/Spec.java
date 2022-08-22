@@ -25,8 +25,8 @@ final class Spec {
         if (!this.configPath.exists() || this.configPath.isDirectory()) {
             throw new Exception("invalid config " + this.configPath.getPath());
         }
-        if (cmd.hasOption("begin")) {
-            this.start = Integer.parseInt(cmd.getOptionValue("begin"));
+        if (cmd.hasOption("start")) {
+            this.start = Integer.parseInt(cmd.getOptionValue("start"));
         } else {
             this.start = 0;
         }
@@ -84,9 +84,9 @@ final class Spec {
     private static Options getOptions() {
         final Options options = new Options();
 
-        final Option begin = new Option("s", "start", true,
+        final Option start = new Option("s", "start", true,
                 "the first trial id (inclusive)");
-        options.addOption(begin);
+        options.addOption(start);
 
         final Option end = new Option("e", "end", true, "the end trial id (exclusive)");
         options.addOption(end);
