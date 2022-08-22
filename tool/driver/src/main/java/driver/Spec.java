@@ -58,7 +58,8 @@ final class Spec {
         if (experimentPath.exists()) {
             if (experimentPath.isDirectory()) {
                 if (experimentPath.listFiles().length > 0) {
-                    if (!getYes("Found existing files in " + experimentPath.getPath())) {
+                    if (!cmd.hasOption("yes") &&
+                            !getYes("Found existing files in " + experimentPath.getPath())) {
                         throw new Exception("Found existing files in " + experimentPath.getPath());
                     }
                 }
@@ -106,6 +107,9 @@ final class Spec {
         final Option path = new Option("p", "path", true, "dir path for trials");
         path.setRequired(true);
         options.addOption(path);
+
+        final Option yes = new Option("y", "yes", true, "say yes to warning prompt");
+        options.addOption(yes);
 
         final Option spec = new Option("spec", "injection-spec", true,
                 "path of injection spec json");
