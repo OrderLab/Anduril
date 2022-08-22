@@ -11,16 +11,16 @@ import java.util.Map;
 
 public class TraceInstrumentor {
     private final BasicBlockAnalysis basicBlockAnalysis;
-
+   
     public static final SootClass agentClass;
-    public static final SootMethod traceMethod;
-    public static final SootMethod recordMethod;
+    //public static final SootMethod traceMethod;
+    //public static final SootMethod recordMethod;
     public static final SootMethod injectMethod;
     public static final SootMethod initMethod;
     static {
         agentClass = Scene.v().loadClassAndSupport(TraceAgent.class.getCanonicalName());
-        traceMethod = agentClass.getMethodByName("trace");
-        recordMethod = agentClass.getMethodByName("threadRecord");
+        //traceMethod = agentClass.getMethodByName("trace");
+        //recordMethod = agentClass.getMethodByName("threadRecord");
         injectMethod = agentClass.getMethodByName("inject");
         initMethod = agentClass.getMethodByName("initStub");
     }

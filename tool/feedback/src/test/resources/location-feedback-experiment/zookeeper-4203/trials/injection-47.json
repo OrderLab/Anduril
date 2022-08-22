@@ -1,0 +1,11 @@
+
+{
+    "feedback": [   19, 32,  9,  7, 10, 30,  5, 11,   17, 12, 20, 26, 24, 22,  2, 15,    6, 13,  8, 14, 18, 23, 21,  1,    0 ],
+    "pid": -1,
+    "id": 1407,
+    "exception": "java.lang.NegativeArraySizeException",
+    "occurrence": 1,
+    "block": 4088,
+    "trial_id": 47,
+    "window": 40
+}

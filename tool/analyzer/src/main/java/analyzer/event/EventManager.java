@@ -2,10 +2,7 @@ package analyzer.event;
 
 import analyzer.analysis.AnalysisInput;
 import analyzer.analysis.AnalysisManager;
-import index.ProgramLocation;
-import soot.SootClass;
-import soot.SootMethod;
-import soot.Unit;
+import analyzer.option.AnalyzerOptions;
 
 import javax.json.*;
 import javax.json.stream.JsonGenerator;
@@ -77,6 +74,7 @@ public final class EventManager {
             }
         }
         final JsonObject json = Json.createObjectBuilder()
+                .add("case", AnalyzerOptions.getInstance().getFlakyCase())
                 .add("nodes", nodesJson)
                 .add("start", this.eventGraph.startingPointNumber)
                 .add("tree", treeJson)

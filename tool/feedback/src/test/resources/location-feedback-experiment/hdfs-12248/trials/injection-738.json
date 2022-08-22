@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 6, 30, 27, 0 ],
+    "pid": -1,
+    "id": 691495,
+    "exception": "java.lang.CloneNotSupportedException",
+    "occurrence": 3,
+    "block": 256366,
+    "trial_id": 738,
+    "window": 5120
+}

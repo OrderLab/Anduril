@@ -1,7 +1,8 @@
 package feedback;
 
 import feedback.diff.ThreadDiff;
-import feedback.parser.DistributedLog;
+import feedback.log.Log;
+import feedback.parser.LogParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
@@ -9,7 +10,12 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.io.File;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 public final class CommandLine {
@@ -20,7 +26,11 @@ public final class CommandLine {
     }
 
     public static void main(final String[] args) throws Exception {
-        new CommandLine(parseCommandLine(args)).run();
+        try {
+            new CommandLine(parseCommandLine(args)).run();
+        } finally {
+            ThreadUtil.shutdown();
+        }
     }
 
     private void run() throws Exception {
@@ -28,6 +38,11 @@ public final class CommandLine {
             final File file = new File(cmd.getOptionValue("append"));
             final JsonObject json = JsonUtil.loadJson(file);
             JsonUtil.dumpJson(this.jsonHandler(json).build(), file);
+        } else if (cmd.hasOption("object")) {
+            try (final ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                    Files.newOutputStream(Paths.get(cmd.getOptionValue("object"))))) {
+                objectOutputStream.writeObject(this.objectHandler());
+            }
         } else {
             if (cmd.hasOption("output")) {
                 final File file = new File(cmd.getOptionValue("output"));
@@ -44,20 +59,21 @@ public final class CommandLine {
     private JsonObjectBuilder jsonHandler(final JsonObject json) throws Exception {
         final JsonObjectBuilder result = JsonUtil.json2builder(json);
         if (cmd.hasOption("location-feedback")) {
-            if (json.containsKey("locationFeedback")) {
+            if (json.containsKey("feedback")) {
                 throw new Exception("location feedback result existed at json");
             }
             final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
             this.computeLocationFeedback(array::add);
-            result.add("locationFeedback", array);
+            result.add("feedback", array);
         }
         if (cmd.hasOption("time-feedback")) {
-            if (json.containsKey("timeFeedback")) {
-                throw new Exception("time feedback result existed at json");
-            }
-            final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
-            this.computeTimeFeedback();
-            result.add("timeFeedback", array);
+            throw new Exception("not support");
+//            if (json.containsKey("timeFeedback")) {
+//                throw new Exception("time feedback result existed at json");
+//            }
+//            final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
+//            this.computeTimeFeedback(e -> {});
+//            result.add("timeFeedback", array);
         }
         if (cmd.hasOption("diff")) {
             if (json.containsKey("diff")) {
@@ -75,33 +91,43 @@ public final class CommandLine {
             this.computeLocationFeedback(printer::println);
         }
         if (cmd.hasOption("time-feedback")) {
-            this.computeTimeFeedback();
+            throw new Exception("not support");
         }
         if (cmd.hasOption("diff")) {
             this.computeDiff(printer::println);
         }
     }
 
-    private void computeLocationFeedback(final Consumer<Integer> consumer) throws Exception {
-        final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
-        final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        final DistributedLog trial = new DistributedLog(cmd.getOptionValue("trial"));
-        final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        Algorithms.computeLocationFeedback(good, bad, trial, spec, consumer);
+    private Serializable objectHandler() throws Exception {
+        if (cmd.hasOption("time-feedback")) {
+            return this.computeTimeFeedback();
+        }
+        throw new Exception("nothing to produce");
     }
 
-    private void computeTimeFeedback() throws Exception {
-        final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
-        final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        final DistributedLog trial = new DistributedLog(cmd.getOptionValue("trial"));
-        final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        Algorithms.computeTimeFeedback(good, bad, trial, spec, e -> {});
+    // WARN: we assume cmd is thread-safe (or will not change)
+
+    private void computeLocationFeedback(final Consumer<Integer> action) throws Exception {
+        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> trial = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
+        final Future<JsonObject> spec = ScalaUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        Algorithms.computeLocationFeedback(good.get(), bad.get(), trial.get(), spec.get(), action);
     }
 
-    private void computeDiff(final Consumer<ThreadDiff.ThreadLogEntry> consumer) throws Exception {
-        final DistributedLog good = new DistributedLog(cmd.getOptionValue("good"));
-        final DistributedLog bad = new DistributedLog(cmd.getOptionValue("bad"));
-        Algorithms.computeDiff(good, bad, consumer);
+    private Serializable computeTimeFeedback() throws Exception {
+        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<JsonObject> spec = ScalaUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        return Algorithms.computeTimeFeedback(good.get(), bad.get(), spec.get());
+    }
+
+    private void computeDiff(final Consumer<ThreadDiff.CodeLocation> action) throws Exception {
+        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ScalaUtil.submit(() -> {
+            return LogParser.parseLog(cmd.getOptionValue("bad"));
+        });
+        Algorithms.computeDiff(good.get(), bad.get(), action);
     }
 
     private static Options getOptions() {
@@ -112,6 +138,9 @@ public final class CommandLine {
 
         final Option append = new Option("a", "append", true, "append to json");
         options.addOption(append);
+
+        final Option object = new Option("obj", "object", true, "append to binary object");
+        options.addOption(object);
 
         final Option good = new Option("g", "good", true, "good run log");
         options.addOption(good);

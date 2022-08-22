@@ -1,0 +1,11 @@
+
+{
+    "feedback": [   17, 13, 9, 3, 6,   12,  1, 8, 0 ],
+    "pid": -1,
+    "id": 1021,
+    "exception": "java.net.UnknownHostException",
+    "occurrence": 1,
+    "block": 18104,
+    "trial_id": 234,
+    "window": 160
+}

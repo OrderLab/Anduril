@@ -38,7 +38,7 @@ public final class JsonUtil {
         return loadJson(file.toPath());
     }
 
-    static JsonObject loadJson(final String path) throws IOException {
+    public static JsonObject loadJson(final String path) throws IOException {
         return loadJson(Paths.get(path));
     }
 

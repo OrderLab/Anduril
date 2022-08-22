@@ -1,0 +1,11 @@
+
+{
+    "feedback": [    4,  5, 19, 18, 11, 15, 17,    2, 16, 20, 13,  9, 14,  6,   12,  1,  8,  7, 10,  0 ],
+    "pid": -1,
+    "id": 2057,
+    "exception": "java.lang.NumberFormatException",
+    "occurrence": 2,
+    "block": 14607,
+    "trial_id": 224,
+    "window": 160
+}

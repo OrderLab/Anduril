@@ -1,0 +1,11 @@
+
+{
+    "feedback": [   17, 13, 9, 3, 6,   12,  1, 8, 0 ],
+    "pid": -1,
+    "id": 2405,
+    "exception": "javax.management.NotCompliantMBeanException",
+    "occurrence": 3,
+    "block": 4575,
+    "trial_id": 376,
+    "window": 320
+}

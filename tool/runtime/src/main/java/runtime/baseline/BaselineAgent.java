@@ -2,6 +2,7 @@ package runtime.baseline;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import runtime.config.Config;
 import runtime.exception.ExceptionBuilder;
 
 import java.lang.reflect.Method;
@@ -22,17 +23,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class BaselineAgent {
     private static final Logger LOG = LoggerFactory.getLogger(runtime.baseline.BaselineAgent.class);
 
-    static public final boolean distributedMode = Boolean.getBoolean("flakyAgent.distributedMode");
-    static public final boolean disableAgent = Boolean.getBoolean("flakyAgent.disableAgent");
-    static public final int pid = Integer.getInteger("flakyAgent.pid", -1);
-    static public final int trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
-    static public final boolean logInject = Boolean.getBoolean("flakyAgent.logInject");
-    static public final boolean recordOnthefly = Boolean.getBoolean("flakyAgent.recordOnthefly");
+    public static final Config config = Config.getDefaultBaselineConfig();
 
-    static private final int targetId = Integer.getInteger("flakyAgent.injectionId", -1);
-    static private final int times = Integer.getInteger("flakyAgent.injectionTimes", 0);
-    static private final String exceptionName = System.getProperty("flakyAgent.fault", "#");
-    static public final boolean fixPointInjectionMode = Boolean.getBoolean("flakyAgent.fixPointInjectionMode");
     static private final AtomicInteger injectionCounter = new AtomicInteger();
 
     static private final ConcurrentMap<String, Throwable> exceptions = new ConcurrentHashMap<>();
@@ -41,21 +33,21 @@ public final class BaselineAgent {
 
     public static void inject(final int id, final String className, final String methodName,
                               final String invocationName, final int line, final String exceptionName) throws Throwable {
-        if (disableAgent) {
+        if (config.disableAgent) {
             return;
         }
-        if (logInject) {
+        if (config.logInject) {
             LOG.info("flaky record injection {}", id);
         }
-        if (fixPointInjectionMode) {
-            if (id == targetId) {
-                if (injectionCounter.incrementAndGet() == times) {
-                    final Throwable t = ExceptionBuilder.createException(BaselineAgent.exceptionName);
+        if (config.fixPointInjectionMode) {
+            if (id == config.targetId) {
+                if (injectionCounter.incrementAndGet() == config.times) {
+                    final Throwable t = ExceptionBuilder.createException(BaselineAgent.config.exceptionName);
                     if (t == null) {
-                        LOG.error("FlakyAgent: fail to construct the exception " + BaselineAgent.exceptionName);
+                        LOG.error("FlakyAgent: fail to construct the exception " + BaselineAgent.config.exceptionName);
                     } else {
 //                        LOG.info("FlakyAgent: injected the exception " + exceptionName);
-                        if (recordOnthefly && dumpFlag.compareAndSet(false, true)) {
+                        if (config.recordOnthefly && dumpFlag.compareAndSet(false, true)) {
                             injectionManager.dump();
                         }
                         throw t;
@@ -72,17 +64,17 @@ public final class BaselineAgent {
             return;
         }
         final int occurrence = id2times.merge(id, 1, Integer::sum);
-        if (distributedMode) {
+        if (config.distributedMode) {
             int decision = 0;
             try {
-                decision = getStub().inject(pid, id, occurrence, className, methodName, invocationName, line, exceptionName);
+                decision = getStub().inject(config.pid, id, occurrence, className, methodName, invocationName, line, exceptionName);
             } catch (RemoteException ignored) { }
             if (decision == 1) {
                 throw exception;
             }
         } else {
             if (injectionManager.inject(-1, id, occurrence, className, methodName, invocationName, line, exceptionName)) {
-                if (recordOnthefly && dumpFlag.compareAndSet(false, true)) {
+                if (config.recordOnthefly && dumpFlag.compareAndSet(false, true)) {
                     injectionManager.dump();
                 }
                 throw exception;
@@ -96,7 +88,7 @@ public final class BaselineAgent {
     public static final String RMI_NAME = "rmi_flaky_baseline";
 
     static public void initStub() {
-        if (distributedMode && !disableAgent) {
+        if (config.distributedMode && !config.disableAgent) {
             getStub();
         }
     }
@@ -126,7 +118,7 @@ public final class BaselineAgent {
             return;
         }
         injectionManager = new InjectionManager(args[0], args[1]);
-        if (distributedMode) {
+        if (config.distributedMode) {
             Runtime.getRuntime().addShutdownHook(new Thread(injectionManager::dump));
             final Registry rmiRegistry = LocateRegistry.createRegistry(RMI_PORT);
             final BaselineStub s = new BaselineStub();
@@ -136,11 +128,11 @@ public final class BaselineAgent {
             rmiRegistry.unbind(RMI_NAME);
             UnicastRemoteObject.unexportObject(s, true);
         } else {
-            if (trialTimeout != -1) {
+            if (config.trialTimeout != -1) {
                 new Thread(() -> {
                     try {
-                        if (!waiter.await(trialTimeout, TimeUnit.SECONDS)) {
-                            LOG.warn("This trial times out with {} seconds", trialTimeout);
+                        if (!waiter.await(config.trialTimeout, TimeUnit.SECONDS)) {
+                            LOG.warn("This trial times out with {} seconds", config.trialTimeout);
                             if (dumpFlag.compareAndSet(false, true)) {
                                 injectionManager.dump();
                             }

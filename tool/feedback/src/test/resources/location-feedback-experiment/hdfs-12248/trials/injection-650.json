@@ -1,0 +1,11 @@
+
+{
+    "feedback": [    6, 30, 23, 18,   11,  4, 27,  0 ],
+    "pid": -1,
+    "id": 55308,
+    "exception": "java.io.UnsupportedEncodingException",
+    "occurrence": 3,
+    "block": 138959,
+    "trial_id": 650,
+    "window": 2560
+}

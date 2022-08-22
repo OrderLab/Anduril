@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 6, 30, 27, 0 ],
+    "pid": -1,
+    "id": 351573,
+    "exception": "java.lang.IllegalAccessException",
+    "occurrence": 2,
+    "block": 72199,
+    "trial_id": 695,
+    "window": 5120
+}

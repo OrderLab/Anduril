@@ -112,7 +112,7 @@ modules.xml
 *.class
 
 # Log file
-*.log
+#*.log
 
 # BlueJ files
 *.ctxt
@@ -195,7 +195,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Runtime data
 pids
-*.pid
+#*.pid
 *.seed
 *.pid.lock
 

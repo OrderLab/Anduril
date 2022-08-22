@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 17, 13, 9, 12, 1, 8 ],
+    "pid": -1,
+    "id": 3308,
+    "exception": "java.io.IOException",
+    "occurrence": 2,
+    "block": 3648,
+    "trial_id": 416,
+    "window": 320
+}

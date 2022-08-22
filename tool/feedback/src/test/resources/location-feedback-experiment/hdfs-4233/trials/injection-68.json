@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 3, 0, 2, 4, 1 ],
+    "pid": 0,
+    "id": 19636,
+    "exception": "java.lang.IllegalArgumentException",
+    "occurrence": 2,
+    "block": 34355,
+    "trial_id": 68,
+    "window": 40
+}

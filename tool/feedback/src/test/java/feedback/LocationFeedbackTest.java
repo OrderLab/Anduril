@@ -1,27 +1,32 @@
 package feedback;
 
-import feedback.parser.LogTestUtil;
+import feedback.log.LogTestUtil;
 import feedback.parser.ParserUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class LocationFeedbackTest {
-    static abstract class BugCase {
+final class LocationFeedbackTest extends FeedbackTestBase {
+    private static final Logger LOG = LoggerFactory.getLogger(LocationFeedbackTest.class);
+
+    private static abstract class BugCase {
         private final String name;
         private final int[] instances;
-        BugCase(final String name, final int[] instances) {
+        private BugCase(final String name, final int[] instances) {
             this.name = name;
             this.instances = instances;
         }
-        BugCase(final String name, final int caseNumber) {
+        private BugCase(final String name, final int caseNumber) {
             this.name = name;
             this.instances = new int[caseNumber];
             for (int i = 0; i < caseNumber; i++) {
@@ -29,43 +34,58 @@ final class LocationFeedbackTest {
             }
         }
 
-        abstract void prepareTempFiles(final Path tempDir) throws IOException;
+        abstract void prepareTempFiles(final String prefix, final Path tempDir) throws IOException;
 
-        final void test(final Path tempDir) throws Exception {
-            this.prepareTempFiles(tempDir);
+        private void test(final Path tempDir) throws Exception {
+            this.prepareTempFiles("ground-truth/", tempDir);
             final String dir = tempDir + "/" + this.name + "/";
-            for (int i = 0; i < this.instances.length; i++) {
+            for (int i_ = 0; i_ < this.instances.length; i_++) {
+                final int i = i_;
                 final List<Integer> expected = JsonUtil.toIntStream(LogTestUtil.loadJson(
-                                "feedback/" + this.name + "/injection-" + this.instances[i] + ".json").getJsonArray("feedback"))
+                        "feedback/" + this.name + "/injection-" + this.instances[i] + ".json").getJsonArray("feedback"))
                         .sorted().collect(Collectors.toList());
-                // test output
-                final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
-                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
-                        Arrays.asList(random.nextBoolean()? "--output" : "-o", outputFile)));
-                assertEquals(expected, Arrays.stream(ParserUtil.getFileLines(outputFile))
-                        .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
+                final Future<Boolean> outputTest = ScalaUtil.submit(() -> {
+                    try {
+                        // test output
+                        final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
+                        CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
+                                Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
+                        assertEquals(expected, Arrays.stream(ParserUtil.getFileLines(outputFile))
+                                .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
+                    } catch (final Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 // test json
-                final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
-                JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
-                CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
-                        Arrays.asList(random.nextBoolean()? "--append" : "-a", jsonFile)));
-                final JsonObject json = JsonUtil.loadJson(jsonFile);
-                assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("locationFeedback"))
-                        .sorted().collect(Collectors.toList()));
+                final Future<Boolean> jsonTest = ScalaUtil.submit(() -> {
+                    try {
+                        final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
+                        JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
+                        CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
+                                Arrays.asList(random.nextBoolean() ? "--append" : "-a", jsonFile)));
+                        final JsonObject json = JsonUtil.loadJson(jsonFile);
+                        assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("feedback"))
+                                .sorted().collect(Collectors.toList()));
+                    } catch (final Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                outputTest.get();
+                jsonTest.get();
             }
         }
     }
 
-    static final class TestCase extends BugCase {
+    private static final class TestCase extends BugCase {
         private TestCase(final String name, final int... instances) {
             super(name, instances);
         }
 
         @Override
-        void prepareTempFiles(final Path tempDir) throws IOException {
-            LogTestUtil.initTempFile("ground-truth/" + super.name + "/good-run-log.txt",
+        void prepareTempFiles(final String prefix, final Path tempDir) throws IOException {
+            LogTestUtil.initTempFile(prefix + super.name + "/good-run-log.txt",
                     tempDir.resolve(super.name + "/good-run-log"));
-            LogTestUtil.initTempFile("ground-truth/" + super.name + "/bad-run-log.txt",
+            LogTestUtil.initTempFile(prefix + super.name + "/bad-run-log.txt",
                     tempDir.resolve(super.name + "/bad-run-log"));
             LogTestUtil.initTempFile("feedback/" + super.name + "/tree.json",
                     tempDir.resolve(super.name + "/spec.json"));
@@ -76,7 +96,7 @@ final class LocationFeedbackTest {
         }
     }
 
-    static final class DistributedCase extends BugCase {
+    private static final class DistributedCase extends BugCase {
         private final DiffTest.DistributedCase bug;
         private final String[] files;
         private DistributedCase(final DiffTest.DistributedCase bug, final int caseNumber, final String... files) {
@@ -86,8 +106,8 @@ final class LocationFeedbackTest {
         }
 
         @Override
-        void prepareTempFiles(final Path tempDir) throws IOException {
-            this.bug.prepareTempFiles(tempDir);
+        void prepareTempFiles(final String prefix, final Path tempDir) throws IOException {
+            this.bug.prepareTempFiles(prefix, tempDir);
             LogTestUtil.initTempFile("feedback/" + super.name + "/tree.json",
                     tempDir.resolve(super.name + "/spec.json"));
             for (int i = 0; i < super.instances.length; i++) {
@@ -100,7 +120,7 @@ final class LocationFeedbackTest {
         }
     }
 
-    private static BugCase[] cases = new BugCase[] {
+    private static final BugCase[] cases = new BugCase[] {
             new TestCase("zookeeper-3006",
                     2695,1004,2696,558,2694,1001,554,2872,274,0,1000,281,2766),
             new DistributedCase(DiffTest.hdfs_4233, 108,
@@ -122,7 +142,7 @@ final class LocationFeedbackTest {
                     "logs-3/SecurityAuth-haoze.audit"),
     };
 
-    private static final Random random = new Random();
+    private static final Random random = new Random(System.currentTimeMillis());
 
     private static String[] prepareArgs(final String good, final String bad, final String trial, final String spec,
                                         final List<String> option) {
@@ -140,9 +160,14 @@ final class LocationFeedbackTest {
     }
 
     @Test
-    void testEnd2EndFeedback(final @TempDir Path tempDir) throws Exception {
-        for (final BugCase bug : cases) {
-            bug.test(tempDir);
-        }
+    void testEnd2EndLocationFeedback(final @TempDir Path tempDir) throws Exception {
+        LOG.info("testEnd2EndLocationFeedback is expected to run for {} seconds", 40);
+        ScalaUtil.runTasks(cases, bug -> {
+            try {
+                bug.test(tempDir);
+            } catch (final Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

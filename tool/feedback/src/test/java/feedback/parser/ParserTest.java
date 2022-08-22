@@ -1,15 +1,24 @@
 package feedback.parser;
 
+import feedback.FeedbackTestBase;
+import feedback.log.LogFile;
+import feedback.log.LogTestUtil;
+import feedback.log.entry.LogEntry;
+import feedback.log.entry.LogEntryBuilders;
+import feedback.log.entry.LogType;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-final class ParserTest {
+final class ParserTest extends FeedbackTestBase {
+    private static final Random random = new Random(System.currentTimeMillis());
+
     private static void testDatetime(String datetimeText, int y, int m, int d, int hr, int min, int s, int ms) {
-        assertEquals(new DateTime(y, m, d, hr, min, s, ms), Parser.parseDatetime(datetimeText));
+        assertEquals(new DateTime(y, m, d, hr, min, s, ms), LogFileParser.parseDatetime(datetimeText));
     }
 
     @Test
@@ -28,21 +37,21 @@ final class ParserTest {
 
     @Test
     void testLogType() {
-        assertEquals("INFO", Parser.parseLogType("INFO "));
-        assertEquals("WARN", Parser.parseLogType("WARN "));
-        assertEquals("ERROR", Parser.parseLogType("ERROR"));
-        assertEquals("DEBUG", Parser.parseLogType("DEBUG"));
-        assertEquals("TRACE", Parser.parseLogType("TRACE"));
+        assertEquals(LogType.INFO, LogFileParser.parseLogType("INFO "));
+        assertEquals(LogType.WARN, LogFileParser.parseLogType("WARN "));
+        assertEquals(LogType.ERROR, LogFileParser.parseLogType("ERROR"));
+        assertEquals(LogType.DEBUG, LogFileParser.parseLogType("DEBUG"));
+        assertEquals(LogType.TRACE, LogFileParser.parseLogType("TRACE"));
     }
 
     @Test
     void testWrongLogType() {
-        assertThrows(RuntimeException.class, () -> Parser.parseLogType("INFI "));
-        assertThrows(RuntimeException.class, () -> Parser.parseLogType("TRACK"));
+        assertThrows(RuntimeException.class, () -> LogFileParser.parseLogType("INFI "));
+        assertThrows(RuntimeException.class, () -> LogFileParser.parseLogType("TRACK"));
     }
 
     private static void testLocation(String locationText, String thread, String file, int line) {
-        assertEquals(new scala.Tuple3<>(thread, file, line), Parser.parseLocation(locationText));
+        assertEquals(new scala.Tuple3<>(thread, file, line), LogFileParser.parseLocation(locationText));
     }
 
     @Test
@@ -81,8 +90,15 @@ final class ParserTest {
     }
 
     private static void testLogEntry(String text, String datetime, String type, String location, String msg) {
-        assertEquals(new LogEntryBuilder(datetime, type, location, msg).buildWithoutLogLine(),
-                Parser.parseLogEntry(text).buildWithoutLogLine());
+        final int logLine = random.nextInt(1_000_000) + 1;
+        final LogEntry expected = LogEntryBuilders.create(logLine, datetime, type, location, msg).build();
+        final LogEntry actual = LogFileParser.parseLogEntry(text, logLine).get()._2.build();
+        assertEquals(expected.showtime(), actual.showtime());
+        assertEquals(expected.logType(), actual.logType());
+        assertEquals(expected.thread(), actual.thread());
+        assertEquals(expected.classname(), actual.classname());
+        assertEquals(expected.fileLogLine(), actual.fileLogLine());
+        assertEquals(expected.msg(), actual.msg());
     }
 
     @Test
@@ -110,31 +126,31 @@ final class ParserTest {
         testLogEntry("2021-08-20 01:04:01,341 [myid:] - INFO  [main:JUnit4ZKTestRunner@47] - No test.method specified. using default methods.",
                 "2021-08-20 01:04:01,341", "INFO ", "[main:JUnit4ZKTestRunner@47]", "No test.method specified. using default methods.");
         testLogEntry("2021-08-20 01:04:01,539 [myid:2] - ERROR [Thread-1:ManagedUtil@114] - Problems while registering log4j jmx beans!\n" +
-                "javax.management.InstanceAlreadyExistsException: log4j:hiearchy=default\n" +
-                "\tat com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:437)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1898)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:966)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:900)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:324)\n" +
-                "\tat com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522)\n" +
-                "\tat org.apache.zookeeper.jmx.ManagedUtil.registerLog4jMBeans(ManagedUtil.java:75)\n" +
-                "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.runFromConfig(QuorumPeerMain.java:131)\n" +
-                "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:120)\n" +
-                "\tat org.apache.zookeeper.server.quorum.QuorumPeerTestBase$MainThread.run(QuorumPeerTestBase.java:245)\n" +
-                "\tat java.lang.Thread.run(Thread.java:748)", "2021-08-20 01:04:01,539", "ERROR", "[Thread-1:ManagedUtil@114]",
+                        "javax.management.InstanceAlreadyExistsException: log4j:hiearchy=default\n" +
+                        "\tat com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:437)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1898)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:966)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:900)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:324)\n" +
+                        "\tat com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522)\n" +
+                        "\tat org.apache.zookeeper.jmx.ManagedUtil.registerLog4jMBeans(ManagedUtil.java:75)\n" +
+                        "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.runFromConfig(QuorumPeerMain.java:131)\n" +
+                        "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:120)\n" +
+                        "\tat org.apache.zookeeper.server.quorum.QuorumPeerTestBase$MainThread.run(QuorumPeerTestBase.java:245)\n" +
+                        "\tat java.lang.Thread.run(Thread.java:748)", "2021-08-20 01:04:01,539", "ERROR", "[Thread-1:ManagedUtil@114]",
                 "Problems while registering log4j jmx beans!\n" +
-                "javax.management.InstanceAlreadyExistsException: log4j:hiearchy=default\n" +
-                "\tat com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:437)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1898)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:966)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:900)\n" +
-                "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:324)\n" +
-                "\tat com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522)\n" +
-                "\tat org.apache.zookeeper.jmx.ManagedUtil.registerLog4jMBeans(ManagedUtil.java:75)\n" +
-                "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.runFromConfig(QuorumPeerMain.java:131)\n" +
-                "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:120)\n" +
-                "\tat org.apache.zookeeper.server.quorum.QuorumPeerTestBase$MainThread.run(QuorumPeerTestBase.java:245)\n" +
-                "\tat java.lang.Thread.run(Thread.java:748)");
+                        "javax.management.InstanceAlreadyExistsException: log4j:hiearchy=default\n" +
+                        "\tat com.sun.jmx.mbeanserver.Repository.addMBean(Repository.java:437)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerWithRepository(DefaultMBeanServerInterceptor.java:1898)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerDynamicMBean(DefaultMBeanServerInterceptor.java:966)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerObject(DefaultMBeanServerInterceptor.java:900)\n" +
+                        "\tat com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.registerMBean(DefaultMBeanServerInterceptor.java:324)\n" +
+                        "\tat com.sun.jmx.mbeanserver.JmxMBeanServer.registerMBean(JmxMBeanServer.java:522)\n" +
+                        "\tat org.apache.zookeeper.jmx.ManagedUtil.registerLog4jMBeans(ManagedUtil.java:75)\n" +
+                        "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.runFromConfig(QuorumPeerMain.java:131)\n" +
+                        "\tat org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:120)\n" +
+                        "\tat org.apache.zookeeper.server.quorum.QuorumPeerTestBase$MainThread.run(QuorumPeerTestBase.java:245)\n" +
+                        "\tat java.lang.Thread.run(Thread.java:748)");
         testLogEntry(".2021-08-20 01:04:01,352 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testQuorum",
                 "2021-08-20 01:04:01,352", "INFO ", "[main:ZKTestCase$1@55]", "STARTING testQuorum");
         testLogEntry(".2021-08-09 16:30:30,110 - INFO  [main:ZKTestCase$1@58] - STARTING testPZxidUpdatedWhenLoadingSnapshot",
@@ -146,21 +162,32 @@ final class ParserTest {
 
     @Test
     void testLog() throws IOException {
-        final Log zookeeper_3157 = LogTestUtil.getLog("ground-truth/zookeeper-3157/bad-run-log.txt");
-        assertEquals("JUnit version 4.12", zookeeper_3157.header);
-        assertEquals(513, zookeeper_3157.entries.length);
-        assertEquals("No test.method specified. using default methods.", zookeeper_3157.entries[0].msg);
-        assertEquals(58, zookeeper_3157.entries[2].fileLogLine);
-        assertEquals(3, zookeeper_3157.entries[1].logLine);
-        assertEquals(111, zookeeper_3157.entries[72].logLine);
+        final LogFile zookeeper_3157 = LogTestUtil.getLogFile("ground-truth/zookeeper-3157/bad-run-log.txt");
+        assertEquals("JUnit version 4.12\n", zookeeper_3157.header().get());
+        assertEquals(513, zookeeper_3157.entries().length);
+        assertEquals("No test.method specified. using default methods.", zookeeper_3157.entries()[0].msg());
+        assertEquals(58, zookeeper_3157.entries()[2].fileLogLine());
+        assertEquals(3, zookeeper_3157.entries()[1].logLine());
+        assertEquals(111, zookeeper_3157.entries()[72].logLine());
 
-        final Log hdfs_12248 = LogTestUtil.getLog("ground-truth/hdfs-12248/good-run-log.txt");
-        assertTrue(hdfs_12248.header.startsWith("JUnit version 4.11\n"));
-        assertTrue(hdfs_12248.header.endsWith("\nSLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]"));
+        final LogFile hdfs_12248 = LogTestUtil.getLogFile("ground-truth/hdfs-12248/good-run-log.txt");
+        assertTrue(hdfs_12248.header().get().startsWith("JUnit version 4.11\n"));
+        assertTrue(hdfs_12248.header().get().endsWith("\nSLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]\n"));
 
-        final Log hbase_20492 = LogTestUtil.getLog("ground-truth/hbase-20492/good-run-log.txt");
-        assertEquals(1468, hbase_20492.entries.length);
-        assertEquals(hbase_20492.entries[1464].logLine, 1467);
+        final LogFile hbase_20492 = LogTestUtil.getLogFile("ground-truth/hbase-20492/good-run-log.txt");
+        assertEquals(1468, hbase_20492.entries().length);
+        assertEquals(hbase_20492.entries()[1464].logLine(), 1467);
+    }
+
+    @Test
+    void testLogHeader() {
+        final LogFile logFile = LogFileParser.parse(new String[]{
+                "asdf",
+                "qwer2021-08-20 01:04:01,539 [myid:2] - ERROR [Thread-1:ManagedUtil@114] - Problems",
+                "2021-08-20 01:04:01,352 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING",
+                ".2021-08-09 16:30:30,110 - INFO  [main:ZKTestCase$1@58] - STARTING",
+        })._1;
+        assertEquals("asdf\nqwer", logFile.header().get());
     }
 
     @Test
@@ -168,5 +195,26 @@ final class ParserTest {
         final String[] zookeeper_3157 = LogTestUtil.getFileLines("ground-truth/zookeeper-3157/bad-run-log.txt");
         assertEquals(1170, zookeeper_3157.length);
         assertEquals("JUnit version 4.12", zookeeper_3157[0]);
+    }
+
+    @Test
+    void testLogDirId() {
+        assertEquals(0, TextParser.parseLogDirId("logs-0").get());
+        assertEquals(1, TextParser.parseLogDirId("logs-1").get());
+        assertEquals(2, TextParser.parseLogDirId("logs-2").get());
+        assertEquals(3, TextParser.parseLogDirId("logs-3").get());
+        assertTrue(TextParser.parseLogDirId("logs-0/").isEmpty());
+        assertTrue(TextParser.parseLogDirId("/logs-1").isEmpty());
+        assertTrue(TextParser.parseLogDirId("./logs-2").isEmpty());
+    }
+
+    @Test
+    void testExceptionParser() {
+        ExceptionParserTestUtil.runAllTests();
+    }
+
+    @Test
+    void testTestResultParser() {
+        TestResultParserUtil.runAllTests();
     }
 }

@@ -1,0 +1,11 @@
+
+{
+    "feedback": [   17, 13, 9, 3, 6,   12,  1, 8, 0 ],
+    "pid": -1,
+    "id": 2406,
+    "exception": "javax.management.InstanceAlreadyExistsException",
+    "occurrence": 2,
+    "block": 4575,
+    "trial_id": 374,
+    "window": 320
+}

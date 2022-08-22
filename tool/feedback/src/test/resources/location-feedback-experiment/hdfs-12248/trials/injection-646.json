@@ -1,0 +1,11 @@
+
+{
+    "feedback": [    6, 30, 23, 18,   11,  4, 27,  0 ],
+    "pid": -1,
+    "id": 36103,
+    "exception": "java.net.MalformedURLException",
+    "occurrence": 1,
+    "block": 204510,
+    "trial_id": 646,
+    "window": 2560
+}

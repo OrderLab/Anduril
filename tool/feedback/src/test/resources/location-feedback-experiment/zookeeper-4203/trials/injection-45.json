@@ -1,0 +1,11 @@
+
+{
+    "feedback": [ 19, 7, 10, 1, 0 ],
+    "pid": -1,
+    "id": 93,
+    "exception": "java.lang.InterruptedException",
+    "occurrence": 2,
+    "block": 20659,
+    "trial_id": 45,
+    "window": 40
+}

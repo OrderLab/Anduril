@@ -1,0 +1,11 @@
+
+{
+    "feedback": [   15, 10,  8, 28,  7,  1, 12, 20,    3,  9,  6, 30, 24,  2, 25, 23,   18, 29, 16, 22, 13, 17, 14, 19,   11,  4, 27,  0 ],
+    "pid": -1,
+    "id": 127222,
+    "exception": "java.lang.CloneNotSupportedException",
+    "occurrence": 3,
+    "block": 4956,
+    "trial_id": 285,
+    "window": 1280
+}
