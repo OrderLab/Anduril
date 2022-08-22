@@ -145,7 +145,7 @@ public final class TraceAgent {
 
     static public void inject(final int id, final int blockId) throws Throwable {
         if (logInject) {
-            LOG.info("flaky record injection {}", id);
+            LOG.info("flaky record injection {} ", id);
         }
         if (disableAgent) {
             return;
@@ -206,6 +206,7 @@ public final class TraceAgent {
                 Registry registry = LocateRegistry.getRegistry(RMI_PORT);
                 return (TraceRemote) registry.lookup(RMI_NAME);
             } catch (RemoteException | NotBoundException e) {
+                LOG.info(e.getMessage());
                 return null;
             }
         });
