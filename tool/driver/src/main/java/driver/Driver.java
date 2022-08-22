@@ -97,9 +97,9 @@ public final class Driver {
                     } else {
                         FileUtils.moveFile(src, dst);
                     }
+                    LOG.info("finish trial {}", trialId);
                     trialId++;
                     backoff = 1_000;
-                    LOG.info("finish trial {}", trialId);
                 } catch (final Exception e) {
                     LOG.warn("retry trial {} due to error", trialId, e);
                     backoff *= 2;
