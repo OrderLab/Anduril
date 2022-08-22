@@ -263,6 +263,25 @@ public class AnalysisInput {
             }
         }
 
+        if (options.getFlakyCase().equals("hdfs-13039")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.server.datanode.erasurecode.StripedBlockReader");
+            this.testMethod = this.testClass.getMethodByName("createBlockReader");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("info") &&
+                                inv.getDeclaringClass().getName().equals("org.slf4j.Logger") &&
+                                SootUtils.getLine(location.unit) == 137) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         if (options.getFlakyCase().equals("hbase-20492")) {
             this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.master.assignment.TestUnexpectedStateException");
             this.testMethod = this.testClass.getMethod("void testUnableToAssign()");

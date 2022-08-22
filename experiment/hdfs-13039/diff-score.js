@@ -2,6 +2,15 @@
 
 const fs = require('fs')
 
+const diff_file = process.argv[4]
+const spec_json = JSON.parse(fs.readFileSync(process.argv[5], 'utf8'))
+const ground_truth_diff = new Set()
+fs.readFileSync(diff_file).toString().split('\n').forEach(line => {
+	if (line.length > 0) {
+		ground_truth_diff.add(line)
+	}
+})
+
 function calcDiff(f1, f2) {
 	function getEntries(f) {
 		const entries = []
@@ -148,19 +157,31 @@ function calcDiff(f1, f2) {
 	m2.forEach((value, key) => {
 		if (!common.includes(key)) {
 			value.forEach(entry => {
-				console.log(entry.f, entry.nu)
+				// console.log(entry.f, entry.nu)
+				const v = entry.f + ' ' + entry.nu
+				if (ground_truth_diff.has(v)) {
+					ground_truth_diff.delete(v)
+				}
 			})
 		}
 	})
 	common.forEach(th => {
 		// console.log(th, pp(th).length)
 		pp(th).forEach(entry => {
-			console.log(entry.f, entry.nu)
+			// console.log(entry.f, entry.nu)
+			const v = entry.f + ' ' + entry.nu
+			if (ground_truth_diff.has(v)) {
+				ground_truth_diff.delete(v)
+			}
 		})
 	})
 }
 
 const dir1 = process.argv[2], dir2 = process.argv[3]
+var symptom = false, ending = 0
+const result = []
+const startNumber = spec_json.start
+
 for (let i = 0; i <= 4; i++) {
 	let f1 = '', f2 = ''
 	fs.readdirSync(dir1 + '/logs-' + i).forEach(file => {
@@ -174,5 +195,35 @@ for (let i = 0; i <= 4; i++) {
 		}
 	})
 	calcDiff(f1, f2)
+	//if (i == 1) {
+	//	fs.readFileSync(f2).toString().split('\n').forEach(line => {
+	//		if (ending == 0 && line.includes('IPC Server handler') && line.includes(':Server$Handler@')) {
+	//			ending = 1
+	//		}
+	//		if (ending == 1 && line.startsWith('java.io.IOException: Unable to start log segment')) {
+	//			symptom = true
+	//		}
+	//	})
+	//}
 }
 
+ground_truth_diff.forEach(v => {
+	const arr = v.split(' ')
+	const cls = '.' + arr[0], line = Number(arr[1])
+	spec_json.nodes.forEach(node => {
+		if (node.id < startNumber) {
+			if (node.type == 'location_event') {
+				if (node.location.class.endsWith(cls) && node.location.line_number == line) {
+					result.push(node.id)
+				}
+			}
+		}
+	})
+})
+
+// the symptom is some log event, so we need to check
+//if (!symptom) {
+//	if (!result.some(i => i == 0)) result.push(0)
+//}
+
+console.log(result)

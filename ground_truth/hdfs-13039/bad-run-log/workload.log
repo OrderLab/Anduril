@@ -1,0 +1,119 @@
+2022-08-22 02:46:43,976 - INFO  [main:GrayHDFSClientMain@14] - running command [/home/tonypan/flaky-reproduction/experiment/hdfs-13039/cluster/conf-1, write, /2/test, 3]
+2022-08-22 02:46:44,289 - WARN  [main:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-08-22 02:46:44,662 - WARN  [main:ErasureCodeNative@55] - ISA-L support is not available in your platform... using builtin-java codec where applicable
+2022-08-22 02:46:44,731 - INFO  [Thread-5:DataStreamer@1791] - Exception in createBlockOutputStream #1: blk_-9223372036854775775_1002
+java.io.EOFException: Unexpected EOF while trying to read response from server
+	at org.apache.hadoop.hdfs.protocolPB.PBHelperClient.vintPrefixed(PBHelperClient.java:551)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1763)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:106)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,733 - WARN  [Thread-5:StripedDataStreamer@112] - Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17868,DS-2ffb7f00-8ffe-498d-b85c-1990631d31a4,DISK]
+2022-08-22 02:46:44,735 - WARN  [Thread-5:DataStreamer@825] - DataStreamer Exception
+java.io.IOException: Unable to create new block.#1: failed, block==null
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:114)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,736 - WARN  [Thread-5:DataStreamer@1476] - Could not get block locations. Source file "/2/test" - Aborting...#1: failed, block==null
+2022-08-22 02:46:44,863 - WARN  [main:DFSStripedOutputStream@1324] - Block group <1> failed to write 1 blocks. It's at high risk of losing data.
+2022-08-22 02:46:44,865 - INFO  [main:GrayHDFSClientMain@32] - progress = 1, time = 888847745
+2022-08-22 02:46:44,877 - INFO  [Thread-13:DataStreamer@1791] - Exception in createBlockOutputStream #1: blk_-9223372036854775759_1004
+java.io.EOFException: Unexpected EOF while trying to read response from server
+	at org.apache.hadoop.hdfs.protocolPB.PBHelperClient.vintPrefixed(PBHelperClient.java:551)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1763)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:106)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,878 - WARN  [Thread-13:StripedDataStreamer@112] - Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17868,DS-2ffb7f00-8ffe-498d-b85c-1990631d31a4,DISK]
+2022-08-22 02:46:44,878 - WARN  [Thread-13:DataStreamer@825] - DataStreamer Exception
+java.io.IOException: Unable to create new block.#1: failed, block==null
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:114)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,878 - WARN  [Thread-13:DataStreamer@1476] - Could not get block locations. Source file "/2/test" - Aborting...#1: failed, block==null
+2022-08-22 02:46:44,890 - INFO  [DataStreamer for file /2/test block BP-259745262-10.0.0.215-1660096372317:blk_-9223372036854775758_1004:DataStreamer@1791] - Exception in createBlockOutputStream #2: blk_-9223372036854775758_1004
+java.io.EOFException: Unexpected EOF while trying to read response from server
+	at org.apache.hadoop.hdfs.protocolPB.PBHelperClient.vintPrefixed(PBHelperClient.java:551)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1763)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.setupPipelineInternal(StripedDataStreamer.java:147)
+	at org.apache.hadoop.hdfs.DataStreamer.setupPipelineForAppendOrRecovery(DataStreamer.java:1481)
+	at org.apache.hadoop.hdfs.DataStreamer.processDatanodeOrExternalError(DataStreamer.java:1256)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:667)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,892 - WARN  [DataStreamer for file /2/test block BP-259745262-10.0.0.215-1660096372317:blk_-9223372036854775760_1004:DataStreamer@825] - DataStreamer Exception
+java.io.InterruptedIOException: take interrupted, i=0
+	at org.apache.hadoop.hdfs.DFSUtilClient.toInterruptedIOException(DFSUtilClient.java:826)
+	at org.apache.hadoop.hdfs.DFSStripedOutputStream$MultipleBlockingQueue.take(DFSStripedOutputStream.java:112)
+	at org.apache.hadoop.hdfs.DFSStripedOutputStream$Coordinator.takeStreamerUpdateResult(DFSStripedOutputStream.java:187)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.setupPipelineInternal(StripedDataStreamer.java:165)
+	at org.apache.hadoop.hdfs.DataStreamer.setupPipelineForAppendOrRecovery(DataStreamer.java:1481)
+	at org.apache.hadoop.hdfs.DataStreamer.processDatanodeOrExternalError(DataStreamer.java:1256)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:667)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+Caused by: java.lang.InterruptedException
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.reportInterruptAfterWait(AbstractQueuedSynchronizer.java:2014)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2048)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.hadoop.hdfs.DFSStripedOutputStream$MultipleBlockingQueue.take(DFSStripedOutputStream.java:110)
+	... 6 more
+2022-08-22 02:46:44,892 - ERROR [main:DFSClient@618] - Failed to close file: /2/test with inode: 16390
+org.apache.hadoop.io.MultipleIOException: 2 exceptions [java.io.IOException: Could not get block locations. Source file "/2/test" - Aborting...#1: failed, block==null, java.io.EOFException: Unexpected EOF while trying to read response from server]
+	at org.apache.hadoop.io.MultipleIOException.createIOException(MultipleIOException.java:53)
+	at org.apache.hadoop.io.MultipleIOException$Builder.build(MultipleIOException.java:77)
+	at org.apache.hadoop.hdfs.DFSStripedOutputStream.closeImpl(DFSStripedOutputStream.java:1184)
+	at org.apache.hadoop.hdfs.DFSOutputStream.close(DFSOutputStream.java:845)
+	at org.apache.hadoop.hdfs.DFSClient.closeAllFilesBeingWritten(DFSClient.java:615)
+	at org.apache.hadoop.hdfs.DFSClient.close(DFSClient.java:633)
+	at GrayHDFSClient.close(GrayHDFSClient.java:80)
+	at GrayHDFSClientMain.run(GrayHDFSClientMain.java:34)
+	at GrayHDFSClientMain.main(GrayHDFSClientMain.java:62)
+2022-08-22 02:46:44,894 - WARN  [main:GrayHDFSClientMain@35] - Client encounter exception
+java.io.IOException: Data streamers failed while creating new block streams: [#2: failed, blk_-9223372036854775758_1004]. There are not enough healthy streamers.
+	at org.apache.hadoop.hdfs.DFSStripedOutputStream.checkStreamerFailures(DFSStripedOutputStream.java:667)
+	at org.apache.hadoop.hdfs.DFSStripedOutputStream.writeChunk(DFSStripedOutputStream.java:578)
+	at org.apache.hadoop.fs.FSOutputSummer.writeChecksumChunks(FSOutputSummer.java:217)
+	at org.apache.hadoop.fs.FSOutputSummer.flushBuffer(FSOutputSummer.java:164)
+	at org.apache.hadoop.fs.FSOutputSummer.flushBuffer(FSOutputSummer.java:145)
+	at org.apache.hadoop.fs.FSOutputSummer.write1(FSOutputSummer.java:136)
+	at org.apache.hadoop.fs.FSOutputSummer.write(FSOutputSummer.java:111)
+	at GrayHDFSClient.writeFile(GrayHDFSClient.java:58)
+	at GrayHDFSClientMain.run(GrayHDFSClientMain.java:28)
+	at GrayHDFSClientMain.main(GrayHDFSClientMain.java:62)
+2022-08-22 02:46:44,916 - INFO  [Thread-19:DataStreamer@1791] - Exception in createBlockOutputStream #1: blk_-9223372036854775743_1006
+java.io.EOFException: Unexpected EOF while trying to read response from server
+	at org.apache.hadoop.hdfs.protocolPB.PBHelperClient.vintPrefixed(PBHelperClient.java:551)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1763)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:106)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,916 - WARN  [Thread-19:StripedDataStreamer@112] - Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17868,DS-2ffb7f00-8ffe-498d-b85c-1990631d31a4,DISK]
+2022-08-22 02:46:44,916 - WARN  [Thread-19:DataStreamer@825] - DataStreamer Exception
+java.io.IOException: Unable to create new block.#1: failed, block==null
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:114)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,916 - WARN  [Thread-19:DataStreamer@1476] - Could not get block locations. Source file "/2/test" - Aborting...#1: failed, block==null
+2022-08-22 02:46:44,949 - WARN  [main:DFSStripedOutputStream@1324] - Block group <1> failed to write 1 blocks. It's at high risk of losing data.
+2022-08-22 02:46:44,949 - INFO  [main:GrayHDFSClientMain@32] - progress = 2, time = 973838890
+2022-08-22 02:46:44,962 - INFO  [Thread-27:DataStreamer@1791] - Exception in createBlockOutputStream #2: blk_-9223372036854775726_1008
+java.io.EOFException: Unexpected EOF while trying to read response from server
+	at org.apache.hadoop.hdfs.protocolPB.PBHelperClient.vintPrefixed(PBHelperClient.java:551)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1763)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:106)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,962 - WARN  [Thread-27:StripedDataStreamer@112] - Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17868,DS-2ffb7f00-8ffe-498d-b85c-1990631d31a4,DISK]
+2022-08-22 02:46:44,962 - WARN  [Thread-27:DataStreamer@825] - DataStreamer Exception
+java.io.IOException: Unable to create new block.#2: failed, block==null
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:114)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,962 - WARN  [Thread-27:DataStreamer@1476] - Could not get block locations. Source file "/2/test" - Aborting...#2: failed, block==null
+2022-08-22 02:46:44,963 - WARN  [main:DFSStripedOutputStream@419] - Failed: oldBytes=0, len=1048576, DFSStripedOutputStream:#2: failed, block==null
+java.io.IOException: Could not get block locations. Source file "/2/test" - Aborting...#2: failed, block==null
+	at org.apache.hadoop.hdfs.DataStreamer.setupPipelineForAppendOrRecovery(DataStreamer.java:1477)
+	at org.apache.hadoop.hdfs.DataStreamer.processDatanodeOrExternalError(DataStreamer.java:1256)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:667)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-08-22 02:46:44,981 - WARN  [main:DFSStripedOutputStream@1324] - Block group <1> failed to write 1 blocks. It's at high risk of losing data.
+2022-08-22 02:46:44,981 - INFO  [main:GrayHDFSClientMain@32] - progress = 3, time = 1005650529

@@ -1,0 +1,3 @@
+2022-08-22 02:45:52,590 - WARN  [main:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-08-22 02:45:53,184 - WARN  [main:ErasureCodeNative@55] - ISA-L support is not available in your platform... using builtin-java codec where applicable
+2022-08-22 02:45:58,818 - INFO  [main:GrayHDFSClientMain@51] - Corruption Target is 27870

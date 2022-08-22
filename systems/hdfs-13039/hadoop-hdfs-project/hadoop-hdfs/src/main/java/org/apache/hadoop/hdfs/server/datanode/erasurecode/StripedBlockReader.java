@@ -79,7 +79,7 @@ class StripedBlockReader {
     this.source = source;
     this.block = block;
     this.isLocal = false;
-LOG.info("Injection Position");
+    
     BlockReader tmpBlockReader = createBlockReader(offsetInBlock);
     if (tmpBlockReader != null) {
       this.blockReader = tmpBlockReader;
