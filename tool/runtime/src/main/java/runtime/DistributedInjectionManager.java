@@ -26,7 +26,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
         if (injected.get()) {
             return 0;
         }
-        if (!TraceAgent.isTimeFeedback && !feedbackManager.isAllowed(id)) {
+        if (!TraceAgent.config.isTimeFeedback && !feedbackManager.isAllowed(id)) {
             return 0;
         }
         final ProcessRecord record = processRecords[pid];
@@ -37,7 +37,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
                 final int occurrence = record.id2times.getOrDefault(id, 0) + 1;
                 record.id2times.put(id, occurrence);
                 final InjectionIndex index = new InjectionIndex(pid, id, name, occurrence, blockId);
-                if (TraceAgent.isTimeFeedback) {
+                if (TraceAgent.config.isTimeFeedback) {
                     if (feedbackManager.isAllowed(pid, id, occurrence) && !injectionSet.containsKey(index) &&
                             injected.compareAndSet(false, true)) {
                         injectionPoint = index;
@@ -46,10 +46,10 @@ public class DistributedInjectionManager extends LocalInjectionManager {
                     return 0;
                 }
                 final boolean ok;
-                if (TraceAgent.isProbabilityFeedback) {
-                    ok = Math.random() < TraceAgent.probability;
+                if (TraceAgent.config.isProbabilityFeedback) {
+                    ok = Math.random() < TraceAgent.config.probability;
                 } else {
-                    ok = occurrence <= TraceAgent.injectionOccurrenceLimit;
+                    ok = occurrence <= TraceAgent.config.injectionOccurrenceLimit;
                 }
                 if (ok && !injectionSet.containsKey(index) &&
                         injected.compareAndSet(false, true)) {

@@ -30,7 +30,7 @@ public class LocalInjectionManager {
     private final ConcurrentMap<Integer, Integer> block2times = new ConcurrentHashMap<>();
 
     protected int trialId = 0;
-    protected int windowSize = TraceAgent.slidingWindowSize;
+    protected int windowSize = TraceAgent.config.slidingWindowSize;
     protected FeedbackManager feedbackManager = null;
 
     private static final JsonWriterFactory writerFactory;
@@ -56,7 +56,7 @@ public class LocalInjectionManager {
             for (int i = 0; i < arr.size(); i++) {
                 final JsonObject spec = arr.getJsonObject(i);
                 final int injectionId = spec.getInt("id");
-                if (TraceAgent.distributedMode) {
+                if (TraceAgent.config.distributedMode) {
                     final String name = spec.getString("exception");
                     if (name != null) {
                         id2name.put(injectionId, name);
@@ -68,8 +68,8 @@ public class LocalInjectionManager {
                     }
                 }
             }
-            if (TraceAgent.isTimeFeedback) {
-                feedbackManager = new TimeFeedbackManager(json, TraceAgent.timePriorityTable);
+            if (TraceAgent.config.isTimeFeedback) {
+                feedbackManager = new TimeFeedbackManager(json, TraceAgent.config.timePriorityTable);
             } else {
                 feedbackManager = new FeedbackManager(json);
             }
@@ -94,7 +94,7 @@ public class LocalInjectionManager {
                     }
                     continue;
                 }
-                if (TraceAgent.allowFeedback) {
+                if (TraceAgent.config.allowFeedback) {
                     final JsonArray events = json.getJsonArray("feedback");
                     for (int i = 0; i < events.size(); i++) {
                         feedbackManager.activate(events.getInt(i));
@@ -113,14 +113,14 @@ public class LocalInjectionManager {
             }
         }
         feedbackManager.calc(windowSize);
-        if (!TraceAgent.isTimeFeedback) {
+        if (!TraceAgent.config.isTimeFeedback) {
             LOG.info("injection allow set: {}", feedbackManager.allowSet);
         }
     }
 
     public void inject(final int id, final int blockId) throws Throwable {
         if (!injected.get()) {
-            if (!TraceAgent.isTimeFeedback && !feedbackManager.isAllowed(id)) {
+            if (!TraceAgent.config.isTimeFeedback && !feedbackManager.isAllowed(id)) {
                 return;
             }
             final Throwable exception = id2exception.get(id);
@@ -129,14 +129,14 @@ public class LocalInjectionManager {
                 synchronized (exception) {
                     final int occurrence = id2times.getOrDefault(id, 0) + 1;
                     id2times.put(id, occurrence);
-                    if (!TraceAgent.avoidBlockMode) {
+                    if (!TraceAgent.config.avoidBlockMode) {
                         if (block2times.containsKey(blockId)) {
                             return;
                         }
                         block2times.put(blockId, 1);
                     }
                     final InjectionIndex index = new InjectionIndex(-1, id, exception.getClass().getName(), occurrence, blockId);
-                    if (TraceAgent.isTimeFeedback) {
+                    if (TraceAgent.config.isTimeFeedback) {
                         if (feedbackManager.isAllowed(id, occurrence) && !injectionSet.containsKey(index) &&
                                 injected.compareAndSet(false, true)) {
                             injectionPoint = index;
@@ -145,10 +145,10 @@ public class LocalInjectionManager {
                         return;
                     }
                     final boolean ok;
-                    if (TraceAgent.isProbabilityFeedback) {
-                        ok = Math.random() < TraceAgent.probability;
+                    if (TraceAgent.config.isProbabilityFeedback) {
+                        ok = Math.random() < TraceAgent.config.probability;
                     } else {
-                        ok = occurrence <= TraceAgent.injectionOccurrenceLimit;
+                        ok = occurrence <= TraceAgent.config.injectionOccurrenceLimit;
                     }
                     if (ok && !injectionSet.containsKey(index) &&
                             injected.compareAndSet(false, true)) {
