@@ -1,7 +1,8 @@
 package reporter.parser;
 
 import feedback.JsonUtil;
-import feedback.parser.DistributedLog;
+import feedback.parser.LogParser;
+import feedback.log.Log;
 
 import javax.json.JsonObject;
 import java.io.File;
@@ -16,11 +17,11 @@ public class DistributedLogLoader {
         this.distributed = distributed;
     }
 
-    public DistributedLog getDistributedLog(int index) throws IOException {
+    public Log getDistributedLog(int index) throws IOException {
         if (this.distributed) {
-            return new DistributedLog(rootDir.getPath() + "/" + index);
+            return LogParser.parseLog(rootDir.getPath() + "/" + index);
         }
-        return new DistributedLog(rootDir.getPath() + "/output-" + index + ".txt");
+        return LogParser.parseLog(rootDir.getPath() + "/output-" + index + ".txt");
     }
 
     public int getInjectionId(int index) throws IOException {

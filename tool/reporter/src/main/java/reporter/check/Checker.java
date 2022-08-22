@@ -1,9 +1,8 @@
 package reporter.check;
 
-import feedback.Symptoms;
-import feedback.parser.DistributedLog;
-import feedback.parser.Log;
-import feedback.time.InjectionRequestRecord;
+import feedback.symptom.Symptoms;
+import feedback.log.Log;
+
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -28,11 +27,7 @@ public class Checker {
         }
     }
 
-    public boolean checkTrial(DistributedLog trial, int injectionId) {
-        return targetSet.contains(injectionId) && Symptoms.checkSymptom(trial, this.spec);
+    public boolean checkTrial(Log trial, int injectionId) {
+        return targetSet.contains(injectionId) && Symptoms.hasResultEvent(trial,spec);
     }
-
-
-
-
 }
