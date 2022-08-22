@@ -7,6 +7,7 @@ import runtime.config.Config;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.util.*;
 
@@ -102,6 +103,12 @@ public final class Driver {
                 } catch (final Exception e) {
                     LOG.warn("retry trial {} due to error", trialId, e);
                     backoff *= 2;
+                    final String injectionFile = spec.experimentPath.getPath() + "/injection-" + trialId + ".json";
+                    try {
+                        FileUtils.delete(new File(injectionFile));
+                    } catch (final IOException ex) {
+                        LOG.error("not able to delete {}", injectionFile, ex);
+                    }
                 }
                 Thread.sleep(backoff);
             }
