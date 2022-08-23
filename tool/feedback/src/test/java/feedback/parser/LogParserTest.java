@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class LogParserTest extends ThreadTestBase {
-    private static final int pass = 1;
+    private static final int pass = 2;
     private static final int fail = 1;
 
     @Test

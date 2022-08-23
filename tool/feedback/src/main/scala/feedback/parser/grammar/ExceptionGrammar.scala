@@ -41,26 +41,28 @@ object ExceptionGrammar {
 
   private def stackTraceElement[_: P]: P[StackTraceRecord] =
     ( CharIn(" ", "\t").rep(1) ~ "at " ~ (exceptionMethodName map ExceptionParser.parseClassMethod) ~ "(" ~ (
-      ( P( "Native Method" ) map {_ => None} )
-        | ( ( fileName ~ ":" ~ number ) map { Some(_) } )
-    ) ~ ")" )map {
-      case (classname, method, Some((filename, line))) =>
+      ( ( P( "Native Method" ) map { _ => Right(true) } )
+        | ( P( "Unknown Source" ) map { _ => Right(false) } )
+        | ( ( fileName ~ ":" ~ number ) map { Left(_) } )
+        ) ~ ")" ) ) map {
+      case (classname, method, Left((filename, line))) =>
         NormalStackTraceElement(classname, method, filename, line)
-      case (classname, method, None) =>
-        NativeStackTraceElement(classname, method)
+      case (classname, method, Right(isNative)) =>
+        if (isNative) NativeStackTraceElement(classname, method)
+        else UnknownStackTraceElement(classname, method)
     }
 
   private def stackTraceElement_JUnit5[_: P]: P[JUnit5StackTraceRecord] =
     (CharIn(" ", "\t").rep(1) ~ (exceptionMethodName map ExceptionParser.parseClassMethod) ~ "(" ~ (
-      (P("Native Method") map { _ => None })
-        | ((fileName ~ ":" ~ number) map {
-        Some(_)
-      })
-      ) ~ ")") map {
-      case (classname, method, Some((filename, line))) =>
+      ( ( P( "Native Method" ) map { _ => Right(true) })
+        | ( P( "Unknown Source" ) map { _ => Right(false) }  )
+        | ( (fileName ~ ":" ~ number) map { Left(_) } )
+        ) ~ ")") ) map {
+      case (classname, method, Left((filename, line))) =>
         JUnit5NormalStackTraceElement(classname, method, filename, line)
-      case (classname, method, None) =>
-        JUnit5NativeStackTraceElement(classname, method)
+      case (classname, method, Right(isNative)) =>
+        if (isNative) JUnit5NativeStackTraceElement(classname, method)
+        else JUnit5UnknownStackTraceElement(classname, method)
     }
 
   private def stackTraceElements[_: P]: P[mutable.ArrayBuffer[StackTraceRecord]] =
