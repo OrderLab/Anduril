@@ -1,6 +1,8 @@
 package feedback.common;
 
+import java.io.IOException;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 // Do not define with Scala so that we can preserve the Java exception checking
 public interface RunMayThrow extends Runnable, Callable<Void> {
@@ -14,10 +16,10 @@ public interface RunMayThrow extends Runnable, Callable<Void> {
     default void run() {
         try {
             runMayThrow();
-        } catch (final Exception e) {
+        } catch (final IOException | ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    void runMayThrow() throws Exception;
+    void runMayThrow() throws IOException, ExecutionException, InterruptedException;
 }

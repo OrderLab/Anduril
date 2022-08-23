@@ -14,6 +14,7 @@ import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
@@ -39,7 +40,8 @@ final class LocationFeedbackTest extends ThreadTestBase {
 
         abstract void prepareTempFiles(final String prefix, final Path tempDir) throws IOException;
 
-        private void test(final Path tempDir) throws Exception {
+        private void test(final Path tempDir)
+                throws IOException, ExecutionException, InterruptedException {
             this.prepareTempFiles("ground-truth/", tempDir);
             final String dir = tempDir + "/" + this.name + "/";
             for (int i_ = 0; i_ < this.instances.length; i_++) {

@@ -6,6 +6,7 @@ import feedback.log.LogFile;
 import feedback.log.entry.LogEntry;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public final class LogFileDiff implements DiffDump {
@@ -56,7 +57,8 @@ public final class LogFileDiff implements DiffDump {
     // don't filter the duplicate entries
     // TODO: filter them
     @Override
-    public void dumpBadDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action) throws Exception {
+    public void dumpBadDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action)
+            throws ExecutionException, InterruptedException {
         for (final Future<ThreadDiff> diff : common.values()) {
             diff.get().dumpBadDiff(action);
         }

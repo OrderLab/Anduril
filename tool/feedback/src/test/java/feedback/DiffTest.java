@@ -17,6 +17,7 @@ import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -141,7 +142,7 @@ final class DiffTest extends ThreadTestBase {
     }
 
     private void testEndToEndDiff(final Path tempDir, final String bug, final String good, final String bad)
-            throws Exception {
+            throws IOException, ExecutionException, InterruptedException {
         final String bugDir = tempDir + "/" + bug;
         final String outputFile = bugDir + ".txt";
         final String jsonFile = bugDir + ".json";

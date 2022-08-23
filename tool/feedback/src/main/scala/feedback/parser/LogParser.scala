@@ -25,7 +25,7 @@ object LogParser {
     } else {
       LogFileParser.parseLogFile(rootDir) match {
         case (log, Some(result)) => UnitTestLog(log, result)
-        case (_, None) => throw new Exception("Found unit test log without test result")
+        case (_, None) => throw new RuntimeException("Found unit test log without test result")
       }
     }
   }
