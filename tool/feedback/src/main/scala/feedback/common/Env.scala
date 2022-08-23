@@ -1,40 +1,15 @@
 package feedback.common
 
-import java.util.concurrent.{Callable, ExecutorService, Executors, Future, LinkedBlockingQueue}
+import java.lang.management.ManagementFactory
+import java.util.concurrent.{Callable, ExecutorService, Executors, Future}
 import scala.jdk.CollectionConverters.IteratorHasAsScala
 
-final class AsyncIterator[T](val task: (T => Unit) => Unit) extends Iterator[T] {
-  private val queue = new LinkedBlockingQueue[Option[T]]
-
-  private val future = ThreadUtil.submit((() => try {
-    task { element =>
-      require(queue.add(Some(element)))
-    }
-  } finally {
-    queue.add(None)
-  }): RunMayThrow)
-
-  @volatile private var current = queue.take
-
-  override def hasNext: Boolean = this.synchronized {
-    val v = current.nonEmpty
-    if (!v) {
-      future.get
-    }
-    v
-  }
-
-  override def next(): T = this.synchronized {
-    val v = current.get
-    current = queue.take
-    v
-  }
-}
-
-object ThreadUtil {
+object Env {
   Runtime.getRuntime.addShutdownHook(new Thread {
     override def run(): Unit = shutdown()
   })
+
+  val pid: Int = ManagementFactory.getRuntimeMXBean.getName.split("@")(0).toInt
 
   private def createNewPool: Option[ExecutorService] = Some(Executors.newCachedThreadPool)
 

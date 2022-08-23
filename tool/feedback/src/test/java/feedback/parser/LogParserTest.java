@@ -1,7 +1,7 @@
 package feedback.parser;
 
 import feedback.common.ThreadTestBase;
-import feedback.common.ThreadUtil;
+import feedback.common.Env;
 import feedback.log.LogTestUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -16,7 +16,7 @@ final class LogParserTest extends ThreadTestBase {
 
     @Test
     void testPass(final @TempDir Path tempDir) throws Exception {
-        ThreadUtil.parallel(0, pass, bug -> {
+        Env.parallel(0, pass, bug -> {
             final Path log = tempDir.resolve("pass").resolve(bug + ".log");
             LogTestUtil.initTempFile("parser-check/pass/" + bug + ".log", log);
             LogParser.parseLog(log);
@@ -25,7 +25,7 @@ final class LogParserTest extends ThreadTestBase {
 
     @Test
     void testFail(final @TempDir Path tempDir) throws Exception {
-        ThreadUtil.parallel(0, fail, bug -> {
+        Env.parallel(0, fail, bug -> {
             assertThrows(Exception.class, () -> {
                 final Path log = tempDir.resolve("fail").resolve(bug + ".log");
                 LogTestUtil.initTempFile("parser-check/fail/" + bug + ".log", log);

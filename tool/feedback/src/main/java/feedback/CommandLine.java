@@ -1,7 +1,7 @@
 package feedback;
 
 import feedback.common.ActionMayThrow;
-import feedback.common.ThreadUtil;
+import feedback.common.Env;
 import feedback.diff.ThreadDiff;
 import feedback.log.Log;
 import feedback.parser.LogParser;
@@ -28,7 +28,7 @@ public final class CommandLine {
         try {
             new CommandLine(parseCommandLine(args)).run();
         } finally {
-            ThreadUtil.shutdown();
+            Env.shutdown();
         }
     }
 
@@ -114,25 +114,25 @@ public final class CommandLine {
 
     private void computeLocationFeedback(final ActionMayThrow<Integer> action)
             throws ExecutionException, InterruptedException {
-        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
-        final Future<Log> trial = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
-        final Future<JsonObject> spec = ThreadUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> trial = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
+        final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
         Algorithms.computeLocationFeedback(good.get(), bad.get(), trial.get(), spec.get(), action);
     }
 
     private Serializable computeTimeFeedback()
             throws ExecutionException, InterruptedException {
-        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
-        final Future<JsonObject> spec = ThreadUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
         return Algorithms.computeTimeFeedback(good.get(), bad.get(), spec.get());
     }
 
     private void computeDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action)
             throws ExecutionException, InterruptedException {
-        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
         Algorithms.computeDiff(good.get(), bad.get(), action);
     }
 

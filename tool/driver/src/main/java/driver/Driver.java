@@ -1,5 +1,6 @@
 package driver;
 
+import feedback.common.Env;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,21 +8,17 @@ import runtime.config.Config;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
+import java.io.IOException;import java.lang.management.ManagementFactory;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public final class Driver {
     private static final Logger LOG = LoggerFactory.getLogger(Driver.class);
 
-    public static final int driverPid;
+    private final static int DEFAULT_TIMEOUT = 300;  // 5min
 
-    static {
-        final String name = ManagementFactory.getRuntimeMXBean().getName();
-        driverPid = Integer.parseInt(name.substring(0, name.indexOf('@')));
-    }
-
-    private static void run(final int trialId, final Spec spec, final Properties properties) throws Exception {
+    private static void run(final int trialId, final Spec spec, final Properties properties)
+            throws IOException, ExecutionException, InterruptedException {
         final List<String> cmd = new ArrayList<>();
         cmd.add("bash");
         cmd.add(spec.currentDir + "/single-trial.sh");
@@ -51,8 +48,8 @@ public final class Driver {
         } else {
             files.add(new File(spec.currentDir + "/trial.out"));
         }
-        if (timeout == -1) {
-            ProcessController.run(cmd, spec.distributed, files);
+        if (timeout < 0) {
+            ProcessController.run(cmd, DEFAULT_TIMEOUT, spec.distributed, files);
         } else {
             ProcessController.run(cmd, timeout + 10, spec.distributed, files);   // preserve 10s
         }
@@ -60,14 +57,14 @@ public final class Driver {
                 Arrays.asList("java", "-jar", spec.currentDir + "/feedback.jar", "--location-feedback",
                         "-g", spec.currentDir + "/good-run-log", "-b", spec.currentDir + "/bad-run-log",
                         "-t", spec.currentDir + "/trial.out", "-s", spec.specPath.getPath(), "-a", injectionFile);
-        final int code = ProcessController.run(feedback, 10, false, new LinkedList<>());
+        final int code = ProcessController.run(feedback, -1, false, new LinkedList<>());
         if (code != 0) {
-            throw new Exception("feedback process error return code " + code);
+            throw new RuntimeException("feedback process error return code " + code);
         }
     }
 
-    public static void main(final String[] args) throws Exception {
-        LOG.info("Running driver with process id {}", driverPid);
+    public static void main(final String[] args) throws IOException, InterruptedException {
+        LOG.info("Running driver with process id {}", Env.pid());
         try {
             final Spec spec = new Spec(args);
             final Properties properties = new Properties();
@@ -113,7 +110,7 @@ public final class Driver {
                 Thread.sleep(backoff);
             }
         } finally {
-            ProcessController.shutdown();
+            Env.shutdown();
             LOG.info("Driver exits...");
         }
     }

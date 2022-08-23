@@ -14,6 +14,6 @@ public abstract class ThreadTestBase {
 
     @AfterEach
     public final void shutdown() {
-        ThreadUtil.shutdown();
+        Env.shutdown();
     }
 }

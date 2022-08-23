@@ -3,7 +3,7 @@ package feedback.diff;
 import difflib.Delta;
 import difflib.DiffUtils;
 import feedback.common.ThreadTestBase;
-import feedback.common.ThreadUtil;
+import feedback.common.Env;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ final class FastDiffTest extends ThreadTestBase {
 
     @RepeatedTest(10)
     void testRandomFastDiff() throws Exception {
-        ThreadUtil.parallel(0, 3, i_ -> {
+        Env.parallel(0, 3, i_ -> {
             final int x = random.nextInt(10_000) + 1;
             final int y = random.nextInt(10_000) + 1;
             final int bound = random.nextInt(10) + 3;

@@ -1,6 +1,6 @@
 package feedback.parser
 
-import feedback.common.ThreadUtil
+import feedback.common.Env
 import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
 
 import java.io.File
@@ -10,7 +10,7 @@ object LogParser {
   def parseLog(rootDir: File): Log = {
     if (rootDir.isDirectory) {
       val rootPath = rootDir.toPath
-      DistributedWorkloadLog(ThreadUtil.parallel(rootDir.listFiles(dir => dir.isDirectory).toSeq
+      DistributedWorkloadLog(Env.parallel(rootDir.listFiles(dir => dir.isDirectory).toSeq
         .flatMap(dir => TextParser.parseLogDirId(dir.getName))
         .sorted.zipWithIndex.map {
         case (id, index) =>

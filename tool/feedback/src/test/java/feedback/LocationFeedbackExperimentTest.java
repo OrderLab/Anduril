@@ -2,7 +2,6 @@ package feedback;
 
 import feedback.common.JavaThreadUtil;
 import feedback.common.ThreadTestBase;
-import feedback.common.ThreadUtil;
 import feedback.log.LogTestUtil;
 import feedback.parser.TextParser;
 import org.junit.jupiter.api.Test;

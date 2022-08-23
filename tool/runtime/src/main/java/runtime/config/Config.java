@@ -127,20 +127,20 @@ public final class Config {
         return config;
     }
 
-    public static void checkBaselineConfig(final Properties properties) throws Exception {
+    public static void checkBaselineConfig(final Properties properties) throws RuntimeException {
         final Set<String> set = new HashSet<>(Arrays.asList(baselineProperties));
         for (final String name: properties.stringPropertyNames()) {
             if (!set.contains(name)) {
-                throw new Exception("invalid config name: " + name);
+                throw new RuntimeException("invalid config name: " + name);
             }
         }
     }
 
-    public static void checkExperimentConfig(final Properties properties) throws Exception {
+    public static void checkExperimentConfig(final Properties properties) throws RuntimeException {
         final Set<String> set = new HashSet<>(Arrays.asList(experimentProperties));
         for (final String name: properties.stringPropertyNames()) {
             if (!set.contains(name)) {
-                throw new Exception("invalid config name: " + name);
+                throw new RuntimeException("invalid config name: " + name);
             }
         }
     }

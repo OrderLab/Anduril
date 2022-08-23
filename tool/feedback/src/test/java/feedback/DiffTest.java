@@ -3,7 +3,7 @@ package feedback;
 import feedback.common.ActionMayThrow;
 import feedback.common.JavaThreadUtil;
 import feedback.common.ThreadTestBase;
-import feedback.common.ThreadUtil;
+import feedback.common.Env;
 import feedback.diff.LogFileDiff;
 import feedback.diff.ThreadDiff;
 import feedback.log.LogTestUtil;
@@ -162,7 +162,7 @@ final class DiffTest extends ThreadTestBase {
 
     @Test
     void testEndToEndDiff(final @TempDir Path tempDir) throws Exception {
-        ThreadUtil.parallel(prepareEndToEndTest(tempDir), bug -> {
+        Env.parallel(prepareEndToEndTest(tempDir), bug -> {
             testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
         }).get();
     }
@@ -172,7 +172,7 @@ final class DiffTest extends ThreadTestBase {
         final ArrayList<String> cases = prepareEndToEndTest(tempDir);
         final ArrayList<String> shuffle = (ArrayList<String>) cases.clone();
         Collections.shuffle(shuffle);
-        ThreadUtil.parallel(0, cases.size(), i -> {
+        Env.parallel(0, cases.size(), i -> {
             final String expected = cases.get(i);
             final String actual = shuffle.get(i);
             if (expected.equals(actual)) {
@@ -186,7 +186,7 @@ final class DiffTest extends ThreadTestBase {
 
     @Test
     void testEndToEndDiffSwitchError(final @TempDir Path tempDir) throws Exception {
-        ThreadUtil.parallel(prepareEndToEndTest(tempDir), bug -> {
+        Env.parallel(prepareEndToEndTest(tempDir), bug -> {
             if (random.nextBoolean()) {
                 testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
             } else {

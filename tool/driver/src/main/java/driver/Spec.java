@@ -19,11 +19,11 @@ final class Spec {
     public final File experimentPath, specPath;
     public final File configPath;
 
-    Spec(final String[] args) throws Exception {
+    Spec(final String[] args) {
         final CommandLine cmd = parseCommandLine(args);
         this.configPath = new File(cmd.getOptionValue("config"));
         if (!this.configPath.exists() || this.configPath.isDirectory()) {
-            throw new Exception("invalid config " + this.configPath.getPath());
+            throw new RuntimeException("invalid config " + this.configPath.getPath());
         }
         if (cmd.hasOption("start")) {
             this.start = Integer.parseInt(cmd.getOptionValue("start"));
@@ -31,12 +31,12 @@ final class Spec {
             this.start = 0;
         }
         if (this.start < 0) {
-            throw new Exception("invalid start id: " + this.start);
+            throw new RuntimeException("invalid start id: " + this.start);
         }
         if (cmd.hasOption("end")) {
             this.end = Integer.parseInt(cmd.getOptionValue("end"));
             if (this.end > TRIAL_LIMIT) {
-                throw new Exception(this.end + " exceeds trials end id limit");
+                throw new RuntimeException(this.end + " exceeds trials end id limit");
             }
         } else {
             this.end = TRIAL_LIMIT;
@@ -44,7 +44,7 @@ final class Spec {
         this.baseline = cmd.hasOption("baseline");
         this.experiment = cmd.hasOption("experiment");
         if (this.baseline == this.experiment) {
-            throw new Exception("choose either baseline or experiment");
+            throw new RuntimeException("choose either baseline or experiment");
         }
         if (cmd.hasOption("nodes")) {
             this.distributed = true;
@@ -60,15 +60,15 @@ final class Spec {
                 if (experimentPath.listFiles().length > 0) {
                     if (!cmd.hasOption("yes") &&
                             !getYes("Found existing files in " + experimentPath.getPath())) {
-                        throw new Exception("Found existing files in " + experimentPath.getPath());
+                        throw new RuntimeException("Found existing files in " + experimentPath.getPath());
                     }
                 }
             } else {
-                throw new Exception(experimentPath.getPath() + " is not a directory");
+                throw new RuntimeException(experimentPath.getPath() + " is not a directory");
             }
         } else {
-            if (!experimentPath.mkdirs()) {
-                throw new Exception("can't create directory " + experimentPath.getPath());
+            if (!experimentPath.exists() && !experimentPath.mkdirs()) {
+                throw new RuntimeException("can't create directory " + experimentPath.getPath());
             }
         }
         if (this.baseline) {
@@ -76,7 +76,7 @@ final class Spec {
         } else {
             this.specPath = new File(cmd.getOptionValue("spec"));
             if (!this.specPath.exists()) {
-                throw new Exception("can't find injection spec json " + this.specPath.getPath());
+                throw new RuntimeException("can't find injection spec json " + this.specPath.getPath());
             }
         }
     }
@@ -118,18 +118,18 @@ final class Spec {
         return options;
     }
 
-    private static CommandLine parseCommandLine(final String[] args) throws Exception {
+    private static CommandLine parseCommandLine(final String[] args) {
         final Options options = getOptions();
         try {
             return new org.apache.commons.cli.DefaultParser().parse(options, args);
         } catch (org.apache.commons.cli.ParseException e) {
             new org.apache.commons.cli.HelpFormatter().printHelp("utility-name", options);
-            throw new Exception("fail to parse the arguments");
+            throw new RuntimeException("fail to parse the arguments");
         }
     }
 
     private boolean getYes(final String prompt) {
-        final Scanner kbd = new Scanner (System.in);
+        final Scanner kbd = new Scanner(System.in);
         while (true) {
             System.out.println(prompt);
             System.out.print("Do you want to continue? type yes or no: ");

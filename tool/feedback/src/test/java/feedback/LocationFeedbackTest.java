@@ -1,6 +1,6 @@
 package feedback;
 
-import feedback.common.ThreadUtil;
+import feedback.common.Env;
 import feedback.common.JavaThreadUtil;
 import feedback.common.ThreadTestBase;
 import feedback.log.LogTestUtil;
@@ -50,7 +50,7 @@ final class LocationFeedbackTest extends ThreadTestBase {
                         "feedback/" + this.name + "/injection-" + this.instances[i] + ".json").getJsonArray("feedback"))
                         .sorted().collect(Collectors.toList());
                 // test output
-                final Future<Void> outputTest = ThreadUtil.submit(() -> {
+                final Future<Void> outputTest = Env.submit(() -> {
                     final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
                     CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
                             Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
@@ -58,7 +58,7 @@ final class LocationFeedbackTest extends ThreadTestBase {
                             .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
                 });
                 // test json
-                final Future<Void> jsonTest = ThreadUtil.submit(() -> {
+                final Future<Void> jsonTest = Env.submit(() -> {
                     final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
                     JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
                     CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
