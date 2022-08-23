@@ -20,7 +20,7 @@ package org.apache.hadoop.hbase.client;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.CountDownLatch;
 import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.apache.hadoop.hbase.MasterNotRunningException;
@@ -74,7 +74,7 @@ public class TestGetProcedureResult {
     @Override
     protected Procedure<MasterProcedureEnv>[] execute(MasterProcedureEnv env)
         throws ProcedureYieldException, ProcedureSuspendedException, InterruptedException {
-      //setFailure("dummy", new IOException("inject error"));
+      try{File file=new File("test.txt"); FileInputStream fis=new FileInputStream(file); fis.read();} catch (IOException e){setFailure("dummy", new IOException("inject error"));}
       failureSet.countDown();
       return null;
     }
