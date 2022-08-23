@@ -41,10 +41,6 @@ object ExceptionParser {
                                               text: Array[String]): Array[Trunk] = {
     if (text.nonEmpty) {
       require(text forall { _.nonEmpty })
-      val line = text.last
-      if (line.length > 1) {
-        require(line.last != '\n')
-      }
     }
     var endIndex = text.length
     var totalLength = 0
@@ -105,20 +101,22 @@ object ExceptionParser {
   def parseJUnit5ResultTrunks(text: Array[String]): Array[Trunk] =
     getTrunks(ExceptionGrammar.parseStackTraceJUnit5, text)
 
+  // text ==> ("...\n", "...\n", ...)
   private def parseJUnit5ResultNestedException(text: Array[String]): (Option[String], Option[NestedException]) =
     TrunkGrammar.calculate(text, parseJUnit5ResultTrunks(text))
 
   private def parseJUnit5ResultNestedException(text: String): (Option[String], Option[NestedException]) =
-    parseJUnit5ResultNestedException(TextParser.unfold(text))
+    parseJUnit5ResultNestedException(TextParser.unfoldWithNewLine(text))
 
   def getNormalTrunks(text: Array[String]): Array[Trunk] =
     getTrunks(ExceptionGrammar.parseStackTrace, text)
 
+  // text ==> ("...\n", "...\n", ...)
   private def parseNormalNestedException(text: Array[String]): (Option[String], Option[NestedException]) =
     TrunkGrammar.calculate(text, getNormalTrunks(text))
 
   def parseNormalNestedException(text: String): (Option[String], Option[NestedException]) =
-    parseNormalNestedException(TextParser.unfold(text))
+    parseNormalNestedException(TextParser.unfoldWithNewLine(text))
 
   def parseJunit4TestFailures(text: Array[String]): (String, String, NestedException) = {
     val failures = text.zipWithIndex flatMap {
@@ -138,7 +136,7 @@ object ExceptionParser {
   }
 
   def parseJunit4TestFailures(text: String): (String, String, NestedException) =
-    parseJunit4TestFailures(TextParser.unfold(text))
+    parseJunit4TestFailures(TextParser.unfoldWithNewLine(text))
 
   // TODO: accept more than 1 exception
   private val Junit5FailurePattern =

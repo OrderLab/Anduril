@@ -20,9 +20,9 @@ object ExceptionGrammar {
     case (name, None) => name
   }
 
-  // only a sanity check for an exception
+  // only a sanity check for an exception; must carry '\n'
   private def exceptionName[_: P]: P[Unit] =
-    StringIn("Exception", "Error", "Throwable") | ( CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionName )
+    StringIn("Exception\n", "Error\n", "Throwable\n") | ( CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionName )
 
   // only a sanity check for an exception
   private def exceptionNameWithSuffix[_: P]: P[Unit] =
@@ -114,7 +114,7 @@ object ExceptionGrammar {
   }
 
   // must have the ending '\n'
-  private def exceptionWithoutMsg[_: P]: P[Unit] = exceptionName ~ "\n" ~ End
+  private def exceptionWithoutMsg[_: P]: P[Unit] = exceptionName ~ End
 
   def parseExceptionWithoutMsg(text: String): Option[String] = {
     fastparse.parse(text, exceptionWithoutMsg(_)) match {

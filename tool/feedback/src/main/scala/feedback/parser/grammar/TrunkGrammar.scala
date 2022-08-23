@@ -107,6 +107,7 @@ object TrunkGrammar {
     } else ((0, trunks.length), Array())
   }
 
+  // text ==> ("...\n", "...\n", ...)
   def calculate(text: Array[String],
                 trunks: Array[Trunk],
                 t: ((Int, Int), Array[(Int, Int)])): (Option[String], Option[NestedException]) = {
@@ -143,6 +144,7 @@ object TrunkGrammar {
     }
   }
 
+  // text ==> ("...\n", "...\n", ...)
   def calculate(text: Array[String], trunks: Array[Trunk]): (Option[String], Option[NestedException]) =
     calculate(text, trunks, calculate(trunks))
 }

@@ -1,0 +1,346 @@
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/haoze/flaky-reproduction/systems/hdfs-12248/hadoop-tools/hadoop-distcp/target/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/haoze/flaky-reproduction/systems/hdfs-12248/hadoop-common-project/hadoop-auth-examples/target/hadoop-auth-examples-3.0.0-beta1-SNAPSHOT/WEB-INF/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/haoze/tmp/bytecode/hdfs-12248/classes/runtime-1.0-jar-with-dependencies.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2022-05-18 01:40:45,545 - INFO  [main:LocalInjectionManager@110] - injection allow set: [0, 2, 11, 13, 17, 18, 19, 22, 23, 24]
+JUnit version 4.11
+.2022-05-18 01:40:45,708 - INFO  [Thread-1:MiniQJMHACluster@99] - Set MiniQJMHACluster basePort to 11660
+2022-05-18 01:40:45,710 - INFO  [Thread-1:MiniJournalCluster@95] - Starting MiniJournalCluster with 3 journal nodes
+2022-05-18 01:40:45,957 - INFO  [Thread-1:FluentPropertyBeanIntrospector@147] - Error when creating PropertyDescriptor for public final void org.apache.commons.configuration2.AbstractConfiguration.setProperty(java.lang.String,java.lang.Object)! Ignoring this property.
+2022-05-18 01:40:45,972 - WARN  [Thread-1:MetricsConfig@134] - Cannot locate configuration: tried hadoop-metrics2-journalnode.properties,hadoop-metrics2.properties
+2022-05-18 01:40:46,059 - INFO  [Thread-1:MetricsSystemImpl@374] - Scheduled Metric snapshot period at 10 second(s).
+2022-05-18 01:40:46,059 - INFO  [Thread-1:MetricsSystemImpl@191] - JournalNode metrics system started
+2022-05-18 01:40:46,105 - WARN  [Thread-1:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-05-18 01:40:46,146 - INFO  [Thread-1:DFSUtil@1512] - Starting Web-server for journal at: http://localhost:0
+2022-05-18 01:40:46,168 - INFO  [Thread-1:Log@192] - Logging initialized @2242ms
+2022-05-18 01:40:46,253 - INFO  [Thread-1:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-05-18 01:40:46,265 - INFO  [Thread-1:HttpRequestLog@81] - Http request log for http.requests.journal is not defined
+2022-05-18 01:40:46,267 - INFO  [Thread-1:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-05-18 01:40:46,269 - INFO  [Thread-1:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context journal
+2022-05-18 01:40:46,269 - INFO  [Thread-1:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-05-18 01:40:46,288 - INFO  [Thread-1:HttpServer2@1121] - Jetty bound to port 44743
+2022-05-18 01:40:46,290 - INFO  [Thread-1:Server@346] - jetty-9.3.19.v20170502
+2022-05-18 01:40:46,315 - INFO  [Thread-1:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@2be79b7d{/static,jar:file:/home/haoze/flaky-reproduction/systems/hdfs-12248/hadoop-tools/hadoop-distcp/target/lib/hadoop-hdfs-3.0.0-beta1-SNAPSHOT-tests.jar!/webapps/static,AVAILABLE}
+2022-05-18 01:40:46,500 - INFO  [Thread-1:ContextHandler@781] - Started o.e.j.w.WebAppContext@1d2e9c9d{/,file:///tmp/jetty-localhost-44743-journal-_-any-3377545858969355355.dir/webapp/,AVAILABLE}{/journal}
+2022-05-18 01:40:46,506 - INFO  [Thread-1:AbstractConnector@278] - Started ServerConnector@4cd6a7f4{HTTP/1.1,[http/1.1]}{localhost:44743}
+2022-05-18 01:40:46,506 - INFO  [Thread-1:Server@414] - Started @2580ms
+2022-05-18 01:40:46,536 - INFO  [Thread-1:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 500 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-05-18 01:40:46,544 - INFO  [Socket Reader #1 for port 45499:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 45499
+2022-05-18 01:40:48,533 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-05-18 01:40:48,533 - INFO  [IPC Server listener on 45499:Server$Listener@1146] - IPC Server listener on 45499: starting
+2022-05-18 01:40:48,582 - INFO  [Thread-1:MetricsSystemImpl@158] - JournalNode metrics system started (again)
+2022-05-18 01:40:48,585 - INFO  [Thread-1:DFSUtil@1512] - Starting Web-server for journal at: http://localhost:0
+2022-05-18 01:40:48,587 - INFO  [Thread-1:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-05-18 01:40:48,588 - INFO  [Thread-1:HttpRequestLog@81] - Http request log for http.requests.journal is not defined
+2022-05-18 01:40:48,589 - INFO  [Thread-1:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-05-18 01:40:48,590 - INFO  [Thread-1:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context journal
+2022-05-18 01:40:48,590 - INFO  [Thread-1:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-05-18 01:40:48,591 - INFO  [Thread-1:HttpServer2@1121] - Jetty bound to port 41647
+2022-05-18 01:40:48,592 - INFO  [Thread-1:Server@346] - jetty-9.3.19.v20170502
+2022-05-18 01:40:48,594 - INFO  [Thread-1:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@5fc85bc4{/static,jar:file:/home/haoze/flaky-reproduction/systems/hdfs-12248/hadoop-tools/hadoop-distcp/target/lib/hadoop-hdfs-3.0.0-beta1-SNAPSHOT-tests.jar!/webapps/static,AVAILABLE}
+2022-05-18 01:40:48,721 - INFO  [Thread-1:ContextHandler@781] - Started o.e.j.w.WebAppContext@37bf9fec{/,file:///tmp/jetty-localhost-41647-journal-_-any-9214380902545357499.dir/webapp/,AVAILABLE}{/journal}
+2022-05-18 01:40:48,722 - INFO  [Thread-1:AbstractConnector@278] - Started ServerConnector@4dce3396{HTTP/1.1,[http/1.1]}{localhost:41647}
+2022-05-18 01:40:48,722 - INFO  [Thread-1:Server@414] - Started @4796ms
+2022-05-18 01:40:48,724 - INFO  [Thread-1:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 500 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-05-18 01:40:48,741 - INFO  [Socket Reader #1 for port 39589:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 39589
+2022-05-18 01:40:48,745 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-05-18 01:40:48,746 - INFO  [IPC Server listener on 39589:Server$Listener@1146] - IPC Server listener on 39589: starting
+2022-05-18 01:40:48,788 - INFO  [Thread-1:MetricsSystemImpl@158] - JournalNode metrics system started (again)
+2022-05-18 01:40:48,790 - INFO  [Thread-1:DFSUtil@1512] - Starting Web-server for journal at: http://localhost:0
+2022-05-18 01:40:48,792 - INFO  [Thread-1:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-05-18 01:40:48,792 - INFO  [Thread-1:HttpRequestLog@81] - Http request log for http.requests.journal is not defined
+2022-05-18 01:40:48,793 - INFO  [Thread-1:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-05-18 01:40:48,794 - INFO  [Thread-1:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context journal
+2022-05-18 01:40:48,794 - INFO  [Thread-1:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-05-18 01:40:48,795 - INFO  [Thread-1:HttpServer2@1121] - Jetty bound to port 44657
+2022-05-18 01:40:48,795 - INFO  [Thread-1:Server@346] - jetty-9.3.19.v20170502
+2022-05-18 01:40:48,797 - INFO  [Thread-1:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@4c650315{/static,jar:file:/home/haoze/flaky-reproduction/systems/hdfs-12248/hadoop-tools/hadoop-distcp/target/lib/hadoop-hdfs-3.0.0-beta1-SNAPSHOT-tests.jar!/webapps/static,AVAILABLE}
+2022-05-18 01:40:48,897 - INFO  [Thread-1:ContextHandler@781] - Started o.e.j.w.WebAppContext@5e12973e{/,file:///tmp/jetty-localhost-44657-journal-_-any-1830740844538602124.dir/webapp/,AVAILABLE}{/journal}
+2022-05-18 01:40:48,898 - INFO  [Thread-1:AbstractConnector@278] - Started ServerConnector@1760b729{HTTP/1.1,[http/1.1]}{localhost:44657}
+2022-05-18 01:40:48,899 - INFO  [Thread-1:Server@414] - Started @4972ms
+2022-05-18 01:40:48,901 - INFO  [Thread-1:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 500 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-05-18 01:40:48,901 - INFO  [Socket Reader #1 for port 33419:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 33419
+2022-05-18 01:40:48,904 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-05-18 01:40:48,904 - INFO  [IPC Server listener on 33419:Server$Listener@1146] - IPC Server listener on 33419: starting
+2022-05-18 01:40:49,262 - INFO  [IPC Server handler 1 on 33419:JournalNode@96] - Initializing journal in directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/waitactive
+2022-05-18 01:40:49,262 - INFO  [IPC Server handler 0 on 45499:JournalNode@96] - Initializing journal in directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/waitactive
+2022-05-18 01:40:49,262 - INFO  [IPC Server handler 0 on 39589:JournalNode@96] - Initializing journal in directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/waitactive
+2022-05-18 01:40:49,270 - WARN  [IPC Server handler 1 on 33419:Storage$StorageDirectory@600] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/waitactive does not exist
+2022-05-18 01:40:49,271 - WARN  [IPC Server handler 0 on 45499:Storage$StorageDirectory@600] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/waitactive does not exist
+2022-05-18 01:40:49,270 - WARN  [IPC Server handler 0 on 39589:Storage$StorageDirectory@600] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/waitactive does not exist
+2022-05-18 01:40:49,642 - INFO  [Thread-1:MiniDFSCluster@469] - starting cluster: numNameNodes=2, numDataNodes=0
+Formatting using clusterid: testClusterID
+2022-05-18 01:40:49,784 - INFO  [Thread-1:FSEditLog@224] - Edit logging is async:false
+2022-05-18 01:40:49,789 - INFO  [Thread-1:FSNamesystem@742] - KeyProvider: null
+2022-05-18 01:40:49,790 - INFO  [Thread-1:FSNamesystemLock@120] - fsLock is fair: true
+2022-05-18 01:40:49,790 - INFO  [Thread-1:FSNamesystemLock@136] - Detailed lock hold time metrics enabled: false
+2022-05-18 01:40:49,790 - INFO  [Thread-1:FSNamesystem@763] - fsOwner             = haoze (auth:SIMPLE)
+2022-05-18 01:40:49,790 - INFO  [Thread-1:FSNamesystem@764] - supergroup          = supergroup
+2022-05-18 01:40:49,790 - INFO  [Thread-1:FSNamesystem@765] - isPermissionEnabled = true
+2022-05-18 01:40:49,791 - INFO  [Thread-1:FSNamesystem@774] - Determined nameservice ID: ns1
+2022-05-18 01:40:49,791 - INFO  [Thread-1:FSNamesystem@776] - HA Enabled: true
+2022-05-18 01:40:49,815 - INFO  [Thread-1:Util@395] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-05-18 01:40:49,818 - INFO  [Thread-1:Configuration@1285] - hadoop.configured.node.mapping is deprecated. Instead, use net.topology.configured.node.mapping
+2022-05-18 01:40:49,819 - INFO  [Thread-1:DatanodeManager@301] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-05-18 01:40:49,819 - INFO  [Thread-1:DatanodeManager@309] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-05-18 01:40:49,821 - INFO  [Thread-1:InvalidateBlocks@76] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-05-18 01:40:49,821 - INFO  [Thread-1:InvalidateBlocks@82] - The block deletion will start around 2022 May 18 01:40:49
+2022-05-18 01:40:49,822 - INFO  [Thread-1:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-05-18 01:40:49,822 - INFO  [Thread-1:LightWeightGSet@396] - VM type       = 64-bit
+2022-05-18 01:40:49,823 - INFO  [Thread-1:LightWeightGSet@397] - 2.0% max memory 13.9 GB = 285.3 MB
+2022-05-18 01:40:49,824 - INFO  [Thread-1:LightWeightGSet@402] - capacity      = 2^25 = 33554432 entries
+2022-05-18 01:40:49,869 - INFO  [Thread-1:BlockManager@560] - dfs.block.access.token.enable = false
+2022-05-18 01:40:49,872 - INFO  [Thread-1:Configuration@1285] - No unit for dfs.namenode.safemode.extension(0) assuming MILLISECONDS
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManager@546] - defaultReplication         = 0
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManager@547] - maxReplication             = 512
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManager@548] - minReplication             = 1
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManager@549] - maxReplicationStreams      = 2
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManager@550] - redundancyRecheckInterval  = 3000ms
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManager@551] - encryptDataTransfer        = false
+2022-05-18 01:40:49,873 - INFO  [Thread-1:BlockManager@552] - maxNumBlocksToLog          = 1000
+2022-05-18 01:40:49,896 - INFO  [Thread-1:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-05-18 01:40:49,896 - INFO  [Thread-1:LightWeightGSet@396] - VM type       = 64-bit
+2022-05-18 01:40:49,896 - INFO  [Thread-1:LightWeightGSet@397] - 1.0% max memory 13.9 GB = 142.7 MB
+2022-05-18 01:40:49,897 - INFO  [Thread-1:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-05-18 01:40:49,947 - INFO  [Thread-1:FSDirectory@278] - ACLs enabled? false
+2022-05-18 01:40:49,947 - INFO  [Thread-1:FSDirectory@282] - POSIX ACL inheritance enabled? true
+2022-05-18 01:40:49,947 - INFO  [Thread-1:FSDirectory@286] - XAttrs enabled? true
+2022-05-18 01:40:49,947 - INFO  [Thread-1:FSDirectory@350] - Caching file names occurring more than 10 times
+2022-05-18 01:40:49,956 - INFO  [Thread-1:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-05-18 01:40:49,956 - INFO  [Thread-1:LightWeightGSet@396] - VM type       = 64-bit
+2022-05-18 01:40:49,957 - INFO  [Thread-1:LightWeightGSet@397] - 0.25% max memory 13.9 GB = 35.7 MB
+2022-05-18 01:40:49,957 - INFO  [Thread-1:LightWeightGSet@402] - capacity      = 2^22 = 4194304 entries
+2022-05-18 01:40:49,973 - INFO  [Thread-1:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-05-18 01:40:49,973 - INFO  [Thread-1:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-05-18 01:40:49,973 - INFO  [Thread-1:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-05-18 01:40:49,977 - INFO  [Thread-1:FSNamesystem@968] - Retry cache on namenode is enabled
+2022-05-18 01:40:49,978 - INFO  [Thread-1:FSNamesystem@976] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-05-18 01:40:49,979 - INFO  [Thread-1:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-05-18 01:40:49,979 - INFO  [Thread-1:LightWeightGSet@396] - VM type       = 64-bit
+2022-05-18 01:40:49,980 - INFO  [Thread-1:LightWeightGSet@397] - 0.029999999329447746% max memory 13.9 GB = 4.3 MB
+2022-05-18 01:40:49,980 - INFO  [Thread-1:LightWeightGSet@402] - capacity      = 2^19 = 524288 entries
+2022-05-18 01:40:50,005 - INFO  [IPC Server handler 1 on 33419:JournalNode@96] - Initializing journal in directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1
+2022-05-18 01:40:50,005 - INFO  [IPC Server handler 0 on 45499:JournalNode@96] - Initializing journal in directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1
+2022-05-18 01:40:50,005 - INFO  [IPC Server handler 0 on 39589:JournalNode@96] - Initializing journal in directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1
+2022-05-18 01:40:50,006 - WARN  [IPC Server handler 0 on 45499:Storage$StorageDirectory@600] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 does not exist
+2022-05-18 01:40:50,006 - WARN  [IPC Server handler 1 on 33419:Storage$StorageDirectory@600] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1 does not exist
+2022-05-18 01:40:50,006 - WARN  [IPC Server handler 0 on 39589:Storage$StorageDirectory@600] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 does not exist
+2022-05-18 01:40:50,015 - INFO  [Thread-1:FSImage@164] - Allocated new BlockPoolId: BP-850438910-10.0.0.206-1652852450015
+2022-05-18 01:40:50,083 - INFO  [Thread-1:NNStorage@583] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1 has been successfully formatted.
+2022-05-18 01:40:50,150 - INFO  [Thread-1:NNStorage@583] - Storage directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2 has been successfully formatted.
+2022-05-18 01:40:50,174 - INFO  [IPC Server handler 1 on 45499:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@31c3927a with namespace info: lv=-64;cid=testClusterID;nsid=349349565;c=1652852450015;bpid=BP-850438910-10.0.0.206-1652852450015
+2022-05-18 01:40:50,174 - INFO  [IPC Server handler 1 on 39589:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@1a147a7d with namespace info: lv=-64;cid=testClusterID;nsid=349349565;c=1652852450015;bpid=BP-850438910-10.0.0.206-1652852450015
+2022-05-18 01:40:50,174 - INFO  [IPC Server handler 0 on 33419:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@74f0f7ce with namespace info: lv=-64;cid=testClusterID;nsid=349349565;c=1652852450015;bpid=BP-850438910-10.0.0.206-1652852450015
+2022-05-18 01:40:50,175 - INFO  [IPC Server handler 1 on 39589:Storage$StorageDirectory@603] - /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 does not exist. Creating ...
+2022-05-18 01:40:50,175 - INFO  [IPC Server handler 1 on 45499:Storage$StorageDirectory@603] - /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 does not exist. Creating ...
+2022-05-18 01:40:50,176 - INFO  [IPC Server handler 0 on 33419:Server@2719] - IPC Server handler 0 on 33419, call Call#13 Retry#0 org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocol.format from 127.0.0.1:46688
+java.io.IOException: flaky test exception injection of TraceAgent
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at runtime.TraceAgent.createException(TraceAgent.java:127)
+	at runtime.LocalInjectionManager.<init>(LocalInjectionManager.java:63)
+	at runtime.TraceAgent.main(TraceAgent.java:241)
+2022-05-18 01:40:50,182 - WARN  [Thread-1:NameNode@1155] - Encountered exception during format: 
+org.apache.hadoop.hdfs.qjournal.client.QuorumException: Could not format one or more JournalNodes. 1 exceptions thrown:
+127.0.0.1:33419: flaky test exception injection of TraceAgent
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at runtime.TraceAgent.createException(TraceAgent.java:127)
+	at runtime.LocalInjectionManager.<init>(LocalInjectionManager.java:63)
+	at runtime.TraceAgent.main(TraceAgent.java:241)
+
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumException.create(QuorumException.java:81)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumCall.rethrowException(QuorumCall.java:247)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager.format(QuorumJournalManager.java:213)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.formatNonFileJournals(FSEditLog.java:422)
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.format(FSImage.java:168)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:1153)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:401)
+	at org.apache.hadoop.hdfs.DFSTestUtil.formatNameNode(DFSTestUtil.java:243)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.configureNameService(MiniDFSCluster.java:1035)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.createNameNodesAndSetConf(MiniDFSCluster.java:921)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.initMiniDFSCluster(MiniDFSCluster.java:853)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.<init>(MiniDFSCluster.java:494)
+	at org.apache.hadoop.hdfs.MiniDFSCluster$Builder.build(MiniDFSCluster.java:453)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:115)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:37)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster$Builder.build(MiniQJMHACluster.java:64)
+	at org.apache.hadoop.hdfs.TestRollingUpgrade.testRollBackImage(TestRollingUpgrade.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+2022-05-18 01:40:50,217 - INFO  [IPC Server handler 1 on 45499:Storage$StorageDirectory@847] - Lock on /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/in_use.lock acquired by nodename 29263@razor6
+2022-05-18 01:40:50,217 - INFO  [IPC Server handler 1 on 39589:Storage$StorageDirectory@847] - Lock on /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/in_use.lock acquired by nodename 29263@razor6
+2022-05-18 01:40:50,218 - INFO  [IPC Server handler 1 on 45499:JNStorage@217] - Formatting journal Storage Directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 with nsid: 349349565
+2022-05-18 01:40:50,218 - INFO  [IPC Server handler 1 on 39589:JNStorage@217] - Formatting journal Storage Directory /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 with nsid: 349349565
+2022-05-18 01:40:50,287 - ERROR [Thread-1:MiniDFSCluster@858] - IOE creating namenodes. Permissions dump:
+path '/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/data': 
+	absolute:/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/data
+	permissions: ----
+path '/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs': 
+	absolute:/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs
+	permissions: drwx
+path '/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data': 
+	absolute:/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data
+	permissions: drwx
+path '/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test': 
+	absolute:/home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test
+	permissions: drwx
+path '/home/haoze/flaky-reproduction/experiment/hdfs-12248/target': 
+	absolute:/home/haoze/flaky-reproduction/experiment/hdfs-12248/target
+	permissions: drwx
+path '/home/haoze/flaky-reproduction/experiment/hdfs-12248': 
+	absolute:/home/haoze/flaky-reproduction/experiment/hdfs-12248
+	permissions: drwx
+path '/home/haoze/flaky-reproduction/experiment': 
+	absolute:/home/haoze/flaky-reproduction/experiment
+	permissions: drwx
+path '/home/haoze/flaky-reproduction': 
+	absolute:/home/haoze/flaky-reproduction
+	permissions: drwx
+path '/home/haoze': 
+	absolute:/home/haoze
+	permissions: drwx
+path '/home': 
+	absolute:/home
+	permissions: dr-x
+path '/': 
+	absolute:/
+	permissions: dr-x
+
+org.apache.hadoop.hdfs.qjournal.client.QuorumException: Could not format one or more JournalNodes. 1 exceptions thrown:
+127.0.0.1:33419: flaky test exception injection of TraceAgent
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at runtime.TraceAgent.createException(TraceAgent.java:127)
+	at runtime.LocalInjectionManager.<init>(LocalInjectionManager.java:63)
+	at runtime.TraceAgent.main(TraceAgent.java:241)
+
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumException.create(QuorumException.java:81)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumCall.rethrowException(QuorumCall.java:247)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager.format(QuorumJournalManager.java:213)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.formatNonFileJournals(FSEditLog.java:422)
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.format(FSImage.java:168)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:1153)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:401)
+	at org.apache.hadoop.hdfs.DFSTestUtil.formatNameNode(DFSTestUtil.java:243)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.configureNameService(MiniDFSCluster.java:1035)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.createNameNodesAndSetConf(MiniDFSCluster.java:921)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.initMiniDFSCluster(MiniDFSCluster.java:853)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.<init>(MiniDFSCluster.java:494)
+	at org.apache.hadoop.hdfs.MiniDFSCluster$Builder.build(MiniDFSCluster.java:453)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:115)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:37)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster$Builder.build(MiniQJMHACluster.java:64)
+	at org.apache.hadoop.hdfs.TestRollingUpgrade.testRollBackImage(TestRollingUpgrade.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+2022-05-18 01:40:50,288 - INFO  [Thread-1:MiniDFSCluster@1957] - Shutting down the Mini HDFS Cluster
+E
+Time: 4.704
+There was 1 failure:
+1) testRollBackImage(org.apache.hadoop.hdfs.TestRollingUpgrade)
+2022-05-18 01:40:50,302 - INFO  [IPC Server handler 1 on 45499:Storage$StorageDirectory@847] - Lock on /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/in_use.lock acquired by nodename 29263@razor6
+2022-05-18 01:40:50,302 - INFO  [IPC Server handler 1 on 39589:Storage$StorageDirectory@847] - Lock on /home/haoze/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/in_use.lock acquired by nodename 29263@razor6
+org.apache.hadoop.hdfs.qjournal.client.QuorumException: Could not format one or more JournalNodes. 1 exceptions thrown:
+127.0.0.1:33419: flaky test exception injection of TraceAgent
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at runtime.TraceAgent.createException(TraceAgent.java:127)
+	at runtime.LocalInjectionManager.<init>(LocalInjectionManager.java:63)
+	at runtime.TraceAgent.main(TraceAgent.java:241)
+
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumException.create(QuorumException.java:81)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumCall.rethrowException(QuorumCall.java:247)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager.format(QuorumJournalManager.java:213)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.formatNonFileJournals(FSEditLog.java:422)
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.format(FSImage.java:168)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:1153)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:401)
+	at org.apache.hadoop.hdfs.DFSTestUtil.formatNameNode(DFSTestUtil.java:243)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.configureNameService(MiniDFSCluster.java:1035)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.createNameNodesAndSetConf(MiniDFSCluster.java:921)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.initMiniDFSCluster(MiniDFSCluster.java:853)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.<init>(MiniDFSCluster.java:494)
+	at org.apache.hadoop.hdfs.MiniDFSCluster$Builder.build(MiniDFSCluster.java:453)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:115)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:37)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster$Builder.build(MiniQJMHACluster.java:64)
+	at org.apache.hadoop.hdfs.TestRollingUpgrade.testRollBackImage(TestRollingUpgrade.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+2022-05-18 01:40:50,305 - WARN  [IPC Server handler 1 on 39589:Server$Responder@1516] - IPC Server handler 1 on 39589, call Call#14 Retry#0 org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocol.format from 127.0.0.1:46700: output error
+2022-05-18 01:40:50,305 - WARN  [IPC Server handler 1 on 45499:Server$Responder@1516] - IPC Server handler 1 on 45499, call Call#12 Retry#0 org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocol.format from 127.0.0.1:33220: output error
+2022-05-18 01:40:50,305 - INFO  [IPC Server handler 1 on 39589:Server$Handler@2688] - IPC Server handler 1 on 39589 caught an exception
+java.nio.channels.ClosedChannelException
+	at sun.nio.ch.SocketChannelImpl.ensureWriteOpen(SocketChannelImpl.java:269)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:460)
+	at org.apache.hadoop.ipc.Server.channelWrite(Server.java:3242)
+	at org.apache.hadoop.ipc.Server.access$1700(Server.java:137)
+	at org.apache.hadoop.ipc.Server$Responder.processResponse(Server.java:1466)
+	at org.apache.hadoop.ipc.Server$Responder.doRespond(Server.java:1536)
+	at org.apache.hadoop.ipc.Server$Connection.sendResponse(Server.java:2586)
+	at org.apache.hadoop.ipc.Server$Connection.access$300(Server.java:1608)
+	at org.apache.hadoop.ipc.Server$RpcCall.doResponse(Server.java:933)
+	at org.apache.hadoop.ipc.Server$Call.sendResponse(Server.java:767)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:878)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)
+2022-05-18 01:40:50,305 - INFO  [IPC Server handler 1 on 45499:Server$Handler@2688] - IPC Server handler 1 on 45499 caught an exception
+java.nio.channels.ClosedChannelException
+	at sun.nio.ch.SocketChannelImpl.ensureWriteOpen(SocketChannelImpl.java:269)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:460)
+	at org.apache.hadoop.ipc.Server.channelWrite(Server.java:3242)
+	at org.apache.hadoop.ipc.Server.access$1700(Server.java:137)
+	at org.apache.hadoop.ipc.Server$Responder.processResponse(Server.java:1466)
+	at org.apache.hadoop.ipc.Server$Responder.doRespond(Server.java:1536)
+	at org.apache.hadoop.ipc.Server$Connection.sendResponse(Server.java:2586)
+	at org.apache.hadoop.ipc.Server$Connection.access$300(Server.java:1608)
+	at org.apache.hadoop.ipc.Server$RpcCall.doResponse(Server.java:933)
+	at org.apache.hadoop.ipc.Server$Call.sendResponse(Server.java:767)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:878)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)

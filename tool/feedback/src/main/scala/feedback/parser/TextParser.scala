@@ -47,7 +47,8 @@ object TextParser {
 
   def getLogDir(id: Int): String = raw"logs-$id"
 
-  def unfold(text: String): Array[String] = {
+  // text ==> ("...\n", "...\n", ...)
+  def unfoldWithNewLine(text: String): Array[String] = {
     val lines = mutable.ArrayBuffer.empty[String]
     var builder: Option[mutable.StringBuilder] = None
     text foreach { c =>
@@ -64,6 +65,22 @@ object TextParser {
     lines.toArray
   }
 
+  // text ==> ("...", "...", ...)
+  def unfoldWithoutNewLine(text: String): Array[String] = {
+    val lines = mutable.ArrayBuffer.empty[String]
+    var builder = new mutable.StringBuilder
+    text foreach { c =>
+      if (c == '\n') {
+        lines += builder.toString
+        builder = new mutable.StringBuilder
+      } else {
+        builder append c
+      }
+    }
+    lines += builder.toString
+    lines.toArray
+  }
+
   def parseLogSet(text: String): Array[Int] = text match {
     case LogFeedbackPattern(_, _, numbers) => parseNumbers(numbers)
   }
@@ -74,5 +91,14 @@ object TextParser {
   def getSimpleClassName(text: String): String = text match {
     case SimpleClassNamePattern1(name) => name
     case SimpleClassNamePattern2(name) => name
+  }
+
+  private val LineContentPattern = raw"(?s)([^\n]*)\n".r
+
+  def getLineContent(text: String): Option[String] = text match {
+    case LineContentPattern(s) => Some(s)
+    case _ =>
+      require(text.isEmpty)
+      None
   }
 }
