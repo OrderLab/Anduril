@@ -1,7 +1,6 @@
 package feedback.parser
 
-import feedback.JavaTestUtil.assertMismatch
-import feedback.ScalaTestUtil.{assertEquals, assertTrue}
+import feedback.ScalaTestUtil._
 import feedback.log.exception._
 
 private[parser] object TestResultParserUtil {
@@ -19,8 +18,8 @@ private[parser] object TestResultParserUtil {
     parseTestResult("\n\nTime: 40.922\n\nOK (1 test)\n")
     parseTestResult("\n\nTime: 40.922\n\nOK (1 tests)\n")
     parseTestResult("\n\nTime: 46.636\n\nOK (2 tests)\n")
-    assertMismatch(() => parseTestResult("\n\nTime: 40.922\n\nOK (1 tets)\n"))
-    assertMismatch(() => parseTestResult("\n\nTime: 40.922\nOK (1 tests)\n"))
+    assertRequireFail(() => parseTestResult("\n\nTime: 40.922\n\nOK (1 tets)\n"))
+    assertRequireFail(() => parseTestResult("\n\nTime: 40.922\nOK (1 tests)\n"))
     parseTestResult("Minicluster is down\n\nTime: 46.636\nThere was 1 failure:\n1) testEmptyWALRecovery(org.apache.hadoop.hbase.replication.TestReplicationSmallTests)\njava.lang.AssertionError: Waiting timed out after [10,000] msec\n\tat org.junit.Assert.fail(Assert.java:88)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n")
   }
 

@@ -1,31 +1,14 @@
 package feedback.diff;
 
-import feedback.ScalaUtil;
+import feedback.common.ActionMayThrow;
+import feedback.common.ThreadUtil;
 import feedback.log.LogFile;
 import feedback.log.entry.LogEntry;
 
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.function.Consumer;
 
 public final class LogFileDiff implements DiffDump {
-    public static final class DistinctConsumer<T> implements Consumer<T> {
-        private final Consumer<T> action;
-        private final Set<T> set = new HashSet<>();
-
-        public DistinctConsumer(final Consumer<T> action) {
-            this.action = action;
-        }
-
-        @Override
-        public void accept(final T element) {
-            if (this.set.add(element)) {
-                action.accept(element);
-            }
-        }
-    }
-
     private final LogFile good, bad;
     private final Map<String, Future<ThreadDiff>> common;
 
@@ -66,25 +49,21 @@ public final class LogFileDiff implements DiffDump {
         for (final String thread : commonThreads) {
             final ThreadDiff.Builder builder =
                     new ThreadDiff.Builder(thread, goodCommon.get(thread), badCommon.get(thread));
-            common.put(thread, ScalaUtil.submit(builder::build));
+            common.put(thread, ThreadUtil.submit(builder::build));
         }
     }
 
     // don't filter the duplicate entries
     // TODO: filter them
     @Override
-    public void dumpBadDiff(final Consumer<ThreadDiff.CodeLocation> action) {
-        try {
-            for (final Future<ThreadDiff> diff : common.values()) {
-                diff.get().dumpBadDiff(action);
+    public void dumpBadDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action) throws Exception {
+        for (final Future<ThreadDiff> diff : common.values()) {
+            diff.get().dumpBadDiff(action);
+        }
+        for (final LogEntry logEntry : this.bad.entries()) {
+            if (!common.containsKey(logEntry.thread())) {
+                action.accept(new ThreadDiff.CodeLocation(logEntry));
             }
-            for (final LogEntry logEntry : this.bad.entries()) {
-                if (!common.containsKey(logEntry.thread())) {
-                    action.accept(new ThreadDiff.CodeLocation(logEntry));
-                }
-            }
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
         }
     }
 }

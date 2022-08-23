@@ -1,10 +1,10 @@
 package feedback.diff;
 
+import feedback.common.ActionMayThrow;
 import feedback.log.entry.LogEntry;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public final class ThreadDiff implements DiffDump {
     public static final class CodeLocation {
@@ -76,7 +76,7 @@ public final class ThreadDiff implements DiffDump {
 
     // don't filter the duplicate entries
     @Override
-    public void dumpBadDiff(final Consumer<CodeLocation> action) {
+    public void dumpBadDiff(final ActionMayThrow<CodeLocation> action) {
         this.diff.badOnly.forEach(action);
     }
 }

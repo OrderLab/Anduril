@@ -1,5 +1,6 @@
 package feedback;
 
+import feedback.common.ThreadTestBase;
 import feedback.log.Log;
 import feedback.parser.LogParser;
 import feedback.symptom.Symptoms;
@@ -11,7 +12,7 @@ import java.nio.file.Path;
 
 import static feedback.ScalaTestUtil.assertTrue;
 
-final class SymptomTest extends FeedbackTestBase {
+final class SymptomTest extends ThreadTestBase {
     private static void test(final Path tempDir, final String bug) {
         final Path bugDir = tempDir.resolve(bug);
         final Log good = LogParser.parseLog(bugDir.resolve("good-run-log"));
@@ -24,7 +25,7 @@ final class SymptomTest extends FeedbackTestBase {
 
     @Test
     void testSymptom(final @TempDir Path tempDir) throws IOException {
-        DiffTest.prepareEndToEndTest("ground-truth/", tempDir);
+        DiffTest.prepareEndToEndTest(tempDir);
         final String[] bugs = new String[]{
                 "zookeeper-3006",
                 "zookeeper-4203",

@@ -1,6 +1,6 @@
 package feedback.cases
 
-import feedback.ScalaUtil
+import feedback.common.ReflectionUtil
 import feedback.log._
 import feedback.log.entry.{ExceptionLogEntry, LogEntry, LogType, NormalLogEntry}
 import feedback.log.exception._
@@ -160,6 +160,6 @@ object BugCase {
   private def createInstance[Bug <: BugCase](bug: Class[Bug]): Bug = bug.newInstance()
 
   lazy val cases: Map[String, BugCase] =
-    ScalaUtil.getClasses(this.getClass.getPackage.getName, classOf[BugCase]).asScala
+    ReflectionUtil.getClasses(this.getClass.getPackage.getName, classOf[BugCase]).asScala
     .flatten(c => TextParser.parseCaseDirName(c.getSimpleName) map { (_, createInstance(c)) }).toMap
 }

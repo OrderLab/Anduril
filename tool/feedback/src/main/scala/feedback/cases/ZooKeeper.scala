@@ -1,8 +1,7 @@
 package feedback.cases
 
 import feedback.log.entry.{ExceptionLogEntry, LogType}
-import feedback.log.exception.PlainExceptionRecord
-import feedback.log.{Log, LogFile, TestResult}
+import feedback.log.{LogFile, TestResult}
 import feedback.symptom.{SymptomEvent, UnitTestLogEvent}
 
 import scala.annotation.unused

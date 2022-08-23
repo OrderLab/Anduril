@@ -1,7 +1,7 @@
 package feedback.parser;
 
-import feedback.FeedbackTestBase;
-import feedback.ScalaUtil;
+import feedback.common.ThreadTestBase;
+import feedback.common.ThreadUtil;
 import feedback.log.LogTestUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -10,31 +10,27 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final class LogParserTest extends FeedbackTestBase {
-    private final int pass = 1;
-    private final int fail = 1;
+final class LogParserTest extends ThreadTestBase {
+    private static final int pass = 1;
+    private static final int fail = 1;
 
     @Test
     void testPass(final @TempDir Path tempDir) throws Exception {
-        ScalaUtil.runTasks(0, pass, bug -> {
-            try {
-                final Path log = tempDir.resolve("pass").resolve(bug + ".log");
-                LogTestUtil.initTempFile("parser-check/pass/" + bug + ".log", log);
-                LogParser.parseLog(log);
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        ThreadUtil.parallel(0, pass, bug -> {
+            final Path log = tempDir.resolve("pass").resolve(bug + ".log");
+            LogTestUtil.initTempFile("parser-check/pass/" + bug + ".log", log);
+            LogParser.parseLog(log);
+        }).get();
     }
 
     @Test
     void testFail(final @TempDir Path tempDir) throws Exception {
-        ScalaUtil.runTasks(0, fail, bug ->
+        ThreadUtil.parallel(0, fail, bug -> {
             assertThrows(Exception.class, () -> {
                 final Path log = tempDir.resolve("fail").resolve(bug + ".log");
                 LogTestUtil.initTempFile("parser-check/fail/" + bug + ".log", log);
                 LogParser.parseLog(log);
-            }, "Found unit test log without test result")
-        );
+            }, "Found unit test log without test result");
+        }).get();
     }
 }

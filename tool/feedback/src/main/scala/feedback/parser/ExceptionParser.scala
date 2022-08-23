@@ -1,9 +1,9 @@
 package feedback.parser
 
-import feedback.log.exception.{ExceptionRecord, NestedException, StackTrace}
+import feedback.log.exception.{NestedException, StackTrace}
 import feedback.parser.grammar._
 
-import scala.collection.{immutable, mutable}
+import scala.collection.mutable
 
 object ExceptionParser {
   private val classnameRegex = raw"[a-zA-Z_0-9\.$$]+"

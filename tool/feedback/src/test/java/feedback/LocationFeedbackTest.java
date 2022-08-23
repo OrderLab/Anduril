@@ -1,5 +1,8 @@
 package feedback;
 
+import feedback.common.ThreadUtil;
+import feedback.common.JavaThreadUtil;
+import feedback.common.ThreadTestBase;
 import feedback.log.LogTestUtil;
 import feedback.parser.ParserUtil;
 import org.junit.jupiter.api.Test;
@@ -16,7 +19,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class LocationFeedbackTest extends FeedbackTestBase {
+final class LocationFeedbackTest extends ThreadTestBase {
     private static final Logger LOG = LoggerFactory.getLogger(LocationFeedbackTest.class);
 
     private static abstract class BugCase {
@@ -44,31 +47,23 @@ final class LocationFeedbackTest extends FeedbackTestBase {
                 final List<Integer> expected = JsonUtil.toIntStream(LogTestUtil.loadJson(
                         "feedback/" + this.name + "/injection-" + this.instances[i] + ".json").getJsonArray("feedback"))
                         .sorted().collect(Collectors.toList());
-                final Future<Boolean> outputTest = ScalaUtil.submit(() -> {
-                    try {
-                        // test output
-                        final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
-                        CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
-                                Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
-                        assertEquals(expected, Arrays.stream(ParserUtil.getFileLines(outputFile))
-                                .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
-                    } catch (final Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                // test output
+                final Future<Void> outputTest = ThreadUtil.submit(() -> {
+                    final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".out";
+                    CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
+                            Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
+                    assertEquals(expected, Arrays.stream(ParserUtil.getFileLines(outputFile))
+                            .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList()));
                 });
                 // test json
-                final Future<Boolean> jsonTest = ScalaUtil.submit(() -> {
-                    try {
-                        final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
-                        JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
-                        CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
-                                Arrays.asList(random.nextBoolean() ? "--append" : "-a", jsonFile)));
-                        final JsonObject json = JsonUtil.loadJson(jsonFile);
-                        assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("feedback"))
-                                .sorted().collect(Collectors.toList()));
-                    } catch (final Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                final Future<Void> jsonTest = ThreadUtil.submit(() -> {
+                    final String jsonFile = tempDir + "/" + this.name + "/test-" + i + ".json";
+                    JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", this.name).build(), jsonFile);
+                    CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + i, dir + "spec.json",
+                            Arrays.asList(random.nextBoolean() ? "--append" : "-a", jsonFile)));
+                    final JsonObject json = JsonUtil.loadJson(jsonFile);
+                    assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("feedback"))
+                            .sorted().collect(Collectors.toList()));
                 });
                 outputTest.get();
                 jsonTest.get();
@@ -162,12 +157,8 @@ final class LocationFeedbackTest extends FeedbackTestBase {
     @Test
     void testEnd2EndLocationFeedback(final @TempDir Path tempDir) throws Exception {
         LOG.info("testEnd2EndLocationFeedback is expected to run for {} seconds", 40);
-        ScalaUtil.runTasks(cases, bug -> {
-            try {
-                bug.test(tempDir);
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        JavaThreadUtil.parallel(cases, bug -> {
+            bug.test(tempDir);
+        }).get();
     }
 }

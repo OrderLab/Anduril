@@ -2,7 +2,7 @@ package feedback.parser.grammar
 
 import feedback.ScalaTestUtil._
 import feedback.log.exception.{CallStack, NativeStackTraceElement, NormalStackTrace}
-import feedback.parser.{ExceptionParser, TextParser}
+import feedback.parser.ExceptionParser
 
 import scala.collection.mutable
 

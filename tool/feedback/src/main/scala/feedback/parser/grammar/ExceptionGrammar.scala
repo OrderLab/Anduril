@@ -3,7 +3,7 @@ package feedback.parser.grammar
 import fastparse._
 import NoWhitespace._
 import feedback.log.exception._
-import feedback.parser.{ExceptionParser, TextParser}
+import feedback.parser.ExceptionParser
 
 import scala.collection.mutable
 

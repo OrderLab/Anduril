@@ -1,5 +1,7 @@
 package feedback;
 
+import feedback.common.ActionMayThrow;
+import feedback.common.ThreadUtil;
 import feedback.diff.ThreadDiff;
 import feedback.log.Log;
 import feedback.parser.LogParser;
@@ -16,7 +18,6 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.Future;
-import java.util.function.Consumer;
 
 public final class CommandLine {
     private final org.apache.commons.cli.CommandLine cmd;
@@ -107,26 +108,24 @@ public final class CommandLine {
 
     // WARN: we assume cmd is thread-safe (or will not change)
 
-    private void computeLocationFeedback(final Consumer<Integer> action) throws Exception {
-        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
-        final Future<Log> trial = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
-        final Future<JsonObject> spec = ScalaUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+    private void computeLocationFeedback(final ActionMayThrow<Integer> action) throws Exception {
+        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> trial = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
+        final Future<JsonObject> spec = ThreadUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
         Algorithms.computeLocationFeedback(good.get(), bad.get(), trial.get(), spec.get(), action);
     }
 
     private Serializable computeTimeFeedback() throws Exception {
-        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
-        final Future<JsonObject> spec = ScalaUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<JsonObject> spec = ThreadUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
         return Algorithms.computeTimeFeedback(good.get(), bad.get(), spec.get());
     }
 
-    private void computeDiff(final Consumer<ThreadDiff.CodeLocation> action) throws Exception {
-        final Future<Log> good = ScalaUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ScalaUtil.submit(() -> {
-            return LogParser.parseLog(cmd.getOptionValue("bad"));
-        });
+    private void computeDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action) throws Exception {
+        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
         Algorithms.computeDiff(good.get(), bad.get(), action);
     }
 

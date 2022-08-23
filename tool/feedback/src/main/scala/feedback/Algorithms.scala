@@ -1,16 +1,16 @@
 package feedback
 
+import feedback.common.ActionMayThrow
 import feedback.diff.{DiffDump, LogFileDiff, ThreadDiff}
 import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
 import feedback.parser.TextParser
 import feedback.symptom.Symptoms
 
-import java.util.function.Consumer
 import javax.json.JsonObject
 
 object Algorithms {
 
-  def computeLocationFeedback(good: Log, bad: Log, trial: Log, spec: JsonObject, action: Consumer[Integer]): Unit = {
+  def computeLocationFeedback(good: Log, bad: Log, trial: Log, spec: JsonObject, action: ActionMayThrow[Integer]): Unit = {
     val expectedDiff = computeDiff(good, bad)
     val actualDiff = computeDiff(good, trial)
     val wanted = new java.util.HashMap[ThreadDiff.CodeLocation, Integer]
@@ -57,8 +57,12 @@ object Algorithms {
       }
   }
 
-  def computeDiff(good: Log, bad: Log, action: Consumer[ThreadDiff.CodeLocation]): Unit = {
-    val distinct = new LogFileDiff.DistinctConsumer(action)
-    computeDiff(good, bad) foreach { _.dumpBadDiff(distinct) }
+  def computeDiff(good: Log, bad: Log, action: ActionMayThrow[ThreadDiff.CodeLocation]): Unit = {
+    val set = new java.util.HashSet[ThreadDiff.CodeLocation]
+    computeDiff(good, bad) foreach { _.dumpBadDiff(e =>
+      if (set.add(e)) {
+        action.accept(e)
+      }
+    )}
   }
 }

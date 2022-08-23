@@ -1,11 +1,11 @@
 package feedback.parser.grammar;
 
-import feedback.FeedbackTestBase;
+import feedback.common.ThreadTestBase;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-final class TrunkGrammarTest extends FeedbackTestBase {
+final class TrunkGrammarTest extends ThreadTestBase {
     private enum TrunkType {
         LOG_MESSAGE(TrunkGrammarTestUtil.LOG_MESSAGE()),
         HEAD_EXCEPTION_WITHOUT_MESSAGE(TrunkGrammarTestUtil.HEAD_EXCEPTION_WITHOUT_MESSAGE()),

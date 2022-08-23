@@ -1,8 +1,8 @@
 package feedback;
 
 public final class ScalaTestUtil {
-    public static void assertMismatch(final java.util.concurrent.Callable<scala.Unit> task) {
-        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, task::call);
+    public static void assertRequireFail(final Runnable task) {
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, task::run);
     }
 
     public static void assertEquals(final Object expected, final Object actual) {

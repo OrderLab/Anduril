@@ -1,6 +1,6 @@
 package feedback.parser
 
-import feedback.{AsyncIterator, ThreadUtil}
+import feedback.common.AsyncIterator
 
 import java.io.File
 import java.nio.file.{Files, Path}

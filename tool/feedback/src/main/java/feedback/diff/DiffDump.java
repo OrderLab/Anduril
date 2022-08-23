@@ -1,9 +1,9 @@
 package feedback.diff;
 
+import feedback.common.ActionMayThrow;
+
 import java.io.Serializable;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Consumer;
 
 public interface DiffDump extends Serializable {
-    void dumpBadDiff(final Consumer<ThreadDiff.CodeLocation> action);
+    void dumpBadDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action) throws Exception;
 }

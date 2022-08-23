@@ -1,5 +1,9 @@
 package feedback;
 
+import feedback.common.ActionMayThrow;
+import feedback.common.JavaThreadUtil;
+import feedback.common.ThreadTestBase;
+import feedback.common.ThreadUtil;
 import feedback.diff.LogFileDiff;
 import feedback.diff.ThreadDiff;
 import feedback.log.LogTestUtil;
@@ -13,15 +17,12 @@ import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.concurrent.Future;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final class DiffTest extends FeedbackTestBase {
+final class DiffTest extends ThreadTestBase {
     static final class DistributedCase {
         final String name;
         final String[] files;
@@ -71,7 +72,7 @@ final class DiffTest extends FeedbackTestBase {
             "kafka-10340",
     };
 
-    private static List<String> collectDiff(final Consumer<Consumer<ThreadDiff.CodeLocation>> dumpBadDiff) {
+    private static List<String> collectDiff(final ActionMayThrow<ActionMayThrow<ThreadDiff.CodeLocation>> dumpBadDiff) {
         final List<String> result = new ArrayList<>();
         dumpBadDiff.accept(e -> result.add(e.toString()));
         Collections.sort(result);
@@ -85,34 +86,27 @@ final class DiffTest extends FeedbackTestBase {
     @Test
     void testLogFileDiff() throws Exception {
         // test the logs without filtering redundant element
-        ScalaUtil.runTasks(testCases, bug -> {
-            try {
-                final List<String> expected = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log.txt")),
-                        actual = collectDiff(new LogFileDiff(LogTestUtil.getLogFile("ground-truth/" + bug + "/good-run-log.txt"),
-                                LogTestUtil.getLogFile("ground-truth/" + bug + "/bad-run-log.txt"))::dumpBadDiff);
-                assertEquals(expected, actual);
-            } catch (final IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        JavaThreadUtil.parallel(testCases, bug -> {
+            final LogFileDiff diff = new LogFileDiff(LogTestUtil.getLogFile("ground-truth/" + bug + "/good-run-log.txt"),
+                    LogTestUtil.getLogFile("ground-truth/" + bug + "/bad-run-log.txt"));
+            final List<String> expected = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log.txt")),
+                    actual = collectDiff(diff::dumpBadDiff);
+            assertEquals(expected, actual);
+        }).get();
     }
 
     @Test
     void testDistributedLogDiff(final @TempDir Path tempDir) throws Exception {
-        ScalaUtil.runTasks(distributedCases, bug -> {
-            try {
-                bug.prepareTempFiles("ground-truth/", tempDir);
-                final List<String> expected = collectDiff(LogTestUtil.getDistinctFileLines("ground-truth/" + bug.name + "/diff_log.txt"));
-                final List<String> actual = new ArrayList<>();
-                Algorithms.computeDiff(LogParser.parseLog(tempDir.resolve(bug.name + "/good-run-log")),
-                        LogParser.parseLog(tempDir.resolve(bug.name + "/bad-run-log")),
-                        entry -> actual.add(entry.toString()));
-                Collections.sort(actual);
-                assertEquals(expected, actual);
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        JavaThreadUtil.parallel(distributedCases, bug -> {
+            bug.prepareTempFiles("ground-truth/", tempDir);
+            final List<String> expected = collectDiff(LogTestUtil.getDistinctFileLines("ground-truth/" + bug.name + "/diff_log.txt"));
+            final List<String> actual = new ArrayList<>();
+            Algorithms.computeDiff(LogParser.parseLog(tempDir.resolve(bug.name + "/good-run-log")),
+                    LogParser.parseLog(tempDir.resolve(bug.name + "/bad-run-log")),
+                    entry -> actual.add(entry.toString()));
+            Collections.sort(actual);
+            assertEquals(expected, actual);
+        }).get();
     }
 
     private static final Random random = new Random(System.currentTimeMillis());
@@ -129,17 +123,17 @@ final class DiffTest extends FeedbackTestBase {
         return result.toArray(new String[0]);
     }
 
-    static ArrayList<String> prepareEndToEndTest(final String prefix, final Path tempDir) throws IOException {
+    static ArrayList<String> prepareEndToEndTest(final Path tempDir) throws IOException {
         final ArrayList<String> cases = new ArrayList<>();
         for (final String bug : testCases) {
-            LogTestUtil.initTempFile(prefix + bug + "/good-run-log.txt",
+            LogTestUtil.initTempFile("ground-truth/" + bug + "/good-run-log.txt",
                     tempDir.resolve(bug + "/good-run-log"));
-            LogTestUtil.initTempFile(prefix + bug + "/bad-run-log.txt",
+            LogTestUtil.initTempFile("ground-truth/" + bug + "/bad-run-log.txt",
                     tempDir.resolve(bug + "/bad-run-log"));
             cases.add(bug);
         }
         for (final DistributedCase bug : distributedCases) {
-            bug.prepareTempFiles(prefix, tempDir);
+            bug.prepareTempFiles("ground-truth/", tempDir);
             cases.add(bug.name);
         }
         Collections.shuffle(cases);
@@ -167,49 +161,37 @@ final class DiffTest extends FeedbackTestBase {
 
     @Test
     void testEndToEndDiff(final @TempDir Path tempDir) throws Exception {
-        ScalaUtil.runTasks(prepareEndToEndTest("ground-truth/", tempDir), bug -> {
-            try {
-                testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        ThreadUtil.parallel(prepareEndToEndTest(tempDir), bug -> {
+            testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
+        }).get();
     }
 
     @Test
     void testEndToEndDiffShuffleError(final @TempDir Path tempDir) throws Exception {
-        final ArrayList<String> cases = prepareEndToEndTest("ground-truth/", tempDir);
+        final ArrayList<String> cases = prepareEndToEndTest(tempDir);
         final ArrayList<String> shuffle = (ArrayList<String>) cases.clone();
         Collections.shuffle(shuffle);
-        ScalaUtil.runTasks(0, cases.size(), i -> {
-            try {
-                final String expected = cases.get(i);
-                final String actual = shuffle.get(i);
-                if (expected.equals(actual)) {
-                    testEndToEndDiff(tempDir, expected, expected + "/good-run-log", expected + "/bad-run-log");
-                } else {
-                    assertThrows(AssertionFailedError.class, () ->
-                            testEndToEndDiff(tempDir, expected, actual + "/good-run-log", actual + "/bad-run-log"));
-                }
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
+        ThreadUtil.parallel(0, cases.size(), i -> {
+            final String expected = cases.get(i);
+            final String actual = shuffle.get(i);
+            if (expected.equals(actual)) {
+                testEndToEndDiff(tempDir, expected, expected + "/good-run-log", expected + "/bad-run-log");
+            } else {
+                assertThrows(AssertionFailedError.class, () ->
+                        testEndToEndDiff(tempDir, expected, actual + "/good-run-log", actual + "/bad-run-log"));
             }
-        });
+        }).get();
     }
 
     @Test
     void testEndToEndDiffSwitchError(final @TempDir Path tempDir) throws Exception {
-        ScalaUtil.runTasks(prepareEndToEndTest("ground-truth/", tempDir), bug -> {
-            try {
-                if (random.nextBoolean()) {
-                    testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
-                } else {
-                    assertThrows(AssertionFailedError.class, () ->
-                            testEndToEndDiff(tempDir, bug, bug + "/bad-run-log", bug + "/good-run-log"));
-                }
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
+        ThreadUtil.parallel(prepareEndToEndTest(tempDir), bug -> {
+            if (random.nextBoolean()) {
+                testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
+            } else {
+                assertThrows(AssertionFailedError.class, () ->
+                        testEndToEndDiff(tempDir, bug, bug + "/bad-run-log", bug + "/good-run-log"));
             }
-        });
+        }).get();
     }
 }

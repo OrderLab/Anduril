@@ -2,8 +2,8 @@ package feedback.diff;
 
 import difflib.Delta;
 import difflib.DiffUtils;
-import feedback.FeedbackTestBase;
-import feedback.ScalaUtil;
+import feedback.common.ThreadTestBase;
+import feedback.common.ThreadUtil;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class FastDiffTest extends FeedbackTestBase {
+final class FastDiffTest extends ThreadTestBase {
     private static final Random random = new Random(System.currentTimeMillis());
 
     private static ArrayList<Integer> generate(final int n, final int bound) {
@@ -24,7 +24,7 @@ final class FastDiffTest extends FeedbackTestBase {
 
     @RepeatedTest(10)
     void testRandomFastDiff() throws Exception {
-        ScalaUtil.runTasks(0, 3, i_ -> {
+        ThreadUtil.parallel(0, 3, i_ -> {
             final int x = random.nextInt(10_000) + 1;
             final int y = random.nextInt(10_000) + 1;
             final int bound = random.nextInt(10) + 3;
@@ -39,6 +39,6 @@ final class FastDiffTest extends FeedbackTestBase {
                 }
             }
             assertEquals(expected, new FastDiff<>(good.toArray(new Integer[0]), bad.toArray(new Integer[0])).common);
-        });
+        }).get();
     }
 }

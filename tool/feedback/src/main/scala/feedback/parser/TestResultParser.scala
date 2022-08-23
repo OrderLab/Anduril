@@ -1,6 +1,6 @@
 package feedback.parser
 
-import feedback.log.exception.{NestedException, PlainExceptionRecord}
+import feedback.log.exception.NestedException
 import feedback.log.{TestFail, TestOK, TestResult}
 import org.joda.time.DateTime
 

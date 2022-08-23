@@ -28,13 +28,13 @@ public final class JsonUtil {
         }
     }
 
-    static JsonObject loadJson(final Path path) throws IOException {
+    public static JsonObject loadJson(final Path path) throws IOException {
         try (final InputStream inputStream = Files.newInputStream(path)) {
             return loadJson(inputStream);
         }
     }
 
-    static JsonObject loadJson(final File file) throws IOException {
+    public static JsonObject loadJson(final File file) throws IOException {
         return loadJson(file.toPath());
     }
 
@@ -42,36 +42,36 @@ public final class JsonUtil {
         return loadJson(Paths.get(path));
     }
 
-    static JsonObjectBuilder json2builder(final JsonObject json) {
+    public static JsonObjectBuilder json2builder(final JsonObject json) {
         final JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         json.forEach(jsonObjectBuilder::add);
         return jsonObjectBuilder;
     }
 
-    static void dumpJson(final JsonObject json, final File file) throws IOException {
+    public static void dumpJson(final JsonObject json, final File file) throws IOException {
         try (final FileWriter fileWriter = new FileWriter(file);
              final JsonWriter jsonWriter = writerFactory.createWriter(fileWriter)) {
             jsonWriter.writeObject(json);
         }
     }
 
-    static void dumpJson(final JsonObject json, final String path) throws IOException {
+    public static void dumpJson(final JsonObject json, final String path) throws IOException {
         dumpJson(json, new File(path));
     }
 
-    static JsonArrayBuilder createArrayBuilder() {
+    public static JsonArrayBuilder createArrayBuilder() {
         return Json.createArrayBuilder();
     }
 
-    static JsonObjectBuilder createObjectBuilder() {
+    public static JsonObjectBuilder createObjectBuilder() {
         return Json.createObjectBuilder();
     }
 
-    static Stream<Integer> toIntStream(final JsonArray array) {
+    public static Stream<Integer> toIntStream(final JsonArray array) {
         return array.stream().map(v -> ((JsonNumber)v).intValue());
     }
 
-    static Stream<String> toStringStream(final JsonArray array) {
+    public static Stream<String> toStringStream(final JsonArray array) {
         return array.stream().map(v -> ((JsonString)v).getString());
     }
 }

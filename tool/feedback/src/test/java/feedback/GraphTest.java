@@ -1,5 +1,6 @@
 package feedback;
 
+import feedback.common.ThreadTestBase;
 import org.junit.jupiter.api.RepeatedTest;
 import runtime.graph.PriorityGraph;
 
@@ -7,7 +8,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class GraphTest extends FeedbackTestBase {
+final class GraphTest extends ThreadTestBase {
     private static final Random random = new Random(System.currentTimeMillis());
     static final int INF = 1_000_000_000;
 

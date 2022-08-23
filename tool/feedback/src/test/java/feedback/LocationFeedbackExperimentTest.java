@@ -1,5 +1,8 @@
 package feedback;
 
+import feedback.common.JavaThreadUtil;
+import feedback.common.ThreadTestBase;
+import feedback.common.ThreadUtil;
 import feedback.log.LogTestUtil;
 import feedback.parser.TextParser;
 import org.junit.jupiter.api.Test;
@@ -13,7 +16,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-final class LocationFeedbackExperimentTest extends FeedbackTestBase {
+final class LocationFeedbackExperimentTest extends ThreadTestBase {
     private static final BugCase[] cases = new BugCase[]{
 //            new BugCase("hdfs-12248", 3173),  // cost ~2 min
             new BugCase("hdfs-4233", 109),
@@ -111,12 +114,6 @@ final class LocationFeedbackExperimentTest extends FeedbackTestBase {
 
     @Test
     void testLocationFeedbackExperiments() throws Exception {
-        ScalaUtil.runTasks(cases, bug -> {
-            try {
-                bug.test();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        JavaThreadUtil.parallel(cases, BugCase::test).get();
     }
 }

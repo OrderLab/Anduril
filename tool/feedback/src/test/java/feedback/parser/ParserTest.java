@@ -1,6 +1,6 @@
 package feedback.parser;
 
-import feedback.FeedbackTestBase;
+import feedback.common.ThreadTestBase;
 import feedback.log.LogFile;
 import feedback.log.LogTestUtil;
 import feedback.log.entry.LogEntry;
@@ -14,7 +14,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-final class ParserTest extends FeedbackTestBase {
+final class ParserTest extends ThreadTestBase {
     private static final Random random = new Random(System.currentTimeMillis());
 
     private static void testDatetime(String datetimeText, int y, int m, int d, int hr, int min, int s, int ms) {
@@ -46,8 +46,8 @@ final class ParserTest extends FeedbackTestBase {
 
     @Test
     void testWrongLogType() {
-        assertThrows(RuntimeException.class, () -> LogFileParser.parseLogType("INFI "));
-        assertThrows(RuntimeException.class, () -> LogFileParser.parseLogType("TRACK"));
+        assertThrows(scala.MatchError.class, () -> LogFileParser.parseLogType("INFI "));
+        assertThrows(scala.MatchError.class, () -> LogFileParser.parseLogType("TRACK"));
     }
 
     private static void testLocation(String locationText, String thread, String file, int line) {
