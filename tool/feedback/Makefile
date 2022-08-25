@@ -1,5 +1,9 @@
+UNAME := $(shell uname -s)
 CC=gcc
 CFLAGS=-c -Ofast -Wall -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
+ifeq ($(UNAME),Darwin)
+    CFLAGS=-c -Ofast -Wall -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin
+endif
 LDFLAGS=-fPIC -shared
 
 SOURCES_DIR=src/main/native

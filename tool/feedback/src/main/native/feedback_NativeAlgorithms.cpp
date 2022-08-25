@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 // for malloc
-#ifdef _ALLBSD_SOURCE
+#if defined(_ALLBSD_SOURCE) || defined(__APPLE__)
 #include <stdlib.h>
 #else
 #include <malloc.h>

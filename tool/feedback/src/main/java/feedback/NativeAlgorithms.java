@@ -38,7 +38,8 @@ public final class NativeAlgorithms {
 				final int pos = filename.lastIndexOf('.');
 				final File file = File.createTempFile(filename.substring(0, pos), filename.substring(pos));
 				file.deleteOnExit();
-				try (final InputStream in = NativeAlgorithms.class.getClassLoader().getResourceAsStream(filename)) {
+				//Hard-coded here or library can not be found
+				try (final InputStream in = NativeAlgorithms.class.getClassLoader().getResourceAsStream(filename.substring(0, pos) + ".so")) {
 					if (in == null) {
 						throw new RuntimeException("can't find native library");
 					}
