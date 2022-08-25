@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-c -Wall -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
+CFLAGS=-c -Ofast -Wall -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
 LDFLAGS=-fPIC -shared
 
 SOURCES_DIR=src/main/native
