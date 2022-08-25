@@ -204,16 +204,4 @@ final class DiffTest extends ThreadTestBase {
             }
         }).get();
     }
-
-//    @Test
-//    void testValidation(final @TempDir Path tempDir) throws Exception {
-//        Env.parallel(prepareEndToEndTest(tempDir), bug -> {
-//            final Future<Void> mirrorTest = Env.submit(() -> {
-//                CommandLine.main(new String[]{
-//                        "-s",
-//                });
-//            });
-//            mirrorTest.get();
-//        }).get();
-//    }
 }

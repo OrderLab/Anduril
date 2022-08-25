@@ -16,7 +16,7 @@ object Algorithms {
     val wanted = new java.util.HashMap[ThreadDiff.CodeLocation, Integer]
     expectedDiff foreach { _.dumpBadDiff { e => wanted.put(e, 0) } }
     val eventNumber = spec.getInt("start")
-    require(eventNumber == wanted.size + (if (Symptoms.isResultEventLogged(spec)) 0 else 1))
+    require(eventNumber <= wanted.size + (if (Symptoms.isResultEventLogged(spec)) 0 else 1))
     val array = spec.getJsonArray("nodes")
     (0 until array.size) foreach { i =>
       val node = array.getJsonObject(i)
