@@ -25,10 +25,11 @@ public final class CommandLine {
     }
 
     public static void main(final String[] args) throws IOException, ExecutionException, InterruptedException {
+        Env.enter();
         try {
             new CommandLine(parseCommandLine(args)).run();
         } finally {
-            Env.shutdown();
+            Env.exit();
         }
     }
 

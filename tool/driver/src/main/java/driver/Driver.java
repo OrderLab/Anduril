@@ -8,7 +8,7 @@ import runtime.config.Config;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;import java.lang.management.ManagementFactory;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -65,6 +65,7 @@ public final class Driver {
 
     public static void main(final String[] args) throws IOException, InterruptedException {
         LOG.info("Running driver with process id {}", Env.pid());
+        Env.enter();
         try {
             final Spec spec = new Spec(args);
             final Properties properties = new Properties();
@@ -110,7 +111,7 @@ public final class Driver {
                 Thread.sleep(backoff);
             }
         } finally {
-            Env.shutdown();
+            Env.exit();
             LOG.info("Driver exits...");
         }
     }

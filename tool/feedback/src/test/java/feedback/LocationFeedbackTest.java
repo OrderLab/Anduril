@@ -17,6 +17,7 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -67,8 +68,25 @@ final class LocationFeedbackTest extends ThreadTestBase {
                     assertEquals(expected, JsonUtil.toIntStream(json.getJsonArray("feedback"))
                             .sorted().collect(Collectors.toList()));
                 });
+                final Future<Void> mirrorTest = Env.submit(() -> {
+                    final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".mirror.out";
+                    CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + "bad-run-log", dir + "spec.json",
+                            Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
+                    assertEquals(0, ParserUtil.getFileLines(outputFile).length);
+                });
+                final Future<Void> identityTest = Env.submit(() -> {
+                    final String outputFile = tempDir + "/" + this.name + "/test-" + i + ".identity.out";
+                    CommandLine.main(prepareArgs(dir + "good-run-log", dir + "bad-run-log", dir + "good-run-log", dir + "spec.json",
+                            Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
+                    final List<Integer> actual = Arrays.stream(ParserUtil.getFileLines(outputFile))
+                            .filter(line -> !line.isEmpty()).map(Integer::valueOf).sorted().collect(Collectors.toList());
+                    final int total = JsonUtil.loadJson(dir + "spec.json").getInt("start");
+                    assertEquals(IntStream.range(0, total).boxed().collect(Collectors.toList()), actual);
+                });
                 outputTest.get();
                 jsonTest.get();
+                mirrorTest.get();
+                identityTest.get();
             }
         }
     }

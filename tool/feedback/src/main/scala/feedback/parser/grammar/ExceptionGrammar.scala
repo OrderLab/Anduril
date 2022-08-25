@@ -13,20 +13,23 @@ object ExceptionGrammar {
 
   private def number[_: P]: P[Int] = CharIn("0-9").rep(1).!.map {_.toInt}
 
-  private def className[_: P]: P[String] = CharIn("a-z", "A-Z", "0-9", "_", "$", ".").rep(1).!
+  private def className[_: P]: P[Unit] = CharIn("a-z", "A-Z", "0-9", "_", "$", ".").rep(1)
 
-  private def exceptionMethodName[_: P]: P[String] = (className ~ ("<init>".! | "<clinit>".!).?) map {
+  private def exceptionMethodName[_: P]: P[String] = (className.! ~ ("<init>".! | "<clinit>".!).?) map {
     case (name, Some(suffix)) => s"$name$suffix"
     case (name, None) => name
   }
 
   // only a sanity check for an exception; must carry '\n'
-  private def exceptionName[_: P]: P[Unit] =
-    StringIn("Exception\n", "Error\n", "Throwable\n") | ( CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionName )
+  private def exceptionNameWithNewLine[_: P]: P[Unit] =
+    StringIn("Exception\n", "Error\n", "Throwable\n") | ( CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionNameWithNewLine )
+
+  private def exceptionNameWithParenthesis[_: P]: P[Unit] =
+    StringIn("Exception): ", "Error): ", "Throwable): ") | (CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionNameWithParenthesis)
 
   // only a sanity check for an exception
   private def exceptionNameWithSuffix[_: P]: P[Unit] =
-    StringIn("Exception: ", "Error: ", "Throwable: ") |
+    StringIn("Exception: ", "Error: ", "Throwable: ") | ( "(" ~ exceptionNameWithParenthesis ) |
       (CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionNameWithSuffix)
 
   private def fileName[_: P]: P[String] =
@@ -102,7 +105,8 @@ object ExceptionGrammar {
       case Parsed.Failure(_, _, _) => None
     }
 
-  private def exceptionWithMsg[_: P]: P[(String, String)] = className ~ ": " ~ AnyChar.rep(1).! ~ End
+  private def exceptionWithMsg[_: P]: P[(String, String)] =
+    className.! ~ ( "(" ~ className ~ ")" ).? ~ ": " ~ AnyChar.rep(1).! ~ End
 
   def parseExceptionWithMsg(text: String): Option[(String, String)] = {
     fastparse.parse(text, exceptionNameWithSuffix(_)) match {
@@ -116,7 +120,7 @@ object ExceptionGrammar {
   }
 
   // must have the ending '\n'
-  private def exceptionWithoutMsg[_: P]: P[Unit] = exceptionName ~ End
+  private def exceptionWithoutMsg[_: P]: P[Unit] = exceptionNameWithNewLine ~ End
 
   def parseExceptionWithoutMsg(text: String): Option[String] = {
     fastparse.parse(text, exceptionWithoutMsg(_)) match {

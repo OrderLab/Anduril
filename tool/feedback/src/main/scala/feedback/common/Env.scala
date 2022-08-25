@@ -70,7 +70,21 @@ object Env {
   def parallel[R](begin: Integer, end: Integer, function: FunctionMayThrow[Integer, R]): Future[Iterable[R]] =
     parallel((begin.toInt until end.toInt).iterator map Integer.valueOf, function)
 
-  def shutdown(): Unit = this.synchronized {
+  @volatile private var count = 0
+
+  def enter(): Unit = this.synchronized {
+    count += 1
+  }
+
+  def exit(): Unit = this.synchronized {
+    require(count > 0)
+    count -= 1
+    if (count == 0) {
+      shutdown()
+    }
+  }
+
+  private def shutdown(): Unit = this.synchronized {
     executor foreach { _.shutdown() }
     executor = None
   }
