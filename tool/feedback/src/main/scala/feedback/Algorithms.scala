@@ -14,7 +14,7 @@ object Algorithms {
     val expectedDiff = computeDiff(good, bad)
     val actualDiff = computeDiff(good, trial)
     val wanted = new java.util.HashMap[ThreadDiff.CodeLocation, Integer]
-    expectedDiff foreach { _.dumpBadDiff { e => wanted.put(e, 0) } }
+    expectedDiff foreach { _.dumpBadDiff { e => wanted.put(e, -1) } }
     val eventNumber = spec.getInt("start")
     require(eventNumber <= wanted.size + (if (Symptoms.isResultEventLogged(spec)) 0 else 1))
     val array = spec.getJsonArray("nodes")
@@ -30,15 +30,16 @@ object Algorithms {
       }
     }
     actualDiff foreach { _.dumpBadDiff { e => wanted.remove(e) } }
+    def filter(i: Int): Unit = if (i != -1) action.accept(i)
     if (Symptoms.isResultEventLogged(spec)) {
       wanted.values.forEach { i =>
         if (i != 0) {
-          action.accept(i)
+          filter(i)
         }
       }
-    } else wanted.values.forEach(action)
+    } else wanted.values.forEach { filter(_) }
     if (Symptoms.findResultEvent(trial, spec).isEmpty) {
-      action.accept(0)
+      filter(0)
     }
   }
 

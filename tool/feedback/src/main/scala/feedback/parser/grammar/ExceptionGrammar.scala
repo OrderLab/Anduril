@@ -13,7 +13,9 @@ object ExceptionGrammar {
 
   private def number[_: P]: P[Int] = CharIn("0-9").rep(1).!.map {_.toInt}
 
-  private def className[_: P]: P[Unit] = CharIn("a-z", "A-Z", "0-9", "_", "$", ".").rep(1)
+  private def classNameConstruct[_: P]: P[Unit] = CharIn("a-z", "A-Z", "0-9", "_", "$", ".")
+
+  private def className[_: P]: P[Unit] = classNameConstruct.rep(1)
 
   private def exceptionMethodName[_: P]: P[String] = (className.! ~ ("<init>".! | "<clinit>".!).?) map {
     case (name, Some(suffix)) => s"$name$suffix"
@@ -22,15 +24,18 @@ object ExceptionGrammar {
 
   // only a sanity check for an exception; must carry '\n'
   private def exceptionNameWithNewLine[_: P]: P[Unit] =
-    StringIn("Exception\n", "Error\n", "Throwable\n") | ( CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionNameWithNewLine )
+    ( classNameConstruct ~ StringIn( "Exception\n", "Error\n", "Throwable\n" ) ) |
+      ( classNameConstruct ~ exceptionNameWithNewLine )
 
   private def exceptionNameWithParenthesis[_: P]: P[Unit] =
-    StringIn("Exception): ", "Error): ", "Throwable): ") | (CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionNameWithParenthesis)
+    ( classNameConstruct ~ StringIn( "Exception): ", "Error): ", "Throwable): " ) ) |
+      ( classNameConstruct ~ exceptionNameWithParenthesis )
 
   // only a sanity check for an exception
   private def exceptionNameWithSuffix[_: P]: P[Unit] =
-    StringIn("Exception: ", "Error: ", "Throwable: ") | ( "(" ~ exceptionNameWithParenthesis ) |
-      (CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionNameWithSuffix)
+    ( classNameConstruct ~ StringIn( "Exception: ", "Error: ", "Throwable: " ) ) |
+      ( "(" ~ exceptionNameWithParenthesis ) |
+      (classNameConstruct ~ exceptionNameWithSuffix)
 
   private def fileName[_: P]: P[String] =
     ( CharIn("a-z", "A-Z", "0-9", "_").rep(1).! ~ "." ~ CharIn("a-z", "A-Z", "0-9").rep(1).! ) map {
