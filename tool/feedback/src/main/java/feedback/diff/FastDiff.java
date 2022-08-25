@@ -1,18 +1,27 @@
 package feedback.diff;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 final class FastDiff<T> {
-    private enum CHOICE {
-        GOOD_ONLY,
-        BAD_ONLY,
-        COMMON,
+    enum CHOICE {
+        GOOD_ONLY(0),
+        BAD_ONLY(1),
+        COMMON(2);
+
+        final int id;
+
+        CHOICE(final int id) {
+            this.id = id;
+        }
     }
 
     final ArrayList<T> badOnly = new ArrayList<>();
     final int common;
+    final CHOICE[] path;
 
     FastDiff(final T[] good, final T[] bad) {
         int[] opt = new int[bad.length + 1], update = new int[bad.length + 1];
@@ -49,16 +58,20 @@ final class FastDiff<T> {
             update = opt;
             opt = tmp;
         }
+        this.path = new CHOICE[good.length + bad.length - opt[bad.length]];
         int i = good.length, j = bad.length;
-        int common = 0;
+        int common = 0, len = 0;
         while (i != 0 || j != 0) {
-            switch (choices[i * (bad.length + 1) + j]) {
+            final CHOICE choice = choices[i * (bad.length + 1) + j];
+            this.path[len++] = choice;
+            switch (choice) {
                 case COMMON: i--; j--; common++; break;
                 case GOOD_ONLY: i--; break;
                 case BAD_ONLY: j--; this.badOnly.add(bad[j]); break;
             }
         }
         Collections.reverse(this.badOnly);
+        ArrayUtils.reverse(this.path);
         this.common = common;
     }
 }
