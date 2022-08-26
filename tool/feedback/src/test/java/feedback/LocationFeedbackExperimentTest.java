@@ -1,23 +1,32 @@
 package feedback;
 
+import feedback.common.Env;
 import feedback.common.JavaThreadUtil;
 import feedback.common.ThreadTestBase;
 import feedback.log.LogTestUtil;
 import feedback.parser.TextParser;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import runtime.FeedbackManager;
 import runtime.LocalInjectionManager;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class LocationFeedbackExperimentTest extends ThreadTestBase {
+    private static final Logger LOG = LoggerFactory.getLogger(LocationFeedbackExperimentTest.class);
+
     private static final BugCase[] cases = new BugCase[]{
-//            new BugCase("hdfs-12248", 3173),  // cost ~2 min
+            new BugCase("hdfs-12248", 3173),
             new BugCase("hdfs-4233", 109),
             new BugCase("zookeeper-2247", 215),
             new BugCase("zookeeper-3006", 15),
@@ -84,21 +93,23 @@ final class LocationFeedbackExperimentTest extends ThreadTestBase {
             this.n = n;
         }
 
-        private void test() throws IOException {
+        private void test(final int start, final int end) throws IOException {
             final JsonObject spec = LogTestUtil.loadJson("location-feedback-experiment/" + this.name + "/tree.json");
             int nextWindowSize = 10;
             final FeedbackTestHelper feedback = new FeedbackTestHelper(spec);
-            for (int i = 0; i < this.n; i++) {
+            for (int i = 0; i < end; i++) {
                 final JsonObject injection = LogTestUtil.loadJson(
                         "location-feedback-experiment/" + this.name + "/trials/injection-" + i + ".json");
                 final int windowSize = injection.getInt("window");
                 assertEquals(windowSize, nextWindowSize);
                 nextWindowSize = injection.containsKey("id")?
                         windowSize : Math.min(LocalInjectionManager.INF, windowSize * 2);
-                final String[] lines = LogTestUtil.getFileLines(
-                        "location-feedback-experiment/" + this.name + "/trials/output-" + i + ".txt");
-                assertEquals(1, lines.length);
-                feedback.test(windowSize, TextParser.parseLogSet(lines[0]));
+                if (i >= start) {
+                    final String[] lines = LogTestUtil.getFileLines(
+                            "location-feedback-experiment/" + this.name + "/trials/output-" + i + ".txt");
+                    assertEquals(1, lines.length);
+                    feedback.test(windowSize, TextParser.parseLogSet(lines[0]));
+                }
                 // the last trial is generally flawed
                 // a trial without injection should not contribute to the feedback
                 if (i != this.n - 1 && injection.containsKey("id")) {
@@ -109,10 +120,30 @@ final class LocationFeedbackExperimentTest extends ThreadTestBase {
                 }
             }
         }
+
+        private void parallelTest() throws ExecutionException, InterruptedException {
+            final List<Future<Void>> tasks = new ArrayList<>();
+            final int stride = Math.max((int) Math.round(Math.sqrt(Math.sqrt(this.n) + 1)), 1);
+            final int len = this.n / stride + 1;
+            for (int i_ = 0; i_ < this.n; i_ += len) {
+                final int i = i_;
+                tasks.add(Env.submit(() -> this.test(i, Math.min(i + len, this.n))));
+            }
+            for (final Future<Void> task : tasks) {
+                task.get();
+            }
+        }
     }
 
     @Test
     void testLocationFeedbackExperiments() throws Exception {
-        JavaThreadUtil.parallel(cases, BugCase::test).get();
+        LOG.info("testLocationFeedbackExperiments is expected to run for {} minutes", 2);
+        JavaThreadUtil.parallel(cases, bug -> {
+            if (500 < bug.n) {
+                bug.test(0, bug.n);
+            } else {
+                bug.parallelTest();
+            }
+        }).get();
     }
 }
