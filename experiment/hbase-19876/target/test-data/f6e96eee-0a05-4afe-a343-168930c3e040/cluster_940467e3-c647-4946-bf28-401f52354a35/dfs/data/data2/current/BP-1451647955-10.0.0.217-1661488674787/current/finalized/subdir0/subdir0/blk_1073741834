@@ -1,0 +1,26 @@
+PBUF
+&
+defaultTestMalformedCellFromClient
+IS_METAfalse$
+hbase.server.keyvalue.maxsize100¶
+
+testFamily
+VERSIONS1
+EVICT_BLOCKS_ON_CLOSEfalse
+NEW_VERSION_BEHAVIORfalse
+KEEP_DELETED_CELLSFALSE
+CACHE_DATA_ON_WRITEfalse
+DATA_BLOCK_ENCODINGNONE
+TTL
+2147483647
+MIN_VERSIONS0
+REPLICATION_SCOPE0
+BLOOMFILTERROW
+CACHE_INDEX_ON_WRITEfalse
+	IN_MEMORYfalse
+CACHE_BLOOMS_ON_WRITEfalse 
+PREFETCH_BLOCKS_ON_OPENfalse
+COMPRESSIONNONE
+
+BLOCKCACHEtrue
+	BLOCKSIZE65536

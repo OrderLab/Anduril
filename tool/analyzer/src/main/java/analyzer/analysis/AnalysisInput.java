@@ -391,6 +391,25 @@ public class AnalysisInput {
             }
         }
 
+        if (options.getFlakyCase().equals("hbase-19876")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.client.TestMalformedCellFromClient");
+            this.testMethod = this.testClass.getMethod(
+                    "void testNonAtomicOperations()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         if (options.getFlakyCase().equals("kafka-13419")) {
             this.testClass = Scene.v().getSootClass("org.apache.kafka.clients.consumer.internals.ConsumerCoordinatorTest");
             this.testMethod = this.testClass.getMethod("void testCommitOffsetIllegalGenerationShouldResetGenerationId()");
