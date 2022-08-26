@@ -3,7 +3,7 @@ package feedback;
 import feedback.common.ActionMayThrow;
 import feedback.common.JavaThreadUtil;
 import feedback.common.ThreadTestBase;
-import feedback.common.ThreadUtil;
+import feedback.common.Env;
 import feedback.diff.LogFileDiff;
 import feedback.diff.ThreadDiff;
 import feedback.log.LogTestUtil;
@@ -17,6 +17,8 @@ import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -141,7 +143,7 @@ final class DiffTest extends ThreadTestBase {
     }
 
     private void testEndToEndDiff(final Path tempDir, final String bug, final String good, final String bad)
-            throws Exception {
+            throws IOException, ExecutionException, InterruptedException {
         final String bugDir = tempDir + "/" + bug;
         final String outputFile = bugDir + ".txt";
         final String jsonFile = bugDir + ".json";
@@ -149,19 +151,25 @@ final class DiffTest extends ThreadTestBase {
         final String badRun = tempDir + "/" + bad;
         final List<String> diff = collectDiff(LogTestUtil.getDistinctFileLines("ground-truth/" + bug + "/diff_log.txt"));
         // test output
-        CommandLine.main(prepareArgs(goodRun, badRun, Arrays.asList(random.nextBoolean()? "--output" : "-o", outputFile)));
-        assertEquals(diff, Arrays.stream(ParserUtil.getFileLines(outputFile)).sorted().collect(Collectors.toList()));
+        final Future<Void> outputTest = Env.submit(() -> {
+            CommandLine.main(prepareArgs(goodRun, badRun, Arrays.asList(random.nextBoolean() ? "--output" : "-o", outputFile)));
+            assertEquals(diff, Arrays.stream(ParserUtil.getFileLines(outputFile)).sorted().collect(Collectors.toList()));
+        });
         // test json
-        JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", bug).build(), jsonFile);
-        CommandLine.main(prepareArgs(goodRun, badRun, Arrays.asList(this.random.nextBoolean()? "--append" : "-a", jsonFile)));
-        final JsonObject json = JsonUtil.loadJson(jsonFile);
-        assertEquals(diff, JsonUtil.toStringStream(json.getJsonArray("diff")).sorted().collect(Collectors.toList()));
-        assertEquals(bug, json.getString("bug"));
+        final Future<Void> jsonTest = Env.submit(() -> {
+            JsonUtil.dumpJson(JsonUtil.createObjectBuilder().add("bug", bug).build(), jsonFile);
+            CommandLine.main(prepareArgs(goodRun, badRun, Arrays.asList(random.nextBoolean() ? "--append" : "-a", jsonFile)));
+            final JsonObject json = JsonUtil.loadJson(jsonFile);
+            assertEquals(diff, JsonUtil.toStringStream(json.getJsonArray("diff")).sorted().collect(Collectors.toList()));
+            assertEquals(bug, json.getString("bug"));
+        });
+        outputTest.get();
+        jsonTest.get();
     }
 
     @Test
     void testEndToEndDiff(final @TempDir Path tempDir) throws Exception {
-        ThreadUtil.parallel(prepareEndToEndTest(tempDir), bug -> {
+        Env.parallel(prepareEndToEndTest(tempDir), bug -> {
             testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
         }).get();
     }
@@ -171,26 +179,28 @@ final class DiffTest extends ThreadTestBase {
         final ArrayList<String> cases = prepareEndToEndTest(tempDir);
         final ArrayList<String> shuffle = (ArrayList<String>) cases.clone();
         Collections.shuffle(shuffle);
-        ThreadUtil.parallel(0, cases.size(), i -> {
+        Env.parallel(0, cases.size(), i -> {
             final String expected = cases.get(i);
             final String actual = shuffle.get(i);
             if (expected.equals(actual)) {
                 testEndToEndDiff(tempDir, expected, expected + "/good-run-log", expected + "/bad-run-log");
             } else {
-                assertThrows(AssertionFailedError.class, () ->
+                final Throwable error = assertThrows(threadExceptionClass, () ->
                         testEndToEndDiff(tempDir, expected, actual + "/good-run-log", actual + "/bad-run-log"));
+                assertEquals(AssertionFailedError.class, error.getCause().getClass());
             }
         }).get();
     }
 
     @Test
     void testEndToEndDiffSwitchError(final @TempDir Path tempDir) throws Exception {
-        ThreadUtil.parallel(prepareEndToEndTest(tempDir), bug -> {
+        Env.parallel(prepareEndToEndTest(tempDir), bug -> {
             if (random.nextBoolean()) {
                 testEndToEndDiff(tempDir, bug, bug + "/good-run-log", bug + "/bad-run-log");
             } else {
-                assertThrows(AssertionFailedError.class, () ->
+                final Throwable error = assertThrows(threadExceptionClass, () ->
                         testEndToEndDiff(tempDir, bug, bug + "/bad-run-log", bug + "/good-run-log"));
+                assertEquals(AssertionFailedError.class, error.getCause().getClass());
             }
         }).get();
     }

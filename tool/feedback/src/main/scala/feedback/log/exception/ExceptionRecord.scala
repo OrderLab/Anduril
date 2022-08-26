@@ -31,6 +31,11 @@ final case class NativeStackTraceElement(override val className: String,
   override val literal = s"$className.$methodName(Native Method)"
 }
 
+final case class UnknownStackTraceElement(override val className: String,
+                                          override val methodName: String) extends StackTraceRecord {
+  override val literal = s"$className.$methodName(Unknown Source)"
+}
+
 final case class JUnit5NormalStackTraceElement(override val className: String,
                                                override val methodName: String,
                                                fileName: String,
@@ -44,6 +49,11 @@ final case class JUnit5NormalStackTraceElement(override val className: String,
 final case class JUnit5NativeStackTraceElement(override val className: String,
                                                override val methodName: String) extends JUnit5StackTraceRecord {
   override val literal = s"$className.$methodName(Native Method)"
+}
+
+final case class JUnit5UnknownStackTraceElement(override val className: String,
+                                                override val methodName: String) extends JUnit5StackTraceRecord {
+  override val literal = s"$className.$methodName(Unknown Source)"
 }
 
 // stack trace

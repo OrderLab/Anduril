@@ -1,13 +1,14 @@
 package feedback.diff;
 
+import feedback.NativeAlgorithms;
 import feedback.common.ActionMayThrow;
 import feedback.log.entry.LogEntry;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.io.Serializable;
+import java.util.*;
 
 public final class ThreadDiff implements DiffDump {
-    public static final class CodeLocation {
+    public static final class CodeLocation implements Serializable {
         public final String classname;
         public final int fileLogLine;
 
@@ -57,7 +58,8 @@ public final class ThreadDiff implements DiffDump {
 
     public final String thread;
     private final CodeLocation[] good, bad;
-    private final FastDiff<CodeLocation> diff;
+    private final int[] diff;
+    private final List<CodeLocation> badOnly;
 
     private static CodeLocation[] convertLogEntries(final ArrayList<LogEntry> logEntries) {
         final CodeLocation[] result = new CodeLocation[logEntries.size()];
@@ -71,12 +73,36 @@ public final class ThreadDiff implements DiffDump {
         this.thread = thread;
         this.good = convertLogEntries(good);
         this.bad = convertLogEntries(bad);
-        this.diff = new FastDiff<>(this.good, this.bad);
+        final Map<CodeLocation, Integer> map = new HashMap<>();
+        for (final CodeLocation location : this.good) {
+            map.putIfAbsent(location, map.size());
+        }
+        for (final CodeLocation location : this.bad) {
+            map.putIfAbsent(location, map.size());
+        }
+        final int[] g = new int[this.good.length], b = new int[this.bad.length];
+        for (int i = 0; i < g.length; i++) {
+            g[i] = map.get(this.good[i]);
+        }
+        for (int i = 0; i < b.length; i++) {
+            b[i] = map.get(this.bad[i]);
+        }
+        this.diff = NativeAlgorithms.diff(g, b);
+        int i = 0, j = 0;
+        this.badOnly = new ArrayList<>();
+        for (final int choice : this.diff) {
+            switch (choice) {
+                case 0: i++; break;
+                case 1: this.badOnly.add(this.bad[j]); j++; break;
+                case 2: i++; j++; break;
+                default: throw new RuntimeException("invalid path choice");
+            }
+        }
     }
 
     // don't filter the duplicate entries
     @Override
     public void dumpBadDiff(final ActionMayThrow<CodeLocation> action) {
-        this.diff.badOnly.forEach(action);
+        this.badOnly.forEach(action);
     }
 }

@@ -1,6 +1,6 @@
 package feedback.parser
 
-import feedback.common.ThreadUtil
+import feedback.common.Env
 import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
 
 import java.io.File
@@ -10,7 +10,7 @@ object LogParser {
   def parseLog(rootDir: File): Log = {
     if (rootDir.isDirectory) {
       val rootPath = rootDir.toPath
-      DistributedWorkloadLog(ThreadUtil.parallel(rootDir.listFiles(dir => dir.isDirectory).toSeq
+      DistributedWorkloadLog(Env.parallel(rootDir.listFiles(dir => dir.isDirectory).toSeq
         .flatMap(dir => TextParser.parseLogDirId(dir.getName))
         .sorted.zipWithIndex.map {
         case (id, index) =>
@@ -25,7 +25,7 @@ object LogParser {
     } else {
       LogFileParser.parseLogFile(rootDir) match {
         case (log, Some(result)) => UnitTestLog(log, result)
-        case (_, None) => throw new Exception("Found unit test log without test result")
+        case (_, None) => throw new RuntimeException("Found unit test log without test result")
       }
     }
   }

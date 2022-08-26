@@ -103,6 +103,16 @@ final class ParserTest extends ThreadTestBase {
 
     @Test
     void testLogEntry() {
+        testLogEntry("2022-08-25 04:31:36,704 - ERROR [FSEditLogAsync:JournalSet@402] - Error: write op failed for (journal JournalAndStream(mgr=FileJournalManager(root=/home/haoze/flaky-reproduction/evaluation/hdfs-12070/target/test/data/dfs/name-0-1), stream=EditLogFileOutputStream(/home/haoze/flaky-reproduction/evaluation/hdfs-12070/target/test/data/dfs/name-0-1/current/edits_inprogress_0000000000000000001)))\n" +
+                        "java.io.IOException: flaky test exception injection of TraceAgent\n" +
+                        "        at sun.reflect.GeneratedConstructorAccessor1.newInstance(Unknown Source)\n" +
+                        "        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\n" +
+                        "        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)\n" +
+                        "        at runtime.exception.ExceptionBuilder.createException(ExceptionBuilder.java:16)\n" +
+                        "        at runtime.LocalInjectionManager.<init>(LocalInjectionManager.java:65)\n" +
+                        "        at runtime.TraceAgent.main(TraceAgent.java:240)",
+                "2022-08-25 04:31:36,704", "ERROR", "[FSEditLogAsync:JournalSet@402]",
+                "Error: write op failed for (journal JournalAndStream(mgr=FileJournalManager(root=/home/haoze/flaky-reproduction/evaluation/hdfs-12070/target/test/data/dfs/name-0-1), stream=EditLogFileOutputStream(/home/haoze/flaky-reproduction/evaluation/hdfs-12070/target/test/data/dfs/name-0-1/current/edits_inprogress_0000000000000000001)))\n");
         testLogEntry("2022-05-17 19:15:39,381 - INFO  [main:HostsFileReader@85] - Refreshing hosts (include/exclude) list",
                 "2022-05-17 19:15:39,381", "INFO ", "[main:HostsFileReader@85]", "Refreshing hosts (include/exclude) list");
         testLogEntry("2022-05-17 19:15:38,888 - INFO  [main:StringUtils@597] - STARTUP_MSG:\n" +

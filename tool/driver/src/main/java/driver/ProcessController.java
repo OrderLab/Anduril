@@ -1,5 +1,6 @@
 package driver;
 
+import feedback.common.Env;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,28 +13,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 final class ProcessController {
     private static final Logger LOG = LoggerFactory.getLogger(ProcessController.class);
 
     private final static long FILE_SIZE_LIMIT = 100_000_000;  // 100 MB
-    private final static int DEFAULT_TIMEOUT = 300;  // 5min
     private final static int granularity = 100;  // wait per 100 millisecond
-
-    private static final ExecutorService executor = Executors.newCachedThreadPool();
 
     static int run(final List<String> cmd,
                     final int timeout,
                     final boolean killall,
-                    final List<File> files) throws Exception {
+                    final List<File> files) throws IOException, InterruptedException, ExecutionException {
         final ProcessBuilder pb = new ProcessBuilder();
         pb.command(cmd);
         pb.redirectErrorStream(true);  // print the error output
         final Process process = pb.start();
-        final Future<IOException> console = executor.submit(() -> {
+        final Future<IOException> console = Env.submit(() -> {
             try (final BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
                 while ( (line = in.readLine()) != null) {
@@ -46,7 +43,12 @@ final class ProcessController {
         });
         try {
             boolean finish = false;
-            final long expectedEndTime = System.currentTimeMillis() + timeout * 1_000L;
+            final long expectedEndTime;
+            if (timeout < 0) {
+                expectedEndTime = System.currentTimeMillis() + 10_000L;  // 10 seconds for feedback computation
+            } else {
+                expectedEndTime = System.currentTimeMillis() + timeout * 1_000L;
+            }
             while (System.currentTimeMillis() < expectedEndTime) {
                 Thread.sleep(granularity);
                 if (!process.isAlive()) {
@@ -64,11 +66,11 @@ final class ProcessController {
                     }
                 }
                 if (size > FILE_SIZE_LIMIT) {
-                    throw new Exception("exceed file size limit");
+                    throw new RuntimeException("exceed file size limit");
                 }
             }
-            if (!finish) {
-                throw new Exception("trial times out");
+            if (!finish && timeout < 0) {
+                throw new RuntimeException("process times out");
             }
             return process.exitValue();
         } finally {
@@ -80,11 +82,7 @@ final class ProcessController {
         }
     }
 
-    static void run(final List<String> cmd, final boolean killall, final List<File> files) throws Exception {
-        run(cmd, DEFAULT_TIMEOUT, killall, files);
-    }
-
-    static void forceKill(final Process process, final boolean killall) throws Exception {
+    static void forceKill(final Process process, final boolean killall) throws InterruptedException {
         if (killall) {
             boolean success = false;
             int backoff = 1_000;
@@ -136,7 +134,7 @@ final class ProcessController {
     }
 
     static void kill(final int pid) throws InterruptedException {
-        if (pid == Driver.driverPid) {
+        if (pid == Env.pid()) {
             return;
         }
         boolean success = false;
@@ -163,9 +161,6 @@ final class ProcessController {
             "RemoteMavenServer",
             "NailgunRunner",
             "Main",
+            "GradleDaemon",
     };
-
-    static void shutdown() {
-        executor.shutdown();
-    }
 }

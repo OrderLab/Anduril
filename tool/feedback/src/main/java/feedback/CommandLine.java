@@ -1,7 +1,7 @@
 package feedback;
 
 import feedback.common.ActionMayThrow;
-import feedback.common.ThreadUtil;
+import feedback.common.Env;
 import feedback.diff.ThreadDiff;
 import feedback.log.Log;
 import feedback.parser.LogParser;
@@ -11,12 +11,10 @@ import org.apache.commons.cli.Options;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import java.io.File;
-import java.io.ObjectOutputStream;
-import java.io.PrintStream;
-import java.io.Serializable;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public final class CommandLine {
@@ -26,15 +24,16 @@ public final class CommandLine {
         this.cmd = cmd;
     }
 
-    public static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) throws IOException, ExecutionException, InterruptedException {
+        Env.enter();
         try {
             new CommandLine(parseCommandLine(args)).run();
         } finally {
-            ThreadUtil.shutdown();
+            Env.exit();
         }
     }
 
-    private void run() throws Exception {
+    private void run() throws IOException, ExecutionException, InterruptedException {
         if (cmd.hasOption("append")) {
             final File file = new File(cmd.getOptionValue("append"));
             final JsonObject json = JsonUtil.loadJson(file);
@@ -47,7 +46,10 @@ public final class CommandLine {
         } else {
             if (cmd.hasOption("output")) {
                 final File file = new File(cmd.getOptionValue("output"));
-                file.getParentFile().mkdirs(); // If the directory doesn't exist we need to create it
+                // If the directory doesn't exist we need to create it
+                if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
+                    throw new RuntimeException("fail to create the necessaries directories");
+                }
                 try (final PrintStream writer = new PrintStream(file)) {
                     this.outputHandler(writer);
                 }
@@ -57,18 +59,19 @@ public final class CommandLine {
         }
     }
 
-    private JsonObjectBuilder jsonHandler(final JsonObject json) throws Exception {
+    private JsonObjectBuilder jsonHandler(final JsonObject json)
+            throws ExecutionException, InterruptedException {
         final JsonObjectBuilder result = JsonUtil.json2builder(json);
         if (cmd.hasOption("location-feedback")) {
             if (json.containsKey("feedback")) {
-                throw new Exception("location feedback result existed at json");
+                throw new RuntimeException("location feedback result existed at json");
             }
             final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
             this.computeLocationFeedback(array::add);
             result.add("feedback", array);
         }
         if (cmd.hasOption("time-feedback")) {
-            throw new Exception("not support");
+            throw new RuntimeException("not support");
 //            if (json.containsKey("timeFeedback")) {
 //                throw new Exception("time feedback result existed at json");
 //            }
@@ -78,7 +81,7 @@ public final class CommandLine {
         }
         if (cmd.hasOption("diff")) {
             if (json.containsKey("diff")) {
-                throw new Exception("diff result existed at json");
+                throw new RuntimeException("diff result existed at json");
             }
             final JsonArrayBuilder array = JsonUtil.createArrayBuilder();
             this.computeDiff(e -> array.add(e.toString()));
@@ -87,45 +90,50 @@ public final class CommandLine {
         return result;
     }
 
-    private void outputHandler(final PrintStream printer) throws Exception {
+    private void outputHandler(final PrintStream printer)
+            throws ExecutionException, InterruptedException {
         if (cmd.hasOption("location-feedback")) {
             this.computeLocationFeedback(printer::println);
         }
         if (cmd.hasOption("time-feedback")) {
-            throw new Exception("not support");
+            throw new RuntimeException("not support");
         }
         if (cmd.hasOption("diff")) {
             this.computeDiff(printer::println);
         }
     }
 
-    private Serializable objectHandler() throws Exception {
+    private Serializable objectHandler()
+            throws ExecutionException, InterruptedException {
         if (cmd.hasOption("time-feedback")) {
             return this.computeTimeFeedback();
         }
-        throw new Exception("nothing to produce");
+        throw new RuntimeException("nothing to produce");
     }
 
     // WARN: we assume cmd is thread-safe (or will not change)
 
-    private void computeLocationFeedback(final ActionMayThrow<Integer> action) throws Exception {
-        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
-        final Future<Log> trial = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
-        final Future<JsonObject> spec = ThreadUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+    private void computeLocationFeedback(final ActionMayThrow<Integer> action)
+            throws ExecutionException, InterruptedException {
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> trial = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
+        final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
         Algorithms.computeLocationFeedback(good.get(), bad.get(), trial.get(), spec.get(), action);
     }
 
-    private Serializable computeTimeFeedback() throws Exception {
-        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
-        final Future<JsonObject> spec = ThreadUtil.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+    private Serializable computeTimeFeedback()
+            throws ExecutionException, InterruptedException {
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
         return Algorithms.computeTimeFeedback(good.get(), bad.get(), spec.get());
     }
 
-    private void computeDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action) throws Exception {
-        final Future<Log> good = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
-        final Future<Log> bad = ThreadUtil.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+    private void computeDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action)
+            throws ExecutionException, InterruptedException {
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
         Algorithms.computeDiff(good.get(), bad.get(), action);
     }
 
@@ -169,13 +177,13 @@ public final class CommandLine {
         return options;
     }
 
-    private static org.apache.commons.cli.CommandLine parseCommandLine(final String[] args) throws Exception {
+    private static org.apache.commons.cli.CommandLine parseCommandLine(final String[] args) {
         final Options options = getOptions();
         try {
             return new org.apache.commons.cli.DefaultParser().parse(options, args);
         } catch (org.apache.commons.cli.ParseException e) {
             new org.apache.commons.cli.HelpFormatter().printHelp("utility-name", options);
-            throw new Exception("fail to parse the arguments");
+            throw new RuntimeException("fail to parse the arguments");
         }
     }
 }

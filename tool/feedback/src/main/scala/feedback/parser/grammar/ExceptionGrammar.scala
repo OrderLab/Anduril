@@ -13,21 +13,29 @@ object ExceptionGrammar {
 
   private def number[_: P]: P[Int] = CharIn("0-9").rep(1).!.map {_.toInt}
 
-  private def className[_: P]: P[String] = CharIn("a-z", "A-Z", "0-9", "_", "$", ".").rep(1).!
+  private def classNameConstruct[_: P]: P[Unit] = CharIn("a-z", "A-Z", "0-9", "_", "$", ".")
 
-  private def exceptionMethodName[_: P]: P[String] = (className ~ ("<init>".! | "<clinit>".!).?) map {
+  private def className[_: P]: P[Unit] = classNameConstruct.rep(1)
+
+  private def exceptionMethodName[_: P]: P[String] = (className.! ~ ("<init>".! | "<clinit>".!).?) map {
     case (name, Some(suffix)) => s"$name$suffix"
     case (name, None) => name
   }
 
   // only a sanity check for an exception; must carry '\n'
-  private def exceptionName[_: P]: P[Unit] =
-    StringIn("Exception\n", "Error\n", "Throwable\n") | ( CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionName )
+  private def exceptionNameWithNewLine[_: P]: P[Unit] =
+    ( classNameConstruct ~ StringIn( "Exception\n", "Error\n", "Throwable\n" ) ) |
+      ( classNameConstruct ~ exceptionNameWithNewLine )
+
+  private def exceptionNameWithParenthesis[_: P]: P[Unit] =
+    ( classNameConstruct ~ StringIn( "Exception): ", "Error): ", "Throwable): " ) ) |
+      ( classNameConstruct ~ exceptionNameWithParenthesis )
 
   // only a sanity check for an exception
   private def exceptionNameWithSuffix[_: P]: P[Unit] =
-    StringIn("Exception: ", "Error: ", "Throwable: ") |
-      (CharIn("a-z", "A-Z", "0-9", "_", "$", ".") ~ exceptionNameWithSuffix)
+    ( classNameConstruct ~ StringIn( "Exception: ", "Error: ", "Throwable: " ) ) |
+      ( "(" ~ exceptionNameWithParenthesis ) |
+      (classNameConstruct ~ exceptionNameWithSuffix)
 
   private def fileName[_: P]: P[String] =
     ( CharIn("a-z", "A-Z", "0-9", "_").rep(1).! ~ "." ~ CharIn("a-z", "A-Z", "0-9").rep(1).! ) map {
@@ -41,26 +49,28 @@ object ExceptionGrammar {
 
   private def stackTraceElement[_: P]: P[StackTraceRecord] =
     ( CharIn(" ", "\t").rep(1) ~ "at " ~ (exceptionMethodName map ExceptionParser.parseClassMethod) ~ "(" ~ (
-      ( P( "Native Method" ) map {_ => None} )
-        | ( ( fileName ~ ":" ~ number ) map { Some(_) } )
-    ) ~ ")" )map {
-      case (classname, method, Some((filename, line))) =>
+      ( ( P( "Native Method" ) map { _ => Right(true) } )
+        | ( P( "Unknown Source" ) map { _ => Right(false) } )
+        | ( ( fileName ~ ":" ~ number ) map { Left(_) } )
+        ) ~ ")" ) ) map {
+      case (classname, method, Left((filename, line))) =>
         NormalStackTraceElement(classname, method, filename, line)
-      case (classname, method, None) =>
-        NativeStackTraceElement(classname, method)
+      case (classname, method, Right(isNative)) =>
+        if (isNative) NativeStackTraceElement(classname, method)
+        else UnknownStackTraceElement(classname, method)
     }
 
   private def stackTraceElement_JUnit5[_: P]: P[JUnit5StackTraceRecord] =
     (CharIn(" ", "\t").rep(1) ~ (exceptionMethodName map ExceptionParser.parseClassMethod) ~ "(" ~ (
-      (P("Native Method") map { _ => None })
-        | ((fileName ~ ":" ~ number) map {
-        Some(_)
-      })
-      ) ~ ")") map {
-      case (classname, method, Some((filename, line))) =>
+      ( ( P( "Native Method" ) map { _ => Right(true) })
+        | ( P( "Unknown Source" ) map { _ => Right(false) }  )
+        | ( (fileName ~ ":" ~ number) map { Left(_) } )
+        ) ~ ")") ) map {
+      case (classname, method, Left((filename, line))) =>
         JUnit5NormalStackTraceElement(classname, method, filename, line)
-      case (classname, method, None) =>
-        JUnit5NativeStackTraceElement(classname, method)
+      case (classname, method, Right(isNative)) =>
+        if (isNative) JUnit5NativeStackTraceElement(classname, method)
+        else JUnit5UnknownStackTraceElement(classname, method)
     }
 
   private def stackTraceElements[_: P]: P[mutable.ArrayBuffer[StackTraceRecord]] =
@@ -100,7 +110,8 @@ object ExceptionGrammar {
       case Parsed.Failure(_, _, _) => None
     }
 
-  private def exceptionWithMsg[_: P]: P[(String, String)] = className ~ ": " ~ AnyChar.rep(1).! ~ End
+  private def exceptionWithMsg[_: P]: P[(String, String)] =
+    className.! ~ ( "(" ~ className ~ ")" ).? ~ ": " ~ AnyChar.rep(1).! ~ End
 
   def parseExceptionWithMsg(text: String): Option[(String, String)] = {
     fastparse.parse(text, exceptionNameWithSuffix(_)) match {
@@ -114,7 +125,7 @@ object ExceptionGrammar {
   }
 
   // must have the ending '\n'
-  private def exceptionWithoutMsg[_: P]: P[Unit] = exceptionName ~ End
+  private def exceptionWithoutMsg[_: P]: P[Unit] = exceptionNameWithNewLine ~ End
 
   def parseExceptionWithoutMsg(text: String): Option[String] = {
     fastparse.parse(text, exceptionWithoutMsg(_)) match {

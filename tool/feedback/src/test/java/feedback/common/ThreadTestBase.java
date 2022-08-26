@@ -1,6 +1,9 @@
 package feedback.common;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.util.concurrent.ExecutionException;
 
 public abstract class ThreadTestBase {
 //    protected interface Executable extends org.junit.jupiter.api.function.Executable {
@@ -12,8 +15,15 @@ public abstract class ThreadTestBase {
 //        void execute2() throws Throwable;
 //    }
 
+    protected static final Class<ExecutionException> threadExceptionClass = ExecutionException.class;
+
+    @BeforeEach
+    public final void setup() {
+        Env.enter();
+    }
+
     @AfterEach
     public final void shutdown() {
-        ThreadUtil.shutdown();
+        Env.exit();
     }
 }
