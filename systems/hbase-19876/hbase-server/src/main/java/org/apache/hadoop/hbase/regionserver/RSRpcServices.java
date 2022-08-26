@@ -943,7 +943,7 @@ public class RSRpcServices implements HBaseRPCErrorHandler,
        * result or exception to the corresponding actions, We need to know which action
        * is the mutation belong to. We can't sort ClientProtos.Action array, since they
        * are bonded to cellscanners.
-       */File file=new File("test.txt"); FileInputStream fis=new FileInputStream(file); fis.read();
+       */ //File file=new File("test.txt"); FileInputStream fis=new FileInputStream(file); fis.read();
       Map<Mutation, ClientProtos.Action> mutationActionMap = new HashMap<>();
       int i = 0;
       for (ClientProtos.Action action: mutations) {
