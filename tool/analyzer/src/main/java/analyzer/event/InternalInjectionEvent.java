@@ -45,7 +45,8 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
                         frontiers.add(new InternalInjectionEvent(virtualMethod, this.exceptionType));
                     }
                 }
-                injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
+                if (analysis.NewExceptionUncaught.contains(this.exceptionType))
+                    injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
             } else {
                 this.frontiers.add(new LocationEvent(loc));
             }

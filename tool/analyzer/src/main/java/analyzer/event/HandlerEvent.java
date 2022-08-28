@@ -39,7 +39,8 @@ public final class HandlerEvent extends ProgramEvent {
                                 frontiers.add(new InternalInjectionEvent(virtualMethod, exception));
                             }
                         }
-                        injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
+                        if (analysis.NewExceptionUncaught.contains(exception))
+                            injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
                     } else if (analysis.libCalls.containsKey(unit)) {
                         final ExternalInjectionEvent injectionEvent =
                                 new ExternalInjectionEvent(analysis.libCalls.get(unit), exception);
