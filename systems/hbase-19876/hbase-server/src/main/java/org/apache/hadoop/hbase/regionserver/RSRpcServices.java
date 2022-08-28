@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 package org.apache.hadoop.hbase.regionserver;
-import java.io.*;
+//import java.io.*;
 import java.io.FileNotFoundException;
-//import java.io.IOException;
+import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.BindException;
 import java.net.InetSocketAddress;
@@ -950,10 +950,10 @@ public class RSRpcServices implements HBaseRPCErrorHandler,
         MutationProto m = action.getMutation();
         Mutation mutation;
         if (m.getMutateType() == MutationType.PUT) {
-          LOG.info("my injection");
-          if (++cc == 11) {
-            throw new IOException("my injection");
-          }
+          //LOG.info("my injection");
+          //if (++cc == 11) {
+          //  throw new IOException("my injection");
+          //}
           mutation = ProtobufUtil.toPut(m, cells);
           batchContainsPuts = true;
         } else {
