@@ -239,7 +239,7 @@ public class RSRpcServices implements HBaseRPCErrorHandler,
     AdminService.BlockingInterface, ClientService.BlockingInterface, PriorityFunction,
     ConfigurationObserver {
   protected static final Logger LOG = LoggerFactory.getLogger(RSRpcServices.class);
-  //private static volatile int cc = 0;
+  private static volatile int cc = 0;
   /** RPC scheduler to use for the region server. */
   public static final String REGION_SERVER_RPC_SCHEDULER_FACTORY_CLASS =
     "hbase.region.server.rpc.scheduler.factory.class";
@@ -950,10 +950,10 @@ public class RSRpcServices implements HBaseRPCErrorHandler,
         MutationProto m = action.getMutation();
         Mutation mutation;
         if (m.getMutateType() == MutationType.PUT) {
-          //LOG.info("my injection");
-          //if (++cc == 11) {
-          //  throw new IOException("my injection");
-          //}
+          LOG.info("my injection");
+          if (++cc == 11) {
+            throw new IOException("my injection");
+          }
           mutation = ProtobufUtil.toPut(m, cells);
           batchContainsPuts = true;
         } else {
