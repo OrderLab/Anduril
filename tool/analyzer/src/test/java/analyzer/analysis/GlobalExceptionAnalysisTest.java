@@ -138,4 +138,29 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
         assertTrue(targetMethodAnalysis.methodExceptions.containsKey(ioException));
         assertTrue(targetMethodAnalysis.methodExceptions.get(ioException).contains(unitIds.get(8)));
     }
+
+    @Test
+    void unCaughtExceptionSimpleCase() {
+        SootClass target = classes.get(ExceptionExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void simpleExceptionUncaught(int)");
+        ExceptionHandlingAnalysis targetMethodAnalysis = exceptionAnalysis.analyses.get(targetMethod);
+        assertTrue(targetMethodAnalysis.NewExceptionUncaught.size() == 1);
+        SootClass ioException = Scene.v().loadClassAndSupport(IOException.class.getName());
+        SootClass runtimeException = Scene.v().loadClassAndSupport(RuntimeException.class.getName());
+        assertTrue(targetMethodAnalysis.NewExceptionUncaught.contains(ioException));
+        assertTrue(!targetMethodAnalysis.NewExceptionUncaught.contains(runtimeException));
+    }
+
+    @Test
+    void unCaughtExceptionComplexCase() {
+        SootClass target = classes.get(ExceptionExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void complexExceptionUncaught(int)");
+        ExceptionHandlingAnalysis targetMethodAnalysis = exceptionAnalysis.analyses.get(targetMethod);
+        assertTrue(targetMethodAnalysis.NewExceptionUncaught.size() == 1);
+        SootClass ioException = Scene.v().loadClassAndSupport(IOException.class.getName());
+        SootClass runtimeException = Scene.v().loadClassAndSupport(RuntimeException.class.getName());
+        assertTrue(!targetMethodAnalysis.NewExceptionUncaught.contains(ioException));
+        assertTrue(targetMethodAnalysis.NewExceptionUncaught.contains(runtimeException));
+        //System.out.println(targetMethodAnalysis.throwLocations);
+    }
 }

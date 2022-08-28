@@ -43,6 +43,8 @@ public final class ExceptionHandlingAnalysis {
     public final Map<Unit, Map<SootClass, Set<Unit>>> throw2transit = new HashMap<>();
     // Unit carrying an exception -> exception type -> units throwing this exception
     public final Map<Unit, Map<SootClass, Set<Unit>>> transit2throw = new HashMap<>();
+    //Exception that is created and uncaught in this method.
+    public final Set<SootClass> NewExceptionUncaught = new HashSet<>();
 
     public boolean updateWith(final SootMethod method, final Set<SootClass> exceptions) {
 //        if (this.method.getDeclaringClass().getName()
@@ -99,6 +101,10 @@ public final class ExceptionHandlingAnalysis {
                 searchThrowLocation(unit, (Local) value);
             }
         }
+        // infer the exception in newExceptions that is uncaught
+        extractNewExceptionsUncaught();
+
+
         // collect the invocations
         for (final Unit unit : units) {
             for (final ValueBox valueBox : unit.getUseBoxes()) {
@@ -126,6 +132,45 @@ public final class ExceptionHandlingAnalysis {
         }
         // update the exceptions
         updateExceptions();
+    }
+
+    private void extractNewExceptionsUncaught() {
+        for (Unit unitCarryingNewException : newExceptions.keySet()){
+            Set<Unit> visited = new HashSet<>(throwLocations.get(unitCarryingNewException));
+            LinkedList<Unit> unitsThrowNewException = new LinkedList<>(throwLocations.get(unitCarryingNewException));
+            SootClass exception = newExceptions.get(unitCarryingNewException);
+            while (!unitsThrowNewException.isEmpty()) {
+                Unit unitThrowException = unitsThrowNewException.pollFirst();
+                int id = ids.get(unitThrowException);
+                boolean caught = false;
+                for (final Trap trap : body.getTraps()) {
+                    if (ids.get(trap.getBeginUnit()) <= id && id < ids.get(trap.getEndUnit())
+                                && SubTypingAnalysis.v().isSubtype(exception, trap.getException())) {
+                        //Caught the exception
+                        caught = true;
+                        final Unit handler = trap.getHandlerUnit();
+                        if (throwLocations.containsKey(handler)) {
+                            //if (this.method.getSubSignature().equals("void complexExceptionUncaught(int)"))
+                                //System.out.println(handler);
+                            for (Unit newUnitThrowException : throwLocations.get(handler)) {
+                                if (!visited.contains(newUnitThrowException)) {
+                                    //System.out.println(newUnitThrowException);
+                                    //Breadth first search for uncaught of a newException
+                                    unitsThrowNewException.addLast(newUnitThrowException);
+                                    //Avoid add one throw statement twice
+                                    visited.add(newUnitThrowException);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                if (!caught) {
+                    NewExceptionUncaught.add(exception);
+                    break;
+                }
+            }
+        }
     }
 
     public void ttt() {

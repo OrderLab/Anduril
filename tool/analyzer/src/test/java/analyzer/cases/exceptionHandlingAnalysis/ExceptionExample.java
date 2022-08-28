@@ -57,4 +57,39 @@ public class ExceptionExample {
         }
     }
 
+    void simpleExceptionUncaught(int x) throws Exception {
+        try{
+            Exception e = new IOException();
+            Exception f = new RuntimeException();
+            if (x >= 3) {
+                x = 7;
+                throw e;
+            } else if (x >= 0) {
+                throw e;
+            }
+            throw f;
+        } catch (RuntimeException g) {
+            //doNothing
+        }
+        catch (Exception g){
+            throw g;
+        }
+    }
+
+    void complexExceptionUncaught(int x) throws Exception {
+        try {
+            try {
+                throw new IOException();
+            } catch (Exception e) {
+                if (x >= 3) {
+                    x = 7;
+                    throw e;
+                } else if (x >= 0) {
+                    throw new RuntimeException();
+                }
+            }
+        } catch (IOException f) {
+            //do nothing
+        }
+    }
 }
