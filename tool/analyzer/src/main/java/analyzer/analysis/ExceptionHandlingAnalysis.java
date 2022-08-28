@@ -103,6 +103,11 @@ public final class ExceptionHandlingAnalysis {
         }
         // infer the exception in newExceptions that is uncaught
         extractNewExceptionsUncaught();
+        //if (method.getSubSignature().equals("void checkCellSizeLimit(org.apache.hadoop.hbase.regionserver.HRegion, org.apache.hadoop.hbase.client.Mutation)"))
+        //        System.out.println(NewExceptionUncaught);
+
+
+
 
 
         // collect the invocations
