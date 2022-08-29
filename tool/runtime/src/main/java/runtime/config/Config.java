@@ -6,9 +6,10 @@ import java.util.Properties;
 import java.util.Set;
 
 public final class Config {
+    private final static int DEFAULT_TIMEOUT = 300;  // 5min
 
     public static int getTimeout(final Properties properties) {
-        return Integer.parseInt(properties.getProperty("flakyAgent.trialTimeout", "-1"));
+        return Integer.parseInt(properties.getProperty("flakyAgent.trialTimeout", String.valueOf(DEFAULT_TIMEOUT)));
     }
 
     // common for experiment and baseline

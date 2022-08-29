@@ -1,67 +1,24 @@
 package driver;
 
+import feedback.common.ActionMayThrow;
+import feedback.common.CallMayThrow;
 import feedback.common.Env;
+import feedback.common.RunMayThrow;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.config.Config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public final class Driver {
     private static final Logger LOG = LoggerFactory.getLogger(Driver.class);
 
-    private final static int DEFAULT_TIMEOUT = 300;  // 5min
-
-    private static void run(final int trialId, final Spec spec, final Properties properties)
-            throws IOException, ExecutionException, InterruptedException {
-        final List<String> cmd = new ArrayList<>();
-        cmd.add("bash");
-        cmd.add(spec.currentDir + "/single-trial.sh");
-        final String injectionFile = spec.experimentPath.getPath() + "/injection-" + trialId + ".json";
-        if (spec.distributed) {
-            cmd.add(String.valueOf(trialId));
-            cmd.add(String.valueOf(spec.processNumber));
-            cmd.add(spec.experimentPath.getPath());
-            cmd.add(spec.specPath.getPath());
-            cmd.add(injectionFile);
-        } else {
-            cmd.add(String.valueOf(trialId));
-            cmd.add(spec.experimentPath.getPath());
-            cmd.add(spec.specPath.getPath());
-            cmd.add(injectionFile);
-            cmd.add("_");
-        }
-        for (final String name: properties.stringPropertyNames()) {
-            cmd.add("-D" + name + "=" + properties.getProperty(name));
-        }
-        final int timeout = Config.getTimeout(properties);
-        final List<File> files = new ArrayList<>();
-        if (spec.distributed) {
-            for (int i = 0; i < spec.processNumber; i++) {
-                files.add(new File(spec.currentDir + "/cluster/logs-" + i));
-            }
-        } else {
-            files.add(new File(spec.currentDir + "/trial.out"));
-        }
-        if (timeout < 0) {
-            ProcessController.run(cmd, DEFAULT_TIMEOUT, spec.distributed, files);
-        } else {
-            ProcessController.run(cmd, timeout + 10, spec.distributed, files);   // preserve 10s
-        }
-        final List<String> feedback =
-                Arrays.asList("java", "-jar", spec.currentDir + "/feedback.jar", "--location-feedback",
-                        "-g", spec.currentDir + "/good-run-log", "-b", spec.currentDir + "/bad-run-log",
-                        "-t", spec.currentDir + "/trial.out", "-s", spec.specPath.getPath(), "-a", injectionFile);
-        final int code = ProcessController.run(feedback, -1, false, new LinkedList<>());
-        if (code != 0) {
-            throw new RuntimeException("feedback process error return code " + code);
-        }
-    }
+    private final static long FILE_SIZE_LIMIT = 100_000_000;  // 100 MB
+    private final static int TRIAL_LIMIT = 1_000_000;
 
     public static void main(final String[] args) throws IOException, InterruptedException {
         LOG.info("Running driver with process id {}", Env.pid());
@@ -69,7 +26,7 @@ public final class Driver {
         try {
             final Spec spec = new Spec(args);
             final Properties properties = new Properties();
-            try (final FileInputStream input = new FileInputStream(spec.configPath)) {
+            try (final FileInputStream input = new FileInputStream(spec.configFile)) {
                 properties.load(input);
             }
             if (spec.baseline) {
@@ -77,42 +34,236 @@ public final class Driver {
             } else {
                 Config.checkExperimentConfig(properties);
             }
-            int trialId = spec.start;
-            int backoff = 1_000;
-            while (trialId < spec.end) {
-                try {
-                    // 1) run the script
-                    // 2) set timeout for the script
-                    // 3) monitor the file size
-                    // 4) kill the script and JVM processes if any
-                    // 5) run feedback
-                    // 6) monitor the feedback result (by process exit code)
-                    run(trialId, spec, properties);
-                    final File src = new File(spec.currentDir + "/trial.out");
-                    final File dst = new File(spec.experimentPath.getPath() + "/" + trialId + ".out");
-                    if (src.isDirectory()) {
-                        FileUtils.moveDirectory(src, dst);
-                    } else {
-                        FileUtils.moveFile(src, dst);
-                    }
-                    LOG.info("finish trial {}", trialId);
-                    trialId++;
-                    backoff = 1_000;
-                } catch (final Exception e) {
-                    LOG.warn("retry trial {} due to error", trialId, e);
-                    backoff *= 2;
-                    final String injectionFile = spec.experimentPath.getPath() + "/injection-" + trialId + ".json";
-                    try {
-                        FileUtils.delete(new File(injectionFile));
-                    } catch (final IOException ex) {
-                        LOG.error("not able to delete {}", injectionFile, ex);
-                    }
+            for (int trialId = findStart(spec.experimentPath); trialId < TRIAL_LIMIT; trialId++) {
+                final File injectionFile = spec.experimentPath.resolve("injection-" + trialId + ".json").toFile();
+                final Path outputDir = spec.currentDir.resolve("trial.out");
+                final Path trialDir = spec.experimentPath.resolve(trialId + ".out");
+                final List<String> trial = new ArrayList<>();
+                trial.add("bash");
+                trial.add(spec.currentDir + "/single-trial.sh");
+                if (spec.distributed) {
+                    trial.add(String.valueOf(trialId));
+                    trial.add(String.valueOf(spec.processNumber));
+                    trial.add(spec.experimentPath.toString());
+                    trial.add(spec.specFile.getPath());
+                    trial.add(injectionFile.getPath());
+                } else {
+                    trial.add(String.valueOf(trialId));
+                    trial.add(spec.experimentPath.toString());
+                    trial.add(spec.specFile.getPath());
+                    trial.add(injectionFile.getPath());
+                    trial.add("_");
                 }
-                Thread.sleep(backoff);
+                for (final String name: properties.stringPropertyNames()) {
+                    trial.add("-D" + name + "=" + properties.getProperty(name));
+                }
+                final int timeout = Config.getTimeout(properties);
+                final List<String> feedback =
+                        Arrays.asList("java", "-jar", spec.currentDir.resolve("feedback.jar").toString(),
+                                "--location-feedback",
+                                "-g", spec.currentDir.resolve("good-run-log").toString(),
+                                "-b", spec.currentDir.resolve("bad-run-log").toString(),
+                                "-t", outputDir.toString(),
+                                "-s", spec.specFile.getPath(),
+                                "-a", injectionFile.getPath());
+                loop(() -> {
+                    final List<Future<Void>> consoles = new ArrayList<>();
+                    try {
+                        delete(injectionFile);
+                        delete(trialDir.toFile());
+                        final Process trialProcess = start(trial);
+                        consoles.add(console(trialProcess, LOG::debug));
+                        if (monitor(timeout, () -> {
+                            long size = 0;
+                            if (spec.distributed) {
+                                for (int i = 0; i < spec.processNumber; i++) {
+                                    size += fileSize(spec.currentDir.resolve("cluster").resolve("logs-" + i).toFile());
+                                }
+                            } else {
+                                size += fileSize(outputDir.toFile());
+                            }
+                            return size < FILE_SIZE_LIMIT && trialProcess.isAlive();
+                        })) {
+                            kill(trialProcess);
+                            return false;
+                        }
+                        if (spec.distributed) {
+                            for (int i = 0; i < spec.processNumber; i++) {
+                                move(spec.currentDir.resolve("cluster").resolve("logs-" + i).toFile(),
+                                        outputDir.resolve("logs-" + i).toFile());
+                            }
+                        }
+                        final Process feedbackProcess = start(feedback);
+                        consoles.add(console(feedbackProcess, LOG::debug));
+                        if (monitor(60, feedbackProcess::isAlive)) {
+                            kill(feedbackProcess);
+                            return false;
+                        }
+                        if (feedbackProcess.exitValue() != 0) {
+                            throw new RuntimeException("feedback exit value = " + feedbackProcess.exitValue());
+                        }
+                        move(outputDir.toFile(), trialDir.toFile());
+                    } finally {
+                        killall();
+                        for (final Future<Void> console : consoles) {
+                            console.get();
+                        }
+                    }
+                    return true;
+                }, () -> {
+                    delete(injectionFile);
+                    delete(trialDir.toFile());
+                });
+                LOG.info("finish trial {}", trialId);
             }
         } finally {
             Env.exit();
             LOG.info("Driver exits...");
         }
     }
+
+    static int findStart(final Path experiment) {
+        for (int id = 0; ; id++) {
+            if (!experiment.resolve(id + ".out").toFile().exists()) {
+                return id;
+            }
+        }
+    }
+
+    static void move(final File src, final File dst) throws IOException {
+        if (!src.exists()) {
+            throw new RuntimeException("file not exists: " + src);
+        }
+        dst.getParentFile().mkdirs();
+        if (dst.exists()) {
+            throw new RuntimeException("file already exists: " + dst);
+        }
+        if (src.isDirectory()) {
+            FileUtils.moveDirectory(src, dst);
+        } else {
+            FileUtils.moveFile(src, dst);
+        }
+    }
+
+    static void delete(final File file) throws IOException {
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                FileUtils.deleteDirectory(file);
+            } else {
+                FileUtils.delete(file);
+            }
+        }
+    }
+
+    static long fileSize(final File file) {
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                return FileUtils.sizeOfDirectory(file);
+            }
+            return FileUtils.sizeOf(file);
+        }
+        return 0;
+    }
+
+    static Process start(final List<String> cmd) throws IOException {
+        final ProcessBuilder pb = new ProcessBuilder();
+        pb.command(cmd);
+        pb.redirectErrorStream(true);  // print the error output
+        return pb.start();
+    }
+
+    static Future<Void> console(final Process process, final ActionMayThrow<String> action) {
+        return Env.submit(() -> {
+            try (final BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    action.accept(line);
+                }
+            }
+        });
+    }
+
+    private static final int granularity = 100;  // wait per 100 millisecond
+
+    static boolean monitor(final CallMayThrow<Boolean> predicate)
+            throws InterruptedException {
+        try {
+            while (predicate.call()) {
+                Thread.sleep(granularity);
+            }
+            return false;
+        } catch (final Exception e) {
+            LOG.warn("error when monitoring", e);
+            Thread.sleep(granularity);
+        }
+        return true;
+    }
+
+    static boolean monitor(final int timeout, final CallMayThrow<Boolean> predicate) throws InterruptedException {
+        final long end = System.currentTimeMillis() + timeout * 1_000L;
+        return monitor(() -> {
+            if (System.currentTimeMillis() > end) {
+                return false;
+            }
+            return predicate.call();
+        });
+    }
+
+    static void loop(final CallMayThrow<Boolean> callable, final RunMayThrow exception) throws InterruptedException {
+        for (long backoff = 1_000; ; backoff *= 2) {
+            try {
+                if (callable.call()) {
+                    return;
+                }
+            } catch (final Exception e) {
+                LOG.warn("error in loop", e);
+                exception.run();
+            }
+            Thread.sleep(backoff);
+        }
+    }
+
+    static void kill(final int pid) throws InterruptedException {
+        loop(() -> {
+            start(Arrays.asList("kill", "-9", String.valueOf(pid))).waitFor();
+            return true;
+        }, () -> { });
+    }
+
+    static void kill(final Process process) throws InterruptedException {
+        loop(() -> {
+            process.destroyForcibly();
+            return !process.isAlive();
+        }, () -> { });
+    }
+
+    static void killall() throws InterruptedException {
+        loop(() -> {
+            final Process jps = start(Collections.singletonList("jps"));
+            final List<Integer> processes = new ArrayList<>();
+            final Future<Void> print = console(jps, line -> {
+                final String[] args = line.split(" ");
+                final int pid = Integer.parseInt(args[0]);
+                if (pid != Env.pid() && keyServices.stream().noneMatch(args[1]::startsWith)) {
+                    processes.add(pid);
+                }
+            });
+            jps.waitFor();
+            print.get();
+            for (final int pid : processes) {
+                kill(pid);
+            }
+            return true;
+        }, () -> { });
+    }
+
+    private static final List<String> keyServices = Arrays.asList(
+            "Launcher",
+            "Jps",
+            "jps",
+            "RemoteMavenServer",
+            "NailgunRunner",
+            "Main",
+            "GradleDaemon"
+    );
 }

@@ -6,15 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.concurrent.ExecutionException;
 
 public abstract class ThreadTestBase {
-//    protected interface Executable extends org.junit.jupiter.api.function.Executable {
-//        @Override
-//        default void execute() throws Throwable {
-//            execute2();
-//        }
-//
-//        void execute2() throws Throwable;
-//    }
-
     protected static final Class<ExecutionException> threadExceptionClass = ExecutionException.class;
 
     @BeforeEach

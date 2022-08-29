@@ -5,41 +5,23 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import java.io.File;
-import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 final class Spec {
-    public final static int TRIAL_LIMIT = 1_000_000;
-
-    public final int start, end;
     public final boolean baseline, experiment;
     public final boolean distributed;
     public final int processNumber;
-    public final String currentDir;
+    public final Path currentDir;
 
-    public final File experimentPath, specPath;
-    public final File configPath;
+    public final Path experimentPath;
+    public final File configFile, specFile;
 
     Spec(final String[] args) {
         final CommandLine cmd = parseCommandLine(args);
-        this.configPath = new File(cmd.getOptionValue("config"));
-        if (!this.configPath.exists() || this.configPath.isDirectory()) {
-            throw new RuntimeException("invalid config " + this.configPath.getPath());
-        }
-        if (cmd.hasOption("start")) {
-            this.start = Integer.parseInt(cmd.getOptionValue("start"));
-        } else {
-            this.start = 0;
-        }
-        if (this.start < 0) {
-            throw new RuntimeException("invalid start id: " + this.start);
-        }
-        if (cmd.hasOption("end")) {
-            this.end = Integer.parseInt(cmd.getOptionValue("end"));
-            if (this.end > TRIAL_LIMIT) {
-                throw new RuntimeException(this.end + " exceeds trials end id limit");
-            }
-        } else {
-            this.end = TRIAL_LIMIT;
+        this.configFile = new File(cmd.getOptionValue("config"));
+        if (!this.configFile.exists() || this.configFile.isDirectory()) {
+            throw new RuntimeException("invalid config " + this.configFile.getPath());
         }
         this.baseline = cmd.hasOption("baseline");
         this.experiment = cmd.hasOption("experiment");
@@ -53,43 +35,30 @@ final class Spec {
             this.distributed = false;
             this.processNumber = -1;
         }
-        this.currentDir = System.getProperty("user.dir");
-        experimentPath = new File(cmd.getOptionValue("path"));
-        if (experimentPath.exists()) {
-            if (experimentPath.isDirectory()) {
-                if (experimentPath.listFiles().length > 0) {
-                    if (!cmd.hasOption("yes") &&
-                            !getYes("Found existing files in " + experimentPath.getPath())) {
-                        throw new RuntimeException("Found existing files in " + experimentPath.getPath());
-                    }
-                }
-            } else {
-                throw new RuntimeException(experimentPath.getPath() + " is not a directory");
+        this.currentDir = Paths.get(System.getProperty("user.dir"));
+        final File experimentFile = new File(cmd.getOptionValue("path"));
+        this.experimentPath = experimentFile.toPath();
+        if (experimentFile.exists()) {
+            if (!experimentFile.isDirectory()) {
+                throw new RuntimeException(experimentFile.getPath() + " is not a directory");
             }
         } else {
-            if (!experimentPath.exists() && !experimentPath.mkdirs()) {
-                throw new RuntimeException("can't create directory " + experimentPath.getPath());
+            if (!experimentFile.mkdirs()) {
+                throw new RuntimeException("can't create directory " + experimentFile.getPath());
             }
         }
         if (this.baseline) {
-            this.specPath = null;
+            this.specFile = null;
         } else {
-            this.specPath = new File(cmd.getOptionValue("spec"));
-            if (!this.specPath.exists()) {
-                throw new RuntimeException("can't find injection spec json " + this.specPath.getPath());
+            this.specFile = new File(cmd.getOptionValue("spec"));
+            if (!this.specFile.exists()) {
+                throw new RuntimeException("can't find injection spec json " + this.specFile.getPath());
             }
         }
     }
 
     private static Options getOptions() {
         final Options options = new Options();
-
-        final Option start = new Option("s", "start", true,
-                "the first trial id (inclusive)");
-        options.addOption(start);
-
-        final Option end = new Option("e", "end", true, "the end trial id (exclusive)");
-        options.addOption(end);
 
         final Option config = new Option("c", "config", true, "experiment config file");
         config.setRequired(true);
@@ -98,7 +67,8 @@ final class Spec {
         final Option baseline = new Option("b", "baseline", false, "run baseline");
         options.addOption(baseline);
 
-        final Option experiment = new Option("ex", "experiment", false, "run experiment");
+        final Option experiment = new Option("e", "experiment", false,
+                "run experiment instead of baseline");
         options.addOption(experiment);
 
         final Option nodes = new Option("n", "nodes", true, "distributed nodes");
@@ -108,10 +78,7 @@ final class Spec {
         path.setRequired(true);
         options.addOption(path);
 
-        final Option yes = new Option("y", "yes", false, "say yes to warning prompt");
-        options.addOption(yes);
-
-        final Option spec = new Option("spec", "injection-spec", true,
+        final Option spec = new Option("s", "spec", true,
                 "path of injection spec json");
         options.addOption(spec);
 
@@ -125,20 +92,6 @@ final class Spec {
         } catch (org.apache.commons.cli.ParseException e) {
             new org.apache.commons.cli.HelpFormatter().printHelp("utility-name", options);
             throw new RuntimeException("fail to parse the arguments");
-        }
-    }
-
-    private boolean getYes(final String prompt) {
-        final Scanner kbd = new Scanner(System.in);
-        while (true) {
-            System.out.println(prompt);
-            System.out.print("Do you want to continue? type yes or no: ");
-            final String decision = kbd.nextLine();
-            switch(decision) {
-                case "yes": return true;
-                case "no": return false;
-                default: System.out.println("please enter again");
-            }
         }
     }
 }
