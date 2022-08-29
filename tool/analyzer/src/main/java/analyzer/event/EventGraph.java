@@ -92,7 +92,7 @@ public class EventGraph {
                     if (analysisManager.exceptionAnalysis.analyses.get(throwingMethod).NewExceptionUncaught.contains(exception)) {
                         //Add into the graph
                         final EventGraph.Node node = nodes.get(injectionPoint.callee);
-                        final ProgramEvent event = new UncaughtThrowInjectionEvent(exception);
+                        final ProgramEvent event = new UncaughtThrowInjectionEvent(throwingMethod,exception);
                         final EventGraph.Node child = new EventGraph.Node(event, node.depth + 1);
                         nodeIds.put(event, nodeIds.size());
                         nodes.put(event, child);

@@ -10,9 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UncaughtThrowInjectionEvent extends ExceptionInjectionEvent {
-    //final SootMethod exceptionMethod;
-    public UncaughtThrowInjectionEvent(final SootClass exceptionType) {
+    final SootMethod exceptionMethod;
+    public UncaughtThrowInjectionEvent(final SootMethod exceptionMethod, final SootClass exceptionType) {
         super(exceptionType);
+        this.exceptionMethod = exceptionMethod;
+
     }
 
     @Override
@@ -25,9 +27,9 @@ public class UncaughtThrowInjectionEvent extends ExceptionInjectionEvent {
         return Json.createObjectBuilder()
                 .add("id", eventManager.getId(this))
                 .add("type", "internal_injection_event")
-                .add("exception", exceptionType.getName());
-                //.add("invocation_class", exceptionMethod.getDeclaringClass().getName())
-                //.add("invocation_method", exceptionMethod.getSubSignature());
+                .add("exception", exceptionType.getName())
+                .add("invocation_class", exceptionMethod.getDeclaringClass().getName())
+                .add("invocation_method", exceptionMethod.getSubSignature());
     }
 
     @Override

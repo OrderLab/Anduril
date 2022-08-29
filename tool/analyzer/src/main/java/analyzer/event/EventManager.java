@@ -37,7 +37,7 @@ public final class EventManager {
 
         int internalInjections = 0, externalInjections = 0, uncaughtThrowInjections = 0;
         for (final InjectionPoint injectionPoint : this.eventGraph.injectionPoints) {
-            if (injectionPoint.callee == null) {
+            if (injectionPoint.callee instanceof UncaughtThrowInjectionEvent) {
                 uncaughtThrowInjections++;
                 continue;
             }
