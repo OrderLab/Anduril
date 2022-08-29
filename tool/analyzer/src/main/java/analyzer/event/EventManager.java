@@ -96,7 +96,7 @@ public final class EventManager {
 
     public void instrumentInjections() {
         for (final InjectionPoint injectionPoint : this.eventGraph.injectionPoints) {
-            if ((injectionPoint.callee == null) || (injectionPoint.callee instanceof ExternalInjectionEvent)) {
+            if ((injectionPoint.callee instanceof UncaughtThrowInjectionEvent) || (injectionPoint.callee instanceof ExternalInjectionEvent)) {
                 injectionPoint.instrument();
             }
         }

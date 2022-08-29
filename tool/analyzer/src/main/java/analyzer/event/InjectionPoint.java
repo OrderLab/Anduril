@@ -60,7 +60,7 @@ public final class InjectionPoint {
         if (this.callee instanceof UncaughtThrowInjectionEvent) {
             final UncaughtThrowInjectionEvent trans = (UncaughtThrowInjectionEvent) callee;
             builder.add("exception", trans.exceptionType.getName());
-            //builder.add("invocation", trans.exceptionMethod.getSubSignature());
+            builder.add("invocation", trans.exceptionMethod.getSubSignature());
         }
         return builder;
     }
