@@ -84,8 +84,7 @@ public final class Driver {
                             }
                             return size < FILE_SIZE_LIMIT && trialProcess.isAlive();
                         })) {
-                            kill(trialProcess);
-                            return false;
+                            killall();
                         }
                         if (spec.distributed) {
                             for (int i = 0; i < spec.processNumber; i++) {
