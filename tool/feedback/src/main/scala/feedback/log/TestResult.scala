@@ -9,11 +9,11 @@ sealed trait TestResult extends SymptomEvent with Timing {
   val duration: Int
 }
 
-final case class TestOK(override val showtime: DateTime, duration: Int) extends TestResult
+final case class TestOK(override val showtime: DateTime, override val duration: Int) extends TestResult
 
 // Assume there is only one failure
 final case class TestFail(override val showtime: DateTime,
-                          duration: Int,
+                          override val duration: Int,
                           testMethod: String,
                           testClass: String,
                           exceptions: NestedException) extends TestResult
