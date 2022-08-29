@@ -83,7 +83,8 @@ public class EventGraph {
             }
         }
         //After all, calculate the uncaughtException Event and add the injections Points
-        for (final InjectionPoint injectionPoint : injectionPoints) {
+        final List<InjectionPoint> uncaughtThrowInjectionPoints = new LinkedList<>();
+        for (final InjectionPoint injectionPoint : this.injectionPoints) {
             if (injectionPoint.callee instanceof InternalInjectionEvent) {
                 SootClass exception = ((InternalInjectionEvent) injectionPoint.callee).exceptionType;
                 for (final SootMethod virtualMethod : analysisManager.callGraphAnalysis.virtualCalls
@@ -105,12 +106,13 @@ public class EventGraph {
                                 first = units.getSuccOf(first);
                             ProgramLocation loc = analysisManager.analysisInput.indexManager.index
                                     .get(virtualMethod.getDeclaringClass()).get(virtualMethod).get(first);
-                            this.injectionPoints.add(analysisManager.createInjectionPoint(injectionPoint.callee, null, loc));
+                            uncaughtThrowInjectionPoints.add(analysisManager.createInjectionPoint(injectionPoint.callee, event, loc));
                         }
                     }
                 }
             }
         }
+        injectionPoints.addAll(uncaughtThrowInjectionPoints);
     }
 
     public List<Node> bfs() {

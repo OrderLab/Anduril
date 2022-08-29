@@ -57,6 +57,11 @@ public final class InjectionPoint {
             builder.add("exception", trans.exceptionType.getName());
             builder.add("invocation", trans.exceptionMethod.getSubSignature());
         }
+        if (this.callee instanceof UncaughtThrowInjectionEvent) {
+            final UncaughtThrowInjectionEvent trans = (UncaughtThrowInjectionEvent) callee;
+            builder.add("exception", trans.exceptionType.getName());
+            //builder.add("invocation", trans.exceptionMethod.getSubSignature());
+        }
         return builder;
     }
 }
