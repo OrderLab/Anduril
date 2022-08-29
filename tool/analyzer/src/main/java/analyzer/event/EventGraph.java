@@ -86,28 +86,26 @@ public class EventGraph {
         final List<InjectionPoint> uncaughtThrowInjectionPoints = new LinkedList<>();
         for (final InjectionPoint injectionPoint : this.injectionPoints) {
             if (injectionPoint.callee instanceof InternalInjectionEvent) {
-                SootClass exception = ((InternalInjectionEvent) injectionPoint.callee).exceptionType;
-                for (final SootMethod virtualMethod : analysisManager.callGraphAnalysis.virtualCalls
-                        .get(((InternalInjectionEvent) injectionPoint.callee).exceptionMethod)) {
-                    if (virtualMethod.hasActiveBody()) {
-                        if (analysisManager.exceptionAnalysis.analyses.get(virtualMethod).NewExceptionUncaught.contains(exception)) {
-                            //Add into the graph
-                            EventGraph.Node node = nodes.get(injectionPoint.callee);
-                            ProgramEvent event = new UncaughtThrowInjectionEvent(exception);
-                            EventGraph.Node child = new EventGraph.Node(event, node.depth + 1);
-                            nodeIds.put(event, nodeIds.size());
-                            nodes.put(event, child);
-                            node.out.add(child);
-                            child.in.add(node);
-                            //Construct Injection Point
-                            PatchingChain<Unit> units = virtualMethod.getActiveBody().getUnits();
-                            Unit first = virtualMethod.getActiveBody().getUnits().getFirst();
-                            while (BasicBlockAnalysis.isLeadingStmt(first))
-                                first = units.getSuccOf(first);
-                            ProgramLocation loc = analysisManager.analysisInput.indexManager.index
-                                    .get(virtualMethod.getDeclaringClass()).get(virtualMethod).get(first);
-                            uncaughtThrowInjectionPoints.add(analysisManager.createInjectionPoint(injectionPoint.callee, event, loc));
-                        }
+                final SootClass exception = ((InternalInjectionEvent) injectionPoint.callee).exceptionType;
+                final SootMethod throwingMethod = ((InternalInjectionEvent) injectionPoint.callee).exceptionMethod;
+                if (throwingMethod.hasActiveBody()) {
+                    if (analysisManager.exceptionAnalysis.analyses.get(throwingMethod).NewExceptionUncaught.contains(exception)) {
+                        //Add into the graph
+                        final EventGraph.Node node = nodes.get(injectionPoint.callee);
+                        final ProgramEvent event = new UncaughtThrowInjectionEvent(exception);
+                        final EventGraph.Node child = new EventGraph.Node(event, node.depth + 1);
+                        nodeIds.put(event, nodeIds.size());
+                        nodes.put(event, child);
+                        node.out.add(child);
+                        child.in.add(node);
+                        //Construct Injection Point
+                        final PatchingChain<Unit> units = throwingMethod.getActiveBody().getUnits();
+                        Unit first = throwingMethod.getActiveBody().getUnits().getFirst();
+                        while (BasicBlockAnalysis.isLeadingStmt(first))
+                            first = units.getSuccOf(first);
+                        final ProgramLocation loc = analysisManager.analysisInput.indexManager.index
+                                .get(throwingMethod.getDeclaringClass()).get(throwingMethod).get(first);
+                        uncaughtThrowInjectionPoints.add(analysisManager.createInjectionPoint(injectionPoint.callee, event, loc));
                     }
                 }
             }
