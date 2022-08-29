@@ -8,6 +8,7 @@ import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class UncaughtThrowInjectionEvent extends ExceptionInjectionEvent {
     final SootMethod exceptionMethod;
@@ -30,6 +31,20 @@ public class UncaughtThrowInjectionEvent extends ExceptionInjectionEvent {
                 .add("exception", exceptionType.getName())
                 .add("invocation_class", exceptionMethod.getDeclaringClass().getName())
                 .add("invocation_method", exceptionMethod.getSubSignature());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        InternalInjectionEvent that = (InternalInjectionEvent) o;
+        return Objects.equals(exceptionMethod, that.exceptionMethod);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), exceptionMethod);
     }
 
     @Override

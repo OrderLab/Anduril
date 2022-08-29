@@ -93,6 +93,9 @@ public class EventGraph {
                         //Add into the graph
                         final EventGraph.Node node = nodes.get(injectionPoint.callee);
                         final ProgramEvent event = new UncaughtThrowInjectionEvent(throwingMethod,exception);
+                        if (nodeIds.containsKey(event)) {
+                            continue;
+                        }
                         final EventGraph.Node child = new EventGraph.Node(event, node.depth + 1);
                         nodeIds.put(event, nodeIds.size());
                         nodes.put(event, child);

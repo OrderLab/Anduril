@@ -74,9 +74,9 @@ public final class EventManager {
         }
         final JsonArrayBuilder injectionJson = Json.createArrayBuilder();
         for (final InjectionPoint injectionPoint : this.eventGraph.injectionPoints) {
-            //if (injectionPoint.callee instanceof ExternalInjectionEvent) {
-            injectionJson.add(injectionPoint.dump(this));
-            //}
+            if (injectionPoint.callee instanceof ExternalInjectionEvent || injectionPoint.callee instanceof UncaughtThrowInjectionEvent) {
+                injectionJson.add(injectionPoint.dump(this));
+            }
         }
         final JsonObject json = Json.createObjectBuilder()
                 .add("case", AnalyzerOptions.getInstance().getFlakyCase())
