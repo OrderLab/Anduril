@@ -39,17 +39,17 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
             } else if (analysis.internalCalls.containsKey(unit)) {
                 final InternalInjectionEvent injectionEvent =
                         new InternalInjectionEvent(analysis.internalCalls.get(unit), this.exceptionType);
-                boolean uncaught = false;
+                //boolean uncaught = false;
                 for (final SootMethod virtualMethod : analysisManager.callGraphAnalysis.virtualCalls
                         .get(analysis.internalCalls.get(unit))) {
                     if (virtualMethod.hasActiveBody()) {
                         frontiers.add(new InternalInjectionEvent(virtualMethod, this.exceptionType));
-                        if (analysisManager.exceptionAnalysis.analyses.get(virtualMethod).NewExceptionUncaught.contains(this.exceptionType))
-                            uncaught = true;
+                        //if (analysisManager.exceptionAnalysis.analyses.get(virtualMethod).NewExceptionUncaught.contains(this.exceptionType))
+                            //uncaught = true;
                     }
                 }
-                if (uncaught)
-                    injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
+                //if (uncaught)
+                injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
             } else {
                 this.frontiers.add(new LocationEvent(loc));
             }

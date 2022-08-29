@@ -35,8 +35,12 @@ public final class EventManager {
 
         this.eventGraph = new EventGraph(analysisManager,analysisManager.analysisInput.symptomEvent,analysisManager.analysisInput.logEvents);
 
-        int internalInjections = 0, externalInjections = 0;
+        int internalInjections = 0, externalInjections = 0, uncaughtThrowInjections = 0;
         for (final InjectionPoint injectionPoint : this.eventGraph.injectionPoints) {
+            if (injectionPoint.callee == null) {
+                uncaughtThrowInjections++;
+                continue;
+            }
             if (injectionPoint.callee instanceof InternalInjectionEvent) {
                 internalInjections++;
             }
@@ -47,6 +51,7 @@ public final class EventManager {
         System.out.println("injections: " + this.eventGraph.injectionPoints.size());
         System.out.println("internal injections: " + internalInjections);
         System.out.println("external injections: " + externalInjections);
+        System.out.println("uncaught exception injections: " + uncaughtThrowInjections);
     }
 
     public void dump(final String path) {
@@ -91,7 +96,7 @@ public final class EventManager {
 
     public void instrumentInjections() {
         for (final InjectionPoint injectionPoint : this.eventGraph.injectionPoints) {
-            if (injectionPoint.callee instanceof ExternalInjectionEvent) {
+            if ((injectionPoint.callee == null) || (injectionPoint.callee instanceof ExternalInjectionEvent)) {
                 injectionPoint.instrument();
             }
         }

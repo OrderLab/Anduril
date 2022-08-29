@@ -1,7 +1,12 @@
 package analyzer.event;
 
 import analyzer.analysis.AnalysisManager;
+import analyzer.analysis.BasicBlockAnalysis;
 import index.ProgramLocation;
+import soot.*;
+import soot.jimple.IdentityStmt;
+import soot.jimple.ParameterRef;
+import soot.jimple.ThisRef;
 
 import java.util.*;
 
@@ -75,6 +80,35 @@ public class EventGraph {
             }
             if (node.event instanceof InternalInjectionEvent) {
                 this.injectionPoints.addAll(((InternalInjectionEvent) node.event).injectionPoints);
+            }
+        }
+        //After all, calculate the uncaughtException Event and add the injections Points
+        for (final InjectionPoint injectionPoint : injectionPoints) {
+            if (injectionPoint.callee instanceof InternalInjectionEvent) {
+                SootClass exception = ((InternalInjectionEvent) injectionPoint.callee).exceptionType;
+                for (final SootMethod virtualMethod : analysisManager.callGraphAnalysis.virtualCalls
+                        .get(((InternalInjectionEvent) injectionPoint.callee).exceptionMethod)) {
+                    if (virtualMethod.hasActiveBody()) {
+                        if (analysisManager.exceptionAnalysis.analyses.get(virtualMethod).NewExceptionUncaught.contains(exception)) {
+                            //Add into the graph
+                            EventGraph.Node node = nodes.get(injectionPoint.callee);
+                            ProgramEvent event = new UncaughtThrowInjectionEvent(exception);
+                            EventGraph.Node child = new EventGraph.Node(event, node.depth + 1);
+                            nodeIds.put(event, nodeIds.size());
+                            nodes.put(event, child);
+                            node.out.add(child);
+                            child.in.add(node);
+                            //Construct Injection Point
+                            PatchingChain<Unit> units = virtualMethod.getActiveBody().getUnits();
+                            Unit first = virtualMethod.getActiveBody().getUnits().getFirst();
+                            while (BasicBlockAnalysis.isLeadingStmt(first))
+                                first = units.getSuccOf(first);
+                            ProgramLocation loc = analysisManager.analysisInput.indexManager.index
+                                    .get(virtualMethod.getDeclaringClass()).get(virtualMethod).get(first);
+                            this.injectionPoints.add(analysisManager.createInjectionPoint(injectionPoint.callee, null, loc));
+                        }
+                    }
+                }
             }
         }
     }
