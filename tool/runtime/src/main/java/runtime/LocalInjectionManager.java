@@ -112,6 +112,12 @@ public class LocalInjectionManager {
                 windowSize = INF;
             }
         }
+        try (final FileWriter fw = new FileWriter(this.injectionResultPath);
+             final JsonWriter jsonWriter = writerFactory.createWriter(fw)) {
+            jsonWriter.writeObject(Json.createObjectBuilder()
+                    .add("trial_id", this.trialId)
+                    .add("window", windowSize).build());
+        } catch (final IOException ignored) { }
         feedbackManager.calc(windowSize);
         if (!TraceAgent.config.isTimeFeedback) {
             LOG.info("injection allow set: {}", feedbackManager.allowSet);
@@ -175,7 +181,6 @@ public class LocalInjectionManager {
         try (final FileWriter fw = new FileWriter(this.injectionResultPath);
              final JsonWriter jsonWriter = writerFactory.createWriter(fw)) {
             jsonWriter.writeObject(json.build());
-        } catch (final IOException ignored) {
-        }
+        } catch (final IOException ignored) { }
     }
 }
