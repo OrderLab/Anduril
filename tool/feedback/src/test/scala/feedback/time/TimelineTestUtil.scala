@@ -58,10 +58,6 @@ private object TimelineTestUtil {
   }
 }
 
-sealed trait Timestamp extends Timing {
-  def literal: String
-}
-
 sealed abstract class BugCase(val name: String, tempDir: Path) {
   this.prepareTempFiles()
   private[this] val dir = tempDir.resolve(this.name)
@@ -72,14 +68,7 @@ sealed abstract class BugCase(val name: String, tempDir: Path) {
 
   def prepareTempFiles(): Unit
   def print(printer: ActionMayThrow[String]): Unit
-}
-
-final case class Injection(override val showtime: DateTime, injection: Int, occurrence: Int) extends Timestamp {
-  override def literal: String = TimelineTestUtil.injectionTimingFormat(showtime, injection, occurrence)
-}
-
-final case class LogEntry(override val showtime: DateTime, logType: LogType, msg: String) extends Timestamp {
-  override def literal: String = TimelineTestUtil.logEntryTimingFormat(showtime, logType, msg)
+  def printAlign(printer: ActionMayThrow[String]): Unit
 }
 
 final class TestCase(override val name: String, tempDir: Path) extends BugCase(name, tempDir) {
@@ -92,36 +81,62 @@ final class TestCase(override val name: String, tempDir: Path) extends BugCase(n
       tempDir.resolve(s"$name/trial-run-log"))
   }
 
-  def print(printer: ActionMayThrow[String]): Unit = {
+  override def print(printer: ActionMayThrow[String]): Unit = {
     val trial2bad = new TimeDifference(this.trial, this.bad)
     val good2bad = new TimeDifference(this.good, this.bad)
-    val occurrences = new java.util.TreeMap[Integer, Integer];
+    val occurrences = new java.util.TreeMap[Integer, Integer]
     val injections = this.trial match {
       case UnitTestLog(TraceLogFile(_, _, injections), _) =>
-        injections.iterator map {
-          case InjectionRecord(_, showtime, injection) =>
-            Injection(trial2bad.good2bad(showtime), injection, occurrences.merge(injection, 1, _ + _))
+        injections.iterator map { injection =>
+          Injection(trial2bad.good2bad(injection.showtime), injection,
+            occurrences.merge(injection.injection, 1, _ + _))
         }
     }
     val trial = this.trial match {
       case UnitTestLog(TraceLogFile(_, entries, _), _) =>
         entries.iterator map { entry =>
-          LogEntry(trial2bad.good2bad(entry.showtime), LogType.TRIAL, entry.msg)
+          LogLine(trial2bad.good2bad(entry.showtime), entry, LogType.TRIAL)
         }
     }
     val good = this.good match {
       case UnitTestLog(NormalLogFile(_, entries), _) =>
         entries.iterator map { entry =>
-          LogEntry(good2bad.good2bad(entry.showtime), LogType.GOOD, entry.msg)
+          LogLine(good2bad.good2bad(entry.showtime), entry, LogType.GOOD)
         }
     }
     val bad = this.bad match {
       case UnitTestLog(NormalLogFile(_, entries), _) =>
         entries.iterator map { entry =>
-          LogEntry(entry.showtime, LogType.BAD, entry.msg)
+          LogLine(entry.showtime, entry, LogType.BAD)
         }
     }
     val timeline = (injections ++ trial ++ good ++ bad).toArray[Timestamp]
+    Sorting.stableSort(timeline)
+    this.print(timeline, printer)
+  }
+
+  override def printAlign(printer: ActionMayThrow[String]): Unit = {
+    val badEntries = this.bad match {
+      case UnitTestLog(bad, _) =>
+        TimeAlignment.getEntryMapping(bad)
+    }
+    val trial = (this.trial, this.bad) match {
+      case (UnitTestLog(trial, _), UnitTestLog(bad, _)) =>
+        val ruler = new TimeRuler(trial, bad, badEntries)
+        TimeAlignment.tracedAlign(trial, ruler, LogType.TRIAL)
+    }
+    val good = (this.good, this.bad) match {
+      case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
+        val ruler = new TimeRuler(good, bad, badEntries)
+        TimeAlignment.normalAlign(good, ruler, LogType.GOOD)
+    }
+    val bad = this.bad match {
+      case UnitTestLog(NormalLogFile(_, entries), _) =>
+        entries.iterator map { entry =>
+          LogLine(entry.showtime, entry, LogType.BAD)
+        }
+    }
+    val timeline = (trial ++ good ++ bad).toArray[Timestamp]
     Sorting.stableSort(timeline)
     this.print(timeline, printer)
   }
@@ -144,7 +159,12 @@ final class TestCase(override val name: String, tempDir: Path) extends BugCase(n
           printer.accept(TimelineTestUtil.getInjectionInterval(count, begin.get, end.get))
           count = 0
         }
-        printer.accept(timing.literal)
+        printer.accept(timing match {
+          case Injection(showtime, injection, occurrence) =>
+            TimelineTestUtil.injectionTimingFormat(showtime, injection.injection, occurrence)
+          case LogLine(showtime, entry, logType) =>
+            TimelineTestUtil.logEntryTimingFormat(showtime, logType, entry.msg)
+        })
       }
     }
     if (count != 0) {

@@ -1,12 +1,13 @@
 package feedback.time
 
-import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
+import feedback.log.{DistributedWorkloadLog, Log, LogFile, UnitTestLog}
 import org.joda.time.DateTime
 
 final class TimeDifference(val good: DateTime, val bad: DateTime) {
   val difference: Long = bad.getMillis - good.getMillis
 
   def this(pair: (DateTime, DateTime)) = this(pair._1, pair._2)
+  def this(good: LogFile, bad: LogFile) = this(good.showtime, bad.showtime)
 
   def this(good: Log, bad: Log) = this((good, bad) match {
     case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>

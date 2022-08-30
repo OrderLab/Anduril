@@ -4,6 +4,7 @@ import feedback.common.ActionMayThrow;
 import feedback.common.Env;
 import feedback.log.LogFile;
 import feedback.log.entry.LogEntry;
+import scala.Tuple2;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -12,6 +13,8 @@ import java.util.concurrent.Future;
 public final class LogFileDiff implements DiffDump {
     private final LogFile good, bad;
     private final Map<String, Future<ThreadDiff>> common;
+    private final ArrayList<scala.Tuple2<Integer, Integer>> intervals = new ArrayList<>();
+    private volatile boolean finished = false;
 
     public LogFileDiff(final LogFile good, final LogFile bad) {
         this.good = good;
@@ -52,6 +55,18 @@ public final class LogFileDiff implements DiffDump {
                     new ThreadDiff.Builder(thread, goodCommon.get(thread), badCommon.get(thread));
             common.put(thread, Env.submit(builder::build));
         }
+    }
+
+    public synchronized ArrayList<scala.Tuple2<Integer, Integer>> getIntervals()
+            throws ExecutionException, InterruptedException {
+        if (!finished) {
+            for (final Future<ThreadDiff> diff : common.values()) {
+                Collections.addAll(intervals, diff.get().common);
+            }
+            intervals.sort((o1, o2) -> o1._1.compareTo(o2._1));
+            finished = true;
+        }
+        return intervals;
     }
 
     // don't filter the duplicate entries

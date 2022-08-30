@@ -59,7 +59,7 @@ public final class ThreadDiff implements DiffDump {
     private final static int THRESHOLD = 300;
 
     public final String thread;
-    private final CodeLocation[] good, bad;
+    public final scala.Tuple2<Integer, Integer>[] common;
     private final List<CodeLocation> badOnly;
 
     private static CodeLocation[] convertLogEntries(final ArrayList<LogEntry> logEntries) {
@@ -72,27 +72,33 @@ public final class ThreadDiff implements DiffDump {
 
     ThreadDiff(final String thread, final ArrayList<LogEntry> good, final ArrayList<LogEntry> bad) {
         this.thread = thread;
-        this.good = convertLogEntries(good);
-        this.bad = convertLogEntries(bad);
-        if (this.good.length * this.bad.length < THRESHOLD) {
-            final FastDiff<CodeLocation> diff = new FastDiff<>(this.good, this.bad);
+        final CodeLocation[] goodLocations = convertLogEntries(good);
+        final CodeLocation[] badLocations = convertLogEntries(bad);
+        if (goodLocations.length * badLocations.length < THRESHOLD) {
+            final FastDiff<CodeLocation> diff = new FastDiff<>(goodLocations, badLocations);
             this.badOnly = diff.badOnly;
+            this.common = new scala.Tuple2[diff.common];
+            for (int i = 0; i < diff.common; i++) {
+                this.common[i] = new scala.Tuple2<>(good.get(diff.intervals[i]._1).logLine(),
+                        bad.get(diff.intervals[i]._2).logLine());
+            }
         } else {
             final Map<CodeLocation, Integer> map = new HashMap<>();
-            for (final CodeLocation location : this.good) {
+            for (final CodeLocation location : goodLocations) {
                 map.putIfAbsent(location, map.size());
             }
-            for (final CodeLocation location : this.bad) {
+            for (final CodeLocation location : badLocations) {
                 map.putIfAbsent(location, map.size());
             }
-            final int[] g = new int[this.good.length], b = new int[this.bad.length];
+            final int[] g = new int[goodLocations.length], b = new int[badLocations.length];
             for (int i = 0; i < g.length; i++) {
-                g[i] = map.get(this.good[i]);
+                g[i] = map.get(goodLocations[i]);
             }
             for (int i = 0; i < b.length; i++) {
-                b[i] = map.get(this.bad[i]);
+                b[i] = map.get(badLocations[i]);
             }
             final int[] diff = NativeAlgorithms.diff(g, b);
+            final List<scala.Tuple2<Integer, Integer>> common = new ArrayList<>();
             int i = 0, j = 0;
             this.badOnly = new ArrayList<>();
             for (final int choice : diff) {
@@ -101,10 +107,11 @@ public final class ThreadDiff implements DiffDump {
                         i++;
                         break;
                     case 1:
-                        this.badOnly.add(this.bad[j]);
+                        this.badOnly.add(badLocations[j]);
                         j++;
                         break;
                     case 2:
+                        common.add(new scala.Tuple2<>(good.get(i).logLine(), bad.get(j).logLine()));
                         i++;
                         j++;
                         break;
@@ -112,6 +119,7 @@ public final class ThreadDiff implements DiffDump {
                         throw new RuntimeException("invalid path choice");
                 }
             }
+            this.common = common.toArray(new scala.Tuple2[0]);
         }
     }
 

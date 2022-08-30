@@ -22,6 +22,7 @@ final class FastDiff<T> {
     final ArrayList<T> badOnly = new ArrayList<>();
     final int common;
     final CHOICE[] path;
+    final scala.Tuple2<Integer, Integer>[] intervals;
 
     FastDiff(final T[] good, final T[] bad) {
         int[] opt = new int[bad.length + 1], update = new int[bad.length + 1];
@@ -61,17 +62,28 @@ final class FastDiff<T> {
         this.path = new CHOICE[good.length + bad.length - opt[bad.length]];
         int i = good.length, j = bad.length;
         int common = 0, len = 0;
+        this.intervals = new scala.Tuple2[opt[bad.length]];
         while (i != 0 || j != 0) {
             final CHOICE choice = choices[i * (bad.length + 1) + j];
             this.path[len++] = choice;
             switch (choice) {
-                case COMMON: i--; j--; common++; break;
-                case GOOD_ONLY: i--; break;
-                case BAD_ONLY: j--; this.badOnly.add(bad[j]); break;
+                case COMMON:
+                    i--;
+                    j--;
+                    this.intervals[common++] = new scala.Tuple2<>(i, j);
+                    break;
+                case GOOD_ONLY:
+                    i--;
+                    break;
+                case BAD_ONLY:
+                    j--;
+                    this.badOnly.add(bad[j]);
+                    break;
             }
         }
         Collections.reverse(this.badOnly);
         ArrayUtils.reverse(this.path);
+        ArrayUtils.reverse(this.intervals);
         this.common = common;
     }
 }
