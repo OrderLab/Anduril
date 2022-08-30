@@ -28,13 +28,13 @@ object Symptoms {
 
   def isResultEventLogged(spec: JsonObject): Boolean = isResultEventLogged(spec.getString("case"))
 
-  def findSymptom(log: Log, bug: String): Option[List[Timing]] =
+  def findSymptom(log: Log, bug: String): Option[List[SymptomEvent]] =
     BugCase.cases.get(bug).flatMap { _.findSymptom(log) }
 
-  def findResultEvent(log: Log, bug: String): Option[Timing] =
+  def findResultEvent(log: Log, bug: String): Option[SymptomEvent] =
     BugCase.cases.get(bug).flatMap { _.findResultEvent(log) }
 
-  def findResultEvent(log: Log, spec: JsonObject): Option[Timing] =
+  def findResultEvent(log: Log, spec: JsonObject): Option[SymptomEvent] =
     findResultEvent(log, spec.getString("case"))
 
   def hasResultEvent(log: Log, spec: JsonObject): Boolean =

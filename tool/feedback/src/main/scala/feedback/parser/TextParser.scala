@@ -5,13 +5,13 @@ import feedback.log.entry.{InjectionRecord, LogEntry}
 import scala.collection.mutable
 
 object TextParser {
-  private val InjectionRecordPattern = raw"flaky record injection (\d+)".r
+  private val InjectionRecordPattern = raw"(?s)flaky record injection (\d+)(\n.+)?".r
 
   def recognizeInjection(entry: LogEntry): Option[InjectionRecord] =
     if (entry.classname.equals("TraceAgent") || entry.classname.equals("BaselineAgent")) {
       //       WARN: later require(logEntryBuilder.logType == LogType.INFO)
       entry.msg match {
-        case InjectionRecordPattern(injection) =>
+        case InjectionRecordPattern(injection, _) =>
           Some(InjectionRecord(entry.logLine, entry.showtime, injection.toInt))
         case _ => None
       }

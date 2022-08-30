@@ -29,7 +29,7 @@ object LogParser {
       LogFileParser.parseLogFile(rootDir) match {
         case (log, Some(result)) => UnitTestLog(log, result)
         case (log, None) =>
-          val begin = log.entries(0).showtime
+          val begin = log.showtime
           val end = log.entries.last.showtime
           LOG.warn("Found unit test log without test result, duration = {} ms", end.getMillis - begin.getMillis)
           throw new RuntimeException("No test result")
