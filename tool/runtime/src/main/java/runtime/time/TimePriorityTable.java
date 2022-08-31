@@ -13,7 +13,7 @@ public final class TimePriorityTable implements Serializable {
     // (pid,injection) -> # of occur
     public final Map<BoundaryKey, Integer> boundaries = new HashMap<>();
 
-    public final static class Key implements Serializable {
+    public final static class Key implements Comparable<Key>, Serializable {
         public final int pid, occurrence;
         public Key(final int pid, final int occurrence) {
             this.pid = pid;
@@ -31,6 +31,14 @@ public final class TimePriorityTable implements Serializable {
         @Override
         public int hashCode() {
             return Objects.hash(pid, occurrence);
+        }
+
+        @Override
+        public int compareTo(final Key o) {
+            if (pid == o.pid) {
+                return occurrence - o.occurrence;
+            }
+            return pid - o.pid;
         }
     }
 
@@ -56,7 +64,7 @@ public final class TimePriorityTable implements Serializable {
     }
 
     public final static class UtilityReducer implements Serializable {
-        public Map<Integer, Integer> timePriorities = new TreeMap<>();  // location -> time priority
+        public final Map<Integer, Integer> timePriorities = new TreeMap<>();  // location -> time priority
         private long utility = 0;
         private int size = 0;
 

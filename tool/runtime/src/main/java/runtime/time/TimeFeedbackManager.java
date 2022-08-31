@@ -63,7 +63,7 @@ public class TimeFeedbackManager extends FeedbackManager {
             final int finalI = i;
             super.graph.calculatePriorities(i, super.active.getOrDefault(i, 0), (injectionId, weight) -> {
                 final Map<TimePriorityTable.Key, TimePriorityTable.UtilityReducer> injections =
-                        timePriorityTable.injections.get(injectionId);
+                        this.timePriorityTable.injections.get(injectionId);
                 if (injections != null) {
                     injections.forEach((k, v) -> v.add(finalI, weight));
                 }

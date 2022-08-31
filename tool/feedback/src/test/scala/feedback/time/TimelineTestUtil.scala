@@ -1,7 +1,6 @@
 package feedback.time
 
 import feedback.common.ActionMayThrow
-import feedback.log.entry.InjectionRecord
 import feedback.log.{Log, LogTestUtil, NormalLogFile, TraceLogFile, UnitTestLog}
 import feedback.parser.{LogFileParser, LogParser}
 import org.apache.commons.lang3.StringUtils

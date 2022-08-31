@@ -1,8 +1,7 @@
 package feedback.time
 
 import feedback.diff.ThreadDiff
-import feedback.log.entry.LogEntry
-import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
+import feedback.log.{DistributedWorkloadLog, Log, NormalLogFile, UnitTestLog}
 import feedback.symptom.Symptoms
 import org.joda.time.DateTime
 import runtime.graph.PriorityGraph
@@ -11,15 +10,13 @@ import runtime.time.TimePriorityTable
 import javax.json.JsonObject
 import scala.util.Sorting
 
-final case class InjectionTiming(override val showtime: DateTime, pid: Int, injection: Int, occurrence: Int) extends Timing
+sealed trait TimelineType extends Timing
 
-sealed trait LogTiming extends Timing {
-  val entry: LogEntry
-}
+final case class InjectionTiming(override val showtime: DateTime, pid: Int, injection: Int, occurrence: Int) extends TimelineType
 
-final case class NormalLogTiming(override val showtime: DateTime, override val entry: LogEntry) extends LogTiming
+final case class NormalLogTiming(override val showtime: DateTime) extends TimelineType
 
-final case class CriticalLogTiming(override val showtime: DateTime, override val entry: LogEntry, id: Int) extends LogTiming
+final case class CriticalLogTiming(override val showtime: DateTime, id: Int) extends TimelineType
 
 object TimeAlgorithms {
   def computeTimeFeedback(good: Log, bad: Log, spec: JsonObject, events: Array[Option[ThreadDiff.CodeLocation]]): Serializable = {
@@ -27,22 +24,31 @@ object TimeAlgorithms {
     val eventList = (if (isResultEventLogged) events.toList.zipWithIndex else events.toList.zipWithIndex.drop(1)) map {
       case (Some(location), event) => (location, event)
     }
-    val iterator = (good, bad) match {
+    val goodTimeline = (good, bad) match {
       case (UnitTestLog(good, _), UnitTestLog(bad, result)) =>
-        TimeAlignment.tracedAlign(good, bad, LogType.GOOD) map {
+        TimeAlignment.tracedAlign(good, bad, LogType.GOOD) flatMap {
           case Injection(showtime, injection, occurrence) =>
-            InjectionTiming(showtime, -1, injection.injection, occurrence)
-          case LogLine(showtime, entry, _) =>
-            eventList find {
-              case (location, _) =>
-                location.classname.equals(entry.classname) &&
-                  location.fileLogLine == entry.fileLogLine
-            } map {
-              case (_, event) => CriticalLogTiming(showtime, entry, event)
-            } getOrElse NormalLogTiming(showtime, entry)
+            Some(InjectionTiming(showtime, -1, injection.injection, occurrence))
+          case _ => None
         }
     }
-    val timeline = iterator.toArray[Timing]
+    var badTimeline = bad match {
+      case UnitTestLog(NormalLogFile(_, entries), _) => entries.iterator map { entry =>
+        eventList find {
+          case (location, _) =>
+            location.classname.equals(entry.classname) &&
+              location.fileLogLine == entry.fileLogLine
+        } map {
+          case (_, event) => CriticalLogTiming(entry.showtime, event)
+        } getOrElse NormalLogTiming(entry.showtime)
+      }
+    }
+    if (!isResultEventLogged) {
+      Symptoms.findResultEvent(bad, spec) foreach { timing =>
+        badTimeline ++= Iterator(CriticalLogTiming(timing.showtime, 0))
+      }
+    }
+    val timeline = (goodTimeline ++ badTimeline).toArray[Timing]
     Sorting.stableSort(timeline)
     val table = good match {
       case UnitTestLog(_, _) => new TimePriorityTable(false, 1)

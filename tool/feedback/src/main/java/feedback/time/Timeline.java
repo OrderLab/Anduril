@@ -1,29 +1,31 @@
 package feedback.time;
 
-import feedback.Algorithms.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import runtime.graph.PriorityGraph;
 import runtime.time.TimePriorityTable;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.IntStream;
 
 public final class Timeline {
+    private static final Logger LOG = LoggerFactory.getLogger(Timeline.class);
+
     public static TimePriorityTable computeTimeFeedback(final Timing[] timeline,
-                                                 final int eventNumber,
-                                                 final PriorityGraph graph,
-                                                 final TimePriorityTable table) {
-        IntStream.range(0, eventNumber).forEach(i -> {
-            final Set<Integer> reachable = new TreeSet<>();
-            graph.calculatePriorities(i, 0, (injection, weight) -> reachable.add(injection));
+                                                        final int eventNumber,
+                                                        final PriorityGraph graph,
+                                                        final TimePriorityTable table) {
+        for (int i_ = 0; i_ < eventNumber; i_++) {
+            final int i = i_;
+            final Map<Integer, Integer> reachable = new TreeMap<>();
+            graph.calculatePriorities(i, 0, reachable::put);
             final Function<Timing, InjectionTiming> getId = timing -> {
-                if (!(timing instanceof InjectionTiming)) {
-                    return null;
+                if (timing instanceof InjectionTiming) {
+                    final InjectionTiming id = ((InjectionTiming) timing);
+                    return reachable.containsKey(id.injection()) ? id : null;
                 }
-                final InjectionTiming id = ((InjectionTiming) timing);
-                return reachable.contains(id.injection()) ? id : null;
+                return null;
             };
             final UpdateAgent<Timing, InjectionTiming> update = new UpdateAgent<Timing, InjectionTiming>(
                     timeline, timing -> !(timing instanceof InjectionTiming)) {
@@ -33,12 +35,21 @@ public final class Timeline {
                 }
                 @Override
                 void update(final InjectionTiming id, final int target, final int weight) {
+                    table.injections.computeIfAbsent(id.injection(),
+                            k -> new TreeMap<>()).computeIfAbsent(new TimePriorityTable.Key(id.pid(), id.occurrence()),
+                            k -> new TimePriorityTable.UtilityReducer()).timePriorities.put(i, weight);
+                    table.boundaries.merge(
+                            new TimePriorityTable.BoundaryKey(id.pid(), id.injection()), 1, Integer::sum);
                 }
             };
             final Predicate<Timing> isTarget = timing ->
                     timing instanceof CriticalLogTiming && ((CriticalLogTiming) timing).id() == i;
-            updateTimeline(timeline, isTarget, getId, update);
-        });
+            if (Arrays.stream(timeline).anyMatch(timing -> getId.apply(timing) != null)) {
+                updateTimeline(timeline, isTarget, getId, update);
+            } else {
+                LOG.warn("None of the injections can trigger event {}", i);
+            }
+        }
         return table;
     }
 
