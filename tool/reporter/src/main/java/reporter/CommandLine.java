@@ -25,6 +25,7 @@ public class CommandLine {
 
     public static void main(final String[] args) throws Exception {
         new CommandLine(parseCommandLine(args)).run();
+        System.exit(1);
     }
 
     //By now the most simple mode
@@ -45,9 +46,14 @@ public class CommandLine {
         int index = 0;
         while (index <= 1000000) {
             //Get parsed log files and injection points id.
-            Log trial = loader.getDistributedLog(index);
-            int injectionId = loader.getInjectionId(index);
-System.out.println(index);
+            final Log trial;
+            try {trial = loader.getDistributedLog(index);}
+            catch (RuntimeException e) {
+                System.out.println("Be not able to parse trial with id:" + index);
+                index++;
+                continue;
+            }
+            final int injectionId = loader.getInjectionId(index);
             if (checker.checkTrial(trial, injectionId)) {
 
                 System.out.println("The Index of first trial that reproduce the bug: " + index);
@@ -57,7 +63,7 @@ System.out.println(index);
                 //DateTime end = trial.logs[0].entries[length - 1].datetime;
                 //Duration elapsed = new Duration(start,end);
                 //System.out.println("The elapsed time to reproduce is : " + elapsed.toString());
-                continue;
+                break;
             }
             index++;
         }
