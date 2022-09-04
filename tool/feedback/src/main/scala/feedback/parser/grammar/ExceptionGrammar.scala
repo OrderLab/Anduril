@@ -17,10 +17,16 @@ object ExceptionGrammar {
 
   private def className[_: P]: P[Unit] = classNameConstruct.rep(1)
 
-  private def exceptionMethodName[_: P]: P[String] = (className.! ~ ("<init>".! | "<clinit>".!).?) map {
-    case (name, Some(suffix)) => s"$name$suffix"
-    case (name, None) => name
-  }
+  private def MethodNameWithBracket[_: P]: P[String] =
+    ( "<init>(" | "<clinit>(" | (CharIn("a-z", "A-Z", "0-9", "_", "$").rep(1) ~ "(") ).! map {
+      s => s.substring(0, s.length - 1)
+    }
+
+  private def exceptionMethodNameWithBracket[_: P]: P[String] =
+    ( ( CharIn("a-z", "A-Z", "0-9", "_", "$").rep(1) ~ "." ).! ~
+      ( ( &(MethodNameWithBracket) ~ MethodNameWithBracket ) | exceptionMethodNameWithBracket ) ) map {
+      case (name, suffix) => s"$name$suffix"
+    }
 
   // only a sanity check for an exception; must carry '\n'
   private def exceptionNameWithNewLine[_: P]: P[Unit] =
@@ -44,11 +50,11 @@ object ExceptionGrammar {
 
   private def more[_: P]: P[Int] = CharIn(" ", "\t").rep(1) ~ "... " ~ number ~ " more"
 
-  private def prefix_JUnit5[_: P]: P[Boolean] =
+  private def suffix_JUnit5[_: P]: P[Boolean] =
     ("\n" ~ CharIn(" ", "\t").rep(1) ~ "[...]".!).? map { _.nonEmpty }
 
   private def stackTraceElement[_: P]: P[StackTraceRecord] =
-    ( CharIn(" ", "\t").rep(1) ~ "at " ~ (exceptionMethodName map ExceptionParser.parseClassMethod) ~ "(" ~ (
+    ( CharIn(" ", "\t").rep(1) ~ "at " ~ (exceptionMethodNameWithBracket map ExceptionParser.parseClassMethod) ~ (
       ( ( P( "Native Method" ) map { _ => Right(true) } )
         | ( P( "Unknown Source" ) map { _ => Right(false) } )
         | ( ( fileName ~ ":" ~ number ) map { Left(_) } )
@@ -61,7 +67,7 @@ object ExceptionGrammar {
     }
 
   private def stackTraceElement_JUnit5[_: P]: P[JUnit5StackTraceRecord] =
-    (CharIn(" ", "\t").rep(1) ~ (exceptionMethodName map ExceptionParser.parseClassMethod) ~ "(" ~ (
+    (CharIn(" ", "\t").rep(1) ~ (exceptionMethodNameWithBracket map ExceptionParser.parseClassMethod) ~ (
       ( ( P( "Native Method" ) map { _ => Right(true) })
         | ( P( "Unknown Source" ) map { _ => Right(false) }  )
         | ( (fileName ~ ":" ~ number) map { Left(_) } )
@@ -91,7 +97,7 @@ object ExceptionGrammar {
     }
 
   private def stackTrace_JUnit5[_: P]: P[JUnit5StackTrace] =
-    (stackTraceElements_JUnit5 ~ prefix_JUnit5 ~ ("\n".rep(1) | End)) map {
+    (stackTraceElements_JUnit5 ~ suffix_JUnit5 ~ ("\n".rep(1) | End)) map {
       case (records, true) => JUnit5MoreStackTrace(new CallStack(records.reverse.toArray))
       case (records, false) => JUnit5NormalStackTrace(new CallStack(records.reverse.toArray))
     }
