@@ -123,7 +123,11 @@ object LogFileParser {
       parseLogEntry(line, index + 1) match {
         // finish the previous appender
         case Some((headerOptional, logEntryBuilder)) =>
-          headerOptional foreach updateHeader
+          if (headerPhase) {
+            headerOptional foreach updateHeader
+          } else {
+            headerOptional foreach currentLogEntryBuilder.get.appendNewLine
+          }
           headerPhase = false
           // store the previous log entry if any
           currentLogEntryBuilder foreach updateLogEntries

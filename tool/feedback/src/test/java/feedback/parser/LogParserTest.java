@@ -11,8 +11,8 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class LogParserTest extends ThreadTestBase {
-    private static final int pass = 3;
-    private static final int fail = 1;
+    private static final int pass = 5;
+    private static final int fail = 0;
 
     @Test
     void testPass(final @TempDir Path tempDir) throws Exception {

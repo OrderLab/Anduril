@@ -1,7 +1,7 @@
 package feedback.parser
 
 import feedback.common.Env
-import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
+import feedback.log.{DistributedWorkloadLog, Log, NoResult, UnitTestLog}
 import org.slf4j.LoggerFactory
 
 import java.io.File
@@ -31,8 +31,9 @@ object LogParser {
         case (log, None) =>
           val begin = log.showtime
           val end = log.entries.last.showtime
-          LOG.warn("Found unit test log without test result, duration = {} ms", end.getMillis - begin.getMillis)
-          throw new RuntimeException("No test result")
+          val duration = end.getMillis - begin.getMillis
+          LOG.warn("Found unit test log with invalid result or without test result, duration = {} ms", duration)
+          UnitTestLog(log, NoResult(duration.toInt))
       }
     }
   }

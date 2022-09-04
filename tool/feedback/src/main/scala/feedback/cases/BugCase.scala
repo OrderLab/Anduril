@@ -114,10 +114,11 @@ trait UnitTestWorkload extends BugCase {
 
   def checkMethodName(testMethod: String): Boolean = true
 
-  def findTestResultEvent(log: LogFile, result: TestResult): Option[TestResult] = (result, ok_is_good) match {
+  def findTestResultEvent(log: LogFile, result: TestResult): Option[SymptomEvent] = (result, ok_is_good) match {
     case (TestFail(showtime, duration, testMethod, testClass, exceptions), true) =>
-        if (findTestResultEvent(showtime, duration, testMethod, testClass, exceptions)) Some(result) else None
-    case (TestOK(_, _), false) => Some(result)
+        if (findTestResultEvent(showtime, duration, testMethod, testClass, exceptions))
+          Some(TestFail(showtime, duration, testMethod, testClass, exceptions)) else None
+    case (TestOK(showtime, duration), false) => Some(TestOK(showtime, duration))
     case _ => None
   }
 
