@@ -1,7 +1,7 @@
 package feedback.parser
 
 import feedback.log.exception.NestedException
-import feedback.log.{TestFail, TestOK, TestResult}
+import feedback.log.{NoResult, TestFail, TestOK, TestResult}
 import org.joda.time.DateTime
 
 object TestResultParser {
@@ -39,6 +39,10 @@ object TestResultParser {
     private[parser] def build(datetime: DateTime) = TestFail(datetime, duration, testMethod, testClass, nestedException)
   }
 
+  private[parser] final case class SILENCE(override private[parser] val duration: Int) extends TestResultBuilder {
+    override private[parser] def build(datetime: DateTime) = NoResult(duration)
+  }
+
   def parseTestResult(text: String): Option[(String, TestResultBuilder)] = {
     text match {
       case OK_JUnit4(msg, duration) =>
@@ -51,6 +55,7 @@ object TestResultParser {
       case JUnit5Pattern(msg, failures, duration, successful, failed) =>
         // TODO: extract the failure content
         (successful.toInt, failed.toInt) match {
+          case (0, 0) => Some(msg, SILENCE(duration.toInt))
           case (1, 0) => Some(msg, OK(duration.toInt))
           case (0, 1) => Some(msg, ExceptionParser.parseJUnit5Failure(failures, duration.toInt))
         }
