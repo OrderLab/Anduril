@@ -70,6 +70,7 @@ public final class Config {
     public boolean allowFeedback;
     public String injectionPointsPath;
     public String timePriorityTable;
+    public String timeFeedbackMode;
     public boolean isTimeFeedback;
     public boolean isProbabilityFeedback;
     public int injectionOccurrenceLimit;
@@ -80,6 +81,7 @@ public final class Config {
 
         timePriorityTable = System.getProperty("flakyAgent.timePriorityTable", "#");
         injectionPointsPath = System.getProperty("flakyAgent.injectionPointsPath", "#");
+        timeFeedbackMode = System.getProperty("flakyAgent.timeFeedbackMode", "#");
 
         avoidBlockMode = Boolean.getBoolean("flakyAgent.avoidBlockMode");
         allowFeedback = Boolean.getBoolean("flakyAgent.feedback");
@@ -107,6 +109,7 @@ public final class Config {
             "flakyAgent.avoidBlockMode",
             "flakyAgent.feedback",
             "flakyAgent.timeFeedback",
+            "flakyAgent.timeFeedbackMode",
             "flakyAgent.probabilityFeedback",
             "flakyAgent.injectionOccurrenceLimit",
             "flakyAgent.slidingWindow",

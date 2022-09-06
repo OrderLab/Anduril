@@ -5,6 +5,7 @@ import runtime.FeedbackManager;
 import javax.json.JsonObject;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class TimeFeedbackManager extends FeedbackManager {
         return priorities[occurrence - 1] <= boundary;
     }
 
-    private final Map<Integer, long[]> standalone = new TreeMap<>();
+    public final Map<Integer, long[]> standalone = new TreeMap<>();
 
     @Override
     public boolean isAllowed(final int injectionId, final int occurrence) {
@@ -74,12 +75,32 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (this.timePriorityTable.distributed) {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new long[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) ->
-                    this.nodes[k.pid].get(injection)[k.occurrence] = v.computeUtility(priorities)));
+                    this.nodes[k.pid].get(injection)[k.occurrence - 1] = v.computeUtility(priorities)));
         } else {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, new long[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) ->
-                    this.standalone.get(injection)[k.occurrence] = v.computeUtility(priorities)));
+                    this.standalone.get(injection)[k.occurrence - 1] = v.computeUtility(priorities)));
         }
         this.boundary = PriorityCalculator.kth(priorities, windowSize);
+    }
+
+    public void printCSV(final PrintWriter csv) {
+        if (timePriorityTable.distributed) {
+            csv.println("pid,id,occurrence,priority");
+            for (final Map<Integer, long[]> node : nodes) {
+                node.forEach((i, arr) -> {
+                    for (int j = 0; j < arr.length; j++) {
+                        csv.printf("%d,%d,%d\n", i, j + 1, arr[j]);
+                    }
+                });
+            }
+        } else {
+            csv.println("id,occurrence,priority");
+            standalone.forEach((i, arr) -> {
+                for (int j = 0; j < arr.length; j++) {
+                    csv.printf("%d,%d,%d\n", i, j + 1, arr[j]);
+                }
+            });
+        }
     }
 }
