@@ -26,8 +26,13 @@ public class FeedbackManager {
     }
 
     protected final Map<Integer, Integer> active = new TreeMap<>();
+
     public void activate(final int id) {
         active.merge(id, -1, Integer::sum);
+    }
+
+    public void deactivate(final int id) {
+        active.merge(id, 1, Integer::sum);
     }
 
     public final Set<Integer> allowSet = new TreeSet<>();

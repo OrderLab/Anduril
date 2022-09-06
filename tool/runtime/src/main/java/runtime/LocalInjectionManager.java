@@ -8,6 +8,8 @@ import runtime.time.TimeFeedbackManager;
 import javax.json.*;
 import javax.json.stream.JsonGenerator;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -49,10 +51,12 @@ public class LocalInjectionManager {
         this.trialsPath = trialsPath;
         this.specPath = specPath;
         this.injectionResultPath = injectionResultPath;
-        try (final InputStream inputStream = new FileInputStream(this.specPath);
+        int start = 0;
+        try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
              final JsonReader reader = Json.createReader(inputStream)) {
             final JsonObject json = reader.readObject();
             final JsonArray arr = json.getJsonArray("injections");
+            start = json.getInt("start");
             for (int i = 0; i < arr.size(); i++) {
                 final JsonObject spec = arr.getJsonObject(i);
                 final int injectionId = spec.getInt("id");
@@ -80,7 +84,7 @@ public class LocalInjectionManager {
         final File[] files = new File(this.trialsPath).listFiles((file, name) -> name.endsWith(".json"));
         int latestOK = -2; // avoid -1 + 1 == 0
         for (final File result : files) {
-            try (final InputStream inputStream = new FileInputStream(result);
+            try (final InputStream inputStream = Files.newInputStream(result.toPath());
                  final JsonReader reader = Json.createReader(inputStream)) {
                 final JsonObject json = reader.readObject();
                 final int trialId = json.getInt("trial_id");
@@ -98,6 +102,9 @@ public class LocalInjectionManager {
                     final JsonArray events = json.getJsonArray("feedback");
                     for (int i = 0; i < events.size(); i++) {
                         feedbackManager.activate(events.getInt(i));
+                    }
+                    for (int i = 0; i < start; i++) {
+                        feedbackManager.deactivate(i);
                     }
                 }
                 final int block = json.getInt("block");

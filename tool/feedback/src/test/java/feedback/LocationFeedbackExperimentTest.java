@@ -117,6 +117,9 @@ final class LocationFeedbackExperimentTest extends ThreadTestBase {
                     for (int j = 0; j < events.size(); j++) {
                         feedback.activate(events.getInt(j));
                     }
+                    for (int j = 0; j < spec.getInt("start"); j++) {
+                        feedback.deactivate(j);
+                    }
                 }
             }
         }
