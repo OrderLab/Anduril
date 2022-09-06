@@ -34,7 +34,7 @@ final class PriorityCalculator {
     }
 
     // TODO: improve to O(n)
-    static long kth(final ArrayList<Long> arr, final int k) {
+    static <T extends Comparable<T>> T kth(final ArrayList<T> arr, final int k) {
         Collections.sort(arr);
         return arr.get(k - 1);
     }

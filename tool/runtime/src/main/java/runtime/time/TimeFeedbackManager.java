@@ -28,13 +28,13 @@ public class TimeFeedbackManager extends FeedbackManager {
         }
     }
 
-    private long boundary;
+    private double boundary;
 
-    private final Map<Integer, long[]>[] nodes;
+    private final Map<Integer, double[]>[] nodes;
 
     @Override
     public boolean isAllowed(final int pid, final int injectionId, final int occurrence) {
-        final long[] priorities = nodes[pid].get(injectionId);
+        final double[] priorities = nodes[pid].get(injectionId);
         if (priorities == null) {
             return false;
         }
@@ -44,11 +44,11 @@ public class TimeFeedbackManager extends FeedbackManager {
         return priorities[occurrence - 1] <= boundary;
     }
 
-    public final Map<Integer, long[]> standalone = new TreeMap<>();
+    private final Map<Integer, double[]> standalone = new TreeMap<>();
 
     @Override
     public boolean isAllowed(final int injectionId, final int occurrence) {
-        final long[] priorities = standalone.get(injectionId);
+        final double[] priorities = standalone.get(injectionId);
         if (priorities == null) {
             return false;
         }
@@ -70,14 +70,14 @@ public class TimeFeedbackManager extends FeedbackManager {
                 }
             });
         }
-        final ArrayList<Long> priorities = new ArrayList<>(
+        final ArrayList<Double> priorities = new ArrayList<>(
                 this.timePriorityTable.boundaries.values().stream().reduce(0, Integer::sum));
         if (this.timePriorityTable.distributed) {
-            this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new long[v]));
+            this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new double[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) ->
                     this.nodes[k.pid].get(injection)[k.occurrence - 1] = v.computeUtility(priorities)));
         } else {
-            this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, new long[v]));
+            this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, new double[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) ->
                     this.standalone.get(injection)[k.occurrence - 1] = v.computeUtility(priorities)));
         }
@@ -87,10 +87,10 @@ public class TimeFeedbackManager extends FeedbackManager {
     public void printCSV(final PrintWriter csv) {
         if (timePriorityTable.distributed) {
             csv.println("pid,id,occurrence,priority");
-            for (final Map<Integer, long[]> node : nodes) {
+            for (final Map<Integer, double[]> node : nodes) {
                 node.forEach((i, arr) -> {
                     for (int j = 0; j < arr.length; j++) {
-                        csv.printf("%d,%d,%d\n", i, j + 1, arr[j]);
+                        csv.printf("%d,%d,%.4f\n", i, j + 1, arr[j]);
                     }
                 });
             }
@@ -98,7 +98,7 @@ public class TimeFeedbackManager extends FeedbackManager {
             csv.println("id,occurrence,priority");
             standalone.forEach((i, arr) -> {
                 for (int j = 0; j < arr.length; j++) {
-                    csv.printf("%d,%d,%d\n", i, j + 1, arr[j]);
+                    csv.printf("%d,%d,%.4f\n", i, j + 1, arr[j]);
                 }
             });
         }

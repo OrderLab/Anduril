@@ -76,8 +76,8 @@ public final class TimePriorityTable implements Serializable {
             size++;
         }
 
-        public long computeUtility(final ArrayList<Long> priorities) {
-            final long priority = utility / size;
+        public double computeUtility(final ArrayList<Double> priorities) {
+            final double priority = ((double) utility) / size;
             priorities.add(priority);
             return priority;
         }
