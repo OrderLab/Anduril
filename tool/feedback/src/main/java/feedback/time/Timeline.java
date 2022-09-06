@@ -16,6 +16,12 @@ public final class Timeline {
                                                         final int eventNumber,
                                                         final PriorityGraph graph,
                                                         final TimePriorityTable table) {
+        for (final Timing timing : timeline) {
+            if (timing instanceof InjectionTiming) {
+                final InjectionTiming id = (InjectionTiming) timing;
+                table.boundaries.merge(new TimePriorityTable.BoundaryKey(id.pid(), id.injection()), 1, Integer::sum);
+            }
+        }
         for (int i_ = 0; i_ < eventNumber; i_++) {
             final int i = i_;
             final Map<Integer, Integer> reachable = new TreeMap<>();
@@ -38,8 +44,6 @@ public final class Timeline {
                     table.injections.computeIfAbsent(id.injection(),
                             k -> new TreeMap<>()).computeIfAbsent(new TimePriorityTable.Key(id.pid(), id.occurrence()),
                             k -> new TimePriorityTable.UtilityReducer()).timePriorities.put(i, weight);
-                    table.boundaries.merge(
-                            new TimePriorityTable.BoundaryKey(id.pid(), id.injection()), 1, Integer::sum);
                 }
             };
             final Predicate<Timing> isTarget = timing ->
