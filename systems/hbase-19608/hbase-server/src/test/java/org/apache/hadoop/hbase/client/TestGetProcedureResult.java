@@ -74,7 +74,7 @@ public class TestGetProcedureResult {
     @Override
     protected Procedure<MasterProcedureEnv>[] execute(MasterProcedureEnv env)
         throws ProcedureYieldException, ProcedureSuspendedException, InterruptedException {
-      try{File file=new File("test.txt"); FileInputStream fis=new FileInputStream(file); fis.read();} catch (IOException e){setFailure("dummy", new IOException("inject error"));}
+      try{File.createTempFile("originForInjection",null);} catch (IOException e){setFailure("dummy", e);}
       failureSet.countDown();
       return null;
     }
