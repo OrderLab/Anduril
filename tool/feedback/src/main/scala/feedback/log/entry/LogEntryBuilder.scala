@@ -25,6 +25,9 @@ final class LogEntryBuilder(val logLine: Int,
           case (Some(msg), None) =>
             require(msg equals partialText)
             NormalLogEntry(logLine, showtime, logType, thread, classname, fileLogLine, text)
+          case (Some(msg), Some(nestedException)) =>
+            ExceptionLogEntry(logLine, showtime, logType, thread, classname, fileLogLine,
+              raw"${this.msg.toString}\n$msg", nestedException)
         }
       case LogEntryBuilders.EmptyPattern() =>
         NormalLogEntry(logLine, showtime, logType, thread, classname, fileLogLine, text)
