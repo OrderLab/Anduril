@@ -76,8 +76,8 @@ public final class TimePriorityTable implements Serializable {
             size++;
         }
 
-        public long computeUtility(final ArrayList<Long> priorities) {
-            final long priority = utility / size;
+        public double computeUtility(final ArrayList<Double> priorities) {
+            final double priority = ((double) utility) / size;
             priorities.add(priority);
             return priority;
         }
@@ -87,23 +87,4 @@ public final class TimePriorityTable implements Serializable {
         this.distributed = distributed;
         this.nodes = nodes;
     }
-
-//    public TimePriorityTable(final TreeMap<Integer, int[]> standalone) {
-//        this.standalone = standalone;
-//        this.nodes = null;
-//        this.size = standalone.values().stream().map(a -> a.length).reduce(0, Integer::sum);
-//    }
-//
-//    public TimePriorityTable(final TreeMap<Integer, int[]>[] nodes) {
-//        this.standalone = null;
-//        this.nodes = new TreeMap<>();
-//        Arrays.stream(nodes).forEach(m -> m.forEach((k, v) -> this.nodes.putIfAbsent(k, new int[nodes.length][])));
-//        for (int i = 0; i < nodes.length; i++) {
-//            final int finalI = i;
-//            nodes[i].forEach((k, v) -> this.nodes.get(k)[finalI] = v);
-//        }
-//        this.size = Arrays.stream(nodes).map(
-//                m -> m.values().stream().map(a -> a.length).reduce(0, Integer::sum)
-//        ).reduce(0, Integer::sum);
-//    }
 }

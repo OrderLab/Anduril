@@ -126,6 +126,14 @@ public class LocalInjectionManager {
                     .add("window", windowSize).build());
         } catch (final IOException ignored) { }
         feedbackManager.calc(windowSize);
+        if (TraceAgent.config.isTimeFeedback) {
+            try (final PrintWriter csv = new PrintWriter(
+                    Files.newOutputStream(Paths.get(this.trialsPath + "/" + this.trialId + ".csv")))) {
+                ((TimeFeedbackManager) feedbackManager).printCSV(csv);
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         if (!TraceAgent.config.isTimeFeedback) {
             LOG.info("injection allow set: {}", feedbackManager.allowSet);
         }
