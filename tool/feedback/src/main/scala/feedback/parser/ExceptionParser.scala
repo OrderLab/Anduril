@@ -15,7 +15,8 @@ object ExceptionParser {
     case LocationPattern(className, methodName) => (className, methodName)
   }
 
-  private val Junit4TestFailurePattern = raw"(?s)(\d+)\)[ \t]*($methodNameRegex)\(($classnameRegex)\)\n".r
+  private val Junit4TestFailurePattern1 = raw"(?s)(\d+)\)[ \t]*($methodNameRegex)\(($classnameRegex)\)\n".r
+  private val Junit4TestFailurePattern2 = raw"(?s)(\d+)\)[ \t]*($classnameRegex)\n".r
 
   // TODO: remove the limitation of only accepting one line of log before parsing an exception
   // TODO: accept names like "Exception"?
@@ -121,8 +122,10 @@ object ExceptionParser {
   def parseJunit4TestFailures(text: Array[String]): (String, String, NestedException) = {
     val failures = text.zipWithIndex flatMap {
       case (line, index) => line match {
-        case Junit4TestFailurePattern(_, testMethod, testClass) =>
+        case Junit4TestFailurePattern1(_, testMethod, testClass) =>
           Some(testMethod, testClass, index)
+        case Junit4TestFailurePattern2(_, testClass) =>
+          Some("", testClass, index)
         case _ => None
       }
     }
