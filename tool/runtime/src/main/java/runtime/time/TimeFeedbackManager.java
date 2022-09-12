@@ -224,12 +224,41 @@ public class TimeFeedbackManager extends FeedbackManager {
                 priorities.add(priority);
             }));
         }
-        this.boundary = kth(priorities, windowSize);
+        this.boundary = kth(priorities, windowSize, INF);
     }
 
-    static <T extends Comparable<T>> T kth(final ArrayList<T> arr, final int k) {
-        Collections.sort(arr);
-        return arr.get(k - 1);
+    // reference: https://www.geeksforgeeks.org/quicksort-using-random-pivoting/
+    static public <T extends Comparable<T>> T kth(final ArrayList<T> a, int k, final T INF) {
+        if (a.size() <= k) {
+            return INF;
+        }
+        final Random random = new Random(System.currentTimeMillis());
+        int x = 0, y = a.size();
+        while (x + 1 < y) {
+            final T pivot = a.get(x + random.nextInt(y - x));
+            int i = x, j = y - 1;
+            while (true) {
+                while (a.get(i).compareTo(pivot) < 0) i++;
+                while (pivot.compareTo(a.get(j)) < 0) j--;
+                if (i >= j) break;
+                final T tmp = a.get(i);
+                a.set(i, a.get(j));
+                a.set(j, tmp);
+                i++;
+                j--;
+            }
+            j++;
+            if (x + k < j) {
+                y = j;
+            } else {
+                k -= j - x;
+                x = j;
+            }
+        }
+        if (k != 0) {
+            throw new RuntimeException("invalid kth");
+        }
+        return a.get(x);
     }
 
     private String getMode() {
