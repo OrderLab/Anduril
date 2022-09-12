@@ -11,6 +11,7 @@ import runtime.config.Config;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.Future;
 
@@ -82,7 +83,10 @@ public final class Driver {
                             } else {
                                 size += fileSize(outputDir.toFile());
                             }
-                            return size < FILE_SIZE_LIMIT && trialProcess.isAlive();
+                            if (size < FILE_SIZE_LIMIT && trialProcess.isAlive()) {
+                                return true;
+                            }
+                            throw new RemoteException();
                         })) {
                             killall();
                         }
@@ -202,7 +206,7 @@ public final class Driver {
         final long end = System.currentTimeMillis() + timeout * 1_000L;
         return monitor(() -> {
             if (System.currentTimeMillis() > end) {
-                return false;
+                throw new RuntimeException("time out after " + timeout + " ms");
             }
             return predicate.call();
         });
