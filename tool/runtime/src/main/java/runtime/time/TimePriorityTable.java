@@ -1,6 +1,10 @@
 package runtime.time;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public final class TimePriorityTable implements Serializable {
@@ -64,27 +68,21 @@ public final class TimePriorityTable implements Serializable {
     }
 
     public final static class UtilityReducer implements Serializable {
-        public final Map<Integer, Integer> timePriorities = new TreeMap<>();  // location -> time priority
-        private long utility = 0;
-        private int size = 0;
-
-        public void add(final int location, final int priority) {
-            if (!timePriorities.containsKey(location)) {
-                return;
-            }
-            utility += PriorityCalculator.compute(timePriorities.get(location), priority);
-            size++;
-        }
-
-        public double computeUtility(final ArrayList<Double> priorities) {
-            final double priority = ((double) utility) / size;
-            priorities.add(priority);
-            return priority;
-        }
+        public final Map<Integer, Integer> timePriorities = new TreeMap<>();     // log location -> time priority
+        public final Map<Integer, Integer> locationPriorities = new TreeMap<>(); // log location -> location priority
     }
 
     public TimePriorityTable(final boolean distributed, final int nodes) {
         this.distributed = distributed;
         this.nodes = nodes;
+    }
+
+    static public TimePriorityTable load(final String timePriorityTable) {
+        try (final ObjectInputStream objectInputStream = new ObjectInputStream(
+                Files.newInputStream(Paths.get(timePriorityTable)))) {
+            return (TimePriorityTable) objectInputStream.readObject();
+        } catch (final IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

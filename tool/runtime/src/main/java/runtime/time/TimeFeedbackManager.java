@@ -1,36 +1,146 @@
 package runtime.time;
 
 import runtime.FeedbackManager;
+import runtime.TraceAgent;
 
 import javax.json.JsonObject;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.function.BiFunction;
 
 public class TimeFeedbackManager extends FeedbackManager {
+    private static final double INF = 1e20;
+    private static int fixLog = -1;
+    private static boolean isTime = true;
+
+    private enum Mode {
+        // E[_+_]
+        E_ADD((time, location) -> {
+            double total = 0;
+            int size = 0;
+            for (final Map.Entry<Integer, Integer> entry : location.entrySet()) {
+                total += time.get(entry.getKey()) + entry.getValue();
+                size++;
+            }
+            if (size == 0) {
+                return INF;
+            }
+            return total / size;
+        }),
+        // E[_*_]
+        E_TIMES((time, location) -> {
+            double total = 0;
+            int size = 0;
+            for (final Map.Entry<Integer, Integer> entry : location.entrySet()) {
+                total += ((double) time.get(entry.getKey())) * entry.getValue();
+                size++;
+            }
+            if (size == 0) {
+                return INF;
+            }
+            return total / size;
+        }),
+        // min[_+_]
+        MIN_ADD((time, location) -> {
+            double min = 0;
+            int size = 0;
+            for (final Map.Entry<Integer, Integer> entry : location.entrySet()) {
+                final double v = time.get(entry.getKey()) + entry.getValue();
+                if (size == 0 || v < min) {
+                    min = v;
+                }
+                size++;
+            }
+            if (size == 0) {
+                return INF;
+            }
+            return min;
+        }),
+        // min[_*_]
+        MIN_TIMES((time, location) -> {
+            double min = 0;
+            int size = 0;
+            for (final Map.Entry<Integer, Integer> entry : location.entrySet()) {
+                final double v = ((double) time.get(entry.getKey())) * entry.getValue();
+                if (size == 0 || v < min) {
+                    min = v;
+                }
+                size++;
+            }
+            if (size == 0) {
+                return INF;
+            }
+            return min;
+        }),
+        // min[_ or _]
+        MIN_INTERLEAVE((time, location) -> {
+            double min = 0;
+            int size = 0;
+            if (isTime) {
+                for (final Map.Entry<Integer, Integer> entry : time.entrySet()) {
+                    final double v = entry.getValue();
+                    if (size == 0 || v < min) {
+                        min = v;
+                    }
+                    size++;
+                }
+            } else {
+                for (final Map.Entry<Integer, Integer> entry : location.entrySet()) {
+                    final double v = entry.getValue();
+                    if (size == 0 || v < min) {
+                        min = v;
+                    }
+                    size++;
+                }
+            }
+            if (size == 0) {
+                return INF;
+            }
+            return min;
+        }),
+        // min[_ or _]
+        MIN_RANDOM((time, location) -> {
+            final Integer v;
+            if (isTime) {
+                v = time.get(fixLog);
+            } else {
+                v = location.get(fixLog);
+            }
+            return v == null ? INF : v;
+        });
+
+        public final BiFunction<Map<Integer, Integer>, Map<Integer, Integer>, Double> formula;
+
+        Mode(final BiFunction<Map<Integer, Integer>, Map<Integer, Integer>, Double> formula) {
+            this.formula = formula;
+        }
+    }
+
+    private final Mode mode;
+    private double boundary;
+    private final Map<Integer, double[]>[] nodes;
+    private final Map<Integer, double[]> standalone = new TreeMap<>();
+
     protected final TimePriorityTable timePriorityTable;
+    private final Random random = new Random(System.currentTimeMillis());
+
     public TimeFeedbackManager(final JsonObject json, final String timePriorityTable) {
         super(json);
-        try (final ObjectInputStream objectInputStream = new ObjectInputStream(
-                Files.newInputStream(Paths.get(timePriorityTable)))) {
-            this.timePriorityTable = (TimePriorityTable) objectInputStream.readObject();
-        } catch (final IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        this.timePriorityTable = TimePriorityTable.load(timePriorityTable);
+        switch (TraceAgent.config.timeFeedbackMode) {
+            case "add"            : this.mode = Mode.E_ADD; break;
+            case "times"          : this.mode = Mode.E_TIMES; break;
+            case "min_add"        : this.mode = Mode.MIN_ADD; break;
+            case "min_times"      : this.mode = Mode.MIN_TIMES; break;
+            case "min_interleave" : this.mode = Mode.MIN_INTERLEAVE; break;
+            case "min_random"     : this.mode = Mode.MIN_RANDOM; break;
+            default: throw new RuntimeException("invalid time feedback formula");
         }
         this.nodes = new Map[this.timePriorityTable.nodes];
         for (int i = 0; i < this.timePriorityTable.nodes; i++) {
             this.nodes[i] = new TreeMap<>();
         }
     }
-
-    private double boundary;
-
-    private final Map<Integer, double[]>[] nodes;
 
     @Override
     public boolean isAllowed(final int pid, final int injectionId, final int occurrence) {
@@ -41,10 +151,8 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (occurrence > priorities.length) {
             return false;
         }
-        return priorities[occurrence - 1] <= boundary;
+        return priorities[occurrence - 1] < boundary;
     }
-
-    private final Map<Integer, double[]> standalone = new TreeMap<>();
 
     @Override
     public boolean isAllowed(final int injectionId, final int occurrence) {
@@ -55,7 +163,7 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (occurrence > priorities.length) {
             return false;
         }
-        return priorities[occurrence - 1] <= boundary;
+        return priorities[occurrence - 1] < boundary;
     }
 
     @Override
@@ -66,25 +174,78 @@ public class TimeFeedbackManager extends FeedbackManager {
                 final Map<TimePriorityTable.Key, TimePriorityTable.UtilityReducer> injections =
                         this.timePriorityTable.injections.get(injectionId);
                 if (injections != null) {
-                    injections.forEach((k, v) -> v.add(finalI, weight));
+                    injections.forEach((k, v) -> {
+                        if (v.timePriorities.containsKey(finalI)) {
+                            final Integer previous = v.locationPriorities.put(finalI, weight);
+                            if (previous != null) {
+                                throw new RuntimeException("invalid weight");
+                            }
+                        }
+                    });
                 }
             });
+        }
+        if (this.mode == Mode.MIN_INTERLEAVE) {
+            isTime = random.nextBoolean();
+        }
+        if (this.mode == Mode.MIN_RANDOM) {
+            final Set<Integer> timeSet = new TreeSet<>();
+            final Set<Integer> locationSet = new TreeSet<>();
+            this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
+                timeSet.addAll(v.timePriorities.keySet());
+                locationSet.addAll(v.locationPriorities.keySet());
+            }));
+            if (timeSet.isEmpty() && locationSet.isEmpty()) {
+                throw new RuntimeException("invalid table");
+            }
+            final int c = random.nextInt(timeSet.size() + locationSet.size());
+            if (c < timeSet.size()) {
+                isTime = true;
+                fixLog = timeSet.toArray(new Integer[0])[c];
+            } else {
+                isTime = false;
+                fixLog = locationSet.toArray(new Integer[0])[c - timeSet.size()];
+            }
         }
         final ArrayList<Double> priorities = new ArrayList<>(
                 this.timePriorityTable.boundaries.values().stream().reduce(0, Integer::sum));
         if (this.timePriorityTable.distributed) {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new double[v]));
-            this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) ->
-                    this.nodes[k.pid].get(injection)[k.occurrence - 1] = v.computeUtility(priorities)));
+            this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
+                final double priority = mode.formula.apply(v.timePriorities, v.locationPriorities);
+                this.nodes[k.pid].get(injection)[k.occurrence - 1] = priority;
+                priorities.add(priority);
+            }));
         } else {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, new double[v]));
-            this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) ->
-                    this.standalone.get(injection)[k.occurrence - 1] = v.computeUtility(priorities)));
+            this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
+                final double priority = mode.formula.apply(v.timePriorities, v.locationPriorities);
+                this.standalone.get(injection)[k.occurrence - 1] = priority;
+                priorities.add(priority);
+            }));
         }
-        this.boundary = PriorityCalculator.kth(priorities, windowSize);
+        this.boundary = kth(priorities, windowSize);
+    }
+
+    static <T extends Comparable<T>> T kth(final ArrayList<T> arr, final int k) {
+        Collections.sort(arr);
+        return arr.get(k - 1);
+    }
+
+    private String getMode() {
+        switch (mode) {
+            case E_ADD          : return "add";
+            case E_TIMES        : return "times";
+            case MIN_ADD        : return "min_add";
+            case MIN_TIMES      : return "min_times";
+            case MIN_INTERLEAVE : return isTime ? "min_time" : "min_location";
+            case MIN_RANDOM     : return String.format("min_%s_log_%d", isTime ? "time" : "location", fixLog);
+            default: throw new RuntimeException("invalid mode");
+        }
     }
 
     public void printCSV(final PrintWriter csv) {
+        csv.println(getMode());
         if (timePriorityTable.distributed) {
             csv.println("pid,id,occurrence,priority");
             for (final Map<Integer, double[]> node : nodes) {
