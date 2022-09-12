@@ -176,8 +176,8 @@ public class TimeFeedbackManager extends FeedbackManager {
                 if (injections != null) {
                     injections.forEach((k, v) -> {
                         if (v.timePriorities.containsKey(finalI)) {
-                            final Integer previous = v.locationPriorities.put(finalI, weight);
-                            if (previous != null) {
+                            final Integer previous = v.locationPriorities.putIfAbsent(finalI, weight);
+                            if (previous != null && previous != weight) {
                                 throw new RuntimeException("invalid weight");
                             }
                         }
