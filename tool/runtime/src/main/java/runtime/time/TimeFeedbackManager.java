@@ -1,5 +1,7 @@
 package runtime.time;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import runtime.FeedbackManager;
 import runtime.TraceAgent;
 
@@ -9,6 +11,8 @@ import java.util.*;
 import java.util.function.BiFunction;
 
 public class TimeFeedbackManager extends FeedbackManager {
+    private static final Logger LOG = LoggerFactory.getLogger(TimeFeedbackManager.class);
+
     private static final double INF = 1e20;
     private static int fixLog = -1;
     private static boolean isTime = true;
@@ -222,6 +226,7 @@ public class TimeFeedbackManager extends FeedbackManager {
             }));
         }
         this.boundary = kth(priorities, windowSize, INF);
+        LOG.info(getMode());
     }
 
     // reference: https://www.geeksforgeeks.org/quicksort-using-random-pivoting/
