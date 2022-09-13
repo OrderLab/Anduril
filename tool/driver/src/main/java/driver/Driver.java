@@ -11,7 +11,6 @@ import runtime.config.Config;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.Future;
 
@@ -86,7 +85,7 @@ public final class Driver {
                             if (size < FILE_SIZE_LIMIT && trialProcess.isAlive()) {
                                 return true;
                             }
-                            throw new RemoteException();
+                            throw new RuntimeException();
                         })) {
                             killall();
                         }

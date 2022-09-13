@@ -76,6 +76,29 @@ public class TimeFeedbackManager extends FeedbackManager {
             }
             return min;
         }),
+        // min[min(_,_)]
+        MIN_MIN((time, location) -> {
+            double min = 0;
+            int size = 0;
+            for (final Map.Entry<Integer, Integer> entry : time.entrySet()) {
+                final double v = entry.getValue();
+                if (size == 0 || v < min) {
+                    min = v;
+                }
+                size++;
+            }
+            for (final Map.Entry<Integer, Integer> entry : location.entrySet()) {
+                final double v = entry.getValue();
+                if (size == 0 || v < min) {
+                    min = v;
+                }
+                size++;
+            }
+            if (size == 0) {
+                return INF;
+            }
+            return min;
+        }),
         // min[_ or _]
         MIN_INTERLEAVE((time, location) -> {
             double min = 0;
@@ -136,6 +159,7 @@ public class TimeFeedbackManager extends FeedbackManager {
             case "times"          : this.mode = Mode.E_TIMES; break;
             case "min_add"        : this.mode = Mode.MIN_ADD; break;
             case "min_times"      : this.mode = Mode.MIN_TIMES; break;
+            case "min_min"      : this.mode = Mode.MIN_MIN; break;
             case "min_interleave" : this.mode = Mode.MIN_INTERLEAVE; break;
             case "min_random"     : this.mode = Mode.MIN_RANDOM; break;
             default: throw new RuntimeException("invalid time feedback formula");
@@ -269,6 +293,7 @@ public class TimeFeedbackManager extends FeedbackManager {
             case E_TIMES        : return "times";
             case MIN_ADD        : return "min_add";
             case MIN_TIMES      : return "min_times";
+            case MIN_MIN        : return "min_min";
             case MIN_INTERLEAVE : return isTime ? "min_time" : "min_location";
             case MIN_RANDOM     : return String.format("min_%s_log_%d", isTime ? "time" : "location", fixLog);
             default: throw new RuntimeException("invalid mode");
