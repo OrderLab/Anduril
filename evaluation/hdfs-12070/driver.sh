@@ -6,7 +6,7 @@ pushd $SCRIPT_DIR >/dev/null
 
 java -jar $SCRIPT_DIR/driver.jar \
 --experiment \
--spec $SCRIPT_DIR/tree.json \
+--spec $SCRIPT_DIR/tree.json \
 --path $SCRIPT_DIR/trials \
 --config $SCRIPT_DIR/config.properties \
 $@
