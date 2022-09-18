@@ -144,7 +144,7 @@ public final class ThreadDiff implements DiffDump {
 
     // Should not be used at all
     @Override
-    public List<CodeLocation> sortCodeLocationInThreadOrder() throws ExecutionException, InterruptedException {
+    public ArrayList<CodeLocation> sortCodeLocationInThreadOrder() {
         return null;
     }
 
