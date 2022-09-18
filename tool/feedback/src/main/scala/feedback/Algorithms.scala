@@ -74,6 +74,23 @@ object Algorithms {
       }
   }
 
+  def computeDoubleDiff(good: Log, bad: Log, trial: Log, spec: JsonObject, action: ActionMayThrow[String]): Unit = {
+    val array = spec.getJsonArray("nodes")
+    val eventNumber = spec.getInt("start")
+    val id2log = new java.util.TreeMap[Integer, ThreadDiff.CodeLocation]
+    (0 until array.size) foreach { i =>
+      val node = array.getJsonObject(i)
+      val id = node.getInt("id")
+      if (id < eventNumber && node.getString("type").equals("location_event")) {
+        val location = node.getJsonObject("location")
+        val entry = new ThreadDiff.CodeLocation(
+          TextParser.getSimpleClassName(location.getString("class")), location.getInt("line_number"))
+        id2log.put(id, entry)
+      }
+    }
+    computeLocationFeedback(good, bad, trial, spec, id => action.accept(id2log.get(id).toString))
+  }
+
   def computeDiff(good: Log, bad: Log, action: ActionMayThrow[ThreadDiff.CodeLocation]): Unit = {
     val set = new java.util.HashSet[ThreadDiff.CodeLocation]
     computeDiff(good, bad) foreach { _.dumpBadDiff(e =>

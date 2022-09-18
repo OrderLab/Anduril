@@ -87,6 +87,9 @@ public final class CommandLine {
             this.computeDiff(e -> array.add(e.toString()));
             result.add("diff", array);
         }
+        if (cmd.hasOption("double-diff")) {
+            throw new RuntimeException("not support");
+        }
         return result;
     }
 
@@ -100,6 +103,9 @@ public final class CommandLine {
         }
         if (cmd.hasOption("diff")) {
             this.computeDiff(printer::println);
+        }
+        if (cmd.hasOption("double-diff")) {
+            this.computeDoubleDiff(printer::println);
         }
     }
 
@@ -137,6 +143,15 @@ public final class CommandLine {
         Algorithms.computeDiff(good.get(), bad.get(), action);
     }
 
+    private void computeDoubleDiff(final ActionMayThrow<String> action)
+            throws ExecutionException, InterruptedException {
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> trial = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
+        final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        Algorithms.computeDoubleDiff(good.get(), bad.get(), trial.get(), spec.get(), action);
+    }
+
     private static Options getOptions() {
         final Options options = new Options();
 
@@ -165,6 +180,10 @@ public final class CommandLine {
         final Option diff = new Option("d", "diff", false,
                 "only compute the diff of the good run and the bad run");
         options.addOption(diff);
+
+        final Option dd = new Option("dd", "double-diff", false,
+                "only compute the diff of the good run and the bad run and the trial run");
+        options.addOption(dd);
 
         final Option timeFeedback = new Option("tf", "time-feedback", false,
                 "compute the time-based feedback based on the trial run, the good run, the bad run");
