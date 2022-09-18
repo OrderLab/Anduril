@@ -143,13 +143,12 @@ public final class CommandLine {
         Algorithms.computeDiff(good.get(), bad.get(), action);
     }
 
-    private void computeDoubleDiff(final ActionMayThrow<String> action)
+    private void computeDoubleDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action)
             throws ExecutionException, InterruptedException {
         final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
         final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
         final Future<Log> trial = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
-        final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
-        Algorithms.computeDoubleDiff(good.get(), bad.get(), trial.get(), spec.get(), action);
+        Algorithms.computeDoubleDiff(good.get(), bad.get(), trial.get(), action);
     }
 
     private static Options getOptions() {
