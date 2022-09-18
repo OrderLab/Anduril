@@ -109,7 +109,7 @@ final class DiffTest extends ThreadTestBase {
         JavaThreadUtil.parallel(testCases, bug -> {
             final LogFileDiff diff = new LogFileDiff(LogTestUtil.getLogFile("ground-truth/" + bug + "/good-run-log.txt"),
                     LogTestUtil.getLogFile("ground-truth/" + bug + "/bad-run-log.txt"));
-            final List<String> expected = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log_dd.txt")),
+            final List<String> expected = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log.txt")),
                     actual = collectDiff(diff::dumpBadDiff);
             assertEquals(expected, actual);
         }).get();
