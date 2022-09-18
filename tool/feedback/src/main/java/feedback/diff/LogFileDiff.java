@@ -15,6 +15,8 @@ public final class LogFileDiff implements DiffDump {
     private final Map<String, Future<ThreadDiff>> common;
     private final ArrayList<scala.Tuple2<Integer, Integer>> intervals = new ArrayList<>();
     private volatile boolean finished = false;
+    // For double diff
+    //public final List<ThreadDiff.CodeLocation> diffByThread = new ArrayList<>();
 
     public LogFileDiff(final LogFile good, final LogFile bad) {
         this.good = good;
@@ -67,6 +69,35 @@ public final class LogFileDiff implements DiffDump {
             finished = true;
         }
         return intervals;
+    }
+
+    @Override
+    public ArrayList<ThreadDiff.CodeLocation> sortCodeLocationInThreadOrder()
+            throws ExecutionException, InterruptedException {
+
+        final ArrayList<ThreadDiff.CodeLocation> diffByThread = new ArrayList<>();
+
+        final Set<String> visited = new HashSet<>();
+        final List<String> threadOrder = new ArrayList<>();
+        Map<String,ArrayList<ThreadDiff.CodeLocation>> buffer = new HashMap<>();
+
+        for (final LogEntry logEntry : bad.entries()) {
+            final String thread = logEntry.thread();
+            if (visited.add(thread)) {
+                threadOrder.add(thread);
+                buffer.put(thread, new ArrayList<>());
+                if (common.containsKey(thread)) {
+                    common.get(thread).get().dumpBadDiff(buffer.get(thread)::add);
+                }
+            }
+            if (!common.containsKey(thread)) {
+                buffer.get(thread).add(new ThreadDiff.CodeLocation(logEntry));
+            }
+        }
+        for (final String thread : threadOrder) {
+            diffByThread.addAll(buffer.get(thread));
+        }
+        return diffByThread;
     }
 
     // don't filter the duplicate entries

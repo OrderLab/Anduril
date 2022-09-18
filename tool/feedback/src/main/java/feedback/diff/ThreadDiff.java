@@ -6,6 +6,7 @@ import feedback.log.entry.LogEntry;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public final class ThreadDiff implements DiffDump {
     public static final class CodeLocation implements Serializable {
@@ -121,6 +122,30 @@ public final class ThreadDiff implements DiffDump {
             }
             this.common = common.toArray(new scala.Tuple2[0]);
         }
+    }
+
+    private static CodeLocation[] convertCodeLocations(final ArrayList<ThreadDiff.CodeLocation> codeLocations) {
+        final CodeLocation[] result = new CodeLocation[codeLocations.size()];
+        for (int i = 0; i < codeLocations.size(); i++) {
+            result[i] = codeLocations.get(i);
+        }
+        return result;
+    }
+
+    public ThreadDiff(final ArrayList<ThreadDiff.CodeLocation> good,
+                                    final ArrayList<ThreadDiff.CodeLocation> bad)  {
+        this.thread = null;
+        this.common = null;
+        final CodeLocation[] goodLocations = convertCodeLocations(good);
+        final CodeLocation[] badLocations = convertCodeLocations(bad);
+        final FastDiff<CodeLocation> diff = new FastDiff<>(goodLocations, badLocations);
+        this.badOnly = diff.badOnly;
+    }
+
+    // Should not be used at all
+    @Override
+    public List<CodeLocation> sortCodeLocationInThreadOrder() throws ExecutionException, InterruptedException {
+        return null;
     }
 
     // don't filter the duplicate entries

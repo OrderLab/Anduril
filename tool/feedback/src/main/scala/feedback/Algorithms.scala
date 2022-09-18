@@ -74,7 +74,7 @@ object Algorithms {
       }
   }
 
-  def computeDoubleDiff(good: Log, bad: Log, trial: Log, action: ActionMayThrow[ThreadDiff.CodeLocation]): Unit = {
+  def computeDoubleDiff1(good: Log, bad: Log, trial: Log, action: ActionMayThrow[ThreadDiff.CodeLocation]): Unit = {
     val set = new java.util.HashSet[ThreadDiff.CodeLocation]
     computeDiff(good, bad) foreach { _.dumpBadDiff(e =>
       set.add(e)
@@ -82,6 +82,22 @@ object Algorithms {
     computeDiff(good, trial) foreach { _.dumpBadDiff(e =>
       set.remove(e)
     )}
+    set.forEach { i =>
+      action.accept(i);
+    }
+  }
+
+  def computeDoubleDiff(good: Log, bad: Log, trial: Log, action: ActionMayThrow[ThreadDiff.CodeLocation]): Unit = {
+    val set = new java.util.HashSet[ThreadDiff.CodeLocation]
+    val expected = computeDiff(good, bad)
+    val actual = computeDiff(good, trial)
+    val result = (actual zip expected).map{ case (a, e) =>
+      new ThreadDiff(a.sortCodeLocationInThreadOrder(),e.sortCodeLocationInThreadOrder())}
+    result foreach {
+      _.dumpBadDiff(e =>
+        set.add(e)
+      )
+    }
     set.forEach { i =>
       action.accept(i);
     }
