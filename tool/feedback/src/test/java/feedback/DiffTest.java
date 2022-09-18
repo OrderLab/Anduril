@@ -74,6 +74,10 @@ final class DiffTest extends ThreadTestBase {
             "kafka-10340",
     };
 
+    private static final String[] doubleDiffTestCases = {
+            "hdfs-12070",
+    };
+
     private static List<String> collectDiff(final ActionMayThrow<ActionMayThrow<ThreadDiff.CodeLocation>> dumpBadDiff) {
         final List<String> result = new ArrayList<>();
         dumpBadDiff.accept(e -> result.add(e.toString()));
@@ -86,12 +90,26 @@ final class DiffTest extends ThreadTestBase {
     }
 
     @Test
+    void testLogFileDoubleDiff() throws Exception {
+        JavaThreadUtil.parallel(doubleDiffTestCases, bug -> {
+            final LogFileDiff diff1 = new LogFileDiff(LogTestUtil.getLogFile("ground-truth/" + bug + "/good-run-log.txt"),
+                    LogTestUtil.getLogFile("ground-truth/" + bug + "/bad-run-log.txt"));
+            final LogFileDiff diff2 = new LogFileDiff(LogTestUtil.getLogFile("ground-truth/" + bug + "/good-run-log.txt"),
+                    LogTestUtil.getLogFile("ground-truth/" + bug + "/good-run-log-2.txt"));
+            final ThreadDiff diff = new ThreadDiff(diff2.sortCodeLocationInThreadOrder(),diff1.sortCodeLocationInThreadOrder());
+            final List<String> expected = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log_dd.txt")),
+                    actual = collectDiff(diff::dumpBadDiff);
+            assertEquals(expected, actual);
+        }).get();
+    }
+
+    @Test
     void testLogFileDiff() throws Exception {
         // test the logs without filtering redundant element
         JavaThreadUtil.parallel(testCases, bug -> {
             final LogFileDiff diff = new LogFileDiff(LogTestUtil.getLogFile("ground-truth/" + bug + "/good-run-log.txt"),
                     LogTestUtil.getLogFile("ground-truth/" + bug + "/bad-run-log.txt"));
-            final List<String> expected = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log.txt")),
+            final List<String> expected = collectDiff(LogTestUtil.getFileLines("ground-truth/" + bug + "/diff_log_dd.txt")),
                     actual = collectDiff(diff::dumpBadDiff);
             assertEquals(expected, actual);
         }).get();
