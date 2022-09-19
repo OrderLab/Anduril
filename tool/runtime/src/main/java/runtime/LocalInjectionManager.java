@@ -55,23 +55,7 @@ public class LocalInjectionManager {
         try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
              final JsonReader reader = Json.createReader(inputStream)) {
             final JsonObject json = reader.readObject();
-            final JsonArray arr = json.getJsonArray("injections");
             start = json.getInt("start");
-            for (int i = 0; i < arr.size(); i++) {
-                final JsonObject spec = arr.getJsonObject(i);
-                final int injectionId = spec.getInt("id");
-                if (TraceAgent.config.distributedMode) {
-                    final String name = spec.getString("exception");
-                    if (name != null) {
-                        id2name.put(injectionId, name);
-                    }
-                } else {
-                    final Throwable exception = ExceptionBuilder.createException(spec.getString("exception"));
-                    if (exception != null) {
-                        id2exception.put(injectionId, exception);
-                    }
-                }
-            }
             if (TraceAgent.config.isTimeFeedback) {
                 feedbackManager = new TimeFeedbackManager(json, TraceAgent.config.timePriorityTable);
             } else {
@@ -133,6 +117,29 @@ public class LocalInjectionManager {
             } catch (final IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+        try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
+             final JsonReader reader = Json.createReader(inputStream)) {
+            final JsonObject json = reader.readObject();
+            final JsonArray arr = json.getJsonArray("injections");
+            for (int i = 0; i < arr.size(); i++) {
+                final JsonObject spec = arr.getJsonObject(i);
+                final int injectionId = spec.getInt("id");
+                if (TraceAgent.config.distributedMode) {
+                    final String name = spec.getString("exception");
+                    if (name != null) {
+                        id2name.put(injectionId, name);
+                    }
+                } else {
+                    final Throwable exception = ExceptionBuilder.createException(spec.getString("exception"));
+                    if (exception != null) {
+                        id2exception.put(injectionId, exception);
+                    }
+                }
+            }
+        } catch (final IOException e) {
+            LOG.error("Error while loading files", e);
+            System.exit(-1);
         }
         if (!TraceAgent.config.isTimeFeedback) {
             LOG.info("injection allow set: {}", feedbackManager.allowSet);
