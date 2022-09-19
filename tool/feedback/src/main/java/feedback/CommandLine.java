@@ -90,6 +90,9 @@ public final class CommandLine {
         if (cmd.hasOption("double-diff")) {
             throw new RuntimeException("not support");
         }
+        if (cmd.hasOption("double-diff-set")) {
+            throw new RuntimeException("not support");
+        }
         return result;
     }
 
@@ -106,6 +109,9 @@ public final class CommandLine {
         }
         if (cmd.hasOption("double-diff")) {
             this.computeDoubleDiff(printer::println);
+        }
+        if (cmd.hasOption("double-diff-set")) {
+            this.computeDoubleDiffSet(printer::println);
         }
     }
 
@@ -151,6 +157,14 @@ public final class CommandLine {
         Algorithms.computeDoubleDiff(good.get(), bad.get(), trial.get(), action);
     }
 
+    private void computeDoubleDiffSet(final ActionMayThrow<ThreadDiff.CodeLocation> action)
+            throws ExecutionException, InterruptedException {
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<Log> trial = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("trial")));
+        Algorithms.computeDoubleDiff1(good.get(), bad.get(), trial.get(), action);
+    }
+
     private static Options getOptions() {
         final Options options = new Options();
 
@@ -182,6 +196,11 @@ public final class CommandLine {
 
         final Option dd = new Option("dd", "double-diff", false,
                 "only compute the diff of the good run and the bad run and the trial run");
+        options.addOption(dd);
+
+
+        final Option dds = new Option("dd", "double-diff-set", false,
+                "only compute the diff of the good run and the bad run and the trial run using set minus");
         options.addOption(dd);
 
         final Option timeFeedback = new Option("tf", "time-feedback", false,
