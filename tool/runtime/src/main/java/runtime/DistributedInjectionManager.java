@@ -2,6 +2,7 @@ package runtime;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DistributedInjectionManager extends LocalInjectionManager {
     public static class ProcessRecord {
@@ -10,6 +11,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
 //        public final Map<Integer, Integer> block2times = new TreeMap<>();
     }
     private final ProcessRecord[] processRecords;
+    private final AtomicInteger injectionCounter = new AtomicInteger();
 
     public DistributedInjectionManager(final int processNumber,
                                        final String trialsPath,
@@ -36,6 +38,14 @@ public class DistributedInjectionManager extends LocalInjectionManager {
             synchronized (name) {
                 final int occurrence = record.id2times.getOrDefault(id, 0) + 1;
                 record.id2times.put(id, occurrence);
+                if (TraceAgent.config.fixPointInjectionMode) {
+                    if (id == TraceAgent.config.targetId) {
+                        if (injectionCounter.incrementAndGet() == TraceAgent.config.times) {
+                            return 1;
+                        }
+                    }
+                    return 0;
+                }
                 final InjectionIndex index = new InjectionIndex(pid, id, name, occurrence, blockId);
                 if (TraceAgent.config.isTimeFeedback) {
                     if (feedbackManager.isAllowed(pid, id, occurrence) && !injectionSet.containsKey(index) &&
