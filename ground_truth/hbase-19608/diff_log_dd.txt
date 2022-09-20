@@ -1,0 +1,15 @@
+ScheduledChore 180
+FSNamesystem 3577
+ProcedureExecutor 1344
+NIOServerCnxnFactory 192
+BlockReceiver$PacketResponder 1413
+PrepRequestProcessor 648
+FSNamesystem$DefaultAuditLogger 8254
+BlockReceiver$PacketResponder 1440
+HRegionServer 1389
+FSNamesystem 3942
+EditLogFileOutputStream 200
+FSNamesystem 3463
+FSNamesystem 3533
+Waiter 189
+DataXceiver 660

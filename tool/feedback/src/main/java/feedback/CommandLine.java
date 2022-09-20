@@ -199,9 +199,9 @@ public final class CommandLine {
         options.addOption(dd);
 
 
-        final Option dds = new Option("dd", "double-diff-set", false,
+        final Option dds = new Option("dds", "double-diff-set", false,
                 "only compute the diff of the good run and the bad run and the trial run using set minus");
-        options.addOption(dd);
+        options.addOption(dds);
 
         final Option timeFeedback = new Option("tf", "time-feedback", false,
                 "compute the time-based feedback based on the trial run, the good run, the bad run");

@@ -1,0 +1,957 @@
+JUnit version 4.11
+.SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-tools/hadoop-distcp/target/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-common-project/hadoop-common/target/hadoop-common-3.0.0-beta1-SNAPSHOT/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-common-project/hadoop-auth-examples/target/hadoop-auth-examples-3.0.0-beta1-SNAPSHOT/WEB-INF/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2022-09-19 16:12:14,258 - INFO  [Thread-0:MiniQJMHACluster@99] - Set MiniQJMHACluster basePort to 13828
+2022-09-19 16:12:14,262 - INFO  [Thread-0:MiniJournalCluster@95] - Starting MiniJournalCluster with 3 journal nodes
+2022-09-19 16:12:14,533 - INFO  [Thread-0:FluentPropertyBeanIntrospector@147] - Error when creating PropertyDescriptor for public final void org.apache.commons.configuration2.AbstractConfiguration.setProperty(java.lang.String,java.lang.Object)! Ignoring this property.
+2022-09-19 16:12:14,572 - INFO  [Thread-0:MetricsConfig@121] - loaded properties from hadoop-metrics2.properties
+2022-09-19 16:12:14,648 - INFO  [Thread-0:MetricsSystemImpl@374] - Scheduled Metric snapshot period at 0 second(s).
+2022-09-19 16:12:14,648 - INFO  [Thread-0:MetricsSystemImpl@191] - JournalNode metrics system started
+2022-09-19 16:12:14,697 - WARN  [Thread-0:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-09-19 16:12:14,738 - INFO  [Thread-0:DFSUtil@1512] - Starting Web-server for journal at: http://localhost:0
+2022-09-19 16:12:14,759 - INFO  [Thread-0:Log@192] - Logging initialized @1044ms
+2022-09-19 16:12:14,844 - INFO  [Thread-0:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-09-19 16:12:14,853 - INFO  [Thread-0:HttpRequestLog@81] - Http request log for http.requests.journal is not defined
+2022-09-19 16:12:14,857 - INFO  [Thread-0:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-09-19 16:12:14,858 - INFO  [Thread-0:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context journal
+2022-09-19 16:12:14,858 - INFO  [Thread-0:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-09-19 16:12:14,880 - INFO  [Thread-0:HttpServer2@1121] - Jetty bound to port 40521
+2022-09-19 16:12:14,881 - INFO  [Thread-0:Server@346] - jetty-9.3.19.v20170502
+2022-09-19 16:12:14,906 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@6def0e6f{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-09-19 16:12:14,956 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.w.WebAppContext@613d61f7{/,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/journal/,AVAILABLE}{/journal}
+2022-09-19 16:12:14,962 - INFO  [Thread-0:AbstractConnector@278] - Started ServerConnector@7bdf306c{HTTP/1.1,[http/1.1]}{localhost:40521}
+2022-09-19 16:12:14,962 - INFO  [Thread-0:Server@414] - Started @1248ms
+2022-09-19 16:12:14,993 - INFO  [Thread-0:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 500 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-09-19 16:12:15,000 - INFO  [Socket Reader #1 for port 36189:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 36189
+2022-09-19 16:12:15,176 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-09-19 16:12:15,176 - INFO  [IPC Server listener on 36189:Server$Listener@1146] - IPC Server listener on 36189: starting
+2022-09-19 16:12:15,192 - INFO  [Thread-0:MetricsSystemImpl@158] - JournalNode metrics system started (again)
+2022-09-19 16:12:15,194 - INFO  [Thread-0:DFSUtil@1512] - Starting Web-server for journal at: http://localhost:0
+2022-09-19 16:12:15,195 - INFO  [Thread-0:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-09-19 16:12:15,195 - INFO  [Thread-0:HttpRequestLog@81] - Http request log for http.requests.journal is not defined
+2022-09-19 16:12:15,196 - INFO  [Thread-0:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-09-19 16:12:15,197 - INFO  [Thread-0:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context journal
+2022-09-19 16:12:15,197 - INFO  [Thread-0:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-09-19 16:12:15,198 - INFO  [Thread-0:HttpServer2@1121] - Jetty bound to port 38239
+2022-09-19 16:12:15,198 - INFO  [Thread-0:Server@346] - jetty-9.3.19.v20170502
+2022-09-19 16:12:15,199 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@16bd48b5{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-09-19 16:12:15,207 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.w.WebAppContext@21d2e482{/,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/journal/,AVAILABLE}{/journal}
+2022-09-19 16:12:15,207 - INFO  [Thread-0:AbstractConnector@278] - Started ServerConnector@7e017dd6{HTTP/1.1,[http/1.1]}{localhost:38239}
+2022-09-19 16:12:15,207 - INFO  [Thread-0:Server@414] - Started @1493ms
+2022-09-19 16:12:15,208 - INFO  [Thread-0:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 500 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-09-19 16:12:15,209 - INFO  [Socket Reader #1 for port 45207:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 45207
+2022-09-19 16:12:15,210 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-09-19 16:12:15,210 - INFO  [IPC Server listener on 45207:Server$Listener@1146] - IPC Server listener on 45207: starting
+2022-09-19 16:12:15,224 - INFO  [Thread-0:MetricsSystemImpl@158] - JournalNode metrics system started (again)
+2022-09-19 16:12:15,226 - INFO  [Thread-0:DFSUtil@1512] - Starting Web-server for journal at: http://localhost:0
+2022-09-19 16:12:15,227 - INFO  [Thread-0:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-09-19 16:12:15,228 - INFO  [Thread-0:HttpRequestLog@81] - Http request log for http.requests.journal is not defined
+2022-09-19 16:12:15,228 - INFO  [Thread-0:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-09-19 16:12:15,229 - INFO  [Thread-0:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context journal
+2022-09-19 16:12:15,230 - INFO  [Thread-0:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-09-19 16:12:15,230 - INFO  [Thread-0:HttpServer2@1121] - Jetty bound to port 37713
+2022-09-19 16:12:15,230 - INFO  [Thread-0:Server@346] - jetty-9.3.19.v20170502
+2022-09-19 16:12:15,232 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@72d9bbfe{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-09-19 16:12:15,238 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.w.WebAppContext@332bd887{/,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/journal/,AVAILABLE}{/journal}
+2022-09-19 16:12:15,238 - INFO  [Thread-0:AbstractConnector@278] - Started ServerConnector@62f40d31{HTTP/1.1,[http/1.1]}{localhost:37713}
+2022-09-19 16:12:15,239 - INFO  [Thread-0:Server@414] - Started @1525ms
+2022-09-19 16:12:15,239 - INFO  [Thread-0:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 500 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-09-19 16:12:15,240 - INFO  [Socket Reader #1 for port 44423:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 44423
+2022-09-19 16:12:15,242 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-09-19 16:12:15,242 - INFO  [IPC Server listener on 44423:Server$Listener@1146] - IPC Server listener on 44423: starting
+2022-09-19 16:12:15,559 - INFO  [IPC Server handler 0 on 44423:JournalNode@96] - Initializing journal in directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/waitactive
+2022-09-19 16:12:15,559 - INFO  [IPC Server handler 0 on 36189:JournalNode@96] - Initializing journal in directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/waitactive
+2022-09-19 16:12:15,559 - INFO  [IPC Server handler 0 on 45207:JournalNode@96] - Initializing journal in directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/waitactive
+2022-09-19 16:12:15,566 - WARN  [IPC Server handler 0 on 44423:Storage$StorageDirectory@600] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/waitactive does not exist
+2022-09-19 16:12:15,566 - WARN  [IPC Server handler 0 on 36189:Storage$StorageDirectory@600] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/waitactive does not exist
+2022-09-19 16:12:15,566 - WARN  [IPC Server handler 0 on 45207:Storage$StorageDirectory@600] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/waitactive does not exist
+2022-09-19 16:12:15,909 - INFO  [Thread-0:MiniDFSCluster@469] - starting cluster: numNameNodes=2, numDataNodes=0
+Formatting using clusterid: testClusterID
+2022-09-19 16:12:16,034 - INFO  [Thread-0:FSEditLog@224] - Edit logging is async:false
+2022-09-19 16:12:16,039 - INFO  [Thread-0:FSNamesystem@742] - KeyProvider: null
+2022-09-19 16:12:16,040 - INFO  [Thread-0:FSNamesystemLock@120] - fsLock is fair: true
+2022-09-19 16:12:16,040 - INFO  [Thread-0:FSNamesystemLock@136] - Detailed lock hold time metrics enabled: false
+2022-09-19 16:12:16,040 - INFO  [Thread-0:FSNamesystem@763] - fsOwner             = tonypan (auth:SIMPLE)
+2022-09-19 16:12:16,040 - INFO  [Thread-0:FSNamesystem@764] - supergroup          = supergroup
+2022-09-19 16:12:16,040 - INFO  [Thread-0:FSNamesystem@765] - isPermissionEnabled = true
+2022-09-19 16:12:16,040 - INFO  [Thread-0:FSNamesystem@774] - Determined nameservice ID: ns1
+2022-09-19 16:12:16,040 - INFO  [Thread-0:FSNamesystem@776] - HA Enabled: true
+2022-09-19 16:12:16,060 - INFO  [Thread-0:Util@395] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-09-19 16:12:16,063 - INFO  [Thread-0:Configuration@1285] - hadoop.configured.node.mapping is deprecated. Instead, use net.topology.configured.node.mapping
+2022-09-19 16:12:16,063 - INFO  [Thread-0:DatanodeManager@301] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-09-19 16:12:16,063 - INFO  [Thread-0:DatanodeManager@309] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-09-19 16:12:16,065 - INFO  [Thread-0:InvalidateBlocks@76] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-09-19 16:12:16,065 - INFO  [Thread-0:InvalidateBlocks@82] - The block deletion will start around 2022 Sep 19 16:12:16
+2022-09-19 16:12:16,067 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-09-19 16:12:16,067 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,068 - INFO  [Thread-0:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-09-19 16:12:16,068 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-09-19 16:12:16,101 - INFO  [Thread-0:BlockManager@560] - dfs.block.access.token.enable = false
+2022-09-19 16:12:16,104 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.safemode.extension(0) assuming MILLISECONDS
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManager@546] - defaultReplication         = 0
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManager@547] - maxReplication             = 512
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManager@548] - minReplication             = 1
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManager@549] - maxReplicationStreams      = 2
+2022-09-19 16:12:16,104 - INFO  [Thread-0:BlockManager@550] - redundancyRecheckInterval  = 3000ms
+2022-09-19 16:12:16,105 - INFO  [Thread-0:BlockManager@551] - encryptDataTransfer        = false
+2022-09-19 16:12:16,105 - INFO  [Thread-0:BlockManager@552] - maxNumBlocksToLog          = 1000
+2022-09-19 16:12:16,121 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-09-19 16:12:16,121 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,122 - INFO  [Thread-0:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-09-19 16:12:16,122 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-09-19 16:12:16,130 - INFO  [Thread-0:FSDirectory@278] - ACLs enabled? false
+2022-09-19 16:12:16,130 - INFO  [Thread-0:FSDirectory@282] - POSIX ACL inheritance enabled? true
+2022-09-19 16:12:16,130 - INFO  [Thread-0:FSDirectory@286] - XAttrs enabled? true
+2022-09-19 16:12:16,130 - INFO  [Thread-0:FSDirectory@350] - Caching file names occurring more than 10 times
+2022-09-19 16:12:16,137 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-09-19 16:12:16,137 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,137 - INFO  [Thread-0:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-09-19 16:12:16,137 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-09-19 16:12:16,144 - INFO  [Thread-0:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-09-19 16:12:16,144 - INFO  [Thread-0:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-09-19 16:12:16,144 - INFO  [Thread-0:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-09-19 16:12:16,146 - INFO  [Thread-0:FSNamesystem@968] - Retry cache on namenode is enabled
+2022-09-19 16:12:16,147 - INFO  [Thread-0:FSNamesystem@976] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-09-19 16:12:16,148 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-09-19 16:12:16,148 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,148 - INFO  [Thread-0:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-09-19 16:12:16,148 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-09-19 16:12:16,161 - INFO  [IPC Server handler 3 on 36189:JournalNode@96] - Initializing journal in directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1
+2022-09-19 16:12:16,161 - INFO  [IPC Server handler 3 on 44423:JournalNode@96] - Initializing journal in directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1
+2022-09-19 16:12:16,161 - WARN  [IPC Server handler 3 on 36189:Storage$StorageDirectory@600] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 does not exist
+2022-09-19 16:12:16,161 - INFO  [IPC Server handler 3 on 45207:JournalNode@96] - Initializing journal in directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1
+2022-09-19 16:12:16,162 - WARN  [IPC Server handler 3 on 44423:Storage$StorageDirectory@600] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1 does not exist
+2022-09-19 16:12:16,162 - WARN  [IPC Server handler 3 on 45207:Storage$StorageDirectory@600] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 does not exist
+2022-09-19 16:12:16,166 - INFO  [Thread-0:FSImage@164] - Allocated new BlockPoolId: BP-888663025-10.0.0.215-1663618336166
+2022-09-19 16:12:16,178 - INFO  [Thread-0:NNStorage@583] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1 has been successfully formatted.
+2022-09-19 16:12:16,195 - INFO  [Thread-0:NNStorage@583] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2 has been successfully formatted.
+2022-09-19 16:12:16,208 - INFO  [IPC Server handler 4 on 44423:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@4523ce95 with namespace info: lv=-64;cid=testClusterID;nsid=1515484925;c=1663618336166;bpid=BP-888663025-10.0.0.215-1663618336166
+2022-09-19 16:12:16,208 - INFO  [IPC Server handler 4 on 45207:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@2a600536 with namespace info: lv=-64;cid=testClusterID;nsid=1515484925;c=1663618336166;bpid=BP-888663025-10.0.0.215-1663618336166
+2022-09-19 16:12:16,208 - INFO  [IPC Server handler 0 on 36189:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@585ce7b0 with namespace info: lv=-64;cid=testClusterID;nsid=1515484925;c=1663618336166;bpid=BP-888663025-10.0.0.215-1663618336166
+2022-09-19 16:12:16,208 - INFO  [IPC Server handler 4 on 45207:Storage$StorageDirectory@603] - /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 does not exist. Creating ...
+2022-09-19 16:12:16,208 - INFO  [IPC Server handler 4 on 44423:Storage$StorageDirectory@603] - /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1 does not exist. Creating ...
+2022-09-19 16:12:16,208 - INFO  [IPC Server handler 0 on 36189:Storage$StorageDirectory@603] - /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 does not exist. Creating ...
+2022-09-19 16:12:16,210 - INFO  [IPC Server handler 4 on 44423:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,210 - INFO  [IPC Server handler 4 on 45207:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,210 - INFO  [IPC Server handler 0 on 36189:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,210 - INFO  [IPC Server handler 4 on 45207:JNStorage@217] - Formatting journal Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 with nsid: 1515484925
+2022-09-19 16:12:16,210 - INFO  [IPC Server handler 4 on 44423:JNStorage@217] - Formatting journal Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1 with nsid: 1515484925
+2022-09-19 16:12:16,210 - INFO  [IPC Server handler 0 on 36189:JNStorage@217] - Formatting journal Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 with nsid: 1515484925
+2022-09-19 16:12:16,226 - INFO  [IPC Server handler 4 on 45207:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,226 - INFO  [IPC Server handler 0 on 36189:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,226 - INFO  [IPC Server handler 4 on 44423:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,232 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@429] - Saving image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/fsimage.ckpt_0000000000000000000 using no compression
+2022-09-19 16:12:16,232 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@429] - Saving image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage.ckpt_0000000000000000000 using no compression
+2022-09-19 16:12:16,297 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@432] - Image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage.ckpt_0000000000000000000 of size 335 bytes saved in 0 seconds.
+2022-09-19 16:12:16,297 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@432] - Image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/fsimage.ckpt_0000000000000000000 of size 335 bytes saved in 0 seconds.
+2022-09-19 16:12:16,300 - INFO  [Thread-0:NNStorageRetentionManager@203] - Going to retain 1 images with txid >= 0
+2022-09-19 16:12:16,361 - INFO  [Thread-0:MiniDFSCluster@1227] - Copying namedir from primary node dir file:/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1 to file:/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3
+2022-09-19 16:12:16,379 - INFO  [Thread-0:MiniDFSCluster@1227] - Copying namedir from primary node dir file:/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1 to file:/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-4
+2022-09-19 16:12:16,394 - INFO  [Thread-0:NameNode@1577] - createNameNode []
+2022-09-19 16:12:16,400 - INFO  [Thread-0:MetricsSystemImpl@158] - NameNode metrics system started (again)
+2022-09-19 16:12:16,401 - INFO  [Thread-0:NameNode@464] - fs.defaultFS is hdfs://ns1
+2022-09-19 16:12:16,401 - INFO  [Thread-0:NameNode@484] - Clients are to use ns1 to access this namenode/service.
+2022-09-19 16:12:16,418 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@17c03886:JvmPauseMonitor$Monitor@188] - Starting JVM pause monitor
+2022-09-19 16:12:16,418 - INFO  [Thread-0:DFSUtil@1512] - Starting Web-server for hdfs at: http://localhost:13829
+2022-09-19 16:12:16,420 - INFO  [Thread-0:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-09-19 16:12:16,421 - INFO  [Thread-0:HttpRequestLog@81] - Http request log for http.requests.namenode is not defined
+2022-09-19 16:12:16,422 - INFO  [Thread-0:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-09-19 16:12:16,423 - INFO  [Thread-0:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context hdfs
+2022-09-19 16:12:16,423 - INFO  [Thread-0:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-09-19 16:12:16,425 - INFO  [Thread-0:NameNodeHttpServer@98] - Added filter 'org.apache.hadoop.hdfs.web.AuthFilter' (class=org.apache.hadoop.hdfs.web.AuthFilter)
+2022-09-19 16:12:16,427 - INFO  [Thread-0:HttpServer2@779] - addJerseyResourcePackage: packageName=org.apache.hadoop.hdfs.server.namenode.web.resources;org.apache.hadoop.hdfs.web.resources, pathSpec=/webhdfs/v1/*
+2022-09-19 16:12:16,429 - INFO  [Thread-0:HttpServer2@1121] - Jetty bound to port 13829
+2022-09-19 16:12:16,429 - INFO  [Thread-0:Server@346] - jetty-9.3.19.v20170502
+2022-09-19 16:12:16,431 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@75e2e4fd{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-09-19 16:12:16,441 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.w.WebAppContext@1ad534c5{/,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/hdfs/,AVAILABLE}{/hdfs}
+2022-09-19 16:12:16,442 - INFO  [Thread-0:AbstractConnector@278] - Started ServerConnector@65264267{HTTP/1.1,[http/1.1]}{localhost:13829}
+2022-09-19 16:12:16,442 - INFO  [Thread-0:Server@414] - Started @2728ms
+2022-09-19 16:12:16,445 - INFO  [Thread-0:FSEditLog@224] - Edit logging is async:false
+2022-09-19 16:12:16,445 - INFO  [Thread-0:FSNamesystem@742] - KeyProvider: null
+2022-09-19 16:12:16,445 - INFO  [Thread-0:FSNamesystemLock@120] - fsLock is fair: true
+2022-09-19 16:12:16,445 - INFO  [Thread-0:FSNamesystemLock@136] - Detailed lock hold time metrics enabled: false
+2022-09-19 16:12:16,445 - INFO  [Thread-0:FSNamesystem@763] - fsOwner             = tonypan (auth:SIMPLE)
+2022-09-19 16:12:16,445 - INFO  [Thread-0:FSNamesystem@764] - supergroup          = supergroup
+2022-09-19 16:12:16,445 - INFO  [Thread-0:FSNamesystem@765] - isPermissionEnabled = true
+2022-09-19 16:12:16,446 - INFO  [Thread-0:FSNamesystem@774] - Determined nameservice ID: ns1
+2022-09-19 16:12:16,446 - INFO  [Thread-0:FSNamesystem@776] - HA Enabled: true
+2022-09-19 16:12:16,446 - INFO  [Thread-0:Util@395] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-09-19 16:12:16,446 - INFO  [Thread-0:DatanodeManager@301] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-09-19 16:12:16,446 - INFO  [Thread-0:DatanodeManager@309] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-09-19 16:12:16,446 - INFO  [Thread-0:InvalidateBlocks@76] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-09-19 16:12:16,447 - INFO  [Thread-0:InvalidateBlocks@82] - The block deletion will start around 2022 Sep 19 16:12:16
+2022-09-19 16:12:16,447 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-09-19 16:12:16,447 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,447 - INFO  [Thread-0:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-09-19 16:12:16,447 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-09-19 16:12:16,459 - INFO  [Thread-0:BlockManager@560] - dfs.block.access.token.enable = false
+2022-09-19 16:12:16,459 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.safemode.extension(0) assuming MILLISECONDS
+2022-09-19 16:12:16,459 - INFO  [Thread-0:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2022-09-19 16:12:16,459 - INFO  [Thread-0:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManager@546] - defaultReplication         = 0
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManager@547] - maxReplication             = 512
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManager@548] - minReplication             = 1
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManager@549] - maxReplicationStreams      = 2
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManager@550] - redundancyRecheckInterval  = 3000ms
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManager@551] - encryptDataTransfer        = false
+2022-09-19 16:12:16,460 - INFO  [Thread-0:BlockManager@552] - maxNumBlocksToLog          = 1000
+2022-09-19 16:12:16,460 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-09-19 16:12:16,460 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,461 - INFO  [Thread-0:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-09-19 16:12:16,461 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-09-19 16:12:16,655 - INFO  [Thread-0:FSDirectory@278] - ACLs enabled? false
+2022-09-19 16:12:16,656 - INFO  [Thread-0:FSDirectory@282] - POSIX ACL inheritance enabled? true
+2022-09-19 16:12:16,656 - INFO  [Thread-0:FSDirectory@286] - XAttrs enabled? true
+2022-09-19 16:12:16,656 - INFO  [Thread-0:FSDirectory@350] - Caching file names occurring more than 10 times
+2022-09-19 16:12:16,656 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-09-19 16:12:16,656 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,656 - INFO  [Thread-0:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-09-19 16:12:16,656 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-09-19 16:12:16,657 - INFO  [Thread-0:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-09-19 16:12:16,657 - INFO  [Thread-0:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-09-19 16:12:16,657 - INFO  [Thread-0:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-09-19 16:12:16,658 - INFO  [Thread-0:FSNamesystem@968] - Retry cache on namenode is enabled
+2022-09-19 16:12:16,658 - INFO  [Thread-0:FSNamesystem@976] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-09-19 16:12:16,658 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-09-19 16:12:16,658 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,658 - INFO  [Thread-0:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-09-19 16:12:16,658 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-09-19 16:12:16,660 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,668 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,674 - INFO  [Thread-0:FSImage@712] - No edit log streams selected.
+2022-09-19 16:12:16,675 - INFO  [Thread-0:FSImage@775] - Planning to load image: FSImageFile(file=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000, cpktTxId=0000000000000000000)
+2022-09-19 16:12:16,681 - INFO  [Thread-0:FSImageFormatPBINode$Loader@266] - Loading 1 INodes.
+2022-09-19 16:12:16,685 - INFO  [Thread-0:FSImageFormatProtobuf$Loader@185] - Loaded FSImage in 0 seconds.
+2022-09-19 16:12:16,685 - INFO  [Thread-0:FSImage@941] - Loaded image for txid 0 from /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000
+2022-09-19 16:12:16,688 - INFO  [Thread-0:FSNamesystem@1080] - Need to save fs image? false (staleImage=false, haEnabled=true, isRollingUpgrade=false)
+2022-09-19 16:12:16,689 - INFO  [Thread-0:NameCache@143] - initialized with 0 entries 0 lookups
+2022-09-19 16:12:16,689 - INFO  [Thread-0:FSNamesystem@714] - Finished loading FSImage in 30 msecs
+2022-09-19 16:12:16,777 - INFO  [Thread-0:NameNodeRpcServer@439] - RPC server is binding to localhost:13828
+2022-09-19 16:12:16,777 - INFO  [Thread-0:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 1000 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-09-19 16:12:16,782 - INFO  [Socket Reader #1 for port 13828:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 13828
+2022-09-19 16:12:16,792 - INFO  [Thread-0:FSNamesystem@4811] - Registered FSNamesystemState, ReplicatedBlocksState and ECBlockGroupsState MBeans.
+2022-09-19 16:12:16,804 - INFO  [Thread-0:LeaseManager@158] - Number of blocks under construction: 0
+2022-09-19 16:12:16,810 - INFO  [Thread-0:BlockManagerSafeMode@396] - STATE* Leaving safe mode after 0 secs
+2022-09-19 16:12:16,810 - INFO  [Thread-0:BlockManagerSafeMode@402] - STATE* Network topology has 0 racks and 0 datanodes
+2022-09-19 16:12:16,811 - INFO  [Thread-0:BlockManagerSafeMode@404] - STATE* UnderReplicatedBlocks has 0 blocks
+2022-09-19 16:12:16,827 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-09-19 16:12:16,827 - INFO  [IPC Server listener on 13828:Server$Listener@1146] - IPC Server listener on 13828: starting
+2022-09-19 16:12:16,828 - INFO  [Thread-0:NameNode@830] - NameNode RPC up at: localhost/127.0.0.1:13828
+2022-09-19 16:12:16,831 - INFO  [Thread-0:FSNamesystem@1354] - Starting services required for standby state
+2022-09-19 16:12:16,834 - INFO  [Thread-0:EditLogTailer@169] - Will roll logs on active node every 120 seconds.
+2022-09-19 16:12:16,834 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.ha.tail-edits.period(1) assuming SECONDS
+2022-09-19 16:12:16,835 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.checkpoint.check.period(2) assuming SECONDS
+2022-09-19 16:12:16,838 - INFO  [Thread-0:StandbyCheckpointer@138] - Starting standby checkpoint thread...
+Checkpointing active NN to possible NNs: [http://127.0.0.1:13831]
+Serving checkpoints at http://localhost:13829
+2022-09-19 16:12:16,839 - INFO  [Thread-0:NameNode@1577] - createNameNode []
+2022-09-19 16:12:16,840 - INFO  [Thread-0:MetricsSystemImpl@158] - NameNode metrics system started (again)
+2022-09-19 16:12:16,840 - INFO  [Thread-0:NameNode@464] - fs.defaultFS is hdfs://ns1
+2022-09-19 16:12:16,840 - INFO  [Thread-0:NameNode@484] - Clients are to use ns1 to access this namenode/service.
+2022-09-19 16:12:16,843 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@1fd87fca:JvmPauseMonitor$Monitor@188] - Starting JVM pause monitor
+2022-09-19 16:12:16,843 - INFO  [Thread-0:DFSUtil@1512] - Starting Web-server for hdfs at: http://localhost:13831
+2022-09-19 16:12:16,844 - INFO  [Thread-0:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-09-19 16:12:16,845 - INFO  [Thread-0:HttpRequestLog@81] - Http request log for http.requests.namenode is not defined
+2022-09-19 16:12:16,846 - INFO  [Thread-0:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-09-19 16:12:16,846 - INFO  [Thread-0:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context hdfs
+2022-09-19 16:12:16,846 - INFO  [Thread-0:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-09-19 16:12:16,848 - INFO  [Thread-0:NameNodeHttpServer@98] - Added filter 'org.apache.hadoop.hdfs.web.AuthFilter' (class=org.apache.hadoop.hdfs.web.AuthFilter)
+2022-09-19 16:12:16,848 - INFO  [Thread-0:HttpServer2@779] - addJerseyResourcePackage: packageName=org.apache.hadoop.hdfs.server.namenode.web.resources;org.apache.hadoop.hdfs.web.resources, pathSpec=/webhdfs/v1/*
+2022-09-19 16:12:16,848 - INFO  [Thread-0:HttpServer2@1121] - Jetty bound to port 13831
+2022-09-19 16:12:16,849 - INFO  [Thread-0:Server@346] - jetty-9.3.19.v20170502
+2022-09-19 16:12:16,854 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@69601942{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-09-19 16:12:16,861 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.w.WebAppContext@5b238fae{/,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/hdfs/,AVAILABLE}{/hdfs}
+2022-09-19 16:12:16,861 - INFO  [Thread-0:AbstractConnector@278] - Started ServerConnector@576f8632{HTTP/1.1,[http/1.1]}{localhost:13831}
+2022-09-19 16:12:16,862 - INFO  [Thread-0:Server@414] - Started @3148ms
+2022-09-19 16:12:16,863 - INFO  [Thread-0:FSEditLog@224] - Edit logging is async:false
+2022-09-19 16:12:16,863 - INFO  [Thread-0:FSNamesystem@742] - KeyProvider: null
+2022-09-19 16:12:16,863 - INFO  [Thread-0:FSNamesystemLock@120] - fsLock is fair: true
+2022-09-19 16:12:16,863 - INFO  [Thread-0:FSNamesystemLock@136] - Detailed lock hold time metrics enabled: false
+2022-09-19 16:12:16,863 - INFO  [Thread-0:FSNamesystem@763] - fsOwner             = tonypan (auth:SIMPLE)
+2022-09-19 16:12:16,863 - INFO  [Thread-0:FSNamesystem@764] - supergroup          = supergroup
+2022-09-19 16:12:16,863 - INFO  [Thread-0:FSNamesystem@765] - isPermissionEnabled = true
+2022-09-19 16:12:16,864 - INFO  [Thread-0:FSNamesystem@774] - Determined nameservice ID: ns1
+2022-09-19 16:12:16,864 - INFO  [Thread-0:FSNamesystem@776] - HA Enabled: true
+2022-09-19 16:12:16,864 - INFO  [Thread-0:Util@395] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-09-19 16:12:16,864 - INFO  [Thread-0:DatanodeManager@301] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-09-19 16:12:16,864 - INFO  [Thread-0:DatanodeManager@309] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-09-19 16:12:16,864 - INFO  [Thread-0:InvalidateBlocks@76] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-09-19 16:12:16,864 - INFO  [Thread-0:InvalidateBlocks@82] - The block deletion will start around 2022 Sep 19 16:12:16
+2022-09-19 16:12:16,865 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-09-19 16:12:16,865 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,865 - INFO  [Thread-0:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-09-19 16:12:16,865 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManager@560] - dfs.block.access.token.enable = false
+2022-09-19 16:12:16,870 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.safemode.extension(0) assuming MILLISECONDS
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManager@546] - defaultReplication         = 0
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManager@547] - maxReplication             = 512
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManager@548] - minReplication             = 1
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManager@549] - maxReplicationStreams      = 2
+2022-09-19 16:12:16,870 - INFO  [Thread-0:BlockManager@550] - redundancyRecheckInterval  = 3000ms
+2022-09-19 16:12:16,871 - INFO  [Thread-0:BlockManager@551] - encryptDataTransfer        = false
+2022-09-19 16:12:16,871 - INFO  [Thread-0:BlockManager@552] - maxNumBlocksToLog          = 1000
+2022-09-19 16:12:16,871 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-09-19 16:12:16,871 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,871 - INFO  [Thread-0:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-09-19 16:12:16,871 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-09-19 16:12:16,883 - INFO  [Thread-0:FSDirectory@278] - ACLs enabled? false
+2022-09-19 16:12:16,883 - INFO  [Thread-0:FSDirectory@282] - POSIX ACL inheritance enabled? true
+2022-09-19 16:12:16,883 - INFO  [Thread-0:FSDirectory@286] - XAttrs enabled? true
+2022-09-19 16:12:16,883 - INFO  [Thread-0:FSDirectory@350] - Caching file names occurring more than 10 times
+2022-09-19 16:12:16,883 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-09-19 16:12:16,883 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,883 - INFO  [Thread-0:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-09-19 16:12:16,883 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-09-19 16:12:16,887 - INFO  [Thread-0:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-09-19 16:12:16,888 - INFO  [Thread-0:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-09-19 16:12:16,888 - INFO  [Thread-0:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-09-19 16:12:16,888 - INFO  [Thread-0:FSNamesystem@968] - Retry cache on namenode is enabled
+2022-09-19 16:12:16,888 - INFO  [Thread-0:FSNamesystem@976] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-09-19 16:12:16,888 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-09-19 16:12:16,888 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:16,888 - INFO  [Thread-0:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-09-19 16:12:16,888 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-09-19 16:12:16,891 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,899 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-4/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:16,904 - INFO  [Thread-0:FSImage@712] - No edit log streams selected.
+2022-09-19 16:12:16,904 - INFO  [Thread-0:FSImage@775] - Planning to load image: FSImageFile(file=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/current/fsimage_0000000000000000000, cpktTxId=0000000000000000000)
+2022-09-19 16:12:16,905 - INFO  [Thread-0:FSImageFormatPBINode$Loader@266] - Loading 1 INodes.
+2022-09-19 16:12:16,906 - INFO  [Thread-0:FSImageFormatProtobuf$Loader@185] - Loaded FSImage in 0 seconds.
+2022-09-19 16:12:16,906 - INFO  [Thread-0:FSImage@941] - Loaded image for txid 0 from /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/current/fsimage_0000000000000000000
+2022-09-19 16:12:16,906 - INFO  [Thread-0:FSNamesystem@1080] - Need to save fs image? false (staleImage=false, haEnabled=true, isRollingUpgrade=false)
+2022-09-19 16:12:16,906 - INFO  [Thread-0:NameCache@143] - initialized with 0 entries 0 lookups
+2022-09-19 16:12:16,906 - INFO  [Thread-0:FSNamesystem@714] - Finished loading FSImage in 16 msecs
+2022-09-19 16:12:16,906 - INFO  [Thread-0:NameNodeRpcServer@439] - RPC server is binding to localhost:13830
+2022-09-19 16:12:16,906 - INFO  [Thread-0:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 1000 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-09-19 16:12:16,907 - INFO  [Socket Reader #1 for port 13830:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 13830
+2022-09-19 16:12:16,909 - INFO  [Thread-0:FSNamesystem@4811] - Registered FSNamesystemState, ReplicatedBlocksState and ECBlockGroupsState MBeans.
+2022-09-19 16:12:16,917 - INFO  [Thread-0:LeaseManager@158] - Number of blocks under construction: 0
+2022-09-19 16:12:16,918 - INFO  [Thread-0:BlockManagerSafeMode@396] - STATE* Leaving safe mode after 0 secs
+2022-09-19 16:12:16,918 - INFO  [Thread-0:BlockManagerSafeMode@402] - STATE* Network topology has 0 racks and 0 datanodes
+2022-09-19 16:12:16,918 - INFO  [Thread-0:BlockManagerSafeMode@404] - STATE* UnderReplicatedBlocks has 0 blocks
+2022-09-19 16:12:16,921 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-09-19 16:12:16,921 - INFO  [IPC Server listener on 13830:Server$Listener@1146] - IPC Server listener on 13830: starting
+2022-09-19 16:12:16,922 - INFO  [Thread-0:NameNode@830] - NameNode RPC up at: localhost/127.0.0.1:13830
+2022-09-19 16:12:16,926 - INFO  [Thread-0:FSNamesystem@1354] - Starting services required for standby state
+2022-09-19 16:12:16,927 - INFO  [Thread-0:EditLogTailer@169] - Will roll logs on active node every 120 seconds.
+2022-09-19 16:12:16,927 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.ha.tail-edits.period(1) assuming SECONDS
+2022-09-19 16:12:16,927 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.checkpoint.check.period(2) assuming SECONDS
+2022-09-19 16:12:16,929 - INFO  [Thread-0:StandbyCheckpointer@138] - Starting standby checkpoint thread...
+Checkpointing active NN to possible NNs: [http://localhost:13829]
+Serving checkpoints at http://localhost:13831
+2022-09-19 16:12:17,156 - INFO  [Thread-0:MiniDFSCluster@2621] - Cluster is active
+2022-09-19 16:12:17,163 - INFO  [Thread-0:MiniDFSCluster@2621] - Cluster is active
+2022-09-19 16:12:17,163 - INFO  [Thread-0:MiniDFSCluster@2038] - Shutting down the namenode
+2022-09-19 16:12:17,163 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:17,164 - WARN  [Edit log tailer:EditLogTailer$EditLogTailerThread@447] - Edit log tailer interrupted
+java.lang.InterruptedException: sleep interrupted
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.doWork(EditLogTailer.java:445)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.access$400(EditLogTailer.java:380)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread$1.run(EditLogTailer.java:397)
+	at org.apache.hadoop.security.SecurityUtil.doAsLoginUserOrFatal(SecurityUtil.java:481)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.run(EditLogTailer.java:393)
+2022-09-19 16:12:17,166 - INFO  [Thread-0:Server@3074] - Stopping server on 13828
+2022-09-19 16:12:17,167 - INFO  [IPC Server listener on 13828:Server$Listener@1178] - Stopping IPC Server listener on 13828
+2022-09-19 16:12:17,167 - INFO  [IPC Server Responder:Server$Responder@1312] - Stopping IPC Server Responder
+2022-09-19 16:12:17,167 - INFO  [StorageInfoMonitor:BlockManager$StorageInfoDefragmenter@4450] - Stopping thread.
+2022-09-19 16:12:17,167 - INFO  [RedundancyMonitor:BlockManager$RedundancyMonitor@4415] - Stopping RedundancyMonitor.
+2022-09-19 16:12:17,200 - INFO  [Thread-0:FSNamesystem@1301] - Stopping services started for active state
+2022-09-19 16:12:17,200 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:17,203 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.w.WebAppContext@1ad534c5{/,null,UNAVAILABLE}{/hdfs}
+2022-09-19 16:12:17,207 - INFO  [Thread-0:AbstractConnector@318] - Stopped ServerConnector@65264267{HTTP/1.1,[http/1.1]}{localhost:13829}
+2022-09-19 16:12:17,207 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@75e2e4fd{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,UNAVAILABLE}
+2022-09-19 16:12:17,217 - INFO  [Thread-0:MiniDFSCluster@2038] - Shutting down the namenode
+2022-09-19 16:12:17,217 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:17,217 - WARN  [Edit log tailer:EditLogTailer$EditLogTailerThread@447] - Edit log tailer interrupted
+java.lang.InterruptedException: sleep interrupted
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.doWork(EditLogTailer.java:445)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.access$400(EditLogTailer.java:380)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread$1.run(EditLogTailer.java:397)
+	at org.apache.hadoop.security.SecurityUtil.doAsLoginUserOrFatal(SecurityUtil.java:481)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.run(EditLogTailer.java:393)
+2022-09-19 16:12:17,218 - INFO  [Thread-0:Server@3074] - Stopping server on 13830
+2022-09-19 16:12:17,218 - INFO  [IPC Server listener on 13830:Server$Listener@1178] - Stopping IPC Server listener on 13830
+2022-09-19 16:12:17,218 - INFO  [StorageInfoMonitor:BlockManager$StorageInfoDefragmenter@4450] - Stopping thread.
+2022-09-19 16:12:17,218 - INFO  [IPC Server Responder:Server$Responder@1312] - Stopping IPC Server Responder
+2022-09-19 16:12:17,218 - INFO  [RedundancyMonitor:BlockManager$RedundancyMonitor@4415] - Stopping RedundancyMonitor.
+2022-09-19 16:12:17,237 - INFO  [Thread-0:FSNamesystem@1301] - Stopping services started for active state
+2022-09-19 16:12:17,237 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:17,238 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.w.WebAppContext@5b238fae{/,null,UNAVAILABLE}{/hdfs}
+2022-09-19 16:12:17,239 - INFO  [Thread-0:AbstractConnector@318] - Stopped ServerConnector@576f8632{HTTP/1.1,[http/1.1]}{localhost:13831}
+2022-09-19 16:12:17,239 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@69601942{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,UNAVAILABLE}
+2022-09-19 16:12:17,249 - INFO  [Thread-0:FSEditLog@224] - Edit logging is async:false
+2022-09-19 16:12:17,249 - INFO  [Thread-0:FSNamesystem@742] - KeyProvider: null
+2022-09-19 16:12:17,249 - INFO  [Thread-0:FSNamesystemLock@120] - fsLock is fair: true
+2022-09-19 16:12:17,249 - INFO  [Thread-0:FSNamesystemLock@136] - Detailed lock hold time metrics enabled: false
+2022-09-19 16:12:17,249 - INFO  [Thread-0:FSNamesystem@763] - fsOwner             = tonypan (auth:SIMPLE)
+2022-09-19 16:12:17,249 - INFO  [Thread-0:FSNamesystem@764] - supergroup          = supergroup
+2022-09-19 16:12:17,249 - INFO  [Thread-0:FSNamesystem@765] - isPermissionEnabled = true
+2022-09-19 16:12:17,250 - INFO  [Thread-0:FSNamesystem@774] - Determined nameservice ID: ns1
+2022-09-19 16:12:17,250 - INFO  [Thread-0:FSNamesystem@776] - HA Enabled: true
+2022-09-19 16:12:17,250 - INFO  [Thread-0:Util@395] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-09-19 16:12:17,250 - INFO  [Thread-0:DatanodeManager@301] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-09-19 16:12:17,250 - INFO  [Thread-0:DatanodeManager@309] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-09-19 16:12:17,250 - INFO  [Thread-0:InvalidateBlocks@76] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-09-19 16:12:17,250 - INFO  [Thread-0:InvalidateBlocks@82] - The block deletion will start around 2022 Sep 19 16:12:17
+2022-09-19 16:12:17,251 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-09-19 16:12:17,251 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,251 - INFO  [Thread-0:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-09-19 16:12:17,251 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-09-19 16:12:17,335 - INFO  [Thread-0:BlockManager@560] - dfs.block.access.token.enable = false
+2022-09-19 16:12:17,335 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.safemode.extension(0) assuming MILLISECONDS
+2022-09-19 16:12:17,335 - INFO  [Thread-0:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2022-09-19 16:12:17,335 - INFO  [Thread-0:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-09-19 16:12:17,335 - INFO  [Thread-0:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-09-19 16:12:17,335 - INFO  [Thread-0:BlockManager@546] - defaultReplication         = 0
+2022-09-19 16:12:17,335 - INFO  [Thread-0:BlockManager@547] - maxReplication             = 512
+2022-09-19 16:12:17,335 - INFO  [Thread-0:BlockManager@548] - minReplication             = 1
+2022-09-19 16:12:17,336 - INFO  [Thread-0:BlockManager@549] - maxReplicationStreams      = 2
+2022-09-19 16:12:17,336 - INFO  [Thread-0:BlockManager@550] - redundancyRecheckInterval  = 3000ms
+2022-09-19 16:12:17,336 - INFO  [Thread-0:BlockManager@551] - encryptDataTransfer        = false
+2022-09-19 16:12:17,336 - INFO  [Thread-0:BlockManager@552] - maxNumBlocksToLog          = 1000
+2022-09-19 16:12:17,336 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-09-19 16:12:17,336 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,336 - INFO  [Thread-0:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-09-19 16:12:17,336 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-09-19 16:12:17,338 - INFO  [Thread-0:FSDirectory@278] - ACLs enabled? false
+2022-09-19 16:12:17,339 - INFO  [Thread-0:FSDirectory@282] - POSIX ACL inheritance enabled? true
+2022-09-19 16:12:17,339 - INFO  [Thread-0:FSDirectory@286] - XAttrs enabled? true
+2022-09-19 16:12:17,339 - INFO  [Thread-0:FSDirectory@350] - Caching file names occurring more than 10 times
+2022-09-19 16:12:17,339 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-09-19 16:12:17,339 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,339 - INFO  [Thread-0:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-09-19 16:12:17,339 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-09-19 16:12:17,340 - INFO  [Thread-0:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-09-19 16:12:17,340 - INFO  [Thread-0:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-09-19 16:12:17,340 - INFO  [Thread-0:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-09-19 16:12:17,340 - INFO  [Thread-0:FSNamesystem@968] - Retry cache on namenode is enabled
+2022-09-19 16:12:17,340 - INFO  [Thread-0:FSNamesystem@976] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-09-19 16:12:17,340 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-09-19 16:12:17,340 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,340 - INFO  [Thread-0:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-09-19 16:12:17,340 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-09-19 16:12:17,342 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,350 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,351 - INFO  [Thread-0:FSImage@712] - No edit log streams selected.
+2022-09-19 16:12:17,351 - INFO  [Thread-0:FSImage@775] - Planning to load image: FSImageFile(file=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000, cpktTxId=0000000000000000000)
+2022-09-19 16:12:17,352 - INFO  [Thread-0:FSImageFormatPBINode$Loader@266] - Loading 1 INodes.
+2022-09-19 16:12:17,352 - INFO  [Thread-0:FSImageFormatProtobuf$Loader@185] - Loaded FSImage in 0 seconds.
+2022-09-19 16:12:17,352 - INFO  [Thread-0:FSImage@941] - Loaded image for txid 0 from /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000
+2022-09-19 16:12:17,352 - INFO  [Thread-0:FSNamesystem@1080] - Need to save fs image? false (staleImage=false, haEnabled=true, isRollingUpgrade=false)
+2022-09-19 16:12:17,352 - INFO  [Thread-0:NameCache@143] - initialized with 0 entries 0 lookups
+2022-09-19 16:12:17,352 - INFO  [Thread-0:FSNamesystem@714] - Finished loading FSImage in 11 msecs
+2022-09-19 16:12:17,353 - INFO  [Thread-0:FSEditLog@224] - Edit logging is async:false
+Data exists in QJM to [127.0.0.1:36189, 127.0.0.1:45207, 127.0.0.1:44423]. Formatting anyway.
+2022-09-19 16:12:17,357 - INFO  [IPC Server handler 2 on 45207:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@2a600536 with namespace info: lv=-64;cid=testClusterID;nsid=1515484925;c=1663618336166;bpid=BP-888663025-10.0.0.215-1663618336166
+2022-09-19 16:12:17,357 - INFO  [IPC Server handler 2 on 44423:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@4523ce95 with namespace info: lv=-64;cid=testClusterID;nsid=1515484925;c=1663618336166;bpid=BP-888663025-10.0.0.215-1663618336166
+2022-09-19 16:12:17,357 - INFO  [IPC Server handler 3 on 36189:Journal@220] - Formatting org.apache.hadoop.hdfs.qjournal.server.Journal@585ce7b0 with namespace info: lv=-64;cid=testClusterID;nsid=1515484925;c=1663618336166;bpid=BP-888663025-10.0.0.215-1663618336166
+2022-09-19 16:12:17,358 - INFO  [IPC Server handler 3 on 36189:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,358 - INFO  [IPC Server handler 2 on 45207:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,358 - INFO  [IPC Server handler 2 on 44423:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,360 - INFO  [IPC Server handler 2 on 44423:Server@2719] - IPC Server handler 2 on 44423, call Call#38 Retry#0 org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocol.format from 127.0.0.1:56910
+org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1 is in an inconsistent state: Can't format the storage directory because the current directory is not empty.
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.checkEmptyCurrent(Storage.java:553)
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.analyzeStorage(Storage.java:629)
+	at org.apache.hadoop.hdfs.qjournal.server.JNStorage.format(JNStorage.java:211)
+	at org.apache.hadoop.hdfs.qjournal.server.Journal.format(Journal.java:222)
+	at org.apache.hadoop.hdfs.qjournal.server.JournalNodeRpcServer.format(JournalNodeRpcServer.java:146)
+	at org.apache.hadoop.hdfs.qjournal.protocolPB.QJournalProtocolServerSideTranslatorPB.format(QJournalProtocolServerSideTranslatorPB.java:145)
+	at org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocolProtos$QJournalProtocolService$2.callBlockingMethod(QJournalProtocolProtos.java:25419)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:523)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:991)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:869)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)
+2022-09-19 16:12:17,360 - INFO  [IPC Server handler 2 on 45207:Server@2719] - IPC Server handler 2 on 45207, call Call#39 Retry#0 org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocol.format from 127.0.0.1:57982
+org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 is in an inconsistent state: Can't format the storage directory because the current directory is not empty.
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.checkEmptyCurrent(Storage.java:553)
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.analyzeStorage(Storage.java:629)
+	at org.apache.hadoop.hdfs.qjournal.server.JNStorage.format(JNStorage.java:211)
+	at org.apache.hadoop.hdfs.qjournal.server.Journal.format(Journal.java:222)
+	at org.apache.hadoop.hdfs.qjournal.server.JournalNodeRpcServer.format(JournalNodeRpcServer.java:146)
+	at org.apache.hadoop.hdfs.qjournal.protocolPB.QJournalProtocolServerSideTranslatorPB.format(QJournalProtocolServerSideTranslatorPB.java:145)
+	at org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocolProtos$QJournalProtocolService$2.callBlockingMethod(QJournalProtocolProtos.java:25419)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:523)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:991)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:869)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)
+2022-09-19 16:12:17,360 - INFO  [IPC Server handler 3 on 36189:Server@2719] - IPC Server handler 3 on 36189, call Call#37 Retry#0 org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocol.format from 127.0.0.1:48448
+org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 is in an inconsistent state: Can't format the storage directory because the current directory is not empty.
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.checkEmptyCurrent(Storage.java:553)
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.analyzeStorage(Storage.java:629)
+	at org.apache.hadoop.hdfs.qjournal.server.JNStorage.format(JNStorage.java:211)
+	at org.apache.hadoop.hdfs.qjournal.server.Journal.format(Journal.java:222)
+	at org.apache.hadoop.hdfs.qjournal.server.JournalNodeRpcServer.format(JournalNodeRpcServer.java:146)
+	at org.apache.hadoop.hdfs.qjournal.protocolPB.QJournalProtocolServerSideTranslatorPB.format(QJournalProtocolServerSideTranslatorPB.java:145)
+	at org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocolProtos$QJournalProtocolService$2.callBlockingMethod(QJournalProtocolProtos.java:25419)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:523)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:991)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:869)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)
+2022-09-19 16:12:17,361 - ERROR [Thread-0:NameNode@1267] - Could not initialize shared edits dir
+org.apache.hadoop.hdfs.qjournal.client.QuorumException: Could not format one or more JournalNodes. 3 exceptions thrown:
+127.0.0.1:44423: Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1 is in an inconsistent state: Can't format the storage directory because the current directory is not empty.
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.checkEmptyCurrent(Storage.java:553)
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.analyzeStorage(Storage.java:629)
+	at org.apache.hadoop.hdfs.qjournal.server.JNStorage.format(JNStorage.java:211)
+	at org.apache.hadoop.hdfs.qjournal.server.Journal.format(Journal.java:222)
+	at org.apache.hadoop.hdfs.qjournal.server.JournalNodeRpcServer.format(JournalNodeRpcServer.java:146)
+	at org.apache.hadoop.hdfs.qjournal.protocolPB.QJournalProtocolServerSideTranslatorPB.format(QJournalProtocolServerSideTranslatorPB.java:145)
+	at org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocolProtos$QJournalProtocolService$2.callBlockingMethod(QJournalProtocolProtos.java:25419)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:523)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:991)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:869)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)
+
+127.0.0.1:45207: Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1 is in an inconsistent state: Can't format the storage directory because the current directory is not empty.
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.checkEmptyCurrent(Storage.java:553)
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.analyzeStorage(Storage.java:629)
+	at org.apache.hadoop.hdfs.qjournal.server.JNStorage.format(JNStorage.java:211)
+	at org.apache.hadoop.hdfs.qjournal.server.Journal.format(Journal.java:222)
+	at org.apache.hadoop.hdfs.qjournal.server.JournalNodeRpcServer.format(JournalNodeRpcServer.java:146)
+	at org.apache.hadoop.hdfs.qjournal.protocolPB.QJournalProtocolServerSideTranslatorPB.format(QJournalProtocolServerSideTranslatorPB.java:145)
+	at org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocolProtos$QJournalProtocolService$2.callBlockingMethod(QJournalProtocolProtos.java:25419)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:523)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:991)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:869)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)
+
+127.0.0.1:36189: Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1 is in an inconsistent state: Can't format the storage directory because the current directory is not empty.
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.checkEmptyCurrent(Storage.java:553)
+	at org.apache.hadoop.hdfs.server.common.Storage$StorageDirectory.analyzeStorage(Storage.java:629)
+	at org.apache.hadoop.hdfs.qjournal.server.JNStorage.format(JNStorage.java:211)
+	at org.apache.hadoop.hdfs.qjournal.server.Journal.format(Journal.java:222)
+	at org.apache.hadoop.hdfs.qjournal.server.JournalNodeRpcServer.format(JournalNodeRpcServer.java:146)
+	at org.apache.hadoop.hdfs.qjournal.protocolPB.QJournalProtocolServerSideTranslatorPB.format(QJournalProtocolServerSideTranslatorPB.java:145)
+	at org.apache.hadoop.hdfs.qjournal.protocol.QJournalProtocolProtos$QJournalProtocolService$2.callBlockingMethod(QJournalProtocolProtos.java:25419)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:523)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:991)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:869)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:815)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1962)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2675)
+
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumException.create(QuorumException.java:81)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumCall.rethrowException(QuorumCall.java:247)
+	at org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager.format(QuorumJournalManager.java:213)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.formatNonFileJournals(FSEditLog.java:422)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.initializeSharedEdits(NameNode.java:1256)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.initializeSharedEdits(NameNode.java:1181)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:121)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.<init>(MiniQJMHACluster.java:37)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster$Builder.build(MiniQJMHACluster.java:64)
+	at org.apache.hadoop.hdfs.TestRollingUpgrade.testRollBackImage(TestRollingUpgrade.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+2022-09-19 16:12:17,361 - INFO  [Thread-0:NameNode@1577] - createNameNode []
+2022-09-19 16:12:17,362 - INFO  [Thread-0:MetricsSystemImpl@158] - NameNode metrics system started (again)
+2022-09-19 16:12:17,362 - INFO  [Thread-0:NameNode@464] - fs.defaultFS is hdfs://localhost:13828
+2022-09-19 16:12:17,362 - INFO  [Thread-0:NameNode@484] - Clients are to use localhost:13828 to access this namenode/service.
+2022-09-19 16:12:17,364 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@4ab80f67:JvmPauseMonitor$Monitor@188] - Starting JVM pause monitor
+2022-09-19 16:12:17,364 - INFO  [Thread-0:DFSUtil@1512] - Starting Web-server for hdfs at: http://localhost:13829
+2022-09-19 16:12:17,366 - INFO  [Thread-0:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-09-19 16:12:17,366 - INFO  [Thread-0:HttpRequestLog@81] - Http request log for http.requests.namenode is not defined
+2022-09-19 16:12:17,367 - INFO  [Thread-0:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-09-19 16:12:17,367 - INFO  [Thread-0:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context hdfs
+2022-09-19 16:12:17,367 - INFO  [Thread-0:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-09-19 16:12:17,368 - INFO  [Thread-0:NameNodeHttpServer@98] - Added filter 'org.apache.hadoop.hdfs.web.AuthFilter' (class=org.apache.hadoop.hdfs.web.AuthFilter)
+2022-09-19 16:12:17,368 - INFO  [Thread-0:HttpServer2@779] - addJerseyResourcePackage: packageName=org.apache.hadoop.hdfs.server.namenode.web.resources;org.apache.hadoop.hdfs.web.resources, pathSpec=/webhdfs/v1/*
+2022-09-19 16:12:17,368 - INFO  [Thread-0:HttpServer2@1121] - Jetty bound to port 13829
+2022-09-19 16:12:17,368 - INFO  [Thread-0:Server@346] - jetty-9.3.19.v20170502
+2022-09-19 16:12:17,369 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@918e45e{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-09-19 16:12:17,375 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.w.WebAppContext@ee1ab08{/,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/hdfs/,AVAILABLE}{/hdfs}
+2022-09-19 16:12:17,375 - INFO  [Thread-0:AbstractConnector@278] - Started ServerConnector@7be47719{HTTP/1.1,[http/1.1]}{localhost:13829}
+2022-09-19 16:12:17,376 - INFO  [Thread-0:Server@414] - Started @3662ms
+2022-09-19 16:12:17,376 - INFO  [Thread-0:FSEditLog@224] - Edit logging is async:false
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystem@742] - KeyProvider: null
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystemLock@120] - fsLock is fair: true
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystemLock@136] - Detailed lock hold time metrics enabled: false
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystem@763] - fsOwner             = tonypan (auth:SIMPLE)
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystem@764] - supergroup          = supergroup
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystem@765] - isPermissionEnabled = true
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystem@774] - Determined nameservice ID: ns1
+2022-09-19 16:12:17,377 - INFO  [Thread-0:FSNamesystem@776] - HA Enabled: true
+2022-09-19 16:12:17,377 - INFO  [Thread-0:Util@395] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-09-19 16:12:17,378 - INFO  [Thread-0:DatanodeManager@301] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-09-19 16:12:17,378 - INFO  [Thread-0:DatanodeManager@309] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-09-19 16:12:17,378 - INFO  [Thread-0:InvalidateBlocks@76] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-09-19 16:12:17,378 - INFO  [Thread-0:InvalidateBlocks@82] - The block deletion will start around 2022 Sep 19 16:12:17
+2022-09-19 16:12:17,378 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-09-19 16:12:17,378 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,378 - INFO  [Thread-0:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-09-19 16:12:17,378 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-09-19 16:12:17,382 - INFO  [Thread-0:BlockManager@560] - dfs.block.access.token.enable = false
+2022-09-19 16:12:17,383 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.safemode.extension(0) assuming MILLISECONDS
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManager@546] - defaultReplication         = 0
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManager@547] - maxReplication             = 512
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManager@548] - minReplication             = 1
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManager@549] - maxReplicationStreams      = 2
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManager@550] - redundancyRecheckInterval  = 3000ms
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManager@551] - encryptDataTransfer        = false
+2022-09-19 16:12:17,383 - INFO  [Thread-0:BlockManager@552] - maxNumBlocksToLog          = 1000
+2022-09-19 16:12:17,383 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-09-19 16:12:17,384 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,384 - INFO  [Thread-0:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-09-19 16:12:17,384 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-09-19 16:12:17,388 - INFO  [Thread-0:FSDirectory@278] - ACLs enabled? false
+2022-09-19 16:12:17,388 - INFO  [Thread-0:FSDirectory@282] - POSIX ACL inheritance enabled? true
+2022-09-19 16:12:17,388 - INFO  [Thread-0:FSDirectory@286] - XAttrs enabled? true
+2022-09-19 16:12:17,388 - INFO  [Thread-0:FSDirectory@350] - Caching file names occurring more than 10 times
+2022-09-19 16:12:17,389 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-09-19 16:12:17,389 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,389 - INFO  [Thread-0:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-09-19 16:12:17,389 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-09-19 16:12:17,391 - INFO  [Thread-0:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-09-19 16:12:17,391 - INFO  [Thread-0:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-09-19 16:12:17,391 - INFO  [Thread-0:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-09-19 16:12:17,391 - INFO  [Thread-0:FSNamesystem@968] - Retry cache on namenode is enabled
+2022-09-19 16:12:17,391 - INFO  [Thread-0:FSNamesystem@976] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-09-19 16:12:17,391 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-09-19 16:12:17,391 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,391 - INFO  [Thread-0:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-09-19 16:12:17,391 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-09-19 16:12:17,393 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,401 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,406 - INFO  [Thread-0:FSImage@712] - No edit log streams selected.
+2022-09-19 16:12:17,406 - INFO  [Thread-0:FSImage@775] - Planning to load image: FSImageFile(file=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000, cpktTxId=0000000000000000000)
+2022-09-19 16:12:17,407 - INFO  [Thread-0:FSImageFormatPBINode$Loader@266] - Loading 1 INodes.
+2022-09-19 16:12:17,407 - INFO  [Thread-0:FSImageFormatProtobuf$Loader@185] - Loaded FSImage in 0 seconds.
+2022-09-19 16:12:17,407 - INFO  [Thread-0:FSImage@941] - Loaded image for txid 0 from /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000
+2022-09-19 16:12:17,407 - INFO  [Thread-0:FSNamesystem@1080] - Need to save fs image? false (staleImage=false, haEnabled=true, isRollingUpgrade=false)
+2022-09-19 16:12:17,407 - INFO  [Thread-0:NameCache@143] - initialized with 0 entries 0 lookups
+2022-09-19 16:12:17,407 - INFO  [Thread-0:FSNamesystem@714] - Finished loading FSImage in 15 msecs
+2022-09-19 16:12:17,407 - INFO  [Thread-0:NameNodeRpcServer@439] - RPC server is binding to localhost:13828
+2022-09-19 16:12:17,408 - INFO  [Thread-0:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 1000 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-09-19 16:12:17,408 - INFO  [Socket Reader #1 for port 13828:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 13828
+2022-09-19 16:12:17,410 - INFO  [Thread-0:FSNamesystem@4811] - Registered FSNamesystemState, ReplicatedBlocksState and ECBlockGroupsState MBeans.
+2022-09-19 16:12:17,418 - INFO  [Thread-0:LeaseManager@158] - Number of blocks under construction: 0
+2022-09-19 16:12:17,419 - INFO  [Thread-0:BlockManagerSafeMode@396] - STATE* Leaving safe mode after 0 secs
+2022-09-19 16:12:17,419 - INFO  [Thread-0:BlockManagerSafeMode@402] - STATE* Network topology has 0 racks and 0 datanodes
+2022-09-19 16:12:17,420 - INFO  [Thread-0:BlockManagerSafeMode@404] - STATE* UnderReplicatedBlocks has 0 blocks
+2022-09-19 16:12:17,422 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-09-19 16:12:17,422 - INFO  [IPC Server listener on 13828:Server$Listener@1146] - IPC Server listener on 13828: starting
+2022-09-19 16:12:17,424 - INFO  [Thread-0:NameNode@830] - NameNode RPC up at: localhost/127.0.0.1:13828
+2022-09-19 16:12:17,425 - INFO  [Thread-0:FSNamesystem@1354] - Starting services required for standby state
+2022-09-19 16:12:17,425 - INFO  [Thread-0:EditLogTailer@169] - Will roll logs on active node every 120 seconds.
+2022-09-19 16:12:17,426 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.ha.tail-edits.period(1) assuming SECONDS
+2022-09-19 16:12:17,426 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.checkpoint.check.period(2) assuming SECONDS
+2022-09-19 16:12:17,427 - INFO  [Thread-0:StandbyCheckpointer@138] - Starting standby checkpoint thread...
+Checkpointing active NN to possible NNs: [http://localhost:13831]
+Serving checkpoints at http://localhost:13829
+2022-09-19 16:12:17,427 - INFO  [Thread-0:NameNode@1577] - createNameNode []
+2022-09-19 16:12:17,427 - INFO  [Thread-0:MetricsSystemImpl@158] - NameNode metrics system started (again)
+2022-09-19 16:12:17,427 - INFO  [Thread-0:NameNode@464] - fs.defaultFS is hdfs://localhost:13830
+2022-09-19 16:12:17,428 - INFO  [Thread-0:NameNode@484] - Clients are to use localhost:13830 to access this namenode/service.
+2022-09-19 16:12:17,430 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@e87ac36:JvmPauseMonitor$Monitor@188] - Starting JVM pause monitor
+2022-09-19 16:12:17,430 - INFO  [Thread-0:DFSUtil@1512] - Starting Web-server for hdfs at: http://localhost:13831
+2022-09-19 16:12:17,431 - INFO  [Thread-0:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets.
+2022-09-19 16:12:17,432 - INFO  [Thread-0:HttpRequestLog@81] - Http request log for http.requests.namenode is not defined
+2022-09-19 16:12:17,432 - INFO  [Thread-0:HttpServer2@921] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-09-19 16:12:17,433 - INFO  [Thread-0:HttpServer2@894] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context hdfs
+2022-09-19 16:12:17,433 - INFO  [Thread-0:HttpServer2@904] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-09-19 16:12:17,434 - INFO  [Thread-0:NameNodeHttpServer@98] - Added filter 'org.apache.hadoop.hdfs.web.AuthFilter' (class=org.apache.hadoop.hdfs.web.AuthFilter)
+2022-09-19 16:12:17,434 - INFO  [Thread-0:HttpServer2@779] - addJerseyResourcePackage: packageName=org.apache.hadoop.hdfs.server.namenode.web.resources;org.apache.hadoop.hdfs.web.resources, pathSpec=/webhdfs/v1/*
+2022-09-19 16:12:17,434 - INFO  [Thread-0:HttpServer2@1121] - Jetty bound to port 13831
+2022-09-19 16:12:17,434 - INFO  [Thread-0:Server@346] - jetty-9.3.19.v20170502
+2022-09-19 16:12:17,435 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.s.ServletContextHandler@7460cbc4{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-09-19 16:12:17,441 - INFO  [Thread-0:ContextHandler@781] - Started o.e.j.w.WebAppContext@74c7efb4{/,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/hdfs/,AVAILABLE}{/hdfs}
+2022-09-19 16:12:17,441 - INFO  [Thread-0:AbstractConnector@278] - Started ServerConnector@697ca710{HTTP/1.1,[http/1.1]}{localhost:13831}
+2022-09-19 16:12:17,441 - INFO  [Thread-0:Server@414] - Started @3727ms
+2022-09-19 16:12:17,442 - INFO  [Thread-0:FSEditLog@224] - Edit logging is async:false
+2022-09-19 16:12:17,442 - INFO  [Thread-0:FSNamesystem@742] - KeyProvider: null
+2022-09-19 16:12:17,442 - INFO  [Thread-0:FSNamesystemLock@120] - fsLock is fair: true
+2022-09-19 16:12:17,442 - INFO  [Thread-0:FSNamesystemLock@136] - Detailed lock hold time metrics enabled: false
+2022-09-19 16:12:17,443 - INFO  [Thread-0:FSNamesystem@763] - fsOwner             = tonypan (auth:SIMPLE)
+2022-09-19 16:12:17,443 - INFO  [Thread-0:FSNamesystem@764] - supergroup          = supergroup
+2022-09-19 16:12:17,443 - INFO  [Thread-0:FSNamesystem@765] - isPermissionEnabled = true
+2022-09-19 16:12:17,443 - INFO  [Thread-0:FSNamesystem@774] - Determined nameservice ID: ns1
+2022-09-19 16:12:17,443 - INFO  [Thread-0:FSNamesystem@776] - HA Enabled: true
+2022-09-19 16:12:17,443 - INFO  [Thread-0:Util@395] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-09-19 16:12:17,443 - INFO  [Thread-0:DatanodeManager@301] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-09-19 16:12:17,443 - INFO  [Thread-0:DatanodeManager@309] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-09-19 16:12:17,443 - INFO  [Thread-0:InvalidateBlocks@76] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-09-19 16:12:17,444 - INFO  [Thread-0:InvalidateBlocks@82] - The block deletion will start around 2022 Sep 19 16:12:17
+2022-09-19 16:12:17,444 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-09-19 16:12:17,444 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,444 - INFO  [Thread-0:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-09-19 16:12:17,444 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-09-19 16:12:17,473 - INFO  [Thread-0:BlockManager@560] - dfs.block.access.token.enable = false
+2022-09-19 16:12:17,473 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.safemode.extension(0) assuming MILLISECONDS
+2022-09-19 16:12:17,473 - INFO  [Thread-0:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.9990000128746033
+2022-09-19 16:12:17,473 - INFO  [Thread-0:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-09-19 16:12:17,473 - INFO  [Thread-0:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-09-19 16:12:17,473 - INFO  [Thread-0:BlockManager@546] - defaultReplication         = 0
+2022-09-19 16:12:17,474 - INFO  [Thread-0:BlockManager@547] - maxReplication             = 512
+2022-09-19 16:12:17,474 - INFO  [Thread-0:BlockManager@548] - minReplication             = 1
+2022-09-19 16:12:17,474 - INFO  [Thread-0:BlockManager@549] - maxReplicationStreams      = 2
+2022-09-19 16:12:17,474 - INFO  [Thread-0:BlockManager@550] - redundancyRecheckInterval  = 3000ms
+2022-09-19 16:12:17,474 - INFO  [Thread-0:BlockManager@551] - encryptDataTransfer        = false
+2022-09-19 16:12:17,474 - INFO  [Thread-0:BlockManager@552] - maxNumBlocksToLog          = 1000
+2022-09-19 16:12:17,474 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-09-19 16:12:17,474 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,474 - INFO  [Thread-0:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-09-19 16:12:17,474 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-09-19 16:12:17,490 - INFO  [Thread-0:FSDirectory@278] - ACLs enabled? false
+2022-09-19 16:12:17,490 - INFO  [Thread-0:FSDirectory@282] - POSIX ACL inheritance enabled? true
+2022-09-19 16:12:17,490 - INFO  [Thread-0:FSDirectory@286] - XAttrs enabled? true
+2022-09-19 16:12:17,490 - INFO  [Thread-0:FSDirectory@350] - Caching file names occurring more than 10 times
+2022-09-19 16:12:17,490 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-09-19 16:12:17,490 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,491 - INFO  [Thread-0:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-09-19 16:12:17,491 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-09-19 16:12:17,806 - INFO  [Thread-0:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-09-19 16:12:17,807 - INFO  [Thread-0:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-09-19 16:12:17,807 - INFO  [Thread-0:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-09-19 16:12:17,807 - INFO  [Thread-0:FSNamesystem@968] - Retry cache on namenode is enabled
+2022-09-19 16:12:17,807 - INFO  [Thread-0:FSNamesystem@976] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-09-19 16:12:17,807 - INFO  [Thread-0:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-09-19 16:12:17,807 - INFO  [Thread-0:LightWeightGSet@396] - VM type       = 64-bit
+2022-09-19 16:12:17,807 - INFO  [Thread-0:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-09-19 16:12:17,807 - INFO  [Thread-0:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-09-19 16:12:17,809 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,817 - INFO  [Thread-0:Storage$StorageDirectory@847] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-4/in_use.lock acquired by nodename 1275@razor15
+2022-09-19 16:12:17,822 - INFO  [Thread-0:FSImage@712] - No edit log streams selected.
+2022-09-19 16:12:17,822 - INFO  [Thread-0:FSImage@775] - Planning to load image: FSImageFile(file=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/current/fsimage_0000000000000000000, cpktTxId=0000000000000000000)
+2022-09-19 16:12:17,823 - INFO  [Thread-0:FSImageFormatPBINode$Loader@266] - Loading 1 INodes.
+2022-09-19 16:12:17,823 - INFO  [Thread-0:FSImageFormatProtobuf$Loader@185] - Loaded FSImage in 0 seconds.
+2022-09-19 16:12:17,823 - INFO  [Thread-0:FSImage@941] - Loaded image for txid 0 from /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/current/fsimage_0000000000000000000
+2022-09-19 16:12:17,823 - INFO  [Thread-0:FSNamesystem@1080] - Need to save fs image? false (staleImage=false, haEnabled=true, isRollingUpgrade=false)
+2022-09-19 16:12:17,823 - INFO  [Thread-0:NameCache@143] - initialized with 0 entries 0 lookups
+2022-09-19 16:12:17,823 - INFO  [Thread-0:FSNamesystem@714] - Finished loading FSImage in 15 msecs
+2022-09-19 16:12:17,824 - INFO  [Thread-0:NameNodeRpcServer@439] - RPC server is binding to localhost:13830
+2022-09-19 16:12:17,824 - INFO  [Thread-0:CallQueueManager@84] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue queueCapacity: 1000 scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler
+2022-09-19 16:12:17,824 - INFO  [Socket Reader #1 for port 13830:Server$Listener$Reader@1067] - Starting Socket Reader #1 for port 13830
+2022-09-19 16:12:17,826 - INFO  [Thread-0:FSNamesystem@4811] - Registered FSNamesystemState, ReplicatedBlocksState and ECBlockGroupsState MBeans.
+2022-09-19 16:12:17,835 - INFO  [Thread-0:LeaseManager@158] - Number of blocks under construction: 0
+2022-09-19 16:12:17,836 - INFO  [Thread-0:BlockManagerSafeMode@396] - STATE* Leaving safe mode after 0 secs
+2022-09-19 16:12:17,836 - INFO  [Thread-0:BlockManagerSafeMode@402] - STATE* Network topology has 0 racks and 0 datanodes
+2022-09-19 16:12:17,836 - INFO  [Thread-0:BlockManagerSafeMode@404] - STATE* UnderReplicatedBlocks has 0 blocks
+2022-09-19 16:12:17,838 - INFO  [IPC Server Responder:Server$Responder@1307] - IPC Server Responder: starting
+2022-09-19 16:12:17,838 - INFO  [IPC Server listener on 13830:Server$Listener@1146] - IPC Server listener on 13830: starting
+2022-09-19 16:12:17,839 - INFO  [Thread-0:NameNode@830] - NameNode RPC up at: localhost/127.0.0.1:13830
+2022-09-19 16:12:17,839 - INFO  [Thread-0:FSNamesystem@1354] - Starting services required for standby state
+2022-09-19 16:12:17,840 - INFO  [Thread-0:EditLogTailer@169] - Will roll logs on active node every 120 seconds.
+2022-09-19 16:12:17,840 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.ha.tail-edits.period(1) assuming SECONDS
+2022-09-19 16:12:17,840 - INFO  [Thread-0:Configuration@1285] - No unit for dfs.namenode.checkpoint.check.period(2) assuming SECONDS
+2022-09-19 16:12:17,841 - INFO  [Thread-0:StandbyCheckpointer@138] - Starting standby checkpoint thread...
+Checkpointing active NN to possible NNs: [http://localhost:13829]
+Serving checkpoints at http://localhost:13831
+2022-09-19 16:12:17,851 - INFO  [Thread-0:MiniDFSCluster@2621] - Cluster is active
+2022-09-19 16:12:17,853 - INFO  [Thread-0:MiniDFSCluster@2621] - Cluster is active
+2022-09-19 16:12:17,853 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:17,854 - WARN  [Edit log tailer:EditLogTailer$EditLogTailerThread@447] - Edit log tailer interrupted
+java.lang.InterruptedException: sleep interrupted
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.doWork(EditLogTailer.java:445)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.access$400(EditLogTailer.java:380)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread$1.run(EditLogTailer.java:397)
+	at org.apache.hadoop.security.SecurityUtil.doAsLoginUserOrFatal(SecurityUtil.java:481)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.run(EditLogTailer.java:393)
+2022-09-19 16:12:17,854 - INFO  [Thread-0:FSNamesystem@1192] - Starting services required for active state
+2022-09-19 16:12:17,856 - INFO  [Thread-0:QuorumJournalManager@417] - Starting recovery process for unclosed journal segments...
+2022-09-19 16:12:17,863 - INFO  [IPC Server handler 3 on 44423:Journal@332] - Updating lastPromisedEpoch from 0 to 1 for client /127.0.0.1
+2022-09-19 16:12:17,863 - INFO  [IPC Server handler 4 on 36189:Journal@332] - Updating lastPromisedEpoch from 0 to 1 for client /127.0.0.1
+2022-09-19 16:12:17,863 - INFO  [IPC Server handler 3 on 45207:Journal@332] - Updating lastPromisedEpoch from 0 to 1 for client /127.0.0.1
+2022-09-19 16:12:17,865 - INFO  [IPC Server handler 4 on 36189:Journal@192] - Scanning storage FileJournalManager(root=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1)
+2022-09-19 16:12:17,865 - INFO  [IPC Server handler 3 on 44423:Journal@192] - Scanning storage FileJournalManager(root=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1)
+2022-09-19 16:12:17,866 - INFO  [IPC Server handler 3 on 44423:Journal@209] - No files in FileJournalManager(root=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1)
+2022-09-19 16:12:17,866 - INFO  [IPC Server handler 4 on 36189:Journal@209] - No files in FileJournalManager(root=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1)
+2022-09-19 16:12:17,866 - INFO  [Thread-0:QuorumJournalManager@419] - Successfully started new epoch 1
+2022-09-19 16:12:17,867 - INFO  [Thread-0:FileJournalManager@396] - Recovering unfinalized segments in /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current
+2022-09-19 16:12:17,867 - INFO  [Thread-0:FileJournalManager@396] - Recovering unfinalized segments in /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current
+2022-09-19 16:12:17,867 - INFO  [Thread-0:FSNamesystem@1203] - Catching up to latest edits from old active before taking over writer role in edits logs
+2022-09-19 16:12:17,869 - INFO  [Thread-0:DatanodeManager@1835] - Marking all datandoes as stale
+2022-09-19 16:12:17,869 - INFO  [Thread-0:FSNamesystem@1214] - Reprocessing replication and invalidation queues
+2022-09-19 16:12:17,869 - INFO  [Thread-0:BlockManager@4646] - initializing replication queues
+2022-09-19 16:12:17,869 - INFO  [Thread-0:FSNamesystem@1225] - Will take over writing edit logs at txnid 1
+2022-09-19 16:12:17,883 - INFO  [IPC Server handler 3 on 45207:Journal@192] - Scanning storage FileJournalManager(root=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1)
+2022-09-19 16:12:17,884 - INFO  [IPC Server handler 3 on 45207:Journal@209] - No files in FileJournalManager(root=/home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1)
+2022-09-19 16:12:17,885 - INFO  [Thread-0:FSEditLog@1324] - Starting log segment at 1
+2022-09-19 16:12:17,889 - INFO  [IPC Server handler 2 on 36189:Journal@561] - Updating lastWriterEpoch from 0 to 1 for client /127.0.0.1
+2022-09-19 16:12:17,889 - INFO  [IPC Server handler 1 on 44423:Journal@561] - Updating lastWriterEpoch from 0 to 1 for client /127.0.0.1
+2022-09-19 16:12:17,889 - INFO  [IPC Server handler 1 on 45207:Journal@561] - Updating lastWriterEpoch from 0 to 1 for client /127.0.0.1
+2022-09-19 16:12:17,913 - INFO  [Thread-0:FSDirectory@706] - Initializing quota with 4 thread(s)
+2022-09-19 16:12:17,915 - INFO  [Thread-0:FSDirectory@715] - Quota initialization completed in 2 milliseconds
+name space=1
+storage space=0
+storage types=RAM_DISK=0, SSD=0, DISK=0, ARCHIVE=0
+2022-09-19 16:12:17,918 - INFO  [CacheReplicationMonitor(859351098):CacheReplicationMonitor@160] - Starting CacheReplicationMonitor with interval 30000 milliseconds
+2022-09-19 16:12:17,918 - INFO  [Reconstruction Queue Initializer:BlockManager@3355] - Total number of blocks            = 0
+2022-09-19 16:12:17,918 - INFO  [Reconstruction Queue Initializer:BlockManager@3356] - Number of invalid blocks          = 0
+2022-09-19 16:12:17,918 - INFO  [Reconstruction Queue Initializer:BlockManager@3357] - Number of under-replicated blocks = 0
+2022-09-19 16:12:17,918 - INFO  [Reconstruction Queue Initializer:BlockManager@3358] - Number of  over-replicated blocks = 0
+2022-09-19 16:12:17,918 - INFO  [Reconstruction Queue Initializer:BlockManager@3360] - Number of blocks being written    = 0
+2022-09-19 16:12:17,918 - INFO  [Reconstruction Queue Initializer:BlockManager@3363] - STATE* Replication Queue initialization scan for invalid, over- and under-replicated blocks completed in 49 msec
+2022-09-19 16:12:17,968 - INFO  [Thread-0:FSEditLog@1277] - Rolling edit logs
+2022-09-19 16:12:17,968 - INFO  [Thread-0:FSEditLog@1369] - Ending log segment 1, 12
+2022-09-19 16:12:17,968 - INFO  [Thread-0:FSEditLog@600] - logSyncAll toSyncToTxId=13 lastSyncedTxid=12 mostRecentTxid=13
+2022-09-19 16:12:17,969 - INFO  [Thread-0:FSEditLog@605] - Done logSyncAll lastWrittenTxId=13 lastSyncedTxid=13 mostRecentTxid=13
+2022-09-19 16:12:17,969 - INFO  [Thread-0:FSEditLog@770] - Number of transactions: 13 Total time for transactions(ms): 13 Number of transactions batched in Syncs: 0 Number of syncs: 13 SyncTimes(ms): 17 2 1 
+2022-09-19 16:12:17,973 - INFO  [IPC Server handler 0 on 44423:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/current/edits_inprogress_0000000000000000001 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/current/edits_0000000000000000001-0000000000000000013
+2022-09-19 16:12:17,973 - INFO  [IPC Server handler 1 on 36189:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/current/edits_inprogress_0000000000000000001 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/current/edits_0000000000000000001-0000000000000000013
+2022-09-19 16:12:17,973 - INFO  [IPC Server handler 0 on 45207:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/current/edits_inprogress_0000000000000000001 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/current/edits_0000000000000000001-0000000000000000013
+2022-09-19 16:12:17,975 - INFO  [Thread-0:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/edits_inprogress_0000000000000000001 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/edits_0000000000000000001-0000000000000000013
+2022-09-19 16:12:17,975 - INFO  [Thread-0:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/edits_inprogress_0000000000000000001 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/edits_0000000000000000001-0000000000000000013
+2022-09-19 16:12:17,975 - INFO  [Thread-0:FSEditLog@1324] - Starting log segment at 14
+2022-09-19 16:12:17,992 - INFO  [IPC Server handler 3 on 13828:NameNodeRpcServer@1302] - rollingUpgrade PREPARE
+2022-09-19 16:12:17,993 - INFO  [IPC Server handler 3 on 13828:FSEditLog@1277] - Rolling edit logs
+2022-09-19 16:12:17,993 - INFO  [IPC Server handler 3 on 13828:FSEditLog@1369] - Ending log segment 14, 15
+2022-09-19 16:12:17,993 - INFO  [IPC Server handler 3 on 13828:FSEditLog@600] - logSyncAll toSyncToTxId=16 lastSyncedTxid=14 mostRecentTxid=16
+2022-09-19 16:12:17,995 - INFO  [IPC Server handler 3 on 13828:FSEditLog@605] - Done logSyncAll lastWrittenTxId=16 lastSyncedTxid=16 mostRecentTxid=16
+2022-09-19 16:12:17,995 - INFO  [IPC Server handler 3 on 13828:FSEditLog@770] - Number of transactions: 3 Total time for transactions(ms): 1 Number of transactions batched in Syncs: 1 Number of syncs: 2 SyncTimes(ms): 3 1 1 
+2022-09-19 16:12:17,997 - INFO  [IPC Server handler 0 on 36189:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/current/edits_inprogress_0000000000000000014 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/current/edits_0000000000000000014-0000000000000000016
+2022-09-19 16:12:17,997 - INFO  [IPC Server handler 4 on 45207:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/current/edits_inprogress_0000000000000000014 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/current/edits_0000000000000000014-0000000000000000016
+2022-09-19 16:12:17,997 - INFO  [IPC Server handler 4 on 44423:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/current/edits_inprogress_0000000000000000014 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/current/edits_0000000000000000014-0000000000000000016
+2022-09-19 16:12:17,998 - INFO  [IPC Server handler 3 on 13828:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/edits_inprogress_0000000000000000014 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/edits_0000000000000000014-0000000000000000016
+2022-09-19 16:12:17,998 - INFO  [IPC Server handler 3 on 13828:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/edits_inprogress_0000000000000000014 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/edits_0000000000000000014-0000000000000000016
+2022-09-19 16:12:17,998 - INFO  [IPC Server handler 3 on 13828:FSEditLog@1324] - Starting log segment at 17
+2022-09-19 16:12:18,019 - INFO  [IPC Server handler 4 on 13828:NameNodeRpcServer@1302] - rollingUpgrade QUERY
+2022-09-19 16:12:18,854 - INFO  [Edit log tailer:FSImage@879] - Reading org.apache.hadoop.hdfs.server.namenode.RedundantEditLogInputStream@3dcffaa expecting start txid #1
+2022-09-19 16:12:18,854 - INFO  [Edit log tailer:FSEditLogLoader@149] - Start loading edits file http://localhost:37713/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:40521/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:38239/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true
+2022-09-19 16:12:18,854 - INFO  [Edit log tailer:RedundantEditLogInputStream@177] - Fast-forwarding stream 'http://localhost:37713/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:40521/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:38239/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true' to transaction ID 1
+2022-09-19 16:12:18,854 - INFO  [Edit log tailer:RedundantEditLogInputStream@177] - Fast-forwarding stream 'http://localhost:37713/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true' to transaction ID 1
+2022-09-19 16:12:18,936 - INFO  [qtp814123790-70:TransferFsImage@396] - Sending fileName: /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/current/edits_0000000000000000001-0000000000000000013, fileSize: 857. Sent total: 857 bytes. Size of last segment intended to send: -1 bytes.
+2022-09-19 16:12:18,941 - INFO  [Edit log tailer:FSEditLogLoader@152] - Edits file http://localhost:37713/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:40521/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:38239/getJournal?jid=ns1&segmentTxId=1&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true of size 857 edits # 13 loaded in 0 seconds
+2022-09-19 16:12:18,941 - INFO  [Edit log tailer:FSImage@879] - Reading org.apache.hadoop.hdfs.server.namenode.RedundantEditLogInputStream@d1b01a1 expecting start txid #14
+2022-09-19 16:12:18,941 - INFO  [Edit log tailer:FSEditLogLoader@149] - Start loading edits file http://localhost:38239/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:37713/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:40521/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true
+2022-09-19 16:12:18,941 - INFO  [Edit log tailer:RedundantEditLogInputStream@177] - Fast-forwarding stream 'http://localhost:38239/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:37713/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:40521/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true' to transaction ID 1
+2022-09-19 16:12:18,941 - INFO  [Edit log tailer:RedundantEditLogInputStream@177] - Fast-forwarding stream 'http://localhost:38239/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true' to transaction ID 1
+2022-09-19 16:12:18,944 - INFO  [qtp167453856-50:TransferFsImage@396] - Sending fileName: /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/current/edits_0000000000000000014-0000000000000000016, fileSize: 67. Sent total: 67 bytes. Size of last segment intended to send: -1 bytes.
+2022-09-19 16:12:18,944 - INFO  [Edit log tailer:FSEditLogLoader@152] - Edits file http://localhost:38239/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:37713/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true, http://localhost:40521/getJournal?jid=ns1&segmentTxId=14&storageInfo=-64%3A1515484925%3A1663618336166%3AtestClusterID&inProgressOk=true of size 67 edits # 3 loaded in 0 seconds
+2022-09-19 16:12:18,944 - INFO  [Standby State Checkpointer:StandbyCheckpointer$CheckpointerThread@404] - Triggering checkpoint because there have been 13 txns since the last checkpoint, which exceeds the configured threshold 10
+2022-09-19 16:12:18,945 - INFO  [Standby State Checkpointer:FSImage@1085] - Save namespace ...
+2022-09-19 16:12:18,945 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@429] - Saving image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/current/fsimage.ckpt_0000000000000000016 using no compression
+2022-09-19 16:12:18,945 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-4 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@429] - Saving image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-4/current/fsimage.ckpt_0000000000000000016 using no compression
+2022-09-19 16:12:18,961 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-4 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@432] - Image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-4/current/fsimage.ckpt_0000000000000000016 of size 979 bytes saved in 0 seconds.
+2022-09-19 16:12:18,961 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@432] - Image file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/current/fsimage.ckpt_0000000000000000016 of size 979 bytes saved in 0 seconds.
+2022-09-19 16:12:18,962 - INFO  [Standby State Checkpointer:NNStorageRetentionManager@203] - Going to retain 1 images with txid >= 16
+2022-09-19 16:12:18,980 - INFO  [TransferFsImageUpload-0:TransferFsImage@435] - Image Transfer timeout configured to 60000 milliseconds
+2022-09-19 16:12:18,981 - INFO  [TransferFsImageUpload-0:TransferFsImage@396] - Sending fileName: /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-3/current/fsimage_rollback_0000000000000000016, fileSize: 979. Sent total: 979 bytes. Size of last segment intended to send: -1 bytes.
+2022-09-19 16:12:18,994 - INFO  [qtp625099818-245:Util@314] - Combined time for file download and fsync to all disks took 0.00s. The file download took 0.00s at 0.00 KB/s. Synchronous (fsync) write to disk of /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/fsimage.ckpt_0000000000000000016 took 0.00s. Synchronous (fsync) write to disk of /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/fsimage.ckpt_0000000000000000016 took 0.00s.
+2022-09-19 16:12:18,995 - INFO  [qtp625099818-245:TransferFsImage@140] - Downloaded file fsimage.ckpt_0000000000000000016 size 979 bytes.
+2022-09-19 16:12:19,011 - INFO  [qtp625099818-245:NNStorageRetentionManager@203] - Going to retain 1 images with txid >= 16
+2022-09-19 16:12:19,012 - INFO  [TransferFsImageUpload-0:TransferFsImage@240] - Uploaded image with txid 16 to namenode at http://localhost:13829 in 0.048 seconds
+2022-09-19 16:12:19,013 - INFO  [Standby State Checkpointer:StandbyCheckpointer$CheckpointerThread@402] - Triggering a rollback fsimage for rolling upgrade.
+2022-09-19 16:12:19,013 - INFO  [Standby State Checkpointer:StandbyCheckpointer@179] - A checkpoint was triggered but the Standby Node has not received any transactions since the last checkpoint at txid 16. Skipping...
+2022-09-19 16:12:19,021 - INFO  [IPC Server handler 5 on 13828:NameNodeRpcServer@1302] - rollingUpgrade QUERY
+2022-09-19 16:12:19,022 - INFO  [Thread-0:MiniDFSCluster@1957] - Shutting down the Mini HDFS Cluster
+2022-09-19 16:12:19,022 - INFO  [Thread-0:MiniDFSCluster@2038] - Shutting down the namenode
+2022-09-19 16:12:19,022 - INFO  [Thread-0:FSNamesystem@1301] - Stopping services started for active state
+2022-09-19 16:12:19,022 - INFO  [Thread-0:FSEditLog@1369] - Ending log segment 17, 17
+2022-09-19 16:12:19,022 - INFO  [org.apache.hadoop.hdfs.server.namenode.FSNamesystem$LazyPersistFileScrubber@4914d6bd:FSNamesystem$LazyPersistFileScrubber@3985] - LazyPersistFileScrubber was interrupted, exiting
+2022-09-19 16:12:19,023 - INFO  [Thread-0:FSEditLog@600] - logSyncAll toSyncToTxId=18 lastSyncedTxid=17 mostRecentTxid=18
+2022-09-19 16:12:19,024 - INFO  [org.apache.hadoop.hdfs.server.namenode.FSNamesystem$NameNodeEditLogRoller@163c2780:FSNamesystem$NameNodeEditLogRoller@3894] - NameNodeEditLogRoller was interrupted, exiting
+2022-09-19 16:12:19,025 - INFO  [Thread-0:FSEditLog@605] - Done logSyncAll lastWrittenTxId=18 lastSyncedTxid=18 mostRecentTxid=18
+2022-09-19 16:12:19,025 - INFO  [Thread-0:FSEditLog@770] - Number of transactions: 2 Total time for transactions(ms): 0 Number of transactions batched in Syncs: 0 Number of syncs: 2 SyncTimes(ms): 3 1 1 
+2022-09-19 16:12:19,027 - INFO  [IPC Server handler 3 on 44423:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/current/edits_inprogress_0000000000000000017 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1/current/edits_0000000000000000017-0000000000000000018
+2022-09-19 16:12:19,027 - INFO  [IPC Server handler 3 on 45207:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/current/edits_inprogress_0000000000000000017 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1/current/edits_0000000000000000017-0000000000000000018
+2022-09-19 16:12:19,027 - INFO  [IPC Server handler 4 on 36189:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/current/edits_inprogress_0000000000000000017 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1/current/edits_0000000000000000017-0000000000000000018
+2022-09-19 16:12:19,028 - INFO  [Thread-0:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/edits_inprogress_0000000000000000017 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-1/current/edits_0000000000000000017-0000000000000000018
+2022-09-19 16:12:19,028 - INFO  [Thread-0:FileJournalManager@143] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/edits_inprogress_0000000000000000017 -> /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/name-0-2/current/edits_0000000000000000017-0000000000000000018
+2022-09-19 16:12:19,032 - INFO  [CacheReplicationMonitor(859351098):CacheReplicationMonitor@169] - Shutting down CacheReplicationMonitor
+2022-09-19 16:12:19,033 - INFO  [Thread-0:Server@3074] - Stopping server on 13828
+2022-09-19 16:12:19,033 - INFO  [IPC Server listener on 13828:Server$Listener@1178] - Stopping IPC Server listener on 13828
+2022-09-19 16:12:19,033 - INFO  [StorageInfoMonitor:BlockManager$StorageInfoDefragmenter@4450] - Stopping thread.
+2022-09-19 16:12:19,033 - INFO  [RedundancyMonitor:BlockManager$RedundancyMonitor@4415] - Stopping RedundancyMonitor.
+2022-09-19 16:12:19,033 - INFO  [IPC Server Responder:Server$Responder@1312] - Stopping IPC Server Responder
+2022-09-19 16:12:19,050 - INFO  [Thread-0:FSNamesystem@1301] - Stopping services started for active state
+2022-09-19 16:12:19,050 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:19,051 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.w.WebAppContext@ee1ab08{/,null,UNAVAILABLE}{/hdfs}
+2022-09-19 16:12:19,053 - INFO  [Thread-0:AbstractConnector@318] - Stopped ServerConnector@7be47719{HTTP/1.1,[http/1.1]}{localhost:13829}
+2022-09-19 16:12:19,054 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@918e45e{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,UNAVAILABLE}
+2022-09-19 16:12:19,063 - INFO  [Thread-0:MiniDFSCluster@2038] - Shutting down the namenode
+2022-09-19 16:12:19,063 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:19,063 - WARN  [Edit log tailer:EditLogTailer$EditLogTailerThread@447] - Edit log tailer interrupted
+java.lang.InterruptedException: sleep interrupted
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.doWork(EditLogTailer.java:445)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.access$400(EditLogTailer.java:380)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread$1.run(EditLogTailer.java:397)
+	at org.apache.hadoop.security.SecurityUtil.doAsLoginUserOrFatal(SecurityUtil.java:481)
+	at org.apache.hadoop.hdfs.server.namenode.ha.EditLogTailer$EditLogTailerThread.run(EditLogTailer.java:393)
+2022-09-19 16:12:19,063 - INFO  [Thread-0:Server@3074] - Stopping server on 13830
+2022-09-19 16:12:19,065 - INFO  [IPC Server listener on 13830:Server$Listener@1178] - Stopping IPC Server listener on 13830
+2022-09-19 16:12:19,065 - INFO  [IPC Server Responder:Server$Responder@1312] - Stopping IPC Server Responder
+2022-09-19 16:12:19,065 - INFO  [RedundancyMonitor:BlockManager$RedundancyMonitor@4415] - Stopping RedundancyMonitor.
+2022-09-19 16:12:19,065 - INFO  [StorageInfoMonitor:BlockManager$StorageInfoDefragmenter@4450] - Stopping thread.
+2022-09-19 16:12:19,082 - INFO  [Thread-0:FSNamesystem@1301] - Stopping services started for active state
+2022-09-19 16:12:19,082 - INFO  [Thread-0:FSNamesystem@1397] - Stopping services started for standby state
+2022-09-19 16:12:19,083 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.w.WebAppContext@74c7efb4{/,null,UNAVAILABLE}{/hdfs}
+2022-09-19 16:12:19,083 - INFO  [Thread-0:AbstractConnector@318] - Stopped ServerConnector@697ca710{HTTP/1.1,[http/1.1]}{localhost:13831}
+2022-09-19 16:12:19,083 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@7460cbc4{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,UNAVAILABLE}
+2022-09-19 16:12:19,093 - INFO  [Thread-0:Server@3074] - Stopping server on 36189
+2022-09-19 16:12:19,093 - INFO  [IPC Server listener on 36189:Server$Listener@1178] - Stopping IPC Server listener on 36189
+2022-09-19 16:12:19,093 - INFO  [IPC Server Responder:Server$Responder@1312] - Stopping IPC Server Responder
+2022-09-19 16:12:19,093 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.w.WebAppContext@613d61f7{/,null,UNAVAILABLE}{/journal}
+2022-09-19 16:12:19,094 - INFO  [Thread-0:AbstractConnector@318] - Stopped ServerConnector@7bdf306c{HTTP/1.1,[http/1.1]}{localhost:0}
+2022-09-19 16:12:19,094 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@6def0e6f{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,UNAVAILABLE}
+2022-09-19 16:12:19,094 - INFO  [Thread-0:JNStorage@281] - Closing journal storage for Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/waitactive
+2022-09-19 16:12:19,095 - INFO  [Thread-0:JNStorage@281] - Closing journal storage for Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-0/ns1
+2022-09-19 16:12:19,095 - INFO  [Thread-0:Server@3074] - Stopping server on 45207
+2022-09-19 16:12:19,095 - INFO  [IPC Server listener on 45207:Server$Listener@1178] - Stopping IPC Server listener on 45207
+2022-09-19 16:12:19,095 - INFO  [IPC Server Responder:Server$Responder@1312] - Stopping IPC Server Responder
+2022-09-19 16:12:19,095 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.w.WebAppContext@21d2e482{/,null,UNAVAILABLE}{/journal}
+2022-09-19 16:12:19,096 - INFO  [Thread-0:AbstractConnector@318] - Stopped ServerConnector@7e017dd6{HTTP/1.1,[http/1.1]}{localhost:0}
+2022-09-19 16:12:19,096 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@16bd48b5{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,UNAVAILABLE}
+2022-09-19 16:12:19,096 - INFO  [Thread-0:JNStorage@281] - Closing journal storage for Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/waitactive
+2022-09-19 16:12:19,096 - INFO  [Thread-0:JNStorage@281] - Closing journal storage for Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-1/ns1
+2022-09-19 16:12:19,097 - INFO  [Thread-0:Server@3074] - Stopping server on 44423
+2022-09-19 16:12:19,097 - INFO  [IPC Server listener on 44423:Server$Listener@1178] - Stopping IPC Server listener on 44423
+2022-09-19 16:12:19,097 - INFO  [IPC Server Responder:Server$Responder@1312] - Stopping IPC Server Responder
+2022-09-19 16:12:19,097 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.w.WebAppContext@332bd887{/,null,UNAVAILABLE}{/journal}
+2022-09-19 16:12:19,098 - INFO  [Thread-0:AbstractConnector@318] - Stopped ServerConnector@62f40d31{HTTP/1.1,[http/1.1]}{localhost:0}
+2022-09-19 16:12:19,098 - INFO  [Thread-0:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@72d9bbfe{/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,UNAVAILABLE}
+2022-09-19 16:12:19,098 - INFO  [Thread-0:JNStorage@281] - Closing journal storage for Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/waitactive
+2022-09-19 16:12:19,098 - INFO  [Thread-0:JNStorage@281] - Closing journal storage for Storage Directory /home/tonypan/flaky-reproduction/experiment/hdfs-12248/target/test/data/dfs/journalnode-2/ns1
+2022-09-19 16:12:19,099 - INFO  [Thread-0:MetricsSystemImpl@210] - Stopping NameNode metrics system...
+2022-09-19 16:12:19,100 - INFO  [Thread-0:MetricsSystemImpl@216] - NameNode metrics system stopped.
+2022-09-19 16:12:19,100 - INFO  [Thread-0:MetricsSystemImpl@607] - NameNode metrics system shutdown complete.
+
+Time: 4.966
+
+OK (1 test)
+
