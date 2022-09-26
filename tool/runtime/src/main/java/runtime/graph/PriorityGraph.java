@@ -8,6 +8,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class PriorityGraph {
@@ -165,5 +166,28 @@ public class PriorityGraph {
                 }
             }
         }
+    }
+
+    // Find the event leading from start to end using depth first search
+    public boolean findPath(int start, int end, int depth, int limit, final Set<Integer> visited, final Consumer<Integer> consumer) {
+        if (depth == limit) {
+            return false;
+        }
+        visited.add(start);
+        if (start == end) {
+            consumer.accept(end);
+            return true;
+        }
+        if (!this.outcome2cause.containsKey(start)) {
+            return false;
+        }
+        for (final Integer child : outcome2cause.get(start)) {
+            if (!visited.contains(child) && findPath(child,end,depth+1, limit, visited,consumer)) {
+                consumer.accept(start);
+                return true;
+            }
+
+        }
+        return false;
     }
 }
