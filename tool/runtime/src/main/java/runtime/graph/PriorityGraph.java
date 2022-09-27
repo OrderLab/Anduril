@@ -169,11 +169,11 @@ public class PriorityGraph {
     }
 
     // Find the event leading from start to end using depth first search
-    public boolean findPath(int start, int end, int depth, int limit, final Set<Integer> visited, final Consumer<Integer> consumer) {
+    public boolean findPath(int start, int end, int depth, int limit, final Map<Integer,Integer> visitedToDepth, final Consumer<Integer> consumer) {
         if (depth == limit) {
             return false;
         }
-        visited.add(start);
+        visitedToDepth.put(start,depth);
         if (start == end) {
             consumer.accept(end);
             return true;
@@ -182,11 +182,13 @@ public class PriorityGraph {
             return false;
         }
         for (final Integer child : outcome2cause.get(start)) {
-            if (!visited.contains(child) && findPath(child,end,depth+1, limit, visited,consumer)) {
-                consumer.accept(start);
-                return true;
+            Integer value = visitedToDepth.get(child);
+            if (value == null || value > (depth + 1)) {
+                if (findPath(child, end, depth + 1, limit, visitedToDepth, consumer)) {
+                    consumer.accept(start);
+                    return true;
+                }
             }
-
         }
         return false;
     }
