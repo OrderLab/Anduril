@@ -39,8 +39,8 @@ class PriorityGraphTest {
         }
         System.out.println(sortedMap);
         List<Integer> order = new ArrayList<>();
-        final Set<Integer> visited = new TreeSet<>();
-        graph.findPath(2,2621,0,15,visited,order::add);
+        final Map<Integer,Integer> visited = new TreeMap<>();
+        graph.findPath(2,1451,0,17,visited,order::add);
         System.out.println(order);
     }
 }
