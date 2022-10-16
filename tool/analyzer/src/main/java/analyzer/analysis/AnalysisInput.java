@@ -337,6 +337,25 @@ public class AnalysisInput {
             }
         }
 
+        if (options.getFlakyCase().equals("hdfs-16332")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.protocol.datatransfer.sasl.TestSaslDataTransferExpiredBlockToken");
+            this.testMethod = this.testClass.getMethod(
+                    "void testBlockSeekToWithExpiredToken()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         if (options.getFlakyCase().equals("hbase-25905")) {
             this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck");
             this.testMethod = this.testClass.getMethod("void testRoll()");
