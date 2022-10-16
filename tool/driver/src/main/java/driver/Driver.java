@@ -195,6 +195,9 @@ public final class Driver {
                 Thread.sleep(granularity);
             }
             return false;
+        } catch (final RuntimeException e) {
+            LOG.warn("Trial exit normally or file size exceeds the limit!");
+            Thread.sleep(granularity);
         } catch (final Exception e) {
             LOG.warn("error when monitoring", e);
             Thread.sleep(granularity);

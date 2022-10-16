@@ -48,7 +48,7 @@ object ExceptionGrammar {
       case (filename, extension) => s"$filename.$extension"
     }
 
-  private def more[_: P]: P[Int] = CharIn(" ", "\t").rep(1) ~ "... " ~ number ~ " more"
+  private def more[_: P]: P[Int] = CharIn(" ", "\t").rep(1) ~ "... " ~ number ~ " " ~ ("trimmed" | "more")
 
   private def suffix_JUnit5[_: P]: P[Boolean] =
     ("\n" ~ CharIn(" ", "\t").rep(1) ~ "[...]".!).? map { _.nonEmpty }
