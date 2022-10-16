@@ -1,0 +1,749 @@
+JUnit version 4.13.2
+2022-10-15 17:38:55,386 - INFO  [main:MiniKdc@225] - Configuration:
+2022-10-15 17:38:55,389 - INFO  [main:MiniKdc@226] - ---------------------------------------------------------------
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   debug: false
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   transport: TCP
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   max.ticket.lifetime: 86400000
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   org.name: EXAMPLE
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   kdc.port: 0
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   org.domain: COM
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   max.renewable.lifetime: 604800000
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   instance: DefaultKrbServer
+2022-10-15 17:38:55,391 - INFO  [main:MiniKdc@228] -   kdc.bind.address: localhost
+2022-10-15 17:38:55,392 - INFO  [main:MiniKdc@230] - ---------------------------------------------------------------
+2022-10-15 17:38:55,501 - INFO  [main:MiniKdc@285] - MiniKdc started.
+.2022-10-15 17:38:56,193 - INFO  [Time-limited test:MiniDFSCluster@554] - starting cluster: numNameNodes=1, numDataNodes=3
+2022-10-15 17:38:56,405 - WARN  [Time-limited test:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-10-15 17:38:56,481 - INFO  [Time-limited test:NameNode@1248] - Formatting using clusterid: testClusterID
+2022-10-15 17:38:56,493 - INFO  [Time-limited test:FSEditLog@234] - Edit logging is async:true
+2022-10-15 17:38:56,511 - INFO  [Time-limited test:FSNamesystem@859] - KeyProvider: null
+2022-10-15 17:38:56,512 - INFO  [Time-limited test:FSNamesystemLock@142] - fsLock is fair: true
+2022-10-15 17:38:56,513 - INFO  [Time-limited test:FSNamesystemLock@160] - Detailed lock hold time metrics enabled: false
+2022-10-15 17:38:56,517 - INFO  [Time-limited test:FSNamesystem@898] - fsOwner                = tonypan (auth:SIMPLE)
+2022-10-15 17:38:56,517 - INFO  [Time-limited test:FSNamesystem@899] - supergroup             = supergroup
+2022-10-15 17:38:56,517 - INFO  [Time-limited test:FSNamesystem@900] - isPermissionEnabled    = true
+2022-10-15 17:38:56,517 - INFO  [Time-limited test:FSNamesystem@901] - isStoragePolicyEnabled = true
+2022-10-15 17:38:56,517 - INFO  [Time-limited test:FSNamesystem@912] - HA Enabled: false
+2022-10-15 17:38:56,583 - INFO  [Time-limited test:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:56,587 - INFO  [Time-limited test:Configuration@1441] - hadoop.configured.node.mapping is deprecated. Instead, use net.topology.configured.node.mapping
+2022-10-15 17:38:56,587 - INFO  [Time-limited test:DatanodeManager@325] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-10-15 17:38:56,587 - INFO  [Time-limited test:DatanodeManager@332] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-10-15 17:38:56,589 - INFO  [Time-limited test:InvalidateBlocks@77] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-10-15 17:38:56,589 - INFO  [Time-limited test:InvalidateBlocks@83] - The block deletion will start around 2022 Oct 15 17:38:56
+2022-10-15 17:38:56,591 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-10-15 17:38:56,591 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:56,592 - INFO  [Time-limited test:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-10-15 17:38:56,592 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-10-15 17:38:56,601 - INFO  [Time-limited test:BlockManager@5343] - Storage policy satisfier is disabled
+2022-10-15 17:38:56,601 - INFO  [Time-limited test:BlockManager@618] - dfs.block.access.token.enable = true
+2022-10-15 17:38:56,601 - INFO  [Time-limited test:BlockManager@640] - dfs.block.access.key.update.interval=600 min(s), dfs.block.access.token.lifetime=600 min(s), dfs.encrypt.data.transfer.algorithm=null
+2022-10-15 17:38:56,606 - INFO  [Time-limited test:BlockTokenSecretManager@155] - Block token key range: [0, 2147483647)
+2022-10-15 17:38:56,611 - INFO  [Time-limited test:BlockManagerSafeMode$SafeModeMonitor@656] - Using 1000 as SafeModeMonitor Interval
+2022-10-15 17:38:56,611 - INFO  [Time-limited test:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.999
+2022-10-15 17:38:56,611 - INFO  [Time-limited test:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-10-15 17:38:56,611 - INFO  [Time-limited test:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-10-15 17:38:56,611 - INFO  [Time-limited test:BlockManager@604] - defaultReplication         = 3
+2022-10-15 17:38:56,612 - INFO  [Time-limited test:BlockManager@605] - maxReplication             = 512
+2022-10-15 17:38:56,612 - INFO  [Time-limited test:BlockManager@606] - minReplication             = 1
+2022-10-15 17:38:56,612 - INFO  [Time-limited test:BlockManager@607] - maxReplicationStreams      = 2
+2022-10-15 17:38:56,612 - INFO  [Time-limited test:BlockManager@608] - redundancyRecheckInterval  = 3000ms
+2022-10-15 17:38:56,612 - INFO  [Time-limited test:BlockManager@609] - encryptDataTransfer        = false
+2022-10-15 17:38:56,612 - INFO  [Time-limited test:BlockManager@610] - maxNumBlocksToLog          = 1000
+2022-10-15 17:38:56,627 - INFO  [Time-limited test:SerialNumberManager@51] - GLOBAL serial map: bits=29 maxEntries=536870911
+2022-10-15 17:38:56,627 - INFO  [Time-limited test:SerialNumberManager@51] - USER serial map: bits=24 maxEntries=16777215
+2022-10-15 17:38:56,627 - INFO  [Time-limited test:SerialNumberManager@51] - GROUP serial map: bits=24 maxEntries=16777215
+2022-10-15 17:38:56,627 - INFO  [Time-limited test:SerialNumberManager@51] - XATTR serial map: bits=24 maxEntries=16777215
+2022-10-15 17:38:56,634 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-10-15 17:38:56,634 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:56,635 - INFO  [Time-limited test:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-10-15 17:38:56,635 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-10-15 17:38:56,637 - INFO  [Time-limited test:FSDirectory@335] - ACLs enabled? true
+2022-10-15 17:38:56,637 - INFO  [Time-limited test:FSDirectory@339] - POSIX ACL inheritance enabled? true
+2022-10-15 17:38:56,637 - INFO  [Time-limited test:FSDirectory@343] - XAttrs enabled? true
+2022-10-15 17:38:56,637 - INFO  [Time-limited test:FSDirectory@406] - Caching file names occurring more than 10 times
+2022-10-15 17:38:56,641 - INFO  [Time-limited test:SnapshotManager@163] - Loaded config captureOpenFiles: false, skipCaptureAccessTimeOnlyChange: false, snapshotDiffAllowSnapRootDescendant: true, maxSnapshotFSLimit: 65536, maxSnapshotLimit: 65536
+2022-10-15 17:38:56,641 - INFO  [Time-limited test:SnapshotManager@176] - dfs.namenode.snapshot.deletion.ordered = false
+2022-10-15 17:38:56,643 - INFO  [Time-limited test:DirectoryDiffListFactory@43] - SkipList is disabled
+2022-10-15 17:38:56,646 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-10-15 17:38:56,646 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:56,646 - INFO  [Time-limited test:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-10-15 17:38:56,646 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-10-15 17:38:56,652 - INFO  [Time-limited test:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-10-15 17:38:56,652 - INFO  [Time-limited test:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-10-15 17:38:56,652 - INFO  [Time-limited test:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-10-15 17:38:56,655 - INFO  [Time-limited test:FSNamesystem@1142] - Retry cache on namenode is enabled
+2022-10-15 17:38:56,655 - INFO  [Time-limited test:FSNamesystem@1150] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-10-15 17:38:56,656 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-10-15 17:38:56,656 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:56,656 - INFO  [Time-limited test:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-10-15 17:38:56,656 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-10-15 17:38:56,793 - INFO  [Time-limited test:FSImage@186] - Allocated new BlockPoolId: BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:56,807 - INFO  [Time-limited test:NNStorage@595] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1 has been successfully formatted.
+2022-10-15 17:38:56,823 - INFO  [Time-limited test:NNStorage@595] - Storage directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2 has been successfully formatted.
+2022-10-15 17:38:56,851 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@732] - Saving image file /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/current/fsimage.ckpt_0000000000000000000 using no compression
+2022-10-15 17:38:56,851 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@732] - Saving image file /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2/current/fsimage.ckpt_0000000000000000000 using no compression
+2022-10-15 17:38:56,961 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@736] - Image file /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/current/fsimage.ckpt_0000000000000000000 of size 402 bytes saved in 0 seconds .
+2022-10-15 17:38:56,961 - INFO  [FSImageSaver for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2 of type IMAGE_AND_EDITS:FSImageFormatProtobuf$Saver@736] - Image file /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2/current/fsimage.ckpt_0000000000000000000 of size 402 bytes saved in 0 seconds .
+2022-10-15 17:38:56,974 - INFO  [Time-limited test:NNStorageRetentionManager@202] - Going to retain 1 images with txid >= 0
+2022-10-15 17:38:57,008 - INFO  [Time-limited test:FSNamesystem@1493] - Stopping services started for active state
+2022-10-15 17:38:57,009 - INFO  [Time-limited test:FSNamesystem@1597] - Stopping services started for standby state
+2022-10-15 17:38:57,010 - INFO  [Time-limited test:NameNode@1706] - createNameNode []
+2022-10-15 17:38:57,093 - INFO  [Time-limited test:MetricsConfig@120] - Loaded properties from hadoop-metrics2.properties
+2022-10-15 17:38:57,145 - INFO  [Time-limited test:MetricsSystemImpl@378] - Scheduled Metric snapshot period at 0 second(s).
+2022-10-15 17:38:57,145 - INFO  [Time-limited test:MetricsSystemImpl@191] - NameNode metrics system started
+2022-10-15 17:38:57,150 - INFO  [Time-limited test:NameNodeUtils@79] - fs.defaultFS is hdfs://127.0.0.1:0
+2022-10-15 17:38:57,196 - INFO  [pool-1-thread-1:KdcRequest@651] - The preauth data is empty.
+2022-10-15 17:38:57,203 - INFO  [pool-1-thread-1:KdcHandler@177] - KRB error occurred while processing request:Additional pre-authentication required
+2022-10-15 17:38:57,239 - INFO  [pool-1-thread-1:AsRequest@112] - AS_REQ ISSUE: authtime 1665869937236,hdfs/localhost@EXAMPLE.COM for krbtgt/EXAMPLE.COM@EXAMPLE.COM
+2022-10-15 17:38:57,247 - INFO  [Time-limited test:UserGroupInformation@1128] - Login successful for user hdfs/localhost@EXAMPLE.COM using keytab file hdfs.keytab. Keytab auto renewal enabled : false
+2022-10-15 17:38:57,275 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@387fd648:JvmPauseMonitor$Monitor@185] - Starting JVM pause monitor
+2022-10-15 17:38:57,286 - INFO  [Time-limited test:DFSUtil@1736] - Filter initializers set : org.apache.hadoop.http.lib.StaticUserWebFilter,org.apache.hadoop.hdfs.web.AuthFilterInitializer
+2022-10-15 17:38:57,291 - INFO  [Time-limited test:DFSUtil@1746] - Starting web server as: HTTP/localhost@EXAMPLE.COM
+2022-10-15 17:38:57,292 - INFO  [Time-limited test:DFSUtil@1771] - Starting Web-server for hdfs at: https://localhost:0
+2022-10-15 17:38:57,305 - INFO  [Time-limited test:Log@170] - Logging initialized @2246ms to org.eclipse.jetty.util.log.Slf4jLog
+2022-10-15 17:38:57,411 - WARN  [Time-limited test:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets. Reason: Could not read signature secret file: /home/tonypan/hadoop-http-auth-signature-secret
+2022-10-15 17:38:57,415 - INFO  [Time-limited test:HttpRequestLog@82] - Http request log for http.requests.namenode is not defined
+2022-10-15 17:38:57,422 - INFO  [Time-limited test:HttpServer2@1155] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-10-15 17:38:57,424 - INFO  [Time-limited test:HttpServer2@1128] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context hdfs
+2022-10-15 17:38:57,424 - INFO  [Time-limited test:HttpServer2@1138] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-10-15 17:38:57,426 - INFO  [Time-limited test:HttpServer2@1128] - Added filter AuthFilter (class=org.apache.hadoop.hdfs.web.AuthFilter) to context hdfs
+2022-10-15 17:38:57,426 - INFO  [Time-limited test:HttpServer2@1138] - Added filter AuthFilter (class=org.apache.hadoop.hdfs.web.AuthFilter) to context static
+2022-10-15 17:38:57,471 - INFO  [Time-limited test:HttpServer2@982] - addJerseyResourcePackage: packageName=org.apache.hadoop.hdfs.server.namenode.web.resources;org.apache.hadoop.hdfs.web.resources, pathSpec=/webhdfs/v1/*
+2022-10-15 17:38:57,478 - INFO  [Time-limited test:HttpServer2@1386] - Jetty bound to port 39213
+2022-10-15 17:38:57,479 - INFO  [Time-limited test:Server@375] - jetty-9.4.43.v20210629; built: 2021-06-30T11:07:22.254Z; git: 526006ecfa3af7f1a27ef3a288e2bef7ea9dd7e8; jvm 1.8.0_275-8u275-b01-0ubuntu1~18.04-b01
+2022-10-15 17:38:57,508 - INFO  [Time-limited test:DefaultSessionIdManager@334] - DefaultSessionIdManager workerName=node0
+2022-10-15 17:38:57,508 - INFO  [Time-limited test:DefaultSessionIdManager@339] - No SessionScavenger set, using defaults
+2022-10-15 17:38:57,510 - INFO  [Time-limited test:HouseKeeper@132] - node0 Scavenging every 600000ms
+2022-10-15 17:38:57,528 - WARN  [Time-limited test:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets. Reason: Could not read signature secret file: /home/tonypan/hadoop-http-auth-signature-secret
+2022-10-15 17:38:57,530 - INFO  [Time-limited test:ContextHandler@915] - Started o.e.j.s.ServletContextHandler@38186e7c{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-10-15 17:38:57,588 - INFO  [Time-limited test:ContextHandler@915] - Started o.e.j.w.WebAppContext@137306e6{hdfs,/,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/hdfs/,AVAILABLE}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/hdfs}
+2022-10-15 17:38:57,601 - INFO  [Time-limited test:SslContextFactory@358] - x509=X509@4cea6e3b(server,h=[localhost],a=[],w=[]) for Server@22784146[provider=null,keyStore=file:///home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/SaslDataTransferTestCase/serverKS.jks,trustStore=file:///home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/SaslDataTransferTestCase/trustKS.jks]
+2022-10-15 17:38:57,610 - INFO  [Time-limited test:AbstractConnector@331] - Started ServerConnector@2d79b050{SSL, (ssl, http/1.1)}{localhost:39213}
+2022-10-15 17:38:57,610 - INFO  [Time-limited test:Server@415] - Started @2551ms
+2022-10-15 17:38:57,621 - INFO  [Time-limited test:FSEditLog@234] - Edit logging is async:true
+2022-10-15 17:38:57,634 - INFO  [Time-limited test:FSNamesystem@859] - KeyProvider: null
+2022-10-15 17:38:57,635 - INFO  [Time-limited test:FSNamesystemLock@142] - fsLock is fair: true
+2022-10-15 17:38:57,635 - INFO  [Time-limited test:FSNamesystemLock@160] - Detailed lock hold time metrics enabled: false
+2022-10-15 17:38:57,635 - INFO  [Time-limited test:FSNamesystem@898] - fsOwner                = hdfs/localhost@EXAMPLE.COM (auth:KERBEROS)
+2022-10-15 17:38:57,635 - INFO  [Time-limited test:FSNamesystem@899] - supergroup             = supergroup
+2022-10-15 17:38:57,635 - INFO  [Time-limited test:FSNamesystem@900] - isPermissionEnabled    = true
+2022-10-15 17:38:57,636 - INFO  [Time-limited test:FSNamesystem@901] - isStoragePolicyEnabled = true
+2022-10-15 17:38:57,636 - INFO  [Time-limited test:FSNamesystem@912] - HA Enabled: false
+2022-10-15 17:38:57,636 - INFO  [Time-limited test:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:57,637 - INFO  [Time-limited test:DatanodeManager@325] - dfs.block.invalidate.limit: configured=1000, counted=60, effected=1000
+2022-10-15 17:38:57,637 - INFO  [Time-limited test:DatanodeManager@332] - dfs.namenode.datanode.registration.ip-hostname-check=true
+2022-10-15 17:38:57,637 - INFO  [Time-limited test:InvalidateBlocks@77] - dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2022-10-15 17:38:57,637 - INFO  [Time-limited test:InvalidateBlocks@83] - The block deletion will start around 2022 Oct 15 17:38:57
+2022-10-15 17:38:57,638 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map BlocksMap
+2022-10-15 17:38:57,638 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:57,638 - INFO  [Time-limited test:LightWeightGSet@397] - 2.0% max memory 6.9 GB = 141.0 MB
+2022-10-15 17:38:57,638 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^24 = 16777216 entries
+2022-10-15 17:38:57,666 - INFO  [Time-limited test:BlockManager@5343] - Storage policy satisfier is disabled
+2022-10-15 17:38:57,666 - INFO  [Time-limited test:BlockManager@618] - dfs.block.access.token.enable = true
+2022-10-15 17:38:57,666 - INFO  [Time-limited test:BlockManager@640] - dfs.block.access.key.update.interval=600 min(s), dfs.block.access.token.lifetime=600 min(s), dfs.encrypt.data.transfer.algorithm=null
+2022-10-15 17:38:57,667 - INFO  [Time-limited test:BlockTokenSecretManager@155] - Block token key range: [0, 2147483647)
+2022-10-15 17:38:57,667 - INFO  [Time-limited test:BlockManagerSafeMode$SafeModeMonitor@656] - Using 1000 as SafeModeMonitor Interval
+2022-10-15 17:38:57,667 - INFO  [Time-limited test:BlockManagerSafeMode@161] - dfs.namenode.safemode.threshold-pct = 0.999
+2022-10-15 17:38:57,667 - INFO  [Time-limited test:BlockManagerSafeMode@162] - dfs.namenode.safemode.min.datanodes = 0
+2022-10-15 17:38:57,667 - INFO  [Time-limited test:BlockManagerSafeMode@164] - dfs.namenode.safemode.extension = 0
+2022-10-15 17:38:57,667 - INFO  [Time-limited test:BlockManager@604] - defaultReplication         = 3
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:BlockManager@605] - maxReplication             = 512
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:BlockManager@606] - minReplication             = 1
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:BlockManager@607] - maxReplicationStreams      = 2
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:BlockManager@608] - redundancyRecheckInterval  = 3000ms
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:BlockManager@609] - encryptDataTransfer        = false
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:BlockManager@610] - maxNumBlocksToLog          = 1000
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map INodeMap
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:LightWeightGSet@397] - 1.0% max memory 6.9 GB = 70.5 MB
+2022-10-15 17:38:57,668 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^23 = 8388608 entries
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:FSDirectory@335] - ACLs enabled? true
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:FSDirectory@339] - POSIX ACL inheritance enabled? true
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:FSDirectory@343] - XAttrs enabled? true
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:FSDirectory@406] - Caching file names occurring more than 10 times
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:SnapshotManager@163] - Loaded config captureOpenFiles: false, skipCaptureAccessTimeOnlyChange: false, snapshotDiffAllowSnapRootDescendant: true, maxSnapshotFSLimit: 65536, maxSnapshotLimit: 65536
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:SnapshotManager@176] - dfs.namenode.snapshot.deletion.ordered = false
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:DirectoryDiffListFactory@43] - SkipList is disabled
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map cachedBlocks
+2022-10-15 17:38:57,671 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:57,672 - INFO  [Time-limited test:LightWeightGSet@397] - 0.25% max memory 6.9 GB = 17.6 MB
+2022-10-15 17:38:57,672 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^21 = 2097152 entries
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:TopMetrics@76] - NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:TopMetrics@78] - NNTop conf: dfs.namenode.top.num.users = 10
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:TopMetrics@80] - NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:FSNamesystem@1142] - Retry cache on namenode is enabled
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:FSNamesystem@1150] - Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:LightWeightGSet@395] - Computing capacity for map NameNodeRetryCache
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:LightWeightGSet@396] - VM type       = 64-bit
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:LightWeightGSet@397] - 0.029999999329447746% max memory 6.9 GB = 2.1 MB
+2022-10-15 17:38:57,673 - INFO  [Time-limited test:LightWeightGSet@402] - capacity      = 2^18 = 262144 entries
+2022-10-15 17:38:57,677 - INFO  [Time-limited test:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:57,685 - INFO  [Time-limited test:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:57,687 - INFO  [Time-limited test:FileJournalManager@428] - Recovering unfinalized segments in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/current
+2022-10-15 17:38:57,687 - INFO  [Time-limited test:FileJournalManager@428] - Recovering unfinalized segments in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2/current
+2022-10-15 17:38:57,687 - INFO  [Time-limited test:FSImage@734] - No edit log streams selected.
+2022-10-15 17:38:57,688 - INFO  [Time-limited test:FSImage@800] - Planning to load image: FSImageFile(file=/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000, cpktTxId=0000000000000000000)
+2022-10-15 17:38:57,711 - INFO  [Time-limited test:FSImageFormatPBINode$Loader@413] - Loading 1 INodes.
+2022-10-15 17:38:57,712 - INFO  [Time-limited test:FSImageFormatPBINode$Loader@371] - Successfully loaded 1 inodes
+2022-10-15 17:38:57,716 - INFO  [Time-limited test:FSImageFormatPBINode$Loader@344] - Completed update blocks map and name cache, total waiting duration 0ms.
+2022-10-15 17:38:57,718 - INFO  [Time-limited test:FSImageFormatProtobuf$Loader@255] - Loaded FSImage in 0 seconds.
+2022-10-15 17:38:57,718 - INFO  [Time-limited test:FSImage@978] - Loaded image for txid 0 from /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/current/fsimage_0000000000000000000
+2022-10-15 17:38:57,722 - INFO  [Time-limited test:FSNamesystem@1264] - Need to save fs image? false (staleImage=false, haEnabled=false, isRollingUpgrade=false)
+2022-10-15 17:38:57,723 - INFO  [Time-limited test:FSEditLog@1410] - Starting log segment at 1
+2022-10-15 17:38:57,790 - INFO  [Time-limited test:NameCache@143] - initialized with 0 entries 0 lookups
+2022-10-15 17:38:57,791 - INFO  [Time-limited test:FSNamesystem@831] - Finished loading FSImage in 115 msecs
+2022-10-15 17:38:58,111 - INFO  [Time-limited test:NameNodeRpcServer@444] - RPC server is binding to localhost:0
+2022-10-15 17:38:58,111 - INFO  [Time-limited test:NameNodeRpcServer@449] - Enable NameNode state context:false
+2022-10-15 17:38:58,118 - INFO  [Time-limited test:CallQueueManager@93] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue, queueCapacity: 1000, scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler, ipcBackoff: false.
+2022-10-15 17:38:58,127 - INFO  [Socket Reader #1 for port 0:Server$Listener$Reader@1392] - Starting Socket Reader #1 for port 0
+2022-10-15 17:38:58,315 - INFO  [Listener at localhost/34643:NameNode@775] - Clients are to use localhost:34643 to access this namenode/service.
+2022-10-15 17:38:58,317 - INFO  [Listener at localhost/34643:FSNamesystem@5584] - Registered FSNamesystemState, ReplicatedBlocksState and ECBlockGroupsState MBeans.
+2022-10-15 17:38:58,324 - INFO  [Listener at localhost/34643:LeaseManager@166] - Number of blocks under construction: 0
+2022-10-15 17:38:58,329 - INFO  [Listener at localhost/34643:DatanodeAdminDefaultMonitor@116] - Initialized the Default Decommission and Maintenance monitor
+2022-10-15 17:38:58,330 - INFO  [org.apache.hadoop.hdfs.server.blockmanagement.HeartbeatManager$Monitor@5e34b52e:BlockTokenSecretManager@259] - Updating block keys
+2022-10-15 17:38:58,331 - INFO  [Listener at localhost/34643:BlockManager@5081] - initializing replication queues
+2022-10-15 17:38:58,331 - INFO  [Listener at localhost/34643:BlockManagerSafeMode@409] - STATE* Leaving safe mode after 0 secs
+2022-10-15 17:38:58,331 - INFO  [Listener at localhost/34643:BlockManagerSafeMode@415] - STATE* Network topology has 0 racks and 0 datanodes
+2022-10-15 17:38:58,331 - INFO  [Listener at localhost/34643:BlockManagerSafeMode@417] - STATE* UnderReplicatedBlocks has 0 blocks
+2022-10-15 17:38:58,331 - INFO  [Listener at localhost/34643:AbstractDelegationTokenSecretManager@367] - Updating the current master key for generating delegation tokens
+2022-10-15 17:38:58,342 - INFO  [Thread[Thread-35,5,main]:AbstractDelegationTokenSecretManager$ExpiredTokenRemover@701] - Starting expired delegation token remover thread, tokenRemoverScanInterval=60 min(s)
+2022-10-15 17:38:58,342 - INFO  [Thread[Thread-35,5,main]:AbstractDelegationTokenSecretManager@367] - Updating the current master key for generating delegation tokens
+2022-10-15 17:38:58,358 - INFO  [Reconstruction Queue Initializer:BlockManager@3726] - Total number of blocks            = 0
+2022-10-15 17:38:58,358 - INFO  [Reconstruction Queue Initializer:BlockManager@3727] - Number of invalid blocks          = 0
+2022-10-15 17:38:58,358 - INFO  [Reconstruction Queue Initializer:BlockManager@3728] - Number of under-replicated blocks = 0
+2022-10-15 17:38:58,358 - INFO  [Reconstruction Queue Initializer:BlockManager@3729] - Number of  over-replicated blocks = 0
+2022-10-15 17:38:58,358 - INFO  [Reconstruction Queue Initializer:BlockManager@3731] - Number of blocks being written    = 0
+2022-10-15 17:38:58,358 - INFO  [Reconstruction Queue Initializer:BlockManager@3734] - STATE* Replication Queue initialization scan for invalid, over- and under-replicated blocks completed in 27 msec
+2022-10-15 17:38:58,362 - INFO  [IPC Server Responder:Server$Responder@1631] - IPC Server Responder: starting
+2022-10-15 17:38:58,362 - INFO  [IPC Server listener on 0:Server$Listener@1471] - IPC Server listener on 0: starting
+2022-10-15 17:38:58,369 - INFO  [Listener at localhost/34643:NameNode@892] - NameNode RPC up at: localhost/127.0.0.1:34643
+2022-10-15 17:38:58,371 - INFO  [Listener at localhost/34643:FSNamesystem@1376] - Starting services required for active state
+2022-10-15 17:38:58,371 - INFO  [Listener at localhost/34643:FSDirectory@849] - Initializing quota with 12 thread(s)
+2022-10-15 17:38:58,376 - INFO  [Listener at localhost/34643:FSDirectory@858] - Quota initialization completed in 4 milliseconds
+name space=1
+storage space=0
+storage types=RAM_DISK=0, SSD=0, DISK=0, ARCHIVE=0, PROVIDED=0, NVDIMM=0
+2022-10-15 17:38:58,378 - INFO  [CacheReplicationMonitor(964083594):CacheReplicationMonitor@160] - Starting CacheReplicationMonitor with interval 30000 milliseconds
+2022-10-15 17:38:58,384 - INFO  [Listener at localhost/34643:MiniDFSCluster@1726] - Starting DataNode 0 with dfs.datanode.data.dir: [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1,[DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2
+2022-10-15 17:38:58,393 - INFO  [pool-1-thread-1:KdcRequest@651] - The preauth data is empty.
+2022-10-15 17:38:58,393 - INFO  [pool-1-thread-1:KdcHandler@177] - KRB error occurred while processing request:Additional pre-authentication required
+2022-10-15 17:38:58,399 - INFO  [pool-1-thread-1:AsRequest@112] - AS_REQ ISSUE: authtime 1665869938398,hdfs/localhost@EXAMPLE.COM for krbtgt/EXAMPLE.COM@EXAMPLE.COM
+2022-10-15 17:38:58,401 - INFO  [Listener at localhost/34643:UserGroupInformation@1128] - Login successful for user hdfs/localhost@EXAMPLE.COM using keytab file hdfs.keytab. Keytab auto renewal enabled : false
+2022-10-15 17:38:58,429 - INFO  [Listener at localhost/34643:ThrottledAsyncChecker@137] - Scheduling a check for [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1
+2022-10-15 17:38:58,441 - INFO  [Listener at localhost/34643:ThrottledAsyncChecker@137] - Scheduling a check for [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2
+2022-10-15 17:38:58,467 - INFO  [Listener at localhost/34643:MetricsSystemImpl@158] - DataNode metrics system started (again)
+2022-10-15 17:38:58,469 - INFO  [Listener at localhost/34643:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:58,471 - INFO  [Listener at localhost/34643:BlockScanner@201] - Initialized block scanner with targetBytesPerSec 1048576
+2022-10-15 17:38:58,474 - INFO  [Listener at localhost/34643:DataNode@505] - Configured hostname is 127.0.0.1
+2022-10-15 17:38:58,475 - INFO  [Listener at localhost/34643:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:58,477 - INFO  [Listener at localhost/34643:DataNode@1465] - Starting DataNode with maxLockedMemory = 0
+2022-10-15 17:38:58,481 - INFO  [Listener at localhost/34643:DataNode@1228] - Opened streaming server at /127.0.0.1:45297
+2022-10-15 17:38:58,482 - INFO  [Listener at localhost/34643:DataXceiverServer$BlockBalanceThrottler@94] - Balancing bandwidth is 104857600 bytes/s
+2022-10-15 17:38:58,482 - INFO  [Listener at localhost/34643:DataXceiverServer$BlockBalanceThrottler@95] - Number threads for balancing is 100
+2022-10-15 17:38:58,488 - WARN  [Listener at localhost/34643:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets. Reason: Could not read signature secret file: /home/tonypan/hadoop-http-auth-signature-secret
+2022-10-15 17:38:58,488 - INFO  [Listener at localhost/34643:HttpRequestLog@82] - Http request log for http.requests.datanode is not defined
+2022-10-15 17:38:58,490 - INFO  [Listener at localhost/34643:HttpServer2@1155] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-10-15 17:38:58,490 - INFO  [Listener at localhost/34643:HttpServer2@1128] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context datanode
+2022-10-15 17:38:58,491 - INFO  [Listener at localhost/34643:HttpServer2@1138] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-10-15 17:38:58,492 - INFO  [Listener at localhost/34643:HttpServer2@1386] - Jetty bound to port 46565
+2022-10-15 17:38:58,493 - INFO  [Listener at localhost/34643:Server@375] - jetty-9.4.43.v20210629; built: 2021-06-30T11:07:22.254Z; git: 526006ecfa3af7f1a27ef3a288e2bef7ea9dd7e8; jvm 1.8.0_275-8u275-b01-0ubuntu1~18.04-b01
+2022-10-15 17:38:58,493 - INFO  [Listener at localhost/34643:DefaultSessionIdManager@334] - DefaultSessionIdManager workerName=node0
+2022-10-15 17:38:58,494 - INFO  [Listener at localhost/34643:DefaultSessionIdManager@339] - No SessionScavenger set, using defaults
+2022-10-15 17:38:58,494 - INFO  [Listener at localhost/34643:HouseKeeper@132] - node0 Scavenging every 660000ms
+2022-10-15 17:38:58,494 - INFO  [Listener at localhost/34643:ContextHandler@915] - Started o.e.j.s.ServletContextHandler@330c94e2{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-10-15 17:38:58,501 - INFO  [Listener at localhost/34643:ContextHandler@915] - Started o.e.j.w.WebAppContext@28109d3f{datanode,/,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode/,AVAILABLE}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode}
+2022-10-15 17:38:58,502 - INFO  [Listener at localhost/34643:AbstractConnector@331] - Started ServerConnector@3b41341d{HTTP/1.1, (http/1.1)}{localhost:46565}
+2022-10-15 17:38:58,502 - INFO  [Listener at localhost/34643:Server@415] - Started @3443ms
+2022-10-15 17:38:58,578 - WARN  [Listener at localhost/34643:RestCsrfPreventionFilterHandler@75] - Got null for restCsrfPreventionFilter - will not do any filtering.
+2022-10-15 17:38:58,660 - INFO  [Listener at localhost/34643:DatanodeHttpServer@339] - Listening HTTPS traffic on /127.0.0.1:41621
+2022-10-15 17:38:58,661 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@5a11e3a7:JvmPauseMonitor$Monitor@185] - Starting JVM pause monitor
+2022-10-15 17:38:58,661 - INFO  [Listener at localhost/34643:DataNode@1493] - dnUserName = hdfs/localhost@EXAMPLE.COM
+2022-10-15 17:38:58,661 - INFO  [Listener at localhost/34643:DataNode@1494] - supergroup = supergroup
+2022-10-15 17:38:58,671 - INFO  [Listener at localhost/34643:CallQueueManager@93] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue, queueCapacity: 1000, scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler, ipcBackoff: false.
+2022-10-15 17:38:58,672 - INFO  [Socket Reader #1 for port 0:Server$Listener$Reader@1392] - Starting Socket Reader #1 for port 0
+2022-10-15 17:38:58,675 - INFO  [Listener at localhost/34697:DataNode@1115] - Opened IPC server at /127.0.0.1:34697
+2022-10-15 17:38:58,696 - INFO  [Listener at localhost/34697:BlockPoolManager@150] - Refresh request received for nameservices: null
+2022-10-15 17:38:58,696 - INFO  [Listener at localhost/34697:BlockPoolManager@211] - Starting BPOfferServices for nameservices: <default>
+2022-10-15 17:38:58,703 - INFO  [Thread-71:BPServiceActor@871] - Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:34643 starting to offer service
+2022-10-15 17:38:58,706 - INFO  [IPC Server Responder:Server$Responder@1631] - IPC Server Responder: starting
+2022-10-15 17:38:58,707 - INFO  [IPC Server listener on 0:Server$Listener@1471] - IPC Server listener on 0: starting
+2022-10-15 17:38:58,709 - INFO  [Listener at localhost/34697:MiniDFSCluster@1726] - Starting DataNode 1 with dfs.datanode.data.dir: [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3,[DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4
+2022-10-15 17:38:58,712 - INFO  [pool-1-thread-1:KdcRequest@651] - The preauth data is empty.
+2022-10-15 17:38:58,712 - INFO  [pool-1-thread-1:KdcHandler@177] - KRB error occurred while processing request:Additional pre-authentication required
+2022-10-15 17:38:58,717 - INFO  [pool-1-thread-1:AsRequest@112] - AS_REQ ISSUE: authtime 1665869938716,hdfs/localhost@EXAMPLE.COM for krbtgt/EXAMPLE.COM@EXAMPLE.COM
+2022-10-15 17:38:58,718 - INFO  [Listener at localhost/34697:UserGroupInformation@1128] - Login successful for user hdfs/localhost@EXAMPLE.COM using keytab file hdfs.keytab. Keytab auto renewal enabled : false
+2022-10-15 17:38:58,719 - INFO  [Listener at localhost/34697:ThrottledAsyncChecker@137] - Scheduling a check for [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3
+2022-10-15 17:38:58,719 - INFO  [Listener at localhost/34697:ThrottledAsyncChecker@137] - Scheduling a check for [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4
+2022-10-15 17:38:58,743 - INFO  [Listener at localhost/34697:MetricsSystemImpl@158] - DataNode metrics system started (again)
+2022-10-15 17:38:58,743 - INFO  [Listener at localhost/34697:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:58,743 - INFO  [Listener at localhost/34697:BlockScanner@201] - Initialized block scanner with targetBytesPerSec 1048576
+2022-10-15 17:38:58,743 - INFO  [Listener at localhost/34697:DataNode@505] - Configured hostname is 127.0.0.1
+2022-10-15 17:38:58,743 - INFO  [Listener at localhost/34697:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:58,744 - INFO  [Listener at localhost/34697:DataNode@1465] - Starting DataNode with maxLockedMemory = 0
+2022-10-15 17:38:58,745 - INFO  [Listener at localhost/34697:DataNode@1228] - Opened streaming server at /127.0.0.1:37193
+2022-10-15 17:38:58,745 - INFO  [Listener at localhost/34697:DataXceiverServer$BlockBalanceThrottler@94] - Balancing bandwidth is 104857600 bytes/s
+2022-10-15 17:38:58,745 - INFO  [Listener at localhost/34697:DataXceiverServer$BlockBalanceThrottler@95] - Number threads for balancing is 100
+2022-10-15 17:38:58,747 - WARN  [Listener at localhost/34697:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets. Reason: Could not read signature secret file: /home/tonypan/hadoop-http-auth-signature-secret
+2022-10-15 17:38:58,747 - INFO  [Listener at localhost/34697:HttpRequestLog@82] - Http request log for http.requests.datanode is not defined
+2022-10-15 17:38:58,749 - INFO  [Listener at localhost/34697:HttpServer2@1155] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-10-15 17:38:58,750 - INFO  [Listener at localhost/34697:HttpServer2@1128] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context datanode
+2022-10-15 17:38:58,750 - INFO  [Listener at localhost/34697:HttpServer2@1138] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-10-15 17:38:58,750 - INFO  [Listener at localhost/34697:HttpServer2@1386] - Jetty bound to port 32807
+2022-10-15 17:38:58,750 - INFO  [Listener at localhost/34697:Server@375] - jetty-9.4.43.v20210629; built: 2021-06-30T11:07:22.254Z; git: 526006ecfa3af7f1a27ef3a288e2bef7ea9dd7e8; jvm 1.8.0_275-8u275-b01-0ubuntu1~18.04-b01
+2022-10-15 17:38:58,751 - INFO  [Listener at localhost/34697:DefaultSessionIdManager@334] - DefaultSessionIdManager workerName=node0
+2022-10-15 17:38:58,751 - INFO  [Listener at localhost/34697:DefaultSessionIdManager@339] - No SessionScavenger set, using defaults
+2022-10-15 17:38:58,752 - INFO  [Listener at localhost/34697:HouseKeeper@132] - node0 Scavenging every 600000ms
+2022-10-15 17:38:58,752 - INFO  [Listener at localhost/34697:ContextHandler@915] - Started o.e.j.s.ServletContextHandler@1b6765e9{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-10-15 17:38:58,759 - INFO  [Listener at localhost/34697:ContextHandler@915] - Started o.e.j.w.WebAppContext@50fce03{datanode,/,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode/,AVAILABLE}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode}
+2022-10-15 17:38:58,760 - INFO  [Listener at localhost/34697:AbstractConnector@331] - Started ServerConnector@2bebca1f{HTTP/1.1, (http/1.1)}{localhost:32807}
+2022-10-15 17:38:58,760 - INFO  [Listener at localhost/34697:Server@415] - Started @3701ms
+2022-10-15 17:38:58,768 - WARN  [Listener at localhost/34697:RestCsrfPreventionFilterHandler@75] - Got null for restCsrfPreventionFilter - will not do any filtering.
+2022-10-15 17:38:58,770 - INFO  [Listener at localhost/34697:DatanodeHttpServer@339] - Listening HTTPS traffic on /127.0.0.1:41097
+2022-10-15 17:38:58,771 - INFO  [Listener at localhost/34697:DataNode@1493] - dnUserName = hdfs/localhost@EXAMPLE.COM
+2022-10-15 17:38:58,771 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@136b27e3:JvmPauseMonitor$Monitor@185] - Starting JVM pause monitor
+2022-10-15 17:38:58,771 - INFO  [Listener at localhost/34697:DataNode@1494] - supergroup = supergroup
+2022-10-15 17:38:58,771 - INFO  [Listener at localhost/34697:CallQueueManager@93] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue, queueCapacity: 1000, scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler, ipcBackoff: false.
+2022-10-15 17:38:58,772 - INFO  [Socket Reader #1 for port 0:Server$Listener$Reader@1392] - Starting Socket Reader #1 for port 0
+2022-10-15 17:38:58,774 - INFO  [Listener at localhost/35151:DataNode@1115] - Opened IPC server at /127.0.0.1:35151
+2022-10-15 17:38:58,787 - INFO  [Listener at localhost/35151:BlockPoolManager@150] - Refresh request received for nameservices: null
+2022-10-15 17:38:58,787 - INFO  [Listener at localhost/35151:BlockPoolManager@211] - Starting BPOfferServices for nameservices: <default>
+2022-10-15 17:38:58,788 - INFO  [Thread-101:BPServiceActor@871] - Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:34643 starting to offer service
+2022-10-15 17:38:58,788 - INFO  [IPC Server Responder:Server$Responder@1631] - IPC Server Responder: starting
+2022-10-15 17:38:58,788 - INFO  [IPC Server listener on 0:Server$Listener@1471] - IPC Server listener on 0: starting
+2022-10-15 17:38:58,790 - INFO  [Listener at localhost/35151:MiniDFSCluster@1726] - Starting DataNode 2 with dfs.datanode.data.dir: [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5,[DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6
+2022-10-15 17:38:58,795 - INFO  [pool-1-thread-1:KdcRequest@651] - The preauth data is empty.
+2022-10-15 17:38:58,795 - INFO  [pool-1-thread-1:KdcHandler@177] - KRB error occurred while processing request:Additional pre-authentication required
+2022-10-15 17:38:58,802 - INFO  [pool-1-thread-1:AsRequest@112] - AS_REQ ISSUE: authtime 1665869938801,hdfs/localhost@EXAMPLE.COM for krbtgt/EXAMPLE.COM@EXAMPLE.COM
+2022-10-15 17:38:58,804 - INFO  [Listener at localhost/35151:UserGroupInformation@1128] - Login successful for user hdfs/localhost@EXAMPLE.COM using keytab file hdfs.keytab. Keytab auto renewal enabled : false
+2022-10-15 17:38:58,804 - INFO  [Listener at localhost/35151:ThrottledAsyncChecker@137] - Scheduling a check for [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5
+2022-10-15 17:38:58,805 - INFO  [Listener at localhost/35151:ThrottledAsyncChecker@137] - Scheduling a check for [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6
+2022-10-15 17:38:58,812 - INFO  [Listener at localhost/35151:MetricsSystemImpl@158] - DataNode metrics system started (again)
+2022-10-15 17:38:58,812 - INFO  [Listener at localhost/35151:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:58,812 - INFO  [Listener at localhost/35151:BlockScanner@201] - Initialized block scanner with targetBytesPerSec 1048576
+2022-10-15 17:38:58,813 - INFO  [Listener at localhost/35151:DataNode@505] - Configured hostname is 127.0.0.1
+2022-10-15 17:38:58,813 - INFO  [Listener at localhost/35151:Util@428] - dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2022-10-15 17:38:58,814 - INFO  [Listener at localhost/35151:DataNode@1465] - Starting DataNode with maxLockedMemory = 0
+2022-10-15 17:38:58,815 - INFO  [Listener at localhost/35151:DataNode@1228] - Opened streaming server at /127.0.0.1:46449
+2022-10-15 17:38:58,815 - INFO  [Listener at localhost/35151:DataXceiverServer$BlockBalanceThrottler@94] - Balancing bandwidth is 104857600 bytes/s
+2022-10-15 17:38:58,815 - INFO  [Listener at localhost/35151:DataXceiverServer$BlockBalanceThrottler@95] - Number threads for balancing is 100
+2022-10-15 17:38:58,817 - WARN  [Listener at localhost/35151:AuthenticationFilter@240] - Unable to initialize FileSignerSecretProvider, falling back to use random secrets. Reason: Could not read signature secret file: /home/tonypan/hadoop-http-auth-signature-secret
+2022-10-15 17:38:58,817 - INFO  [Listener at localhost/35151:HttpRequestLog@82] - Http request log for http.requests.datanode is not defined
+2022-10-15 17:38:58,819 - INFO  [Listener at localhost/35151:HttpServer2@1155] - Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
+2022-10-15 17:38:58,820 - INFO  [Listener at localhost/35151:HttpServer2@1128] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context datanode
+2022-10-15 17:38:58,820 - INFO  [Listener at localhost/35151:HttpServer2@1138] - Added filter static_user_filter (class=org.apache.hadoop.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2022-10-15 17:38:58,820 - INFO  [Listener at localhost/35151:HttpServer2@1386] - Jetty bound to port 33805
+2022-10-15 17:38:58,820 - INFO  [Listener at localhost/35151:Server@375] - jetty-9.4.43.v20210629; built: 2021-06-30T11:07:22.254Z; git: 526006ecfa3af7f1a27ef3a288e2bef7ea9dd7e8; jvm 1.8.0_275-8u275-b01-0ubuntu1~18.04-b01
+2022-10-15 17:38:58,822 - INFO  [Listener at localhost/35151:DefaultSessionIdManager@334] - DefaultSessionIdManager workerName=node0
+2022-10-15 17:38:58,822 - INFO  [Listener at localhost/35151:DefaultSessionIdManager@339] - No SessionScavenger set, using defaults
+2022-10-15 17:38:58,822 - INFO  [Listener at localhost/35151:HouseKeeper@132] - node0 Scavenging every 660000ms
+2022-10-15 17:38:58,823 - INFO  [Listener at localhost/35151:ContextHandler@915] - Started o.e.j.s.ServletContextHandler@428041fa{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,AVAILABLE}
+2022-10-15 17:38:58,825 - INFO  [pool-1-thread-1:TgsRequest@115] - TGS_REQ ISSUE: authtime 1665869938824,hdfs/localhost for hdfs/localhost@EXAMPLE.COM
+2022-10-15 17:38:58,825 - INFO  [pool-1-thread-2:TgsRequest@115] - TGS_REQ ISSUE: authtime 1665869938824,hdfs/localhost for hdfs/localhost@EXAMPLE.COM
+2022-10-15 17:38:58,830 - INFO  [Listener at localhost/35151:ContextHandler@915] - Started o.e.j.w.WebAppContext@6d07ad11{datanode,/,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode/,AVAILABLE}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode}
+2022-10-15 17:38:58,831 - INFO  [Listener at localhost/35151:AbstractConnector@331] - Started ServerConnector@652b0885{HTTP/1.1, (http/1.1)}{localhost:33805}
+2022-10-15 17:38:58,831 - INFO  [Listener at localhost/35151:Server@415] - Started @3772ms
+2022-10-15 17:38:58,838 - WARN  [Listener at localhost/35151:RestCsrfPreventionFilterHandler@75] - Got null for restCsrfPreventionFilter - will not do any filtering.
+2022-10-15 17:38:58,841 - INFO  [Listener at localhost/35151:DatanodeHttpServer@339] - Listening HTTPS traffic on /127.0.0.1:38333
+2022-10-15 17:38:58,841 - INFO  [Listener at localhost/35151:DataNode@1493] - dnUserName = hdfs/localhost@EXAMPLE.COM
+2022-10-15 17:38:58,841 - INFO  [org.apache.hadoop.util.JvmPauseMonitor$Monitor@3a9c1cb4:JvmPauseMonitor$Monitor@185] - Starting JVM pause monitor
+2022-10-15 17:38:58,841 - INFO  [Listener at localhost/35151:DataNode@1494] - supergroup = supergroup
+2022-10-15 17:38:58,841 - INFO  [Listener at localhost/35151:CallQueueManager@93] - Using callQueue: class java.util.concurrent.LinkedBlockingQueue, queueCapacity: 1000, scheduler: class org.apache.hadoop.ipc.DefaultRpcScheduler, ipcBackoff: false.
+2022-10-15 17:38:58,842 - INFO  [Socket Reader #1 for port 0:Server$Listener$Reader@1392] - Starting Socket Reader #1 for port 0
+2022-10-15 17:38:58,844 - INFO  [Socket Reader #1 for port 0:Server$Connection@2189] - Auth successful for hdfs/localhost@EXAMPLE.COM (auth:KERBEROS) from 127.0.0.1:43697
+2022-10-15 17:38:58,844 - INFO  [Socket Reader #1 for port 0:Server$Connection@2189] - Auth successful for hdfs/localhost@EXAMPLE.COM (auth:KERBEROS) from 127.0.0.1:41231
+2022-10-15 17:38:58,866 - INFO  [Listener at localhost/42831:DataNode@1115] - Opened IPC server at /127.0.0.1:42831
+2022-10-15 17:38:58,881 - INFO  [Listener at localhost/42831:BlockPoolManager@150] - Refresh request received for nameservices: null
+2022-10-15 17:38:58,881 - INFO  [Listener at localhost/42831:BlockPoolManager@211] - Starting BPOfferServices for nameservices: <default>
+2022-10-15 17:38:58,882 - INFO  [Thread-130:BPServiceActor@871] - Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:34643 starting to offer service
+2022-10-15 17:38:58,882 - INFO  [IPC Server Responder:Server$Responder@1631] - IPC Server Responder: starting
+2022-10-15 17:38:58,882 - INFO  [IPC Server listener on 0:Server$Listener@1471] - IPC Server listener on 0: starting
+2022-10-15 17:38:58,892 - INFO  [pool-1-thread-2:TgsRequest@115] - TGS_REQ ISSUE: authtime 1665869938891,hdfs/localhost for hdfs/localhost@EXAMPLE.COM
+2022-10-15 17:38:58,897 - INFO  [Socket Reader #1 for port 0:Server$Connection@2189] - Auth successful for hdfs/localhost@EXAMPLE.COM (auth:KERBEROS) from 127.0.0.1:39727
+2022-10-15 17:38:58,986 - INFO  [Thread-101:BPOfferService@381] - Acknowledging ACTIVE Namenode during handshake Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:34643
+2022-10-15 17:38:58,986 - INFO  [Thread-71:BPOfferService@381] - Acknowledging ACTIVE Namenode during handshake Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:34643
+2022-10-15 17:38:58,986 - INFO  [Thread-130:BPOfferService@381] - Acknowledging ACTIVE Namenode during handshake Block pool <registering> (Datanode Uuid unassigned) service to localhost/127.0.0.1:34643
+2022-10-15 17:38:58,987 - INFO  [Thread-130:DataStorage@356] - Using 2 threads to upgrade data directories (dfs.datanode.parallel.volumes.load.threads.num=2, dataDirs=2)
+2022-10-15 17:38:58,987 - INFO  [Thread-71:DataStorage@356] - Using 2 threads to upgrade data directories (dfs.datanode.parallel.volumes.load.threads.num=2, dataDirs=2)
+2022-10-15 17:38:58,987 - INFO  [Thread-101:DataStorage@356] - Using 2 threads to upgrade data directories (dfs.datanode.parallel.volumes.load.threads.num=2, dataDirs=2)
+2022-10-15 17:38:58,988 - INFO  [Thread-101:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:58,988 - INFO  [Thread-71:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:58,988 - INFO  [Thread-130:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:58,989 - INFO  [Thread-101:DataStorage@284] - Storage directory with location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3 is not formatted for namespace 1831289935. Formatting...
+2022-10-15 17:38:58,989 - INFO  [Thread-71:DataStorage@284] - Storage directory with location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1 is not formatted for namespace 1831289935. Formatting...
+2022-10-15 17:38:58,989 - INFO  [Thread-130:DataStorage@284] - Storage directory with location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5 is not formatted for namespace 1831289935. Formatting...
+2022-10-15 17:38:58,990 - INFO  [Thread-101:DataStorage@160] - Generated new storageID DS-cc784b4a-ce82-48aa-863b-82930323350e for directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3 
+2022-10-15 17:38:58,990 - INFO  [Thread-71:DataStorage@160] - Generated new storageID DS-ae6beef3-af57-4109-8d92-6db58f946cc6 for directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1 
+2022-10-15 17:38:58,990 - INFO  [Thread-130:DataStorage@160] - Generated new storageID DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585 for directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5 
+2022-10-15 17:38:59,013 - INFO  [Thread-71:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:59,013 - INFO  [Thread-101:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:59,013 - INFO  [Thread-130:Storage$StorageDirectory@948] - Lock on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6/in_use.lock acquired by nodename 5501@razor15
+2022-10-15 17:38:59,013 - INFO  [Thread-101:DataStorage@284] - Storage directory with location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4 is not formatted for namespace 1831289935. Formatting...
+2022-10-15 17:38:59,013 - INFO  [Thread-71:DataStorage@284] - Storage directory with location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2 is not formatted for namespace 1831289935. Formatting...
+2022-10-15 17:38:59,013 - INFO  [Thread-130:DataStorage@284] - Storage directory with location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6 is not formatted for namespace 1831289935. Formatting...
+2022-10-15 17:38:59,013 - INFO  [Thread-101:DataStorage@160] - Generated new storageID DS-ac1e3103-640b-46fd-8eec-0c7025841fb9 for directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4 
+2022-10-15 17:38:59,014 - INFO  [Thread-71:DataStorage@160] - Generated new storageID DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4 for directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2 
+2022-10-15 17:38:59,014 - INFO  [Thread-130:DataStorage@160] - Generated new storageID DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b for directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6 
+2022-10-15 17:38:59,047 - INFO  [Thread-130:BlockPoolSliceStorage@255] - Analyzing storage directories for bpid BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,048 - INFO  [Thread-130:Storage$StorageDirectory@907] - Locking is disabled for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5/current/BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,048 - INFO  [Thread-130:BlockPoolSliceStorage@168] - Block pool storage directory for location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5 and block pool id BP-492666495-10.0.0.215-1665869936788 is not formatted. Formatting ...
+2022-10-15 17:38:59,048 - INFO  [Thread-130:BlockPoolSliceStorage@284] - Formatting block pool BP-492666495-10.0.0.215-1665869936788 directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5/current/BP-492666495-10.0.0.215-1665869936788/current
+2022-10-15 17:38:59,048 - INFO  [Thread-101:BlockPoolSliceStorage@255] - Analyzing storage directories for bpid BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,048 - INFO  [Thread-71:BlockPoolSliceStorage@255] - Analyzing storage directories for bpid BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,048 - INFO  [Thread-101:Storage$StorageDirectory@907] - Locking is disabled for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3/current/BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,049 - INFO  [Thread-71:Storage$StorageDirectory@907] - Locking is disabled for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1/current/BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,049 - INFO  [Thread-101:BlockPoolSliceStorage@168] - Block pool storage directory for location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3 and block pool id BP-492666495-10.0.0.215-1665869936788 is not formatted. Formatting ...
+2022-10-15 17:38:59,049 - INFO  [Thread-71:BlockPoolSliceStorage@168] - Block pool storage directory for location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1 and block pool id BP-492666495-10.0.0.215-1665869936788 is not formatted. Formatting ...
+2022-10-15 17:38:59,049 - INFO  [Thread-101:BlockPoolSliceStorage@284] - Formatting block pool BP-492666495-10.0.0.215-1665869936788 directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3/current/BP-492666495-10.0.0.215-1665869936788/current
+2022-10-15 17:38:59,049 - INFO  [Thread-71:BlockPoolSliceStorage@284] - Formatting block pool BP-492666495-10.0.0.215-1665869936788 directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1/current/BP-492666495-10.0.0.215-1665869936788/current
+2022-10-15 17:38:59,074 - INFO  [Thread-130:BlockPoolSliceStorage@255] - Analyzing storage directories for bpid BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,074 - INFO  [Thread-130:Storage$StorageDirectory@907] - Locking is disabled for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6/current/BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,074 - INFO  [Thread-130:BlockPoolSliceStorage@168] - Block pool storage directory for location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6 and block pool id BP-492666495-10.0.0.215-1665869936788 is not formatted. Formatting ...
+2022-10-15 17:38:59,074 - INFO  [Thread-130:BlockPoolSliceStorage@284] - Formatting block pool BP-492666495-10.0.0.215-1665869936788 directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6/current/BP-492666495-10.0.0.215-1665869936788/current
+2022-10-15 17:38:59,083 - INFO  [Thread-71:BlockPoolSliceStorage@255] - Analyzing storage directories for bpid BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,083 - INFO  [Thread-101:BlockPoolSliceStorage@255] - Analyzing storage directories for bpid BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,083 - INFO  [Thread-71:Storage$StorageDirectory@907] - Locking is disabled for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2/current/BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,083 - INFO  [Thread-130:DataNode@1813] - Setting up storage: nsid=1831289935;bpid=BP-492666495-10.0.0.215-1665869936788;lv=-57;nsInfo=lv=-67;cid=testClusterID;nsid=1831289935;c=1665869936788;bpid=BP-492666495-10.0.0.215-1665869936788;dnuuid=null
+2022-10-15 17:38:59,083 - INFO  [Thread-71:BlockPoolSliceStorage@168] - Block pool storage directory for location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2 and block pool id BP-492666495-10.0.0.215-1665869936788 is not formatted. Formatting ...
+2022-10-15 17:38:59,083 - INFO  [Thread-101:Storage$StorageDirectory@907] - Locking is disabled for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4/current/BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,084 - INFO  [Thread-71:BlockPoolSliceStorage@284] - Formatting block pool BP-492666495-10.0.0.215-1665869936788 directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2/current/BP-492666495-10.0.0.215-1665869936788/current
+2022-10-15 17:38:59,084 - INFO  [Thread-101:BlockPoolSliceStorage@168] - Block pool storage directory for location [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4 and block pool id BP-492666495-10.0.0.215-1665869936788 is not formatted. Formatting ...
+2022-10-15 17:38:59,084 - INFO  [Thread-101:BlockPoolSliceStorage@284] - Formatting block pool BP-492666495-10.0.0.215-1665869936788 directory /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4/current/BP-492666495-10.0.0.215-1665869936788/current
+2022-10-15 17:38:59,100 - INFO  [Thread-130:DataNode@1611] - Generated and persisted new Datanode UUID daec3603-bf74-40ae-840f-ae52f19083b1
+2022-10-15 17:38:59,100 - INFO  [Thread-101:DataNode@1813] - Setting up storage: nsid=1831289935;bpid=BP-492666495-10.0.0.215-1665869936788;lv=-57;nsInfo=lv=-67;cid=testClusterID;nsid=1831289935;c=1665869936788;bpid=BP-492666495-10.0.0.215-1665869936788;dnuuid=null
+2022-10-15 17:38:59,100 - INFO  [Thread-71:DataNode@1813] - Setting up storage: nsid=1831289935;bpid=BP-492666495-10.0.0.215-1665869936788;lv=-57;nsInfo=lv=-67;cid=testClusterID;nsid=1831289935;c=1665869936788;bpid=BP-492666495-10.0.0.215-1665869936788;dnuuid=null
+2022-10-15 17:38:59,109 - INFO  [Socket Reader #1 for port 0:Server$Connection@2189] - Auth successful for hdfs/localhost@EXAMPLE.COM (auth:KERBEROS) from 127.0.0.1:43831
+2022-10-15 17:38:59,111 - INFO  [Thread-130:FsDatasetImpl@322] - The datanode lock is a read write lock
+2022-10-15 17:38:59,116 - INFO  [Thread-71:DataNode@1611] - Generated and persisted new Datanode UUID a88a0c0b-733f-4662-81d8-bea8f6832f06
+2022-10-15 17:38:59,116 - INFO  [Thread-101:DataNode@1611] - Generated and persisted new Datanode UUID f9d049e3-54cc-4f71-b807-321f1b94505d
+2022-10-15 17:38:59,116 - INFO  [Thread-71:FsDatasetImpl@322] - The datanode lock is a read write lock
+2022-10-15 17:38:59,116 - INFO  [Thread-101:FsDatasetImpl@322] - The datanode lock is a read write lock
+2022-10-15 17:38:59,122 - INFO  [Thread-71:RoundRobinVolumeChoosingPolicy@67] - Round robin volume choosing policy initialized: dfs.datanode.round-robin-volume-choosing-policy.additional-available-space = 0
+2022-10-15 17:38:59,122 - INFO  [Thread-101:RoundRobinVolumeChoosingPolicy@67] - Round robin volume choosing policy initialized: dfs.datanode.round-robin-volume-choosing-policy.additional-available-space = 0
+2022-10-15 17:38:59,122 - INFO  [Thread-130:RoundRobinVolumeChoosingPolicy@67] - Round robin volume choosing policy initialized: dfs.datanode.round-robin-volume-choosing-policy.additional-available-space = 0
+2022-10-15 17:38:59,139 - WARN  [IPC Server handler 3 on default port 34643:ShellBasedUnixGroupsMapping@218] - unable to return groups for user hdfs
+PartialGroupNameException The user name 'hdfs' is not found. id: ‘hdfs’: no such user
+id: ‘hdfs’: no such user
+
+	at org.apache.hadoop.security.ShellBasedUnixGroupsMapping.resolvePartialGroupNames(ShellBasedUnixGroupsMapping.java:291)
+	at org.apache.hadoop.security.ShellBasedUnixGroupsMapping.getUnixGroups(ShellBasedUnixGroupsMapping.java:215)
+	at org.apache.hadoop.security.ShellBasedUnixGroupsMapping.getGroupsSet(ShellBasedUnixGroupsMapping.java:123)
+	at org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback.getGroupsSet(JniBasedUnixGroupsMappingWithFallback.java:67)
+	at org.apache.hadoop.security.Groups$GroupCacheLoader.fetchGroupSet(Groups.java:415)
+	at org.apache.hadoop.security.Groups$GroupCacheLoader.load(Groups.java:353)
+	at org.apache.hadoop.security.Groups$GroupCacheLoader.load(Groups.java:302)
+	at org.apache.hadoop.thirdparty.com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3529)
+	at org.apache.hadoop.thirdparty.com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2278)
+	at org.apache.hadoop.thirdparty.com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2155)
+	at org.apache.hadoop.thirdparty.com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2045)
+	at org.apache.hadoop.thirdparty.com.google.common.cache.LocalCache.get(LocalCache.java:3962)
+	at org.apache.hadoop.thirdparty.com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3985)
+	at org.apache.hadoop.thirdparty.com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4946)
+	at org.apache.hadoop.security.Groups.getGroupInternal(Groups.java:260)
+	at org.apache.hadoop.security.Groups.getGroupsSet(Groups.java:232)
+	at org.apache.hadoop.security.UserGroupInformation.getGroupsSet(UserGroupInformation.java:1756)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.<init>(FSPermissionChecker.java:106)
+	at org.apache.hadoop.hdfs.server.namenode.FSDirectory.getPermissionChecker(FSDirectory.java:1867)
+	at org.apache.hadoop.hdfs.server.namenode.FSDirectory.getPermissionChecker(FSDirectory.java:1856)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.getPermissionChecker(FSNamesystem.java:3391)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkSuperuserPrivilege(FSNamesystem.java:8964)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkSuperuserPrivilege(FSNamesystem.java:5302)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.datanodeReport(FSNamesystem.java:4925)
+	at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.getDatanodeReport(NameNodeRpcServer.java:1266)
+	at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolServerSideTranslatorPB.getDatanodeReport(ClientNamenodeProtocolServerSideTranslatorPB.java:888)
+	at org.apache.hadoop.hdfs.protocol.proto.ClientNamenodeProtocolProtos$ClientNamenodeProtocol$2.callBlockingMethod(ClientNamenodeProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine2$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine2.java:604)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine2$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine2.java:572)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine2$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine2.java:556)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1093)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:1162)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:1085)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1900)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:3099)
+2022-10-15 17:38:59,161 - INFO  [Listener at localhost/42831:MiniDFSCluster@2859] - dnInfo.length != numDataNodes
+2022-10-15 17:38:59,161 - INFO  [Listener at localhost/42831:MiniDFSCluster@2780] - Waiting for cluster to become active
+2022-10-15 17:38:59,202 - INFO  [Thread-71:FsVolumeList@365] - Added new volume: DS-ae6beef3-af57-4109-8d92-6db58f946cc6
+2022-10-15 17:38:59,202 - INFO  [Thread-101:FsVolumeList@365] - Added new volume: DS-cc784b4a-ce82-48aa-863b-82930323350e
+2022-10-15 17:38:59,202 - INFO  [Thread-71:FsDatasetImpl@524] - Added volume - [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1, StorageType: DISK
+2022-10-15 17:38:59,202 - INFO  [Thread-130:FsVolumeList@365] - Added new volume: DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585
+2022-10-15 17:38:59,203 - INFO  [Thread-101:FsDatasetImpl@524] - Added volume - [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3, StorageType: DISK
+2022-10-15 17:38:59,203 - INFO  [Thread-130:FsDatasetImpl@524] - Added volume - [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5, StorageType: DISK
+2022-10-15 17:38:59,204 - INFO  [Thread-71:FsVolumeList@365] - Added new volume: DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4
+2022-10-15 17:38:59,204 - INFO  [Thread-71:FsDatasetImpl@524] - Added volume - [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2, StorageType: DISK
+2022-10-15 17:38:59,204 - INFO  [Thread-130:FsVolumeList@365] - Added new volume: DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b
+2022-10-15 17:38:59,205 - INFO  [Thread-130:FsDatasetImpl@524] - Added volume - [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6, StorageType: DISK
+2022-10-15 17:38:59,205 - INFO  [Thread-101:FsVolumeList@365] - Added new volume: DS-ac1e3103-640b-46fd-8eec-0c7025841fb9
+2022-10-15 17:38:59,205 - INFO  [Thread-101:FsDatasetImpl@524] - Added volume - [DISK]file:/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4, StorageType: DISK
+2022-10-15 17:38:59,207 - INFO  [Thread-130:MemoryMappableBlockLoader@47] - Initializing cache loader: MemoryMappableBlockLoader.
+2022-10-15 17:38:59,207 - INFO  [Thread-71:MemoryMappableBlockLoader@47] - Initializing cache loader: MemoryMappableBlockLoader.
+2022-10-15 17:38:59,207 - INFO  [Thread-101:MemoryMappableBlockLoader@47] - Initializing cache loader: MemoryMappableBlockLoader.
+2022-10-15 17:38:59,211 - INFO  [Thread-101:FsDatasetImpl@2546] - Registered FSDatasetState MBean
+2022-10-15 17:38:59,211 - INFO  [Thread-71:FsDatasetImpl@2546] - Registered FSDatasetState MBean
+2022-10-15 17:38:59,211 - INFO  [Thread-130:FsDatasetImpl@2546] - Registered FSDatasetState MBean
+2022-10-15 17:38:59,214 - INFO  [Thread-101:FsDatasetImpl@3089] - Adding block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,214 - INFO  [Thread-130:FsDatasetImpl@3089] - Adding block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,215 - INFO  [Thread-157:FsVolumeList$2@478] - Scanning block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3...
+2022-10-15 17:38:59,215 - INFO  [Thread-158:FsVolumeList$2@478] - Scanning block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4...
+2022-10-15 17:38:59,215 - INFO  [Thread-159:FsVolumeList$2@478] - Scanning block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5...
+2022-10-15 17:38:59,215 - INFO  [Thread-160:FsVolumeList$2@478] - Scanning block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6...
+2022-10-15 17:38:59,215 - INFO  [Thread-71:FsDatasetImpl@3089] - Adding block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,216 - INFO  [Thread-161:FsVolumeList$2@478] - Scanning block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1...
+2022-10-15 17:38:59,216 - INFO  [Thread-162:FsVolumeList$2@478] - Scanning block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2...
+2022-10-15 17:38:59,223 - WARN  [Thread-157:BlockPoolSlice@305] - dfsUsed file missing in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3/current/BP-492666495-10.0.0.215-1665869936788/current, will proceed with Du for space computation calculation, 
+2022-10-15 17:38:59,223 - WARN  [Thread-159:BlockPoolSlice@305] - dfsUsed file missing in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5/current/BP-492666495-10.0.0.215-1665869936788/current, will proceed with Du for space computation calculation, 
+2022-10-15 17:38:59,223 - WARN  [Thread-158:BlockPoolSlice@305] - dfsUsed file missing in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4/current/BP-492666495-10.0.0.215-1665869936788/current, will proceed with Du for space computation calculation, 
+2022-10-15 17:38:59,223 - WARN  [Thread-160:BlockPoolSlice@305] - dfsUsed file missing in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6/current/BP-492666495-10.0.0.215-1665869936788/current, will proceed with Du for space computation calculation, 
+2022-10-15 17:38:59,223 - WARN  [Thread-162:BlockPoolSlice@305] - dfsUsed file missing in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2/current/BP-492666495-10.0.0.215-1665869936788/current, will proceed with Du for space computation calculation, 
+2022-10-15 17:38:59,223 - WARN  [Thread-161:BlockPoolSlice@305] - dfsUsed file missing in /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1/current/BP-492666495-10.0.0.215-1665869936788/current, will proceed with Du for space computation calculation, 
+2022-10-15 17:38:59,248 - INFO  [Thread-162:FsVolumeList$2@483] - Time taken to scan block pool BP-492666495-10.0.0.215-1665869936788 on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2: 32ms
+2022-10-15 17:38:59,249 - INFO  [Thread-157:FsVolumeList$2@483] - Time taken to scan block pool BP-492666495-10.0.0.215-1665869936788 on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3: 35ms
+2022-10-15 17:38:59,251 - INFO  [Thread-158:FsVolumeList$2@483] - Time taken to scan block pool BP-492666495-10.0.0.215-1665869936788 on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4: 37ms
+2022-10-15 17:38:59,251 - INFO  [Thread-101:FsVolumeList@503] - Total time to scan all replicas for block pool BP-492666495-10.0.0.215-1665869936788: 37ms
+2022-10-15 17:38:59,252 - INFO  [Thread-169:FsVolumeList$1@253] - Adding replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3...
+2022-10-15 17:38:59,252 - INFO  [Thread-170:FsVolumeList$1@253] - Adding replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4...
+2022-10-15 17:38:59,252 - INFO  [Thread-169:BlockPoolSlice@921] - Replica Cache file: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3/current/BP-492666495-10.0.0.215-1665869936788/current/replicas doesn't exist 
+2022-10-15 17:38:59,252 - INFO  [Thread-170:BlockPoolSlice@921] - Replica Cache file: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4/current/BP-492666495-10.0.0.215-1665869936788/current/replicas doesn't exist 
+2022-10-15 17:38:59,253 - INFO  [Thread-169:FsVolumeList$1@258] - Time to add replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3: 1ms
+2022-10-15 17:38:59,253 - INFO  [Thread-170:FsVolumeList$1@258] - Time to add replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4: 1ms
+2022-10-15 17:38:59,254 - INFO  [Thread-101:FsVolumeList@279] - Total time to add all replicas to map for block pool BP-492666495-10.0.0.215-1665869936788: 2ms
+2022-10-15 17:38:59,254 - INFO  [Thread-101:ThrottledAsyncChecker@137] - Scheduling a check for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3
+2022-10-15 17:38:59,254 - INFO  [Thread-161:FsVolumeList$2@483] - Time taken to scan block pool BP-492666495-10.0.0.215-1665869936788 on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1: 39ms
+2022-10-15 17:38:59,254 - INFO  [Thread-71:FsVolumeList@503] - Total time to scan all replicas for block pool BP-492666495-10.0.0.215-1665869936788: 39ms
+2022-10-15 17:38:59,254 - INFO  [Thread-171:FsVolumeList$1@253] - Adding replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1...
+2022-10-15 17:38:59,254 - INFO  [Thread-172:FsVolumeList$1@253] - Adding replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2...
+2022-10-15 17:38:59,254 - INFO  [Thread-171:BlockPoolSlice@921] - Replica Cache file: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1/current/BP-492666495-10.0.0.215-1665869936788/current/replicas doesn't exist 
+2022-10-15 17:38:59,254 - INFO  [Thread-172:BlockPoolSlice@921] - Replica Cache file: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2/current/BP-492666495-10.0.0.215-1665869936788/current/replicas doesn't exist 
+2022-10-15 17:38:59,255 - INFO  [Thread-171:FsVolumeList$1@258] - Time to add replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1: 0ms
+2022-10-15 17:38:59,255 - INFO  [Thread-172:FsVolumeList$1@258] - Time to add replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2: 0ms
+2022-10-15 17:38:59,255 - INFO  [Thread-71:FsVolumeList@279] - Total time to add all replicas to map for block pool BP-492666495-10.0.0.215-1665869936788: 0ms
+2022-10-15 17:38:59,255 - INFO  [Thread-71:ThrottledAsyncChecker@137] - Scheduling a check for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1
+2022-10-15 17:38:59,256 - INFO  [Thread-159:FsVolumeList$2@483] - Time taken to scan block pool BP-492666495-10.0.0.215-1665869936788 on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5: 41ms
+2022-10-15 17:38:59,256 - INFO  [Thread-160:FsVolumeList$2@483] - Time taken to scan block pool BP-492666495-10.0.0.215-1665869936788 on /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6: 41ms
+2022-10-15 17:38:59,257 - INFO  [Thread-130:FsVolumeList@503] - Total time to scan all replicas for block pool BP-492666495-10.0.0.215-1665869936788: 42ms
+2022-10-15 17:38:59,257 - INFO  [Thread-173:FsVolumeList$1@253] - Adding replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5...
+2022-10-15 17:38:59,257 - INFO  [Thread-174:FsVolumeList$1@253] - Adding replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6...
+2022-10-15 17:38:59,257 - INFO  [Thread-173:BlockPoolSlice@921] - Replica Cache file: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5/current/BP-492666495-10.0.0.215-1665869936788/current/replicas doesn't exist 
+2022-10-15 17:38:59,257 - INFO  [Thread-174:BlockPoolSlice@921] - Replica Cache file: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6/current/BP-492666495-10.0.0.215-1665869936788/current/replicas doesn't exist 
+2022-10-15 17:38:59,257 - INFO  [Thread-173:FsVolumeList$1@258] - Time to add replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5: 0ms
+2022-10-15 17:38:59,257 - INFO  [Thread-174:FsVolumeList$1@258] - Time to add replicas to map for block pool BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6: 0ms
+2022-10-15 17:38:59,257 - INFO  [Thread-130:FsVolumeList@279] - Total time to add all replicas to map for block pool BP-492666495-10.0.0.215-1665869936788: 0ms
+2022-10-15 17:38:59,258 - INFO  [Thread-130:ThrottledAsyncChecker@137] - Scheduling a check for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5
+2022-10-15 17:38:59,260 - INFO  [Thread-71:DatasetVolumeChecker@224] - Scheduled health check for volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1
+2022-10-15 17:38:59,260 - INFO  [Thread-101:DatasetVolumeChecker@224] - Scheduled health check for volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3
+2022-10-15 17:38:59,260 - INFO  [Thread-130:DatasetVolumeChecker@224] - Scheduled health check for volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5
+2022-10-15 17:38:59,262 - INFO  [Thread-130:ThrottledAsyncChecker@137] - Scheduling a check for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6
+2022-10-15 17:38:59,262 - INFO  [Thread-101:ThrottledAsyncChecker@137] - Scheduling a check for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4
+2022-10-15 17:38:59,262 - INFO  [Thread-71:ThrottledAsyncChecker@137] - Scheduling a check for /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2
+2022-10-15 17:38:59,262 - INFO  [Thread-101:DatasetVolumeChecker@224] - Scheduled health check for volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4
+2022-10-15 17:38:59,262 - INFO  [Thread-130:DatasetVolumeChecker@224] - Scheduled health check for volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6
+2022-10-15 17:38:59,262 - INFO  [Thread-71:DatasetVolumeChecker@224] - Scheduled health check for volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2
+2022-10-15 17:38:59,263 - INFO  [Listener at localhost/42831:MiniDFSCluster@2859] - dnInfo.length != numDataNodes
+2022-10-15 17:38:59,263 - INFO  [Listener at localhost/42831:MiniDFSCluster@2780] - Waiting for cluster to become active
+2022-10-15 17:38:59,264 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2):VolumeScanner@385] - Now scanning bpid BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2
+2022-10-15 17:38:59,264 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1):VolumeScanner@385] - Now scanning bpid BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1
+2022-10-15 17:38:59,264 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6):VolumeScanner@385] - Now scanning bpid BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6
+2022-10-15 17:38:59,264 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3):VolumeScanner@385] - Now scanning bpid BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3
+2022-10-15 17:38:59,264 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4):VolumeScanner@385] - Now scanning bpid BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4
+2022-10-15 17:38:59,264 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5):VolumeScanner@385] - Now scanning bpid BP-492666495-10.0.0.215-1665869936788 on volume /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5
+2022-10-15 17:38:59,266 - WARN  [Thread-71:DirectoryScanner@301] - dfs.datanode.directoryscan.throttle.limit.ms.per.sec set to value above 1000 ms/sec. Assuming default value of -1
+2022-10-15 17:38:59,266 - WARN  [Thread-101:DirectoryScanner@301] - dfs.datanode.directoryscan.throttle.limit.ms.per.sec set to value above 1000 ms/sec. Assuming default value of -1
+2022-10-15 17:38:59,266 - WARN  [Thread-130:DirectoryScanner@301] - dfs.datanode.directoryscan.throttle.limit.ms.per.sec set to value above 1000 ms/sec. Assuming default value of -1
+2022-10-15 17:38:59,267 - INFO  [Thread-101:DirectoryScanner@366] - Periodic Directory Tree Verification scan starting in 21575949ms with interval of 21600000ms and throttle limit of -1ms/s
+2022-10-15 17:38:59,267 - INFO  [Thread-130:DirectoryScanner@366] - Periodic Directory Tree Verification scan starting in 9342865ms with interval of 21600000ms and throttle limit of -1ms/s
+2022-10-15 17:38:59,267 - INFO  [Thread-71:DirectoryScanner@366] - Periodic Directory Tree Verification scan starting in 150872ms with interval of 21600000ms and throttle limit of -1ms/s
+2022-10-15 17:38:59,267 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2):VolumeScanner@505] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2, DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4): finished scanning block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,267 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1):VolumeScanner@505] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1, DS-ae6beef3-af57-4109-8d92-6db58f946cc6): finished scanning block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,267 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3):VolumeScanner@505] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3, DS-cc784b4a-ce82-48aa-863b-82930323350e): finished scanning block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,267 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6):VolumeScanner@505] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6, DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b): finished scanning block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,267 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4):VolumeScanner@505] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4, DS-ac1e3103-640b-46fd-8eec-0c7025841fb9): finished scanning block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,267 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5):VolumeScanner@505] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5, DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585): finished scanning block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,270 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@812] - Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid f9d049e3-54cc-4f71-b807-321f1b94505d) service to localhost/127.0.0.1:34643 beginning handshake with NN
+2022-10-15 17:38:59,270 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@812] - Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid a88a0c0b-733f-4662-81d8-bea8f6832f06) service to localhost/127.0.0.1:34643 beginning handshake with NN
+2022-10-15 17:38:59,270 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@812] - Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid daec3603-bf74-40ae-840f-ae52f19083b1) service to localhost/127.0.0.1:34643 beginning handshake with NN
+2022-10-15 17:38:59,281 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2):VolumeScanner@402] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2, DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4): no suitable block pools found to scan.  Waiting 1814399983 ms.
+2022-10-15 17:38:59,281 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4):VolumeScanner@402] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4, DS-ac1e3103-640b-46fd-8eec-0c7025841fb9): no suitable block pools found to scan.  Waiting 1814399983 ms.
+2022-10-15 17:38:59,281 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6):VolumeScanner@402] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6, DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b): no suitable block pools found to scan.  Waiting 1814399983 ms.
+2022-10-15 17:38:59,281 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5):VolumeScanner@402] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5, DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585): no suitable block pools found to scan.  Waiting 1814399983 ms.
+2022-10-15 17:38:59,281 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3):VolumeScanner@402] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3, DS-cc784b4a-ce82-48aa-863b-82930323350e): no suitable block pools found to scan.  Waiting 1814399983 ms.
+2022-10-15 17:38:59,281 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1):VolumeScanner@402] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1, DS-ae6beef3-af57-4109-8d92-6db58f946cc6): no suitable block pools found to scan.  Waiting 1814399983 ms.
+2022-10-15 17:38:59,284 - INFO  [IPC Server handler 7 on default port 34643:DatanodeManager@1154] - BLOCK* registerDatanode: from DatanodeRegistration(127.0.0.1:45297, datanodeUuid=a88a0c0b-733f-4662-81d8-bea8f6832f06, infoPort=0, infoSecurePort=41621, ipcPort=34697, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788) storage a88a0c0b-733f-4662-81d8-bea8f6832f06
+2022-10-15 17:38:59,285 - INFO  [IPC Server handler 7 on default port 34643:NetworkTopology@149] - Adding a new node: /default-rack/127.0.0.1:45297
+2022-10-15 17:38:59,285 - INFO  [IPC Server handler 7 on default port 34643:BlockReportLeaseManager@200] - Registered DN a88a0c0b-733f-4662-81d8-bea8f6832f06 (127.0.0.1:45297).
+2022-10-15 17:38:59,291 - INFO  [IPC Server handler 6 on default port 34643:DatanodeManager@1154] - BLOCK* registerDatanode: from DatanodeRegistration(127.0.0.1:37193, datanodeUuid=f9d049e3-54cc-4f71-b807-321f1b94505d, infoPort=0, infoSecurePort=41097, ipcPort=35151, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788) storage f9d049e3-54cc-4f71-b807-321f1b94505d
+2022-10-15 17:38:59,291 - INFO  [IPC Server handler 6 on default port 34643:NetworkTopology@149] - Adding a new node: /default-rack/127.0.0.1:37193
+2022-10-15 17:38:59,291 - INFO  [IPC Server handler 6 on default port 34643:BlockReportLeaseManager@200] - Registered DN f9d049e3-54cc-4f71-b807-321f1b94505d (127.0.0.1:37193).
+2022-10-15 17:38:59,292 - INFO  [IPC Server handler 5 on default port 34643:DatanodeManager@1154] - BLOCK* registerDatanode: from DatanodeRegistration(127.0.0.1:46449, datanodeUuid=daec3603-bf74-40ae-840f-ae52f19083b1, infoPort=0, infoSecurePort=38333, ipcPort=42831, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788) storage daec3603-bf74-40ae-840f-ae52f19083b1
+2022-10-15 17:38:59,292 - INFO  [IPC Server handler 5 on default port 34643:NetworkTopology@149] - Adding a new node: /default-rack/127.0.0.1:46449
+2022-10-15 17:38:59,292 - INFO  [IPC Server handler 5 on default port 34643:BlockReportLeaseManager@200] - Registered DN daec3603-bf74-40ae-840f-ae52f19083b1 (127.0.0.1:46449).
+2022-10-15 17:38:59,293 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@840] - Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid f9d049e3-54cc-4f71-b807-321f1b94505d) service to localhost/127.0.0.1:34643 successfully registered with NN
+2022-10-15 17:38:59,293 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@840] - Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid a88a0c0b-733f-4662-81d8-bea8f6832f06) service to localhost/127.0.0.1:34643 successfully registered with NN
+2022-10-15 17:38:59,293 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:DataNode@1680] - Block token params received from NN: for block pool BP-492666495-10.0.0.215-1665869936788 keyUpdateInterval=600 min(s), tokenLifetime=600 min(s)
+2022-10-15 17:38:59,293 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@840] - Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid daec3603-bf74-40ae-840f-ae52f19083b1) service to localhost/127.0.0.1:34643 successfully registered with NN
+2022-10-15 17:38:59,293 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:DataNode@1680] - Block token params received from NN: for block pool BP-492666495-10.0.0.215-1665869936788 keyUpdateInterval=600 min(s), tokenLifetime=600 min(s)
+2022-10-15 17:38:59,294 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:DataNode@1680] - Block token params received from NN: for block pool BP-492666495-10.0.0.215-1665869936788 keyUpdateInterval=600 min(s), tokenLifetime=600 min(s)
+2022-10-15 17:38:59,294 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockTokenSecretManager@155] - Block token key range: [0, 2147483647)
+2022-10-15 17:38:59,294 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockTokenSecretManager@155] - Block token key range: [0, 2147483647)
+2022-10-15 17:38:59,294 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockTokenSecretManager@155] - Block token key range: [0, 2147483647)
+2022-10-15 17:38:59,294 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockTokenSecretManager@229] - Setting block keys. BlockPool = BP-492666495-10.0.0.215-1665869936788 .
+2022-10-15 17:38:59,294 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockTokenSecretManager@229] - Setting block keys. BlockPool = BP-492666495-10.0.0.215-1665869936788 .
+2022-10-15 17:38:59,294 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockTokenSecretManager@229] - Setting block keys. BlockPool = BP-492666495-10.0.0.215-1665869936788 .
+2022-10-15 17:38:59,295 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@673] - For namenode localhost/127.0.0.1:34643 using BLOCKREPORT_INTERVAL of 21600000msecs CACHEREPORT_INTERVAL of 10000msecs Initial delay: 0msecs; heartBeatInterval=3000
+2022-10-15 17:38:59,295 - INFO  [ibr-executor-0:BPServiceActor$IBRTaskHandler@1139] - Starting IBR Task Handler.
+2022-10-15 17:38:59,295 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@673] - For namenode localhost/127.0.0.1:34643 using BLOCKREPORT_INTERVAL of 21600000msecs CACHEREPORT_INTERVAL of 10000msecs Initial delay: 0msecs; heartBeatInterval=3000
+2022-10-15 17:38:59,295 - INFO  [ibr-executor-0:BPServiceActor$IBRTaskHandler@1139] - Starting IBR Task Handler.
+2022-10-15 17:38:59,295 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@673] - For namenode localhost/127.0.0.1:34643 using BLOCKREPORT_INTERVAL of 21600000msecs CACHEREPORT_INTERVAL of 10000msecs Initial delay: 0msecs; heartBeatInterval=3000
+2022-10-15 17:38:59,295 - INFO  [ibr-executor-0:BPServiceActor$IBRTaskHandler@1139] - Starting IBR Task Handler.
+2022-10-15 17:38:59,307 - INFO  [IPC Server handler 8 on default port 34643:DatanodeDescriptor@1010] - Adding new storage ID DS-ae6beef3-af57-4109-8d92-6db58f946cc6 for DN 127.0.0.1:45297
+2022-10-15 17:38:59,308 - INFO  [IPC Server handler 8 on default port 34643:DatanodeDescriptor@1010] - Adding new storage ID DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4 for DN 127.0.0.1:45297
+2022-10-15 17:38:59,308 - INFO  [IPC Server handler 0 on default port 34643:DatanodeDescriptor@1010] - Adding new storage ID DS-cc784b4a-ce82-48aa-863b-82930323350e for DN 127.0.0.1:37193
+2022-10-15 17:38:59,309 - INFO  [IPC Server handler 0 on default port 34643:DatanodeDescriptor@1010] - Adding new storage ID DS-ac1e3103-640b-46fd-8eec-0c7025841fb9 for DN 127.0.0.1:37193
+2022-10-15 17:38:59,309 - INFO  [IPC Server handler 9 on default port 34643:DatanodeDescriptor@1010] - Adding new storage ID DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585 for DN 127.0.0.1:46449
+2022-10-15 17:38:59,309 - INFO  [IPC Server handler 9 on default port 34643:DatanodeDescriptor@1010] - Adding new storage ID DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b for DN 127.0.0.1:46449
+2022-10-15 17:38:59,328 - INFO  [Block report processor:BlockManager@2777] - BLOCK* processReport 0x61f36e70c87b4365: Processing first storage report for DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4 from datanode DatanodeRegistration(127.0.0.1:45297, datanodeUuid=a88a0c0b-733f-4662-81d8-bea8f6832f06, infoPort=0, infoSecurePort=41621, ipcPort=34697, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788)
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2809] - BLOCK* processReport 0x61f36e70c87b4365: from storage DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4 node DatanodeRegistration(127.0.0.1:45297, datanodeUuid=a88a0c0b-733f-4662-81d8-bea8f6832f06, infoPort=0, infoSecurePort=41621, ipcPort=34697, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788), blocks: 0, hasStaleStorage: true, processing time: 1 msecs, invalidatedBlocks: 0
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2777] - BLOCK* processReport 0x23afa20019d36f70: Processing first storage report for DS-cc784b4a-ce82-48aa-863b-82930323350e from datanode DatanodeRegistration(127.0.0.1:37193, datanodeUuid=f9d049e3-54cc-4f71-b807-321f1b94505d, infoPort=0, infoSecurePort=41097, ipcPort=35151, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788)
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2809] - BLOCK* processReport 0x23afa20019d36f70: from storage DS-cc784b4a-ce82-48aa-863b-82930323350e node DatanodeRegistration(127.0.0.1:37193, datanodeUuid=f9d049e3-54cc-4f71-b807-321f1b94505d, infoPort=0, infoSecurePort=41097, ipcPort=35151, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788), blocks: 0, hasStaleStorage: true, processing time: 0 msecs, invalidatedBlocks: 0
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2777] - BLOCK* processReport 0xe8d4a765d436a8b7: Processing first storage report for DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b from datanode DatanodeRegistration(127.0.0.1:46449, datanodeUuid=daec3603-bf74-40ae-840f-ae52f19083b1, infoPort=0, infoSecurePort=38333, ipcPort=42831, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788)
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2809] - BLOCK* processReport 0xe8d4a765d436a8b7: from storage DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b node DatanodeRegistration(127.0.0.1:46449, datanodeUuid=daec3603-bf74-40ae-840f-ae52f19083b1, infoPort=0, infoSecurePort=38333, ipcPort=42831, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788), blocks: 0, hasStaleStorage: true, processing time: 0 msecs, invalidatedBlocks: 0
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2777] - BLOCK* processReport 0x61f36e70c87b4365: Processing first storage report for DS-ae6beef3-af57-4109-8d92-6db58f946cc6 from datanode DatanodeRegistration(127.0.0.1:45297, datanodeUuid=a88a0c0b-733f-4662-81d8-bea8f6832f06, infoPort=0, infoSecurePort=41621, ipcPort=34697, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788)
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2809] - BLOCK* processReport 0x61f36e70c87b4365: from storage DS-ae6beef3-af57-4109-8d92-6db58f946cc6 node DatanodeRegistration(127.0.0.1:45297, datanodeUuid=a88a0c0b-733f-4662-81d8-bea8f6832f06, infoPort=0, infoSecurePort=41621, ipcPort=34697, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788), blocks: 0, hasStaleStorage: false, processing time: 0 msecs, invalidatedBlocks: 0
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2777] - BLOCK* processReport 0x23afa20019d36f70: Processing first storage report for DS-ac1e3103-640b-46fd-8eec-0c7025841fb9 from datanode DatanodeRegistration(127.0.0.1:37193, datanodeUuid=f9d049e3-54cc-4f71-b807-321f1b94505d, infoPort=0, infoSecurePort=41097, ipcPort=35151, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788)
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2809] - BLOCK* processReport 0x23afa20019d36f70: from storage DS-ac1e3103-640b-46fd-8eec-0c7025841fb9 node DatanodeRegistration(127.0.0.1:37193, datanodeUuid=f9d049e3-54cc-4f71-b807-321f1b94505d, infoPort=0, infoSecurePort=41097, ipcPort=35151, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788), blocks: 0, hasStaleStorage: false, processing time: 0 msecs, invalidatedBlocks: 0
+2022-10-15 17:38:59,329 - INFO  [Block report processor:BlockManager@2777] - BLOCK* processReport 0xe8d4a765d436a8b7: Processing first storage report for DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585 from datanode DatanodeRegistration(127.0.0.1:46449, datanodeUuid=daec3603-bf74-40ae-840f-ae52f19083b1, infoPort=0, infoSecurePort=38333, ipcPort=42831, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788)
+2022-10-15 17:38:59,330 - INFO  [Block report processor:BlockManager@2809] - BLOCK* processReport 0xe8d4a765d436a8b7: from storage DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585 node DatanodeRegistration(127.0.0.1:46449, datanodeUuid=daec3603-bf74-40ae-840f-ae52f19083b1, infoPort=0, infoSecurePort=38333, ipcPort=42831, storageInfo=lv=-57;cid=testClusterID;nsid=1831289935;c=1665869936788), blocks: 0, hasStaleStorage: false, processing time: 0 msecs, invalidatedBlocks: 0
+2022-10-15 17:38:59,340 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@457] - Successfully sent block report 0x61f36e70c87b4365 to namenode: localhost/127.0.0.1:34643,  containing 2 storage report(s), of which we sent 2. The reports had 0 total blocks and used 1 RPC(s). This took 2 msecs to generate and 22 msecs for RPC and NN processing. Got back one command: FinalizeCommand/5.
+2022-10-15 17:38:59,340 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@457] - Successfully sent block report 0x23afa20019d36f70 to namenode: localhost/127.0.0.1:34643,  containing 2 storage report(s), of which we sent 2. The reports had 0 total blocks and used 1 RPC(s). This took 2 msecs to generate and 22 msecs for RPC and NN processing. Got back one command: FinalizeCommand/5.
+2022-10-15 17:38:59,340 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@457] - Successfully sent block report 0xe8d4a765d436a8b7 to namenode: localhost/127.0.0.1:34643,  containing 2 storage report(s), of which we sent 2. The reports had 0 total blocks and used 1 RPC(s). This took 2 msecs to generate and 22 msecs for RPC and NN processing. Got back one command: FinalizeCommand/5.
+2022-10-15 17:38:59,340 - INFO  [Command processor:BPOfferService@763] - Got finalize command for block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,340 - INFO  [Command processor:BPOfferService@763] - Got finalize command for block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,341 - INFO  [Command processor:BPOfferService@763] - Got finalize command for block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:38:59,370 - INFO  [Listener at localhost/42831:MiniDFSCluster@2835] - Cluster is active
+2022-10-15 17:38:59,376 - INFO  [Listener at localhost/42831:MiniDFSCluster@2835] - Cluster is active
+2022-10-15 17:38:59,445 - INFO  [IPC Server handler 6 on default port 34643:BlockPlacementPolicyDefault@912] - Not enough replicas was chosen. Reason: {NO_REQUIRED_STORAGE_TYPE=1}
+2022-10-15 17:38:59,446 - INFO  [IPC Server handler 6 on default port 34643:BlockPlacementPolicyDefault@912] - Not enough replicas was chosen. Reason: {NO_REQUIRED_STORAGE_TYPE=1}
+2022-10-15 17:38:59,448 - INFO  [IPC Server handler 6 on default port 34643:FSDirWriteFileOp@802] - BLOCK* allocate blk_1073741825_1001, replicas=127.0.0.1:37193, 127.0.0.1:45297, 127.0.0.1:46449 for /file1
+2022-10-15 17:38:59,741 - INFO  [DataXceiver for client DFSClient_NONMAPREDUCE_50144863_19 at /127.0.0.1:48248 [Receiving block BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001]:DataXceiver@748] - Receiving BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001 src: /127.0.0.1:48248 dest: /127.0.0.1:37193
+2022-10-15 17:38:59,754 - INFO  [DataXceiver for client DFSClient_NONMAPREDUCE_50144863_19 at /127.0.0.1:56870 [Receiving block BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001]:DataXceiver@748] - Receiving BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001 src: /127.0.0.1:56870 dest: /127.0.0.1:45297
+2022-10-15 17:38:59,758 - INFO  [DataXceiver for client DFSClient_NONMAPREDUCE_50144863_19 at /127.0.0.1:38164 [Receiving block BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001]:DataXceiver@748] - Receiving BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001 src: /127.0.0.1:38164 dest: /127.0.0.1:46449
+2022-10-15 17:38:59,773 - INFO  [PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=LAST_IN_PIPELINE:BlockReceiver$PacketResponder@1555] - src: /127.0.0.1:38164, dest: /127.0.0.1:46449, volume: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5, bytes: 8192, op: HDFS_WRITE, cliID: DFSClient_NONMAPREDUCE_50144863_19, offset: 0, srvID: daec3603-bf74-40ae-840f-ae52f19083b1, blockid: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, duration(ns): 7718507
+2022-10-15 17:38:59,773 - INFO  [PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=LAST_IN_PIPELINE:BlockReceiver$PacketResponder@1528] - PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=LAST_IN_PIPELINE terminating
+2022-10-15 17:38:59,774 - INFO  [PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=HAS_DOWNSTREAM_IN_PIPELINE, downstreams=1:[127.0.0.1:46449]:BlockReceiver$PacketResponder@1555] - src: /127.0.0.1:56870, dest: /127.0.0.1:45297, volume: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1, bytes: 8192, op: HDFS_WRITE, cliID: DFSClient_NONMAPREDUCE_50144863_19, offset: 0, srvID: a88a0c0b-733f-4662-81d8-bea8f6832f06, blockid: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, duration(ns): 11224401
+2022-10-15 17:38:59,775 - INFO  [PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=HAS_DOWNSTREAM_IN_PIPELINE, downstreams=1:[127.0.0.1:46449]:BlockReceiver$PacketResponder@1528] - PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=HAS_DOWNSTREAM_IN_PIPELINE, downstreams=1:[127.0.0.1:46449] terminating
+2022-10-15 17:38:59,777 - INFO  [PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=HAS_DOWNSTREAM_IN_PIPELINE, downstreams=2:[127.0.0.1:45297, 127.0.0.1:46449]:BlockReceiver$PacketResponder@1555] - src: /127.0.0.1:48248, dest: /127.0.0.1:37193, volume: /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3, bytes: 8192, op: HDFS_WRITE, cliID: DFSClient_NONMAPREDUCE_50144863_19, offset: 0, srvID: f9d049e3-54cc-4f71-b807-321f1b94505d, blockid: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, duration(ns): 13516237
+2022-10-15 17:38:59,777 - INFO  [PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=HAS_DOWNSTREAM_IN_PIPELINE, downstreams=2:[127.0.0.1:45297, 127.0.0.1:46449]:BlockReceiver$PacketResponder@1528] - PacketResponder: BP-492666495-10.0.0.215-1665869936788:blk_1073741825_1001, type=HAS_DOWNSTREAM_IN_PIPELINE, downstreams=2:[127.0.0.1:45297, 127.0.0.1:46449] terminating
+2022-10-15 17:38:59,783 - INFO  [IPC Server handler 8 on default port 34643:FSNamesystem@3269] - BLOCK* blk_1073741825_1001 is COMMITTED but not COMPLETE(numNodes= 0 <  minimum = 1) in file /file1
+2022-10-15 17:39:00,190 - INFO  [IPC Server handler 2 on default port 34643:FSNamesystem@3222] - DIR* completeFile: /file1 is closed by DFSClient_NONMAPREDUCE_50144863_19
+2022-10-15 17:39:00,345 - INFO  [Listener at localhost/42831:MiniDFSCluster@2116] - Shutting down the Mini HDFS Cluster
+2022-10-15 17:39:00,345 - INFO  [Listener at localhost/42831:MiniDFSCluster@2164] - Shutting down DataNode 2
+2022-10-15 17:39:00,346 - INFO  [Listener at localhost/42831:DirectoryScanner@429] - Shutdown has been called
+2022-10-15 17:39:00,346 - INFO  [org.apache.hadoop.hdfs.server.datanode.DataXceiverServer@4547d0f7:DataXceiverServer@396] - Closing all peers.
+2022-10-15 17:39:00,346 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5):VolumeScanner@672] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5, DS-b0ebbe5a-0b20-4b98-bee6-f8b6b66d6585) exiting.
+2022-10-15 17:39:00,346 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6):VolumeScanner@672] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6, DS-c7f5fff2-e508-40c4-b628-5beac1f47f2b) exiting.
+2022-10-15 17:39:00,356 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.w.WebAppContext@6d07ad11{datanode,/,null,STOPPED}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode}
+2022-10-15 17:39:00,360 - INFO  [Listener at localhost/42831:AbstractConnector@381] - Stopped ServerConnector@652b0885{HTTP/1.1, (http/1.1)}{localhost:0}
+2022-10-15 17:39:00,360 - INFO  [Listener at localhost/42831:HouseKeeper@149] - node0 Stopped scavenging
+2022-10-15 17:39:00,360 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.s.ServletContextHandler@428041fa{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,STOPPED}
+2022-10-15 17:39:00,361 - INFO  [Listener at localhost/42831:DataNode@2146] - Waiting up to 30 seconds for transfer threads to complete
+2022-10-15 17:39:00,361 - INFO  [Listener at localhost/42831:Server@3553] - Stopping server on 42831
+2022-10-15 17:39:00,362 - INFO  [IPC Server listener on 0:Server$Listener@1503] - Stopping IPC Server listener on 0
+2022-10-15 17:39:00,362 - INFO  [IPC Server Responder:Server$Responder@1636] - Stopping IPC Server Responder
+2022-10-15 17:39:00,362 - ERROR [Command processor:BPServiceActor$CommandProcessingThread@1410] - Command processor encountered interrupt and exit.
+2022-10-15 17:39:00,362 - WARN  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:IncrementalBlockReportManager@160] - IncrementalBlockReportManager interrupted
+2022-10-15 17:39:00,362 - WARN  [Command processor:BPServiceActor$CommandProcessingThread@1394] - Ending command processor service for: Thread[Command processor,5,main]
+2022-10-15 17:39:00,362 - WARN  [ibr-executor-0:IncrementalBlockReportManager@160] - IncrementalBlockReportManager interrupted
+2022-10-15 17:39:00,362 - WARN  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@918] - Ending block pool service for: Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid daec3603-bf74-40ae-840f-ae52f19083b1) service to localhost/127.0.0.1:34643
+2022-10-15 17:39:00,363 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockPoolManager@103] - Removed Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid daec3603-bf74-40ae-840f-ae52f19083b1)
+2022-10-15 17:39:00,363 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:FsDatasetImpl@3122] - Removing block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:39:00,364 - WARN  [refreshUsed-/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data5/current/BP-492666495-10.0.0.215-1665869936788:CachingGetSpaceUsed$RefreshThread@211] - Thread Interrupted waiting to refresh disk information: sleep interrupted
+2022-10-15 17:39:00,364 - WARN  [refreshUsed-/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data6/current/BP-492666495-10.0.0.215-1665869936788:CachingGetSpaceUsed$RefreshThread@211] - Thread Interrupted waiting to refresh disk information: sleep interrupted
+2022-10-15 17:39:00,364 - INFO  [Listener at localhost/42831:FsDatasetAsyncDiskService@201] - Shutting down all async disk service threads
+2022-10-15 17:39:00,364 - INFO  [Listener at localhost/42831:FsDatasetAsyncDiskService@209] - All async disk service threads have been shut down
+2022-10-15 17:39:00,364 - INFO  [Listener at localhost/42831:RamDiskAsyncLazyPersistService@186] - Shutting down all async lazy persist service threads
+2022-10-15 17:39:00,365 - INFO  [Listener at localhost/42831:RamDiskAsyncLazyPersistService@193] - All async lazy persist service threads have been shut down
+2022-10-15 17:39:00,365 - INFO  [Listener at localhost/42831:DataNode@2235] - Shutdown complete.
+2022-10-15 17:39:00,365 - INFO  [Listener at localhost/42831:MiniDFSCluster@2164] - Shutting down DataNode 1
+2022-10-15 17:39:00,365 - INFO  [Listener at localhost/42831:DirectoryScanner@429] - Shutdown has been called
+2022-10-15 17:39:00,365 - INFO  [org.apache.hadoop.hdfs.server.datanode.DataXceiverServer@24088fe1:DataXceiverServer@396] - Closing all peers.
+2022-10-15 17:39:00,366 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3):VolumeScanner@672] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3, DS-cc784b4a-ce82-48aa-863b-82930323350e) exiting.
+2022-10-15 17:39:00,366 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4):VolumeScanner@672] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4, DS-ac1e3103-640b-46fd-8eec-0c7025841fb9) exiting.
+2022-10-15 17:39:00,375 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.w.WebAppContext@50fce03{datanode,/,null,STOPPED}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode}
+2022-10-15 17:39:00,376 - INFO  [Listener at localhost/42831:AbstractConnector@381] - Stopped ServerConnector@2bebca1f{HTTP/1.1, (http/1.1)}{localhost:0}
+2022-10-15 17:39:00,376 - INFO  [Listener at localhost/42831:HouseKeeper@149] - node0 Stopped scavenging
+2022-10-15 17:39:00,376 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.s.ServletContextHandler@1b6765e9{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,STOPPED}
+2022-10-15 17:39:00,377 - INFO  [Listener at localhost/42831:DataNode@2146] - Waiting up to 30 seconds for transfer threads to complete
+2022-10-15 17:39:00,377 - INFO  [Listener at localhost/42831:Server@3553] - Stopping server on 35151
+2022-10-15 17:39:00,377 - INFO  [IPC Server listener on 0:Server$Listener@1503] - Stopping IPC Server listener on 0
+2022-10-15 17:39:00,377 - INFO  [IPC Server Responder:Server$Responder@1636] - Stopping IPC Server Responder
+2022-10-15 17:39:00,378 - ERROR [Command processor:BPServiceActor$CommandProcessingThread@1410] - Command processor encountered interrupt and exit.
+2022-10-15 17:39:00,378 - WARN  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:IncrementalBlockReportManager@160] - IncrementalBlockReportManager interrupted
+2022-10-15 17:39:00,378 - WARN  [Command processor:BPServiceActor$CommandProcessingThread@1394] - Ending command processor service for: Thread[Command processor,5,main]
+2022-10-15 17:39:00,378 - WARN  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@918] - Ending block pool service for: Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid f9d049e3-54cc-4f71-b807-321f1b94505d) service to localhost/127.0.0.1:34643
+2022-10-15 17:39:00,378 - WARN  [ibr-executor-0:IncrementalBlockReportManager@160] - IncrementalBlockReportManager interrupted
+2022-10-15 17:39:00,378 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockPoolManager@103] - Removed Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid f9d049e3-54cc-4f71-b807-321f1b94505d)
+2022-10-15 17:39:00,378 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:FsDatasetImpl@3122] - Removing block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:39:00,379 - WARN  [refreshUsed-/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data3/current/BP-492666495-10.0.0.215-1665869936788:CachingGetSpaceUsed$RefreshThread@211] - Thread Interrupted waiting to refresh disk information: sleep interrupted
+2022-10-15 17:39:00,379 - WARN  [refreshUsed-/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data4/current/BP-492666495-10.0.0.215-1665869936788:CachingGetSpaceUsed$RefreshThread@211] - Thread Interrupted waiting to refresh disk information: sleep interrupted
+2022-10-15 17:39:00,379 - INFO  [Listener at localhost/42831:FsDatasetAsyncDiskService@201] - Shutting down all async disk service threads
+2022-10-15 17:39:00,379 - INFO  [Listener at localhost/42831:FsDatasetAsyncDiskService@209] - All async disk service threads have been shut down
+2022-10-15 17:39:00,379 - INFO  [Listener at localhost/42831:RamDiskAsyncLazyPersistService@186] - Shutting down all async lazy persist service threads
+2022-10-15 17:39:00,379 - INFO  [Listener at localhost/42831:RamDiskAsyncLazyPersistService@193] - All async lazy persist service threads have been shut down
+2022-10-15 17:39:00,380 - INFO  [Listener at localhost/42831:DataNode@2235] - Shutdown complete.
+2022-10-15 17:39:00,380 - INFO  [Listener at localhost/42831:MiniDFSCluster@2164] - Shutting down DataNode 0
+2022-10-15 17:39:00,380 - INFO  [Listener at localhost/42831:DirectoryScanner@429] - Shutdown has been called
+2022-10-15 17:39:00,380 - INFO  [org.apache.hadoop.hdfs.server.datanode.DataXceiverServer@59e5221a:DataXceiverServer@396] - Closing all peers.
+2022-10-15 17:39:00,380 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2):VolumeScanner@672] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2, DS-8160cfa2-d5d1-40c5-bc04-796d9d1e96e4) exiting.
+2022-10-15 17:39:00,380 - INFO  [VolumeScannerThread(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1):VolumeScanner@672] - VolumeScanner(/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1, DS-ae6beef3-af57-4109-8d92-6db58f946cc6) exiting.
+2022-10-15 17:39:00,386 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.w.WebAppContext@28109d3f{datanode,/,null,STOPPED}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/datanode}
+2022-10-15 17:39:00,387 - INFO  [Listener at localhost/42831:AbstractConnector@381] - Stopped ServerConnector@3b41341d{HTTP/1.1, (http/1.1)}{localhost:0}
+2022-10-15 17:39:00,387 - INFO  [Listener at localhost/42831:HouseKeeper@149] - node0 Stopped scavenging
+2022-10-15 17:39:00,387 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.s.ServletContextHandler@330c94e2{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,STOPPED}
+2022-10-15 17:39:00,388 - INFO  [Listener at localhost/42831:DataNode@2146] - Waiting up to 30 seconds for transfer threads to complete
+2022-10-15 17:39:00,388 - INFO  [Listener at localhost/42831:Server@3553] - Stopping server on 34697
+2022-10-15 17:39:00,388 - INFO  [IPC Server listener on 0:Server$Listener@1503] - Stopping IPC Server listener on 0
+2022-10-15 17:39:00,389 - INFO  [IPC Server Responder:Server$Responder@1636] - Stopping IPC Server Responder
+2022-10-15 17:39:00,389 - WARN  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:IncrementalBlockReportManager@160] - IncrementalBlockReportManager interrupted
+2022-10-15 17:39:00,389 - ERROR [Command processor:BPServiceActor$CommandProcessingThread@1410] - Command processor encountered interrupt and exit.
+2022-10-15 17:39:00,389 - WARN  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BPServiceActor@918] - Ending block pool service for: Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid a88a0c0b-733f-4662-81d8-bea8f6832f06) service to localhost/127.0.0.1:34643
+2022-10-15 17:39:00,389 - WARN  [ibr-executor-0:IncrementalBlockReportManager@160] - IncrementalBlockReportManager interrupted
+2022-10-15 17:39:00,389 - WARN  [Command processor:BPServiceActor$CommandProcessingThread@1394] - Ending command processor service for: Thread[Command processor,5,main]
+2022-10-15 17:39:00,390 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:BlockPoolManager@103] - Removed Block pool BP-492666495-10.0.0.215-1665869936788 (Datanode Uuid a88a0c0b-733f-4662-81d8-bea8f6832f06)
+2022-10-15 17:39:00,390 - INFO  [BP-492666495-10.0.0.215-1665869936788 heartbeating to localhost/127.0.0.1:34643:FsDatasetImpl@3122] - Removing block pool BP-492666495-10.0.0.215-1665869936788
+2022-10-15 17:39:00,391 - WARN  [refreshUsed-/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data1/current/BP-492666495-10.0.0.215-1665869936788:CachingGetSpaceUsed$RefreshThread@211] - Thread Interrupted waiting to refresh disk information: sleep interrupted
+2022-10-15 17:39:00,391 - WARN  [refreshUsed-/home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/data/data2/current/BP-492666495-10.0.0.215-1665869936788:CachingGetSpaceUsed$RefreshThread@211] - Thread Interrupted waiting to refresh disk information: sleep interrupted
+2022-10-15 17:39:00,391 - INFO  [Listener at localhost/42831:FsDatasetAsyncDiskService@201] - Shutting down all async disk service threads
+2022-10-15 17:39:00,392 - INFO  [Listener at localhost/42831:FsDatasetAsyncDiskService@209] - All async disk service threads have been shut down
+2022-10-15 17:39:00,392 - INFO  [Listener at localhost/42831:RamDiskAsyncLazyPersistService@186] - Shutting down all async lazy persist service threads
+2022-10-15 17:39:00,392 - INFO  [Listener at localhost/42831:RamDiskAsyncLazyPersistService@193] - All async lazy persist service threads have been shut down
+2022-10-15 17:39:00,392 - INFO  [Listener at localhost/42831:DataNode@2235] - Shutdown complete.
+2022-10-15 17:39:00,392 - INFO  [Listener at localhost/42831:MiniDFSCluster@2197] - Shutting down the namenode
+2022-10-15 17:39:00,392 - INFO  [Listener at localhost/42831:FSNamesystem@1493] - Stopping services started for active state
+2022-10-15 17:39:00,392 - ERROR [Thread[Thread-35,5,main]:AbstractDelegationTokenSecretManager$ExpiredTokenRemover@722] - ExpiredTokenRemover received java.lang.InterruptedException: sleep interrupted
+2022-10-15 17:39:00,393 - INFO  [Listener at localhost/42831:FSEditLog@1460] - Ending log segment 1, 8
+2022-10-15 17:39:00,393 - INFO  [org.apache.hadoop.hdfs.server.namenode.FSNamesystem$LazyPersistFileScrubber@665e5554:FSNamesystem$LazyPersistFileScrubber@4662] - LazyPersistFileScrubber was interrupted, exiting
+2022-10-15 17:39:00,393 - INFO  [org.apache.hadoop.hdfs.server.namenode.FSNamesystem$NameNodeEditLogRoller@2cb73b1c:FSNamesystem$NameNodeEditLogRoller@4566] - NameNodeEditLogRoller was interrupted, exiting
+2022-10-15 17:39:00,402 - INFO  [Listener at localhost/42831:FSEditLog@796] - Number of transactions: 9 Total time for transactions(ms): 9 Number of transactions batched in Syncs: 1 Number of syncs: 9 SyncTimes(ms): 32 84 
+2022-10-15 17:39:00,403 - INFO  [Listener at localhost/42831:FileJournalManager@145] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/current/edits_inprogress_0000000000000000001 -> /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-1/current/edits_0000000000000000001-0000000000000000009
+2022-10-15 17:39:00,403 - INFO  [Listener at localhost/42831:FileJournalManager@145] - Finalizing edits file /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2/current/edits_inprogress_0000000000000000001 -> /home/tonypan/flaky-reproduction/experiment/hdfs-16332/target/test/data/dfs/name-0-2/current/edits_0000000000000000001-0000000000000000009
+2022-10-15 17:39:00,403 - INFO  [FSEditLogAsync:FSEditLogAsync@276] - FSEditLogAsync was interrupted, exiting
+2022-10-15 17:39:00,403 - INFO  [CacheReplicationMonitor(964083594):CacheReplicationMonitor@169] - Shutting down CacheReplicationMonitor
+2022-10-15 17:39:00,406 - INFO  [Listener at localhost/42831:Server@3553] - Stopping server on 34643
+2022-10-15 17:39:00,406 - INFO  [IPC Server listener on 0:Server$Listener@1503] - Stopping IPC Server listener on 0
+2022-10-15 17:39:00,406 - INFO  [IPC Server Responder:Server$Responder@1636] - Stopping IPC Server Responder
+2022-10-15 17:39:00,406 - INFO  [RedundancyMonitor:BlockManager$RedundancyMonitor@4931] - Stopping RedundancyMonitor.
+2022-10-15 17:39:00,423 - INFO  [Listener at localhost/42831:FSNamesystem@1493] - Stopping services started for active state
+2022-10-15 17:39:00,423 - INFO  [Listener at localhost/42831:FSNamesystem@1597] - Stopping services started for standby state
+2022-10-15 17:39:00,424 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.w.WebAppContext@137306e6{hdfs,/,null,STOPPED}{file:/home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/hdfs}
+2022-10-15 17:39:00,425 - INFO  [Listener at localhost/42831:AbstractConnector@381] - Stopped ServerConnector@2d79b050{SSL, (ssl, http/1.1)}{localhost:0}
+2022-10-15 17:39:00,425 - INFO  [Listener at localhost/42831:HouseKeeper@149] - node0 Stopped scavenging
+2022-10-15 17:39:00,426 - INFO  [Listener at localhost/42831:ContextHandler@1153] - Stopped o.e.j.s.ServletContextHandler@38186e7c{static,/static,file:///home/tonypan/flaky-reproduction/systems/hdfs-16332/hadoop-hdfs-project/hadoop-hdfs/target/test-classes/webapps/static/,STOPPED}
+2022-10-15 17:39:00,427 - INFO  [Listener at localhost/42831:MetricsSystemImpl@210] - Stopping DataNode metrics system...
+2022-10-15 17:39:00,428 - INFO  [Listener at localhost/42831:MetricsSystemImpl@216] - DataNode metrics system stopped.
+2022-10-15 17:39:00,428 - INFO  [Listener at localhost/42831:MetricsSystemImpl@611] - DataNode metrics system shutdown complete.
+2022-10-15 17:39:00,440 - INFO  [main:DefaultInternalKdcServerImpl@102] - Default Internal kdc server stopped.
+2022-10-15 17:39:01,440 - INFO  [main:MiniKdc@359] - MiniKdc stopped.
+
+Time: 6.172
+
+OK (1 test)
+
