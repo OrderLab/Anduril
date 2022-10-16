@@ -32,7 +32,7 @@ public class AnalysisInput {
     public final Set<ProgramLocation> logEvents = new HashSet<>();
     public final List<SootClass> mainClasses = new ArrayList<>();
 
-    public final Map<SootClass,Set<SootMethod>> excludedPoint = new TreeMap<>();
+    public final Map<SootClass,Set<SootMethod>> excludedPoint = new HashMap<>();
 
     //Easy constructor to use for test
     public AnalysisInput(IndexManager indexManager) {
@@ -285,6 +285,9 @@ public class AnalysisInput {
         }
 
         if (options.getFlakyCase().equals("hdfs-16332")) {
+            SootClass toBeExcluded = Scene.v().getSootClass("org.apache.hadoop.conf.Configuration$Parser");
+            excludedPoint.put(toBeExcluded, new HashSet<>());
+            excludedPoint.get(toBeExcluded).add(toBeExcluded.getMethod("void handleEndElement()"));
             this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.protocol.datatransfer.sasl.TestSaslDataTransferExpiredBlockToken");
             this.testMethod = this.testClass.getMethod(
                     "void testBlockSeekToWithExpiredToken()");
@@ -301,9 +304,6 @@ public class AnalysisInput {
                     }
                 }
             }
-            SootClass toBeExcluded = Scene.v().getSootClass("org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil");
-            excludedPoint.put(toBeExcluded, new HashSet<>());
-            excludedPoint.get(toBeExcluded).add(toBeExcluded.getMethod("void checkBlockOpStatus(org.apache.hadoop.hdfs.protocol.proto.DataTransferProtos$BlockOpResponseProto,java.lang.String,boolean)"));
         }
 
         if (options.getFlakyCase().equals("hbase-20492")) {
