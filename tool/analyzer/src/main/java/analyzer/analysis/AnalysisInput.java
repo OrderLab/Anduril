@@ -32,6 +32,8 @@ public class AnalysisInput {
     public final Set<ProgramLocation> logEvents = new HashSet<>();
     public final List<SootClass> mainClasses = new ArrayList<>();
 
+    public final Map<SootClass,Set<SootMethod>> excludedPoint = new TreeMap<>();
+
     //Easy constructor to use for test
     public AnalysisInput(IndexManager indexManager) {
         this.indexManager = indexManager;
@@ -282,6 +284,28 @@ public class AnalysisInput {
             }
         }
 
+        if (options.getFlakyCase().equals("hdfs-16332")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.protocol.datatransfer.sasl.TestSaslDataTransferExpiredBlockToken");
+            this.testMethod = this.testClass.getMethod(
+                    "void testBlockSeekToWithExpiredToken()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("fail") &&
+                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+            SootClass toBeExcluded = Scene.v().getSootClass("org.apache.hadoop.hdfs.protocol.datatransfer.DataTransferProtoUtil");
+            excludedPoint.put(toBeExcluded, new HashSet<>());
+            excludedPoint.get(toBeExcluded).add(toBeExcluded.getMethod("void checkBlockOpStatus(org.apache.hadoop.hdfs.protocol.proto.DataTransferProtos$BlockOpResponseProto,java.lang.String,boolean)"));
+        }
+
         if (options.getFlakyCase().equals("hbase-20492")) {
             this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.master.assignment.TestUnexpectedStateException");
             this.testMethod = this.testClass.getMethod("void testUnableToAssign()");
@@ -329,25 +353,6 @@ public class AnalysisInput {
                         final SootMethod inv = ((InvokeExpr) value).getMethod();
                         if (inv.getDeclaringClass().getName().equals("java.lang.System") &&
                                 inv.getName().equals("currentTimeMillis")) {
-                            this.symptomEvent = new LocationEvent(location);
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (options.getFlakyCase().equals("hdfs-16332")) {
-            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.protocol.datatransfer.sasl.TestSaslDataTransferExpiredBlockToken");
-            this.testMethod = this.testClass.getMethod(
-                    "void testBlockSeekToWithExpiredToken()");
-            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
-                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
-                    final Value value = valueBox.getValue();
-                    if (value instanceof InvokeExpr) {
-                        final SootMethod inv = ((InvokeExpr) value).getMethod();
-                        if (inv.getName().equals("fail") &&
-                                inv.getDeclaringClass().getName().equals("org.junit.Assert")) {
                             this.symptomEvent = new LocationEvent(location);
                             return;
                         }

@@ -113,7 +113,11 @@ public class EventGraph {
                             first = units.getSuccOf(first);
                         final ProgramLocation loc = analysisManager.analysisInput.indexManager.index
                                 .get(throwingMethod.getDeclaringClass()).get(throwingMethod).get(first);
-                        uncaughtThrowInjectionPoints.add(analysisManager.createInjectionPoint(injectionPoint.callee, event, loc));
+                        //Points cna be excluded and will be null
+                        InjectionPoint p = analysisManager.createInjectionPoint(injectionPoint.callee, event, loc);
+                        if (p != null) {
+                            uncaughtThrowInjectionPoints.add(p);
+                        }
                     }
                 }
             }

@@ -23,6 +23,12 @@ public final class AnalysisManager {
     private int injectionCounter = 0;
     public InjectionPoint createInjectionPoint(final ProgramEvent caller, final ProgramEvent callee,
                                                final ProgramLocation location) {
+        assert analysisInput != null;
+        // Only need the class and the method to decide the excluded point
+        if (analysisInput.excludedPoint.containsKey(location.sootClass)
+            && analysisInput.excludedPoint.get(location.sootClass).contains(location.sootMethod)) {
+            return null;
+        }
         return new InjectionPoint(caller, callee, location, injectionCounter++);
     }
 
