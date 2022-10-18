@@ -28,7 +28,7 @@ for i in `find $JAVA_HOME -name "*.jar"`; do jars="$i:$jars"; done
 for i in $hd_dir/hadoop-tools/hadoop-distcp/target/lib/*.jar; do jars="$i:$jars"; done
 testcase="org.apache.hadoop.hdfs.protocol.datatransfer.sasl.TestSaslDataTransferExpiredBlockToken"
 
-java -cp $classes_dir:$jars:$runtime_jar \
+java -noverify -cp $classes_dir:$jars:$runtime_jar \
 -Dlog4j.configuration=file:$SCRIPT_DIR/log4j.properties \
 $@ runtime.TraceAgent $p1 $p2 $p3 $p4 org.junit.runner.JUnitCore $testcase \
 > $SCRIPT_DIR/trial.out 2>&1

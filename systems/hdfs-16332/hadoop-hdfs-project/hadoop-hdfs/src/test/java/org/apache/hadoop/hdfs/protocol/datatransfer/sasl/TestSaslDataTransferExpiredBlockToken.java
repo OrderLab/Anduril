@@ -61,7 +61,7 @@ public class TestSaslDataTransferExpiredBlockToken extends SaslDataTransferTestC
     r.nextBytes(rawData);
 
     HdfsConfiguration conf = createSecureConfig("authentication,integrity,privacy");
-    cluster = new MiniDFSCluster.Builder(conf).numDataNodes(3).build();
+    cluster = new MiniDFSCluster.Builder(conf).numDataNodes(1).build();
     cluster.waitActive();
 
     try (FileSystem fs = cluster.getFileSystem()) {
@@ -144,7 +144,7 @@ public class TestSaslDataTransferExpiredBlockToken extends SaslDataTransferTestC
     return FileSystem.newInstance(cluster.getURI(), clientConf);
   }
 
-  @Test
+  //@Test
   public void testBlockSeekToWithExpiredToken() throws Exception {
     // read using blockSeekTo(). Acquired tokens are cached in in
     try (FileSystem fs = newFileSystem(); FSDataInputStream in = fs.open(PATH)) {
@@ -165,7 +165,7 @@ public class TestSaslDataTransferExpiredBlockToken extends SaslDataTransferTestC
     }
   }
 
-  //@Test
+  @Test
   public void testHedgedFetchBlockByteRangeWithExpiredToken() throws Exception {
     // read using hedgedFetchBlockByteRange(). Acquired tokens are cached in in
     try (FileSystem fs = newFileSystemHedgedRead(); FSDataInputStream in = fs.open(PATH)) {

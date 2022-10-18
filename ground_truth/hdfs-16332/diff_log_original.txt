@@ -1,4 +1,4 @@
-TgsRequest 115
+Server$Connection 2189
 JvmPauseMonitor$Monitor 185
 NameNode 775
 FSNamesystem 5584
@@ -62,7 +62,6 @@ BPServiceActor 673
 DatanodeDescriptor 1010
 BPServiceActor 457
 MiniDFSCluster 2835
-BlockPlacementPolicyDefault 912
 FSDirWriteFileOp 802
 DataXceiver 748
 BlockReceiver$PacketResponder 1555
@@ -70,15 +69,15 @@ BlockReceiver$PacketResponder 1528
 FSNamesystem 3269
 FSNamesystem 3222
 BlockReaderFactory 772
-DFSInputStream 707
+DFSInputStream 1257
 DFSInputStream 1104
 DFSInputStream 1014
 DFSInputStream 1033
+DFSInputStream 1004
 MiniDFSCluster 2116
 MiniDFSCluster 2164
 DirectoryScanner 429
 DataXceiverServer 396
-DirectoryScanner 443
 ContextHandler 1153
 AbstractConnector 381
 HouseKeeper 149

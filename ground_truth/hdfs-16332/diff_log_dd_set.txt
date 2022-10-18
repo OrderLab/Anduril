@@ -1,7 +1,12 @@
+DataXceiverServer 396
 DFSInputStream 1033
-DFSInputStream 707
-TgsRequest 115
+FSNamesystem$NameNodeEditLogRoller 4566
+FSNamesystem$LazyPersistFileScrubber 4662
+Server$Connection 2189
+BlockTokenSecretManager 259
+DFSInputStream 1257
+DFSInputStream 1004
 DFSInputStream 1014
+JvmPauseMonitor$Monitor 185
 BlockReaderFactory 772
 DFSInputStream 1104
-DirectoryScanner 443
