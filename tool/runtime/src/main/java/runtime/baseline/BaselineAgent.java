@@ -3,6 +3,7 @@ package runtime.baseline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.config.Config;
+import runtime.config.Hash;
 import runtime.exception.ExceptionBuilder;
 
 import java.lang.reflect.Method;
@@ -30,6 +31,26 @@ public final class BaselineAgent {
     static private final ConcurrentMap<String, Throwable> exceptions = new ConcurrentHashMap<>();
     static private final Throwable sentinelException = new Exception("invalid injection");
     static private final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
+
+    public static void injectStackTrace(final int hash, final String exceptionName) throws Throwable {
+        if (config.disableAgent) {
+            return;
+        }
+        final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        long v = 0;
+        for (int i = stackTrace.length - 1; i > -1; i--) {
+            if (stackTrace[i].getClassName().equals(BaselineAgent.class.getTypeName()) &&
+                    stackTrace[i].getMethodName().equals("injectStackTrace")) {
+                break;
+            }
+            v = Hash.addStackTrace(v, stackTrace[i].getClassName(), stackTrace[i].getMethodName(), stackTrace[i].getLineNumber());
+        }
+        if (v == hash) {
+            if (config.logInject) {
+                LOG.info("flaky record injection {}", Hash.getStackTrace(stackTrace));
+            }
+        }
+    }
 
     public static void inject(final int id, final String className, final String methodName,
                               final String invocationName, final int line, final String exceptionName) throws Throwable {

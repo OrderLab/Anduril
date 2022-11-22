@@ -22,12 +22,14 @@ public final class InjectionManager {
     public final String trialsPath, injectionResultPath;
 
     private enum Policy {
-        RANDOM, EXHAUSTIVE
+        RANDOM, EXHAUSTIVE, CRASHTUNER,
     }
     private final Policy policy;
     private final double probability = Double.parseDouble(System.getProperty("baseline.probability", "0"));
+    private final double timeBound = Long.parseLong(System.getProperty("crashtuner.timebound", "10_000_000"));
     private final AtomicBoolean injected = new AtomicBoolean(false);
     private InjectionPoint grant = null;
+    private volatile Long timestamp = null;
 
     public InjectionManager(final String trialsPath, final String injectionResultPath) throws Exception {
         this.trialsPath = trialsPath;
@@ -35,6 +37,7 @@ public final class InjectionManager {
         switch (System.getProperty("baseline.policy")) {
             case "random"     : this.policy = Policy.RANDOM; break;
             case "exhaustive" : this.policy = Policy.EXHAUSTIVE; break;
+            case "crashtuner" : this.policy = Policy.CRASHTUNER; break;
             default           : throw new Exception("invalid baseline policy");
         }
         for (final File file : new File(this.trialsPath).listFiles((file, name) -> name.endsWith(".json"))) {
@@ -57,7 +60,7 @@ public final class InjectionManager {
                 }
                 break;
             }
-            case EXHAUSTIVE : {
+            case EXHAUSTIVE: {
                 final InjectionPoint injection = new InjectionPoint(pid, id, occurrence, className, methodName, invocationName, line, exceptionName);
                 if (!injectionSet.containsKey(injection)) {
                     if (injected.compareAndSet(false, true)) {
@@ -67,8 +70,28 @@ public final class InjectionManager {
                 }
                 break;
             }
+            case CRASHTUNER: {
+                final InjectionPoint injection = new InjectionPoint(pid, id, occurrence, className, methodName, invocationName, line, exceptionName);
+                if (!injectionSet.containsKey(injection)) {
+                    if (checkMetaInfo()) {
+                        if (injected.compareAndSet(false, true)) {
+                            grant = injection;
+                            return true;
+                        }
+                    }
+                }
+                break;
+            }
         }
         return false;
+    }
+
+    private synchronized boolean checkMetaInfo() {
+        return this.timestamp != null && this.timestamp + this.timeBound < System.nanoTime();
+    }
+
+    public synchronized void metaInfo() {
+        this.timestamp = System.nanoTime();
     }
 
     private static final JsonWriterFactory writerFactory;
@@ -91,7 +114,7 @@ public final class InjectionManager {
         }
     }
 
-    static public class InjectionPoint {
+    static public final class InjectionPoint {
         final int pid;
         final int id;
         final int occurrence;

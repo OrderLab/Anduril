@@ -8,6 +8,7 @@ import analyzer.event.EventManager;
 import analyzer.event.InvocationEvent;
 import analyzer.event.LocationEvent;
 import analyzer.event.ProgramEvent;
+import analyzer.fate.FateAnalyzer;
 import analyzer.instrument.ThreadInstrumentor;
 import analyzer.option.AnalyzerOptions;
 import org.slf4j.Logger;
@@ -34,11 +35,17 @@ public class FlakyTestAnalyzer extends SceneTransformer {
     }
 
     public static final boolean baseline = Boolean.getBoolean("analysis.baseline");
+    public static final boolean fate = Boolean.getBoolean("analysis.fate");
+    public static final String crashtuner = System.getProperty("analysis.crashtuner");
 
     @Override
     protected void internalTransform(String phaseName, Map<String, String> options) {
-        if (baseline) {
-            BaselineAnalyzer.run(AnalyzerOptions.getInstance());
+        if (baseline || crashtuner != null) {
+            BaselineAnalyzer.run(AnalyzerOptions.getInstance(), crashtuner);
+            return;
+        }
+        if (fate) {
+            FateAnalyzer.run(AnalyzerOptions.getInstance());
             return;
         }
         // TODO: make it configurable

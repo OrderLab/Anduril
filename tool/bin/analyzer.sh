@@ -16,6 +16,14 @@ if [ ! -z ${baseline+x} ]; then
   JAVA_OPTS="-Danalysis.baseline=true $JAVA_OPTS"
 fi
 
+if [ ! -z ${fate+x} ]; then
+  JAVA_OPTS="-Danalysis.fate=true $JAVA_OPTS"
+fi
+
+if [ ! -z ${crashtuner+x} ]; then
+  JAVA_OPTS="-Danalysis.crashtuner=$crashtuner $JAVA_OPTS"
+fi
+
 "${JAVA}" -Danalyzer.logs.dir=${ANALYZER_HOME}/logs ${JAVA_OPTS} \
 -Dlog4j.configuration=file:${ANALYZER_HOME}/conf/log4j.properties \
 -cp "${ANALYZER_JAR}" \

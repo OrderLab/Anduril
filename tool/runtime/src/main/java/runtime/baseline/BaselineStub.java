@@ -13,6 +13,11 @@ public final class BaselineStub implements BaselineRemote {
     }
 
     @Override
+    public void metaInfo() throws RemoteException {
+        BaselineAgent.injectionManager.metaInfo();
+    }
+
+    @Override
     public void shutdown() throws RemoteException {
         BaselineAgent.waiter.countDown();
     }

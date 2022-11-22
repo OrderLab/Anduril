@@ -41,6 +41,11 @@
     </dependency>
     <dependency>
       <groupId>flaky-test-analyzer</groupId>
+      <artifactId>feedback</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>flaky-test-analyzer</groupId>
       <artifactId>runtime</artifactId>
       <version>1.0</version>
     </dependency>

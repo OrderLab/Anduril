@@ -1,18 +1,17 @@
-package analyzer.baseline;
+package analyzer.fate;
 
 import analyzer.analysis.AnalysisInput;
 import analyzer.analysis.BasicBlockAnalysis;
-import analyzer.crashtuner.CrashTunerAnalyzer;
 import analyzer.option.AnalyzerOptions;
-import runtime.baseline.BaselineAgent;
+import runtime.fate.FateAgent;
 import soot.*;
 import soot.jimple.*;
 import soot.tagkit.LineNumberTag;
 
 import java.util.*;
 
-public class BaselineAnalyzer {
-    public static void run(final AnalyzerOptions options, final String crashtuner) {
+public class FateAnalyzer {
+    public static void run(final AnalyzerOptions options) {
         final Set<SootClass> classes = new HashSet<>();
         final List<SootClass> mainClasses = new ArrayList<>();
         for (final SootClass sootClass : Scene.v().getApplicationClasses()) {
@@ -33,10 +32,9 @@ public class BaselineAnalyzer {
             }
         }
 
-        final SootClass agentClass = Scene.v().loadClassAndSupport(BaselineAgent.class.getCanonicalName());
+        final SootClass agentClass = Scene.v().loadClassAndSupport(FateAgent.class.getCanonicalName());
         final SootMethod injectMethod = agentClass.getMethodByName("inject");
         final SootMethod initMethod = agentClass.getMethodByName("initStub");
-        final SootMethod metaInfoMethod = agentClass.getMethodByName("metaInfo");
 
         // init main
         if (AnalysisInput.distributedMode) {
@@ -51,15 +49,6 @@ public class BaselineAnalyzer {
                         Jimple.v().newStaticInvokeExpr(initMethod.makeRef(), new ArrayList<>());
                 final InvokeStmt initStmt = Jimple.v().newInvokeStmt(initExpr);
                 units.insertBefore(initStmt, head);
-            }
-        }
-
-        if (crashtuner != null) {
-            for (final CrashTunerAnalyzer.Location location : CrashTunerAnalyzer.analyze(classes, crashtuner)) {
-                final StaticInvokeExpr injectExpr =
-                        Jimple.v().newStaticInvokeExpr(metaInfoMethod.makeRef(), new LinkedList<>());
-                final InvokeStmt injectStmt = Jimple.v().newInvokeStmt(injectExpr);
-                location.method.retrieveActiveBody().getUnits().insertBefore(injectStmt, location.unit);
             }
         }
 
@@ -78,13 +67,8 @@ public class BaselineAnalyzer {
                                 final SootMethod invocation = ((InvokeExpr) value).getMethod();
                                 if (!classes.contains(invocation.getDeclaringClass())) {
                                     for (final SootClass exception : invocation.getExceptions()) {
-                                        injections.add(new Injection(injectionNumber++,
-                                                sootClass.getName(),
-                                                sootMethod.getSubSignature(),
-                                                invocation.getDeclaringClass().getName() + ": " + invocation.getSubSignature(),
-                                                getLineNumber(unit),
-                                                exception.getName(),
-                                                unit));
+                                        injections.add(new Injection(
+                                                sootMethod.getSubSignature(), getFile(sootClass.getName()), unit));
                                     }
                                 }
                             }
@@ -110,34 +94,28 @@ public class BaselineAnalyzer {
         return tag.getLineNumber();
     }
 
-    public static final class Injection {
-        final int id;
-        final String className;
-        final String methodName;
-        final String invocationName;
-        final int line;
-        final String exceptionName;
+    public static String getFile(final String name) {
+        if (name.contains("$")) {
+            return name.substring(0, name.indexOf('$'));
+        }
+        return name;
+    }
 
+    public static final class Injection {
+        final String func;
+        final String file;
         final Unit unit;
 
-        public Injection(int id, String className, String methodName, String invocationName, int line, String exceptionName, Unit unit) {
-            this.id = id;
-            this.className = className;
-            this.methodName = methodName;
-            this.invocationName = invocationName;
-            this.line = line;
-            this.exceptionName = exceptionName;
+        public Injection(String func, String file, final Unit unit) {
+            this.func = func;
+            this.file = file;
             this.unit = unit;
         }
 
         public List<Value> getArgs() {
             final List<Value> args = new ArrayList<>();
-            args.add(IntConstant.v(id));
-            args.add(StringConstant.v(className));
-            args.add(StringConstant.v(methodName));
-            args.add(StringConstant.v(invocationName));
-            args.add(IntConstant.v(line));
-            args.add(StringConstant.v(exceptionName));
+            args.add(StringConstant.v(func));
+            args.add(StringConstant.v(file));
             return args;
         }
     }
