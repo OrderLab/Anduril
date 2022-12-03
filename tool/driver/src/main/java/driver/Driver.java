@@ -84,6 +84,8 @@ public final class Driver {
                             }
                             if (size < FILE_SIZE_LIMIT && trialProcess.isAlive()) {
                                 return true;
+                            } else if (!trialProcess.isAlive()) {
+                                return false;
                             }
                             throw new RuntimeException();
                         })) {
@@ -196,7 +198,7 @@ public final class Driver {
             }
             return false;
         } catch (final RuntimeException e) {
-            LOG.warn("Trial exit normally or file size exceeds the limit!");
+            LOG.warn("File size exceeds the limit!");
             Thread.sleep(granularity);
         } catch (final Exception e) {
             LOG.warn("error when monitoring", e);
