@@ -198,7 +198,7 @@ public final class Driver {
             }
             return false;
         } catch (final RuntimeException e) {
-            LOG.warn("File size exceeds the limit!");
+            LOG.warn("File size exceeds the limit or Trial is timed out!");
             Thread.sleep(granularity);
         } catch (final Exception e) {
             LOG.warn("error when monitoring", e);
