@@ -21,7 +21,7 @@ if [ ! -z ${fate+x} ]; then
 fi
 
 if [ ! -z ${crashtuner+x} ]; then
-  JAVA_OPTS="-Danalysis.crashtuner=$crashtuner $JAVA_OPTS"
+  JAVA_OPTS="-Danalysis.crashtuner=true $JAVA_OPTS"
 fi
 
 "${JAVA}" -Danalyzer.logs.dir=${ANALYZER_HOME}/logs ${JAVA_OPTS} \
