@@ -70,6 +70,7 @@ public class FateAnalyzer {
                                         injections.add(new Injection(
                                                 sootMethod.getSubSignature(), getFile(sootClass.getName()),
                                                 exception.getName(), unit));
+                                        injectionNumber++;
                                     }
                                 }
                             }
