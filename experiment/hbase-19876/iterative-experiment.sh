@@ -46,7 +46,8 @@ java -noverify \
 -cp $classes_dir:$jars:$runtime_jar \
 -DflakyAgent.avoidBlockMode=true \
 -DflakyAgent.trialTimeout=120 \
--DflakyAgent.injectionOccurrenceLimit=10000000 \
+-DflakyAgent.injectionOccurrenceLimit=3 \
+-DflakyAgent.recordOnthefly=true \
 -DflakyAgent.feedback=false \
 -DflakyAgent.traceFile=$trials_dir/trace-$id.txt \
 runtime.TraceAgent $trials_dir $SCRIPT_DIR/tree.json $trials_dir/injection-$id.json org.junit.runner.JUnitCore $testcase \
