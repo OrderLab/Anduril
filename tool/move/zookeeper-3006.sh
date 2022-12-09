@@ -46,3 +46,4 @@ for i in `cd $test_classes_dir && find . -name "*.class" && cd - >/dev/null 2>&1
 done
 
 rsync -ra $SCRIPT_DIR/../runtime/target/classes/runtime $target_dir
+rsync -a $SCRIPT_DIR/../runtime/target/runtime-1.0-jar-with-dependencies.jar $target_dir

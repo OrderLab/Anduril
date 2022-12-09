@@ -68,7 +68,9 @@ public class FateAnalyzer {
                                 if (!classes.contains(invocation.getDeclaringClass())) {
                                     for (final SootClass exception : invocation.getExceptions()) {
                                         injections.add(new Injection(
-                                                sootMethod.getSubSignature(), getFile(sootClass.getName()), unit));
+                                                sootMethod.getSubSignature(), getFile(sootClass.getName()),
+                                                exception.getName(), unit));
+                                        injectionNumber++;
                                     }
                                 }
                             }
@@ -104,11 +106,13 @@ public class FateAnalyzer {
     public static final class Injection {
         final String func;
         final String file;
+        final String exception;
         final Unit unit;
 
-        public Injection(String func, String file, final Unit unit) {
+        public Injection(String func, String file, String exception, Unit unit) {
             this.func = func;
             this.file = file;
+            this.exception = exception;
             this.unit = unit;
         }
 
@@ -116,6 +120,7 @@ public class FateAnalyzer {
             final List<Value> args = new ArrayList<>();
             args.add(StringConstant.v(func));
             args.add(StringConstant.v(file));
+            args.add(StringConstant.v(exception));
             return args;
         }
     }

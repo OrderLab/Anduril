@@ -102,7 +102,7 @@ public final class InjectionManager {
                 this.func = json.getString("func");
                 this.file = json.getString("file");
                 this.stacktrace = json.getInt("stacktrace");
-                this.pid = json.getInt("pid");
+                this.pid = json.getInt("node");
             }
         }
 

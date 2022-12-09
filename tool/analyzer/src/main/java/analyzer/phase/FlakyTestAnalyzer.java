@@ -36,12 +36,16 @@ public class FlakyTestAnalyzer extends SceneTransformer {
 
     public static final boolean baseline = Boolean.getBoolean("analysis.baseline");
     public static final boolean fate = Boolean.getBoolean("analysis.fate");
-    public static final String crashtuner = System.getProperty("analysis.crashtuner");
+    public static final boolean crashtuner = Boolean.getBoolean("analysis.crashtuner");
 
     @Override
     protected void internalTransform(String phaseName, Map<String, String> options) {
-        if (baseline || crashtuner != null) {
-            BaselineAnalyzer.run(AnalyzerOptions.getInstance(), crashtuner);
+        if (crashtuner) {
+            BaselineAnalyzer.run(AnalyzerOptions.getInstance(), true);
+            return;
+        }
+        if (baseline) {
+            BaselineAnalyzer.run(AnalyzerOptions.getInstance(), false);
             return;
         }
         if (fate) {

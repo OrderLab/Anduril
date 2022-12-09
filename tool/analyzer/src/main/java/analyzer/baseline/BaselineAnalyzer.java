@@ -4,6 +4,8 @@ import analyzer.analysis.AnalysisInput;
 import analyzer.analysis.BasicBlockAnalysis;
 import analyzer.crashtuner.CrashTunerAnalyzer;
 import analyzer.option.AnalyzerOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import runtime.baseline.BaselineAgent;
 import soot.*;
 import soot.jimple.*;
@@ -12,7 +14,9 @@ import soot.tagkit.LineNumberTag;
 import java.util.*;
 
 public class BaselineAnalyzer {
-    public static void run(final AnalyzerOptions options, final String crashtuner) {
+    private static final Logger LOG = LoggerFactory.getLogger(BaselineAnalyzer.class);
+
+    public static void run(final AnalyzerOptions options, final boolean crashtuner) {
         final Set<SootClass> classes = new HashSet<>();
         final List<SootClass> mainClasses = new ArrayList<>();
         for (final SootClass sootClass : Scene.v().getApplicationClasses()) {
@@ -54,8 +58,8 @@ public class BaselineAnalyzer {
             }
         }
 
-        if (crashtuner != null) {
-            for (final CrashTunerAnalyzer.Location location : CrashTunerAnalyzer.analyze(classes, crashtuner)) {
+        if (crashtuner) {
+            for (final CrashTunerAnalyzer.Location location : CrashTunerAnalyzer.analyze(classes)) {
                 final StaticInvokeExpr injectExpr =
                         Jimple.v().newStaticInvokeExpr(metaInfoMethod.makeRef(), new LinkedList<>());
                 final InvokeStmt injectStmt = Jimple.v().newInvokeStmt(injectExpr);
@@ -99,7 +103,7 @@ public class BaselineAnalyzer {
                 }
             }
         }
-        System.out.println("injection points: " + injectionNumber);
+        LOG.info("injection points: {}", injectionNumber);
     }
 
     public static int getLineNumber(final Unit unit) {

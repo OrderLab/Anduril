@@ -26,7 +26,7 @@ public final class InjectionManager {
     }
     private final Policy policy;
     private final double probability = Double.parseDouble(System.getProperty("baseline.probability", "0"));
-    private final double timeBound = Long.parseLong(System.getProperty("crashtuner.timebound", "10_000_000"));
+    private final double timeBound = Long.parseLong(System.getProperty("crashtuner.timebound", "5000000"));
     private final AtomicBoolean injected = new AtomicBoolean(false);
     private InjectionPoint grant = null;
     private volatile Long timestamp = null;

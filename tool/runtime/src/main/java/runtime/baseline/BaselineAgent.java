@@ -103,6 +103,17 @@ public final class BaselineAgent {
         }
     }
 
+    public static void metaInfo() throws RemoteException {
+        if (config.disableAgent) {
+            return;
+        }
+        if (config.distributedMode) {
+            getStub().metaInfo();
+        } else {
+            injectionManager.metaInfo();
+        }
+    }
+
     private static final AtomicReference<BaselineRemote> stub = new AtomicReference<>(null);
 
     public static final int RMI_PORT = 1099;
