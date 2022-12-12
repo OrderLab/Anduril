@@ -150,6 +150,10 @@ object ExceptionParser {
       TestResultParser.FAIL(duration, completeMethodName, completeClassname,
         parseJUnit5ResultNestedException(exception) match {
           case (None, Some(nestedException)) => nestedException
+          case (_, None) => // for Kafka-12508
+            parseJUnit5ResultNestedException(s"$exception\n       Foo.bar(Baz.java:9)") match {
+              case (None, Some(nestedException)) => nestedException
+            }
         })
   }
 }
