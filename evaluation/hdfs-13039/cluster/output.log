@@ -1,0 +1,6 @@
+2022-08-09 23:21:24,964 - INFO  [main:GrayHDFSClientMain@14] - running command [/home/tonypan/flaky-reproduction/experiment/hdfs-13039/cluster/conf-1, write, /2/test, 3]
+2022-08-09 23:21:25,271 - WARN  [main:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-08-09 23:21:25,637 - WARN  [main:ErasureCodeNative@55] - ISA-L support is not available in your platform... using builtin-java codec where applicable
+2022-08-09 23:21:25,778 - INFO  [main:GrayHDFSClientMain@32] - progress = 1, time = 813220006
+2022-08-09 23:21:25,837 - INFO  [main:GrayHDFSClientMain@32] - progress = 2, time = 873364913
+2022-08-09 23:21:25,899 - INFO  [main:GrayHDFSClientMain@32] - progress = 3, time = 935488576
