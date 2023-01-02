@@ -1,9 +1,11 @@
 package feedback.time
 
-import feedback.diff.LogFileDiff
+import feedback.diff.{LogFileDiff, ThreadDiff}
 import feedback.log.entry.{InjectionRecord, LogEntry}
 import feedback.log.{LogFile, NormalLogFile, TraceLogFile}
 import org.joda.time.DateTime
+
+import scala.jdk.CollectionConverters.SeqHasAsJava
 
 sealed trait Timestamp extends Timing
 
@@ -14,18 +16,22 @@ final case class LogLine(override val showtime: DateTime, entry: LogEntry, logTy
 final class TimeRuler(good: LogFile, bad: LogFile, badEntries: java.util.Map[Integer, DateTime]) {
   def this(good: LogFile, bad: LogFile) = this(good, bad, TimeAlignment.getEntryMapping(bad))
 
-  private val intervals = new LogFileDiff(good, bad).getIntervals
+//  private val intervals = new LogFileDiff(good, bad).getIntervals.toArray(new Array[(java.lang.Integer, java.lang.Integer)](0))
+  private val intervals = new ThreadDiff(null,
+    new java.util.ArrayList[LogEntry](good.entries.toList.asJava),
+    new java.util.ArrayList[LogEntry](bad.entries.toList.asJava)).common
+
   private var k = 0
   private var difference = new TimeDifference(good, bad)
 
   def forward(logLine: Int, showtime: DateTime): DateTime = {
     if (k < intervals.size) {
-      intervals.get(k) match {
+      intervals(k) match {
         case (x, y) =>
           require(logLine <= x)
           if (logLine == x) {
             difference = new TimeDifference(showtime, badEntries.get(y))
-            do k += 1 while (k < intervals.size && intervals.get(k)._2 < y)
+            do k += 1 while (k < intervals.size && intervals(k)._2 < y)
           }
       }
     }
