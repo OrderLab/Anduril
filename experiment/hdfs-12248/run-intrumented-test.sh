@@ -3,7 +3,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 case_name=hdfs-12248
-hd_dir="${SCRIPT_DIR}/../../systems/hdfs-12070"
+hd_dir="${SCRIPT_DIR}/../../systems/$case_name"
 classes_dir="$HOME/tmp/bytecode/${case_name}/classes"
 runtime_jar="$classes_dir/runtime-1.0-jar-with-dependencies.jar"
 jars="$SCRIPT_DIR"
