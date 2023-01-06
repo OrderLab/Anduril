@@ -133,8 +133,13 @@ object ExceptionParser {
     // TODO: check more than 1 failures
     val (testMethod, testClass, index) = failures(0)
     require(index == 0)
-    (testMethod, testClass, parseNormalNestedException(text.slice(1, text.length)) match {
+    val exception = text.slice(1, text.length)
+    (testMethod, testClass, parseNormalNestedException(exception) match {
       case (None, Some(nestedException)) => nestedException
+      case (_, None) => // for HBase
+        parseNormalNestedException(exception :+ "\tat Foo.bar(Baz.java:9)") match {
+          case (None, Some(nestedException)) => nestedException
+        }
     })
   }
 
