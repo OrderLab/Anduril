@@ -1,0 +1,1090 @@
+2022-12-24 02:45:24,780 - INFO  [main:LocalInjectionManager@145] - injection allow set: [411, 412, 2931, 2932, 5126, 5127, 5179, 6163, 6182, 6727, 6728, 6756, 6757, 8166, 8211, 8212, 9021, 9160, 9201, 9248, 13722, 13723, 13871, 13885, 14353, 14355, 14356, 14414, 14526, 14528, 14681, 14702, 14715, 14868, 14869, 14870, 14871, 14872, 14873, 14878, 14886, 14965, 15880, 15936, 15937, 16157, 68636, 68961, 69441, 69660, 69661, 69772, 69773, 69774, 69775, 69776, 69777, 69778, 69779, 69780, 69781, 69782, 69783, 69784, 69785, 70295, 71217, 71219, 76589, 78551, 78556, 79177, 79178, 79803, 79824, 80693, 84045, 84185, 84293, 88221, 89421, 89574, 89594, 89595, 89596, 89597, 89598, 89599, 90498, 93198, 93274, 93426, 93573, 93574, 93575, 93610, 93611, 93612, 93859, 94721, 94739, 94870, 94871, 94872, 100643, 100644, 100645, 100646, 100659, 100660, 100661, 100662, 100663, 100698, 100700, 100772, 101047, 101239, 101247, 101248, 101249, 101250, 101280, 101282, 101283, 101284, 101285, 101286, 101287, 101288, 101289, 101290, 101375, 101534, 101880, 101881, 101882, 101900, 102467, 102469, 110249, 110293, 110294, 110581, 115458, 115662, 115663, 115664, 121579, 122902, 122903, 122904, 124676, 124677, 124678, 125316, 125466, 125485, 128521, 129360, 129493, 129494, 130433, 130628, 130629, 130630, 131326, 131330, 131331, 135154, 135246, 149519, 149520, 149521, 149522, 149523, 149524, 149525, 149526, 149529, 149530, 149532, 149534, 149535, 149536, 149537, 149538, 149541, 149542, 149543, 149544, 149545, 149546, 149547, 149550, 149553, 149556, 149557, 149558, 149559, 149560, 149561, 149562, 149563, 149564, 149565, 149566, 149567, 149569, 149570, 149571, 149572, 149573, 149575, 149576, 149577, 149578, 149579, 149580, 149583, 149584, 149586, 149588, 149590, 149608, 149609, 149610, 149611, 149612, 149613, 149614, 149615, 149616, 149618, 149619, 149620, 149621, 149622, 149623, 149624, 149625, 149626, 149627, 149628, 149629, 149630, 149632, 149633, 149634, 149635, 149636, 149637, 149638, 149639, 149640, 149641, 149642, 149643, 149644, 149645, 149646, 149647, 149648, 149650, 149653, 149654, 149655, 149662, 149663, 149664, 149665, 149666, 149667, 149668, 149669, 149670, 149671, 149672, 149673, 149674, 149675, 149676, 149677, 149678, 149680, 149681, 149682, 149683, 149684, 149685, 149686, 149687, 149688, 149689, 149690, 149691, 149692, 149694, 149695, 149696, 149697, 149698, 149699, 149700, 149702, 149703, 149704, 149705, 149706, 149707, 149708, 149709, 149710, 149711, 149712, 149713, 149717, 149723, 149886, 149887, 149888, 149893, 149894, 149896, 149897, 149898, 149899, 149900, 149903, 149904, 149905, 149906, 149907, 149908, 149909, 149910, 149911, 149914, 149915, 149916, 149917, 149918, 149919, 149920, 149922, 149933, 150275, 150276, 150277, 150279, 150281, 150282, 150283, 150284, 150285, 150286, 150288, 150295, 150296, 150297, 150299, 150300, 150306, 150312, 150326, 150334, 150348, 150349, 150350, 150351, 150352, 150353, 150355, 150356, 150357, 150358, 150359, 150361, 150362, 150363, 150364, 150365, 150366, 150367, 150368, 150369, 150370, 150391, 150393, 150395, 150412, 150414, 150415, 150416, 150417, 150419, 150420, 150422, 150423, 150424, 150425, 150426, 150427, 150428, 150429, 150430, 150431, 150432, 150433, 150434, 150435, 150436, 150437, 150438, 150439, 150440, 150441, 150442, 150445, 150526, 150527, 150528, 150529, 150530, 150531, 150532, 150533, 150534, 150535, 150538, 150539, 150540, 150541, 150542, 150543, 150544, 150545, 150546, 150547, 150548, 150549, 150550, 150551, 150552, 150553, 150554, 150556, 150557, 150558, 150559, 150560, 150561, 150562, 150568, 150569, 150571, 150574, 150575, 150601, 150602, 150603, 150604, 150605, 150606, 150607, 150608, 150610, 150611, 150612, 150613, 150614, 150615, 150616, 150617, 150618, 150619, 150620, 150621, 150622, 150623, 150624, 150625, 150626, 150627, 150628, 150759, 150760, 150761, 150762, 150763, 150764, 150765, 150766, 150767, 150768, 150769, 150770, 150771, 150772, 150773, 150774, 150776, 150777, 150778, 150781, 150782, 150783, 150784, 150785, 150786, 150787, 150788, 150789, 150819, 150820, 150821, 150822, 150823, 150824, 150825, 150826, 150827, 150828, 150829, 150830, 150831, 150832, 150833, 150834, 150835, 150936, 150937, 150938, 150939, 150940, 150941, 150942, 150943, 150944, 150945, 150946, 150947, 150958, 150959, 150979, 150988, 150989, 150990, 150991, 150992, 150993, 150994, 150995, 150996, 150997, 150998, 150999, 151007, 151008, 151009, 151010, 151011, 151053, 151072, 151073, 151074, 151078, 151080, 151081, 151082, 151083, 151084, 151086, 151088, 151132, 151133, 151134, 151135, 151136, 151137, 151138, 151144, 151145, 151146, 151147, 151152, 151200, 151201, 151202, 151203, 151204, 151205, 151206, 151207, 151208, 151209, 151210, 151283, 151284, 151285, 151286, 151287, 151288, 151289, 151290, 151291, 151292, 151293, 151296, 151297, 151299, 151300, 151301, 151302, 151303, 151304, 151332, 151333, 151334, 151335, 151339, 151341, 151342, 151345, 151349, 151350, 151351, 151364, 151368, 151379, 151380, 151381, 151382, 151383, 151384, 151393, 151458, 151459, 151687, 151688]
+2022-12-24 02:45:25,088 - INFO  [main:Log4jControllerRegistration$@24] - Registered kafka:type=kafka.Log4jController MBean
+2022-12-24 02:45:25,106 - INFO  [main:Environment@109] - Server environment:zookeeper.version=3.5.9-83df9301aa5c2a5d284a9940177808c01bc35cef, built on 01/06/2021 20:03 GMT
+2022-12-24 02:45:25,107 - INFO  [main:Environment@109] - Server environment:host.name=razor15
+2022-12-24 02:45:25,107 - INFO  [main:Environment@109] - Server environment:java.version=1.8.0_275
+2022-12-24 02:45:25,107 - INFO  [main:Environment@109] - Server environment:java.vendor=Private Build
+2022-12-24 02:45:25,107 - INFO  [main:Environment@109] - Server environment:java.home=/usr/lib/jvm/java-8-openjdk-amd64/jre
+2022-12-24 02:45:25,107 - INFO  [main:Environment@109] - Server environment:java.class.path=/home/tonypan/flaky-reproduction/evaluation/kafka-12508/junit-platform-console-standalone-1.7.0.jar:/home/tonypan/tmp/bytecode/kafka-12508/classes:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/java-atk-wrapper.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/management-agent.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jfr.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/unlimited/local_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/unlimited/US_export_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/limited/local_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/limited/US_export_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/jconsole.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/sa-jdi.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/dt.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.xml.bind-api-2.3.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-security-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/activation-1.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-container-servlet-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/javassist-3.27.0-GA.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-http-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/plexus-utils-3.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-util-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/reflections-0.9.12.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-servlet-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-container-servlet-core-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.ws.rs-api-2.1.6.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-server-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-media-jaxb-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-common-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/javax.servlet-api-3.1.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/aopalliance-repackaged-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-jaxrs-base-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-util-ajax-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jaxb-api-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-io-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.inject-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-continuation-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-client-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-hk2-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-client-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/hk2-locator-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-module-jaxb-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/commons-lang3-3.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.annotation-api-1.3.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/hk2-api-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.validation-api-2.0.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/osgi-resource-locator-1.0.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-jaxrs-json-provider-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-server-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-servlets-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.activation-api-1.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/hk2-utils-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/maven-artifact-3.6.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.xml.bind-api-2.3.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-security-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/activation-1.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-container-servlet-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/javassist-3.27.0-GA.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-http-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/plexus-utils-3.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-util-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/reflections-0.9.12.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-servlet-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-container-servlet-core-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.ws.rs-api-2.1.6.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-server-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-media-jaxb-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-common-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/javax.servlet-api-3.1.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/aopalliance-repackaged-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-jaxrs-base-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-util-ajax-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jaxb-api-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-io-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.inject-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-continuation-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-client-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-hk2-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-client-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/hk2-locator-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-module-jaxb-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/commons-lang3-3.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.annotation-api-1.3.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/hk2-api-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.validation-api-2.0.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/osgi-resource-locator-1.0.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-jaxrs-json-provider-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-server-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-servlets-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.activation-api-1.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/hk2-utils-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/maven-artifact-3.6.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/scala-library-2.13.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/scala-collection-compat_2.13-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.xml.bind-api-2.3.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-security-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/activation-1.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-container-servlet-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/javassist-3.27.0-GA.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-http-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-util-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-servlet-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-container-servlet-core-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.ws.rs-api-2.1.6.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-server-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-media-jaxb-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-common-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/javax.servlet-api-3.1.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/aopalliance-repackaged-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-jaxrs-base-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-util-ajax-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jaxb-api-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-io-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.inject-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-continuation-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-client-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-hk2-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/hk2-locator-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-module-jaxb-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.annotation-api-1.3.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/hk2-api-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.validation-api-2.0.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/osgi-resource-locator-1.0.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-jaxrs-json-provider-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-server-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-servlets-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.activation-api-1.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/hk2-utils-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-handler-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-reflect-2.13.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-common-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jopt-simple-5.0.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-library-2.13.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/commons-cli-1.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-module-scala_2.13-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/audience-annotations-0.5.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-module-paranamer-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-transport-native-epoll-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/zookeeper-3.5.9.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-transport-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-dataformat-csv-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/paranamer-2.8.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-codec-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-collection-compat_2.13-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/zookeeper-jute-3.5.9.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-buffer-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-java8-compat_2.13-0.9.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-logging_2.13-3.9.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-resolver-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-transport-native-unix-common-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/metrics-core-2.2.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/shell/build/dependant-libs-2.13.5/jline-3.12.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508:/home/tonypan/tmp/bytecode/kafka-12508/classes/runtime-1.0-jar-with-dependencies.jar
+2022-12-24 02:45:25,108 - INFO  [main:Environment@109] - Server environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2022-12-24 02:45:25,108 - INFO  [main:Environment@109] - Server environment:java.io.tmpdir=/tmp
+2022-12-24 02:45:25,108 - INFO  [main:Environment@109] - Server environment:java.compiler=<NA>
+2022-12-24 02:45:25,108 - INFO  [main:Environment@109] - Server environment:os.name=Linux
+2022-12-24 02:45:25,109 - INFO  [main:Environment@109] - Server environment:os.arch=amd64
+2022-12-24 02:45:25,109 - INFO  [main:Environment@109] - Server environment:os.version=4.15.0-128-generic
+2022-12-24 02:45:25,109 - INFO  [main:Environment@109] - Server environment:user.name=tonypan
+2022-12-24 02:45:25,109 - INFO  [main:Environment@109] - Server environment:user.home=/home/tonypan
+2022-12-24 02:45:25,109 - INFO  [main:Environment@109] - Server environment:user.dir=/home/tonypan/flaky-reproduction/evaluation/kafka-12508
+2022-12-24 02:45:25,110 - INFO  [main:Environment@109] - Server environment:os.memory.free=797MB
+2022-12-24 02:45:25,110 - INFO  [main:Environment@109] - Server environment:os.memory.max=7051MB
+2022-12-24 02:45:25,110 - INFO  [main:Environment@109] - Server environment:os.memory.total=1973MB
+2022-12-24 02:45:25,110 - INFO  [main:FileTxnSnapLog@115] - zookeeper.snapshot.trust.empty : false
+2022-12-24 02:45:25,121 - INFO  [main:ZKDatabase@117] - zookeeper.snapshotSizeFactor = 0.33
+2022-12-24 02:45:25,123 - INFO  [main:ZooKeeperServer@953] - minSessionTimeout set to 1600
+2022-12-24 02:45:25,124 - INFO  [main:ZooKeeperServer@962] - maxSessionTimeout set to 16000
+2022-12-24 02:45:25,124 - INFO  [main:ZooKeeperServer@181] - Created server with tickTime 800 minSessionTimeout 1600 maxSessionTimeout 16000 datadir /tmp/kafka-6208370633034168821/version-2 snapdir /tmp/kafka-5370173846862867204/version-2
+2022-12-24 02:45:25,129 - INFO  [main:NIOServerCnxnFactory@673] - Configuring NIO connection handler with 10s sessionless connection timeout, 3 selector thread(s), 40 worker threads, and 64 kB direct buffers.
+2022-12-24 02:45:25,134 - INFO  [main:NIOServerCnxnFactory@686] - binding to port /127.0.0.1:0
+2022-12-24 02:45:25,140 - INFO  [main:FileTxnSnapLog@404] - Snapshotting: 0x0 to /tmp/kafka-5370173846862867204/version-2/snapshot.0
+2022-12-24 02:45:25,142 - INFO  [main:FileTxnSnapLog@404] - Snapshotting: 0x0 to /tmp/kafka-5370173846862867204/version-2/snapshot.0
+2022-12-24 02:45:25,148 - INFO  [ProcessThread(sid:0 cport:34277)::PrepRequestProcessor@132] - PrepRequestProcessor (sid:0) started, reconfigEnabled=false
+2022-12-24 02:45:26,032 - INFO  [main:AbstractConfig@372] - KafkaConfig values: 
+	advertised.host.name = null
+	advertised.listeners = null
+	advertised.port = null
+	alter.config.policy.class.name = null
+	alter.log.dirs.replication.quota.window.num = 11
+	alter.log.dirs.replication.quota.window.size.seconds = 1
+	authorizer.class.name = 
+	auto.create.topics.enable = true
+	auto.leader.rebalance.enable = true
+	background.threads = 10
+	broker.heartbeat.interval.ms = 2000
+	broker.id = 0
+	broker.id.generation.enable = true
+	broker.rack = null
+	broker.session.timeout.ms = 9000
+	client.quota.callback.class = null
+	compression.type = producer
+	connection.failed.authentication.delay.ms = 100
+	connections.max.idle.ms = 600000
+	connections.max.reauth.ms = 0
+	control.plane.listener.name = null
+	controlled.shutdown.enable = true
+	controlled.shutdown.max.retries = 3
+	controlled.shutdown.retry.backoff.ms = 5000
+	controller.listener.names = null
+	controller.quorum.append.linger.ms = 25
+	controller.quorum.election.backoff.max.ms = 1000
+	controller.quorum.election.timeout.ms = 1000
+	controller.quorum.fetch.timeout.ms = 2000
+	controller.quorum.request.timeout.ms = 2000
+	controller.quorum.retry.backoff.ms = 20
+	controller.quorum.voters = []
+	controller.quota.window.num = 11
+	controller.quota.window.size.seconds = 1
+	controller.socket.timeout.ms = 30000
+	create.topic.policy.class.name = null
+	default.replication.factor = 1
+	delegation.token.expiry.check.interval.ms = 3600000
+	delegation.token.expiry.time.ms = 86400000
+	delegation.token.master.key = null
+	delegation.token.max.lifetime.ms = 604800000
+	delegation.token.secret.key = null
+	delete.records.purgatory.purge.interval.requests = 1
+	delete.topic.enable = true
+	fetch.max.bytes = 57671680
+	fetch.purgatory.purge.interval.requests = 1000
+	group.initial.rebalance.delay.ms = 0
+	group.max.session.timeout.ms = 1800000
+	group.max.size = 2147483647
+	group.min.session.timeout.ms = 0
+	host.name = localhost
+	initial.broker.registration.timeout.ms = 60000
+	inter.broker.listener.name = null
+	inter.broker.protocol.version = 2.8-IV1
+	kafka.metrics.polling.interval.secs = 10
+	kafka.metrics.reporters = []
+	leader.imbalance.check.interval.seconds = 300
+	leader.imbalance.per.broker.percentage = 10
+	listener.security.protocol.map = PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
+	listeners = null
+	log.cleaner.backoff.ms = 15000
+	log.cleaner.dedupe.buffer.size = 2097152
+	log.cleaner.delete.retention.ms = 86400000
+	log.cleaner.enable = true
+	log.cleaner.io.buffer.load.factor = 0.9
+	log.cleaner.io.buffer.size = 524288
+	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
+	log.cleaner.max.compaction.lag.ms = 9223372036854775807
+	log.cleaner.min.cleanable.ratio = 0.5
+	log.cleaner.min.compaction.lag.ms = 0
+	log.cleaner.threads = 1
+	log.cleanup.policy = [delete]
+	log.dir = /tmp/junit7191222426131627691/junit8388921035389885209
+	log.dirs = null
+	log.flush.interval.messages = 9223372036854775807
+	log.flush.interval.ms = null
+	log.flush.offset.checkpoint.interval.ms = 60000
+	log.flush.scheduler.interval.ms = 9223372036854775807
+	log.flush.start.offset.checkpoint.interval.ms = 60000
+	log.index.interval.bytes = 4096
+	log.index.size.max.bytes = 10485760
+	log.message.downconversion.enable = true
+	log.message.format.version = 2.8-IV1
+	log.message.timestamp.difference.max.ms = 9223372036854775807
+	log.message.timestamp.type = CreateTime
+	log.preallocate = false
+	log.retention.bytes = -1
+	log.retention.check.interval.ms = 300000
+	log.retention.hours = 168
+	log.retention.minutes = null
+	log.retention.ms = null
+	log.roll.hours = 168
+	log.roll.jitter.hours = 0
+	log.roll.jitter.ms = null
+	log.roll.ms = null
+	log.segment.bytes = 1073741824
+	log.segment.delete.delay.ms = 60000
+	max.connection.creation.rate = 2147483647
+	max.connections = 2147483647
+	max.connections.per.ip = 2147483647
+	max.connections.per.ip.overrides = 
+	max.incremental.fetch.session.cache.slots = 1000
+	message.max.bytes = 1000000
+	metadata.log.dir = null
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	min.insync.replicas = 1
+	node.id = -1
+	num.io.threads = 8
+	num.network.threads = 3
+	num.partitions = 1
+	num.recovery.threads.per.data.dir = 1
+	num.replica.alter.log.dirs.threads = null
+	num.replica.fetchers = 1
+	offset.metadata.max.bytes = 4096
+	offsets.commit.required.acks = -1
+	offsets.commit.timeout.ms = 5000
+	offsets.load.buffer.size = 5242880
+	offsets.retention.check.interval.ms = 600000
+	offsets.retention.minutes = 10080
+	offsets.topic.compression.codec = 0
+	offsets.topic.num.partitions = 5
+	offsets.topic.replication.factor = 1
+	offsets.topic.segment.bytes = 104857600
+	password.encoder.cipher.algorithm = AES/CBC/PKCS5Padding
+	password.encoder.iterations = 4096
+	password.encoder.key.length = 128
+	password.encoder.keyfactory.algorithm = null
+	password.encoder.old.secret = null
+	password.encoder.secret = null
+	port = 0
+	principal.builder.class = null
+	process.roles = []
+	producer.purgatory.purge.interval.requests = 1000
+	queued.max.request.bytes = -1
+	queued.max.requests = 500
+	quota.consumer.default = 9223372036854775807
+	quota.producer.default = 9223372036854775807
+	quota.window.num = 11
+	quota.window.size.seconds = 1
+	replica.fetch.backoff.ms = 1000
+	replica.fetch.max.bytes = 1048576
+	replica.fetch.min.bytes = 1
+	replica.fetch.response.max.bytes = 10485760
+	replica.fetch.wait.max.ms = 500
+	replica.high.watermark.checkpoint.interval.ms = 5000
+	replica.lag.time.max.ms = 30000
+	replica.selector.class = null
+	replica.socket.receive.buffer.bytes = 65536
+	replica.socket.timeout.ms = 30000
+	replication.quota.window.num = 11
+	replication.quota.window.size.seconds = 1
+	request.timeout.ms = 30000
+	reserved.broker.max.id = 1000
+	sasl.client.callback.handler.class = null
+	sasl.enabled.mechanisms = [GSSAPI]
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.principal.to.local.rules = [DEFAULT]
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism.controller.protocol = GSSAPI
+	sasl.mechanism.inter.broker.protocol = GSSAPI
+	sasl.server.callback.handler.class = null
+	security.inter.broker.protocol = PLAINTEXT
+	security.providers = null
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	socket.receive.buffer.bytes = 102400
+	socket.request.max.bytes = 104857600
+	socket.send.buffer.bytes = 102400
+	ssl.cipher.suites = []
+	ssl.client.auth = none
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.principal.mapping.rules = DEFAULT
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.abort.timed.out.transaction.cleanup.interval.ms = 10000
+	transaction.max.timeout.ms = 900000
+	transaction.remove.expired.transaction.cleanup.interval.ms = 3600000
+	transaction.state.log.load.buffer.size = 5242880
+	transaction.state.log.min.isr = 2
+	transaction.state.log.num.partitions = 5
+	transaction.state.log.replication.factor = 3
+	transaction.state.log.segment.bytes = 104857600
+	transactional.id.expiration.ms = 604800000
+	unclean.leader.election.enable = false
+	zookeeper.clientCnxnSocket = null
+	zookeeper.connect = 127.0.0.1:34277
+	zookeeper.connection.timeout.ms = null
+	zookeeper.max.in.flight.requests = 10
+	zookeeper.session.timeout.ms = 10000
+	zookeeper.set.acl = false
+	zookeeper.ssl.cipher.suites = null
+	zookeeper.ssl.client.enable = false
+	zookeeper.ssl.crl.enable = false
+	zookeeper.ssl.enabled.protocols = null
+	zookeeper.ssl.endpoint.identification.algorithm = HTTPS
+	zookeeper.ssl.keystore.location = null
+	zookeeper.ssl.keystore.password = null
+	zookeeper.ssl.keystore.type = null
+	zookeeper.ssl.ocsp.enable = false
+	zookeeper.ssl.protocol = TLSv1.2
+	zookeeper.ssl.truststore.location = null
+	zookeeper.ssl.truststore.password = null
+	zookeeper.ssl.truststore.type = null
+	zookeeper.sync.time.ms = 2000
+
+2022-12-24 02:45:26,042 - INFO  [main:X509Util@79] - Setting -D jdk.tls.rejectClientInitiatedRenegotiation=true to disable client-initiated TLS renegotiation
+2022-12-24 02:45:26,105 - INFO  [main:Logging@66] - starting
+2022-12-24 02:45:26,106 - INFO  [main:Logging@66] - Connecting to zookeeper on 127.0.0.1:34277
+2022-12-24 02:45:26,119 - INFO  [main:Logging@66] - [ZooKeeperClient Kafka server] Initializing a new session to 127.0.0.1:34277.
+2022-12-24 02:45:26,120 - INFO  [main:Environment@109] - Client environment:zookeeper.version=3.5.9-83df9301aa5c2a5d284a9940177808c01bc35cef, built on 01/06/2021 20:03 GMT
+2022-12-24 02:45:26,120 - INFO  [main:Environment@109] - Client environment:host.name=razor15
+2022-12-24 02:45:26,121 - INFO  [main:Environment@109] - Client environment:java.version=1.8.0_275
+2022-12-24 02:45:26,121 - INFO  [main:Environment@109] - Client environment:java.vendor=Private Build
+2022-12-24 02:45:26,121 - INFO  [main:Environment@109] - Client environment:java.home=/usr/lib/jvm/java-8-openjdk-amd64/jre
+2022-12-24 02:45:26,121 - INFO  [main:Environment@109] - Client environment:java.class.path=/home/tonypan/flaky-reproduction/evaluation/kafka-12508/junit-platform-console-standalone-1.7.0.jar:/home/tonypan/tmp/bytecode/kafka-12508/classes:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/java-atk-wrapper.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/management-agent.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jfr.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/unlimited/local_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/unlimited/US_export_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/limited/local_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/policy/limited/US_export_policy.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/jconsole.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/sa-jdi.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/dt.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/api/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.xml.bind-api-2.3.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-security-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/activation-1.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-container-servlet-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/javassist-3.27.0-GA.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-http-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/plexus-utils-3.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-util-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/reflections-0.9.12.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-servlet-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-container-servlet-core-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.ws.rs-api-2.1.6.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-server-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-media-jaxb-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-common-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/javax.servlet-api-3.1.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/aopalliance-repackaged-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-jaxrs-base-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-util-ajax-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jaxb-api-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-io-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.inject-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-continuation-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-client-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jersey-hk2-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-client-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/hk2-locator-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-module-jaxb-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/commons-lang3-3.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.annotation-api-1.3.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/hk2-api-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.validation-api-2.0.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/osgi-resource-locator-1.0.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jackson-jaxrs-json-provider-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-server-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jetty-servlets-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/jakarta.activation-api-1.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/hk2-utils-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/runtime/build/dependant-libs/maven-artifact-3.6.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror-client/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.xml.bind-api-2.3.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-security-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/activation-1.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-container-servlet-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/javassist-3.27.0-GA.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-http-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/plexus-utils-3.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-util-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/reflections-0.9.12.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-servlet-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-container-servlet-core-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.ws.rs-api-2.1.6.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-server-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-media-jaxb-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-common-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/javax.servlet-api-3.1.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/aopalliance-repackaged-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-jaxrs-base-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-util-ajax-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jaxb-api-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-io-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.inject-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-continuation-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-client-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jersey-hk2-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-client-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/hk2-locator-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-module-jaxb-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/commons-lang3-3.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.annotation-api-1.3.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/hk2-api-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.validation-api-2.0.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/osgi-resource-locator-1.0.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jackson-jaxrs-json-provider-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-server-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jetty-servlets-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/jakarta.activation-api-1.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/hk2-utils-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/mirror/build/dependant-libs/maven-artifact-3.6.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/file/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/transforms/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/json/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/connect/basic-auth-extension/build/dependant-libs/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/javax.ws.rs-api-2.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/examples/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/scala-library-2.13.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/scala-collection-compat_2.13-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/streams-scala/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/test-utils/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/rocksdbjni-5.18.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/streams/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.xml.bind-api-2.3.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-security-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/activation-1.1.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-container-servlet-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/javassist-3.27.0-GA.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-http-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-util-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-servlet-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-container-servlet-core-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.ws.rs-api-2.1.6.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-server-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-media-jaxb-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-common-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/javax.servlet-api-3.1.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/aopalliance-repackaged-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-jaxrs-base-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-util-ajax-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jaxb-api-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-io-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.inject-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-continuation-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-client-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jersey-hk2-2.31.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/hk2-locator-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-module-jaxb-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.annotation-api-1.3.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/hk2-api-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.validation-api-2.0.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/osgi-resource-locator-1.0.3.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jackson-jaxrs-json-provider-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-server-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jetty-servlets-9.4.38.v20210224.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/jakarta.activation-api-1.2.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/tools/build/dependant-libs-2.13.5/hk2-utils-2.6.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-handler-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-annotations-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-reflect-2.13.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-common-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jopt-simple-5.0.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-library-2.13.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/commons-cli-1.4.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/lz4-java-1.7.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-module-scala_2.13-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-databind-2.10.5.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/audience-annotations-0.5.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-module-paranamer-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-transport-native-epoll-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/zookeeper-3.5.9.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-transport-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-core-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-dataformat-csv-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/argparse4j-0.7.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/jackson-datatype-jdk8-2.10.5.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/paranamer-2.8.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-codec-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-collection-compat_2.13-2.3.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/zookeeper-jute-3.5.9.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/snappy-java-1.1.8.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/zstd-jni-1.4.9-1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-buffer-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-java8-compat_2.13-0.9.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/scala-logging_2.13-3.9.2.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/log4j-1.2.17.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/slf4j-api-1.7.30.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-resolver-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/netty-transport-native-unix-common-4.1.59.Final.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/core/build/dependant-libs-2.13.5/metrics-core-2.2.0.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508/../../systems/kafka-12508/shell/build/dependant-libs-2.13.5/jline-3.12.1.jar:/home/tonypan/flaky-reproduction/evaluation/kafka-12508:/home/tonypan/tmp/bytecode/kafka-12508/classes/runtime-1.0-jar-with-dependencies.jar
+2022-12-24 02:45:26,121 - INFO  [main:Environment@109] - Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2022-12-24 02:45:26,121 - INFO  [main:Environment@109] - Client environment:java.io.tmpdir=/tmp
+2022-12-24 02:45:26,121 - INFO  [main:Environment@109] - Client environment:java.compiler=<NA>
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:os.name=Linux
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:os.arch=amd64
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:os.version=4.15.0-128-generic
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:user.name=tonypan
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:user.home=/home/tonypan
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:user.dir=/home/tonypan/flaky-reproduction/evaluation/kafka-12508
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:os.memory.free=1601MB
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:os.memory.max=7051MB
+2022-12-24 02:45:26,122 - INFO  [main:Environment@109] - Client environment:os.memory.total=2193MB
+2022-12-24 02:45:26,125 - INFO  [main:ZooKeeper@868] - Initiating client connection, connectString=127.0.0.1:34277 sessionTimeout=10000 watcher=kafka.zookeeper.ZooKeeperClient$ZooKeeperClientWatcher$@6692b6c6
+2022-12-24 02:45:26,127 - INFO  [main:ClientCnxnSocket@237] - jute.maxbuffer value is 4194304 Bytes
+2022-12-24 02:45:26,131 - INFO  [main:ClientCnxn@1653] - zookeeper.request.timeout value is 0. feature enabled=
+2022-12-24 02:45:26,132 - INFO  [main:Logging@66] - [ZooKeeperClient Kafka server] Waiting until connected.
+2022-12-24 02:45:26,136 - INFO  [main-SendThread(127.0.0.1:34277):ClientCnxn$SendThread@1112] - Opening socket connection to server localhost/127.0.0.1:34277. Will not attempt to authenticate using SASL (unknown error)
+2022-12-24 02:45:26,137 - INFO  [main-SendThread(127.0.0.1:34277):ClientCnxn$SendThread@959] - Socket connection established, initiating session, client: /127.0.0.1:51306, server: localhost/127.0.0.1:34277
+2022-12-24 02:45:26,146 - INFO  [SyncThread:0:FileTxnLog@218] - Creating new log file: log.1
+2022-12-24 02:45:26,152 - INFO  [main-SendThread(127.0.0.1:34277):ClientCnxn$SendThread@1394] - Session establishment complete on server localhost/127.0.0.1:34277, sessionid = 0x1041a5e0d060000, negotiated timeout = 10000
+2022-12-24 02:45:26,154 - INFO  [main:Logging@66] - [ZooKeeperClient Kafka server] Connected.
+2022-12-24 02:45:26,211 - INFO  [feature-zk-node-event-process-thread:Logging@66] - [feature-zk-node-event-process-thread]: Starting
+2022-12-24 02:45:26,221 - INFO  [feature-zk-node-event-process-thread:Logging@66] - Feature ZK node at path: /feature does not exist
+2022-12-24 02:45:26,222 - INFO  [feature-zk-node-event-process-thread:Logging@66] - Cleared cache
+2022-12-24 02:45:26,294 - INFO  [main:Logging@66] - Cluster ID = Iqck0klPQx-Qf9rH9aJueg
+2022-12-24 02:45:26,297 - WARN  [main:Logging@70] - No meta.properties file under dir /tmp/junit7191222426131627691/junit8388921035389885209/meta.properties
+2022-12-24 02:45:26,336 - INFO  [main:AbstractConfig@372] - KafkaConfig values: 
+	advertised.host.name = null
+	advertised.listeners = null
+	advertised.port = null
+	alter.config.policy.class.name = null
+	alter.log.dirs.replication.quota.window.num = 11
+	alter.log.dirs.replication.quota.window.size.seconds = 1
+	authorizer.class.name = 
+	auto.create.topics.enable = true
+	auto.leader.rebalance.enable = true
+	background.threads = 10
+	broker.heartbeat.interval.ms = 2000
+	broker.id = 0
+	broker.id.generation.enable = true
+	broker.rack = null
+	broker.session.timeout.ms = 9000
+	client.quota.callback.class = null
+	compression.type = producer
+	connection.failed.authentication.delay.ms = 100
+	connections.max.idle.ms = 600000
+	connections.max.reauth.ms = 0
+	control.plane.listener.name = null
+	controlled.shutdown.enable = true
+	controlled.shutdown.max.retries = 3
+	controlled.shutdown.retry.backoff.ms = 5000
+	controller.listener.names = null
+	controller.quorum.append.linger.ms = 25
+	controller.quorum.election.backoff.max.ms = 1000
+	controller.quorum.election.timeout.ms = 1000
+	controller.quorum.fetch.timeout.ms = 2000
+	controller.quorum.request.timeout.ms = 2000
+	controller.quorum.retry.backoff.ms = 20
+	controller.quorum.voters = []
+	controller.quota.window.num = 11
+	controller.quota.window.size.seconds = 1
+	controller.socket.timeout.ms = 30000
+	create.topic.policy.class.name = null
+	default.replication.factor = 1
+	delegation.token.expiry.check.interval.ms = 3600000
+	delegation.token.expiry.time.ms = 86400000
+	delegation.token.master.key = null
+	delegation.token.max.lifetime.ms = 604800000
+	delegation.token.secret.key = null
+	delete.records.purgatory.purge.interval.requests = 1
+	delete.topic.enable = true
+	fetch.max.bytes = 57671680
+	fetch.purgatory.purge.interval.requests = 1000
+	group.initial.rebalance.delay.ms = 0
+	group.max.session.timeout.ms = 1800000
+	group.max.size = 2147483647
+	group.min.session.timeout.ms = 0
+	host.name = localhost
+	initial.broker.registration.timeout.ms = 60000
+	inter.broker.listener.name = null
+	inter.broker.protocol.version = 2.8-IV1
+	kafka.metrics.polling.interval.secs = 10
+	kafka.metrics.reporters = []
+	leader.imbalance.check.interval.seconds = 300
+	leader.imbalance.per.broker.percentage = 10
+	listener.security.protocol.map = PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
+	listeners = null
+	log.cleaner.backoff.ms = 15000
+	log.cleaner.dedupe.buffer.size = 2097152
+	log.cleaner.delete.retention.ms = 86400000
+	log.cleaner.enable = true
+	log.cleaner.io.buffer.load.factor = 0.9
+	log.cleaner.io.buffer.size = 524288
+	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
+	log.cleaner.max.compaction.lag.ms = 9223372036854775807
+	log.cleaner.min.cleanable.ratio = 0.5
+	log.cleaner.min.compaction.lag.ms = 0
+	log.cleaner.threads = 1
+	log.cleanup.policy = [delete]
+	log.dir = /tmp/junit7191222426131627691/junit8388921035389885209
+	log.dirs = null
+	log.flush.interval.messages = 9223372036854775807
+	log.flush.interval.ms = null
+	log.flush.offset.checkpoint.interval.ms = 60000
+	log.flush.scheduler.interval.ms = 9223372036854775807
+	log.flush.start.offset.checkpoint.interval.ms = 60000
+	log.index.interval.bytes = 4096
+	log.index.size.max.bytes = 10485760
+	log.message.downconversion.enable = true
+	log.message.format.version = 2.8-IV1
+	log.message.timestamp.difference.max.ms = 9223372036854775807
+	log.message.timestamp.type = CreateTime
+	log.preallocate = false
+	log.retention.bytes = -1
+	log.retention.check.interval.ms = 300000
+	log.retention.hours = 168
+	log.retention.minutes = null
+	log.retention.ms = null
+	log.roll.hours = 168
+	log.roll.jitter.hours = 0
+	log.roll.jitter.ms = null
+	log.roll.ms = null
+	log.segment.bytes = 1073741824
+	log.segment.delete.delay.ms = 60000
+	max.connection.creation.rate = 2147483647
+	max.connections = 2147483647
+	max.connections.per.ip = 2147483647
+	max.connections.per.ip.overrides = 
+	max.incremental.fetch.session.cache.slots = 1000
+	message.max.bytes = 1000000
+	metadata.log.dir = null
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	min.insync.replicas = 1
+	node.id = -1
+	num.io.threads = 8
+	num.network.threads = 3
+	num.partitions = 1
+	num.recovery.threads.per.data.dir = 1
+	num.replica.alter.log.dirs.threads = null
+	num.replica.fetchers = 1
+	offset.metadata.max.bytes = 4096
+	offsets.commit.required.acks = -1
+	offsets.commit.timeout.ms = 5000
+	offsets.load.buffer.size = 5242880
+	offsets.retention.check.interval.ms = 600000
+	offsets.retention.minutes = 10080
+	offsets.topic.compression.codec = 0
+	offsets.topic.num.partitions = 5
+	offsets.topic.replication.factor = 1
+	offsets.topic.segment.bytes = 104857600
+	password.encoder.cipher.algorithm = AES/CBC/PKCS5Padding
+	password.encoder.iterations = 4096
+	password.encoder.key.length = 128
+	password.encoder.keyfactory.algorithm = null
+	password.encoder.old.secret = null
+	password.encoder.secret = null
+	port = 0
+	principal.builder.class = null
+	process.roles = []
+	producer.purgatory.purge.interval.requests = 1000
+	queued.max.request.bytes = -1
+	queued.max.requests = 500
+	quota.consumer.default = 9223372036854775807
+	quota.producer.default = 9223372036854775807
+	quota.window.num = 11
+	quota.window.size.seconds = 1
+	replica.fetch.backoff.ms = 1000
+	replica.fetch.max.bytes = 1048576
+	replica.fetch.min.bytes = 1
+	replica.fetch.response.max.bytes = 10485760
+	replica.fetch.wait.max.ms = 500
+	replica.high.watermark.checkpoint.interval.ms = 5000
+	replica.lag.time.max.ms = 30000
+	replica.selector.class = null
+	replica.socket.receive.buffer.bytes = 65536
+	replica.socket.timeout.ms = 30000
+	replication.quota.window.num = 11
+	replication.quota.window.size.seconds = 1
+	request.timeout.ms = 30000
+	reserved.broker.max.id = 1000
+	sasl.client.callback.handler.class = null
+	sasl.enabled.mechanisms = [GSSAPI]
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.principal.to.local.rules = [DEFAULT]
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism.controller.protocol = GSSAPI
+	sasl.mechanism.inter.broker.protocol = GSSAPI
+	sasl.server.callback.handler.class = null
+	security.inter.broker.protocol = PLAINTEXT
+	security.providers = null
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	socket.receive.buffer.bytes = 102400
+	socket.request.max.bytes = 104857600
+	socket.send.buffer.bytes = 102400
+	ssl.cipher.suites = []
+	ssl.client.auth = none
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.principal.mapping.rules = DEFAULT
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.abort.timed.out.transaction.cleanup.interval.ms = 10000
+	transaction.max.timeout.ms = 900000
+	transaction.remove.expired.transaction.cleanup.interval.ms = 3600000
+	transaction.state.log.load.buffer.size = 5242880
+	transaction.state.log.min.isr = 2
+	transaction.state.log.num.partitions = 5
+	transaction.state.log.replication.factor = 3
+	transaction.state.log.segment.bytes = 104857600
+	transactional.id.expiration.ms = 604800000
+	unclean.leader.election.enable = false
+	zookeeper.clientCnxnSocket = null
+	zookeeper.connect = 127.0.0.1:34277
+	zookeeper.connection.timeout.ms = null
+	zookeeper.max.in.flight.requests = 10
+	zookeeper.session.timeout.ms = 10000
+	zookeeper.set.acl = false
+	zookeeper.ssl.cipher.suites = null
+	zookeeper.ssl.client.enable = false
+	zookeeper.ssl.crl.enable = false
+	zookeeper.ssl.enabled.protocols = null
+	zookeeper.ssl.endpoint.identification.algorithm = HTTPS
+	zookeeper.ssl.keystore.location = null
+	zookeeper.ssl.keystore.password = null
+	zookeeper.ssl.keystore.type = null
+	zookeeper.ssl.ocsp.enable = false
+	zookeeper.ssl.protocol = TLSv1.2
+	zookeeper.ssl.truststore.location = null
+	zookeeper.ssl.truststore.password = null
+	zookeeper.ssl.truststore.type = null
+	zookeeper.sync.time.ms = 2000
+
+2022-12-24 02:45:26,346 - INFO  [main:AbstractConfig@372] - KafkaConfig values: 
+	advertised.host.name = null
+	advertised.listeners = null
+	advertised.port = null
+	alter.config.policy.class.name = null
+	alter.log.dirs.replication.quota.window.num = 11
+	alter.log.dirs.replication.quota.window.size.seconds = 1
+	authorizer.class.name = 
+	auto.create.topics.enable = true
+	auto.leader.rebalance.enable = true
+	background.threads = 10
+	broker.heartbeat.interval.ms = 2000
+	broker.id = 0
+	broker.id.generation.enable = true
+	broker.rack = null
+	broker.session.timeout.ms = 9000
+	client.quota.callback.class = null
+	compression.type = producer
+	connection.failed.authentication.delay.ms = 100
+	connections.max.idle.ms = 600000
+	connections.max.reauth.ms = 0
+	control.plane.listener.name = null
+	controlled.shutdown.enable = true
+	controlled.shutdown.max.retries = 3
+	controlled.shutdown.retry.backoff.ms = 5000
+	controller.listener.names = null
+	controller.quorum.append.linger.ms = 25
+	controller.quorum.election.backoff.max.ms = 1000
+	controller.quorum.election.timeout.ms = 1000
+	controller.quorum.fetch.timeout.ms = 2000
+	controller.quorum.request.timeout.ms = 2000
+	controller.quorum.retry.backoff.ms = 20
+	controller.quorum.voters = []
+	controller.quota.window.num = 11
+	controller.quota.window.size.seconds = 1
+	controller.socket.timeout.ms = 30000
+	create.topic.policy.class.name = null
+	default.replication.factor = 1
+	delegation.token.expiry.check.interval.ms = 3600000
+	delegation.token.expiry.time.ms = 86400000
+	delegation.token.master.key = null
+	delegation.token.max.lifetime.ms = 604800000
+	delegation.token.secret.key = null
+	delete.records.purgatory.purge.interval.requests = 1
+	delete.topic.enable = true
+	fetch.max.bytes = 57671680
+	fetch.purgatory.purge.interval.requests = 1000
+	group.initial.rebalance.delay.ms = 0
+	group.max.session.timeout.ms = 1800000
+	group.max.size = 2147483647
+	group.min.session.timeout.ms = 0
+	host.name = localhost
+	initial.broker.registration.timeout.ms = 60000
+	inter.broker.listener.name = null
+	inter.broker.protocol.version = 2.8-IV1
+	kafka.metrics.polling.interval.secs = 10
+	kafka.metrics.reporters = []
+	leader.imbalance.check.interval.seconds = 300
+	leader.imbalance.per.broker.percentage = 10
+	listener.security.protocol.map = PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
+	listeners = null
+	log.cleaner.backoff.ms = 15000
+	log.cleaner.dedupe.buffer.size = 2097152
+	log.cleaner.delete.retention.ms = 86400000
+	log.cleaner.enable = true
+	log.cleaner.io.buffer.load.factor = 0.9
+	log.cleaner.io.buffer.size = 524288
+	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
+	log.cleaner.max.compaction.lag.ms = 9223372036854775807
+	log.cleaner.min.cleanable.ratio = 0.5
+	log.cleaner.min.compaction.lag.ms = 0
+	log.cleaner.threads = 1
+	log.cleanup.policy = [delete]
+	log.dir = /tmp/junit7191222426131627691/junit8388921035389885209
+	log.dirs = null
+	log.flush.interval.messages = 9223372036854775807
+	log.flush.interval.ms = null
+	log.flush.offset.checkpoint.interval.ms = 60000
+	log.flush.scheduler.interval.ms = 9223372036854775807
+	log.flush.start.offset.checkpoint.interval.ms = 60000
+	log.index.interval.bytes = 4096
+	log.index.size.max.bytes = 10485760
+	log.message.downconversion.enable = true
+	log.message.format.version = 2.8-IV1
+	log.message.timestamp.difference.max.ms = 9223372036854775807
+	log.message.timestamp.type = CreateTime
+	log.preallocate = false
+	log.retention.bytes = -1
+	log.retention.check.interval.ms = 300000
+	log.retention.hours = 168
+	log.retention.minutes = null
+	log.retention.ms = null
+	log.roll.hours = 168
+	log.roll.jitter.hours = 0
+	log.roll.jitter.ms = null
+	log.roll.ms = null
+	log.segment.bytes = 1073741824
+	log.segment.delete.delay.ms = 60000
+	max.connection.creation.rate = 2147483647
+	max.connections = 2147483647
+	max.connections.per.ip = 2147483647
+	max.connections.per.ip.overrides = 
+	max.incremental.fetch.session.cache.slots = 1000
+	message.max.bytes = 1000000
+	metadata.log.dir = null
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	min.insync.replicas = 1
+	node.id = -1
+	num.io.threads = 8
+	num.network.threads = 3
+	num.partitions = 1
+	num.recovery.threads.per.data.dir = 1
+	num.replica.alter.log.dirs.threads = null
+	num.replica.fetchers = 1
+	offset.metadata.max.bytes = 4096
+	offsets.commit.required.acks = -1
+	offsets.commit.timeout.ms = 5000
+	offsets.load.buffer.size = 5242880
+	offsets.retention.check.interval.ms = 600000
+	offsets.retention.minutes = 10080
+	offsets.topic.compression.codec = 0
+	offsets.topic.num.partitions = 5
+	offsets.topic.replication.factor = 1
+	offsets.topic.segment.bytes = 104857600
+	password.encoder.cipher.algorithm = AES/CBC/PKCS5Padding
+	password.encoder.iterations = 4096
+	password.encoder.key.length = 128
+	password.encoder.keyfactory.algorithm = null
+	password.encoder.old.secret = null
+	password.encoder.secret = null
+	port = 0
+	principal.builder.class = null
+	process.roles = []
+	producer.purgatory.purge.interval.requests = 1000
+	queued.max.request.bytes = -1
+	queued.max.requests = 500
+	quota.consumer.default = 9223372036854775807
+	quota.producer.default = 9223372036854775807
+	quota.window.num = 11
+	quota.window.size.seconds = 1
+	replica.fetch.backoff.ms = 1000
+	replica.fetch.max.bytes = 1048576
+	replica.fetch.min.bytes = 1
+	replica.fetch.response.max.bytes = 10485760
+	replica.fetch.wait.max.ms = 500
+	replica.high.watermark.checkpoint.interval.ms = 5000
+	replica.lag.time.max.ms = 30000
+	replica.selector.class = null
+	replica.socket.receive.buffer.bytes = 65536
+	replica.socket.timeout.ms = 30000
+	replication.quota.window.num = 11
+	replication.quota.window.size.seconds = 1
+	request.timeout.ms = 30000
+	reserved.broker.max.id = 1000
+	sasl.client.callback.handler.class = null
+	sasl.enabled.mechanisms = [GSSAPI]
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.principal.to.local.rules = [DEFAULT]
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism.controller.protocol = GSSAPI
+	sasl.mechanism.inter.broker.protocol = GSSAPI
+	sasl.server.callback.handler.class = null
+	security.inter.broker.protocol = PLAINTEXT
+	security.providers = null
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	socket.receive.buffer.bytes = 102400
+	socket.request.max.bytes = 104857600
+	socket.send.buffer.bytes = 102400
+	ssl.cipher.suites = []
+	ssl.client.auth = none
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.principal.mapping.rules = DEFAULT
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.abort.timed.out.transaction.cleanup.interval.ms = 10000
+	transaction.max.timeout.ms = 900000
+	transaction.remove.expired.transaction.cleanup.interval.ms = 3600000
+	transaction.state.log.load.buffer.size = 5242880
+	transaction.state.log.min.isr = 2
+	transaction.state.log.num.partitions = 5
+	transaction.state.log.replication.factor = 3
+	transaction.state.log.segment.bytes = 104857600
+	transactional.id.expiration.ms = 604800000
+	unclean.leader.election.enable = false
+	zookeeper.clientCnxnSocket = null
+	zookeeper.connect = 127.0.0.1:34277
+	zookeeper.connection.timeout.ms = null
+	zookeeper.max.in.flight.requests = 10
+	zookeeper.session.timeout.ms = 10000
+	zookeeper.set.acl = false
+	zookeeper.ssl.cipher.suites = null
+	zookeeper.ssl.client.enable = false
+	zookeeper.ssl.crl.enable = false
+	zookeeper.ssl.enabled.protocols = null
+	zookeeper.ssl.endpoint.identification.algorithm = HTTPS
+	zookeeper.ssl.keystore.location = null
+	zookeeper.ssl.keystore.password = null
+	zookeeper.ssl.keystore.type = null
+	zookeeper.ssl.ocsp.enable = false
+	zookeeper.ssl.protocol = TLSv1.2
+	zookeeper.ssl.truststore.location = null
+	zookeeper.ssl.truststore.password = null
+	zookeeper.ssl.truststore.type = null
+	zookeeper.sync.time.ms = 2000
+
+2022-12-24 02:45:26,368 - INFO  [ThrottledChannelReaper-Fetch:Logging@66] - [ThrottledChannelReaper-Fetch]: Starting
+2022-12-24 02:45:26,369 - INFO  [ThrottledChannelReaper-Produce:Logging@66] - [ThrottledChannelReaper-Produce]: Starting
+2022-12-24 02:45:26,370 - INFO  [ThrottledChannelReaper-Request:Logging@66] - [ThrottledChannelReaper-Request]: Starting
+2022-12-24 02:45:26,371 - INFO  [ThrottledChannelReaper-ControllerMutation:Logging@66] - [ThrottledChannelReaper-ControllerMutation]: Starting
+2022-12-24 02:45:26,390 - INFO  [main:Logging@66] - Loading logs from log dirs ArraySeq(/tmp/junit7191222426131627691/junit8388921035389885209)
+2022-12-24 02:45:26,391 - INFO  [main:Logging@66] - Attempting recovery for all logs in /tmp/junit7191222426131627691/junit8388921035389885209 since no clean shutdown file was found
+2022-12-24 02:45:26,395 - INFO  [main:Logging@66] - Loaded 0 logs in 0ms.
+2022-12-24 02:45:26,396 - INFO  [main:Logging@66] - Starting log cleanup with a period of 300000 ms.
+2022-12-24 02:45:26,398 - INFO  [main:Logging@66] - Starting log flusher with a default period of 9223372036854775807 ms.
+2022-12-24 02:45:26,588 - INFO  [main:Logging@66] - Updated connection-accept-rate max connection creation rate to 2147483647
+2022-12-24 02:45:26,590 - INFO  [main:Logging@66] - Awaiting socket connections on localhost:33569.
+2022-12-24 02:45:26,615 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Created data-plane acceptor and processors for endpoint : ListenerName(PLAINTEXT)
+2022-12-24 02:45:26,625 - INFO  [BrokerToControllerChannelManager broker=0 name=alterIsr:Logging@66] - [BrokerToControllerChannelManager broker=0 name=alterIsr]: Starting
+2022-12-24 02:45:26,635 - INFO  [ExpirationReaper-0-Produce:Logging@66] - [ExpirationReaper-0-Produce]: Starting
+2022-12-24 02:45:26,635 - INFO  [ExpirationReaper-0-Fetch:Logging@66] - [ExpirationReaper-0-Fetch]: Starting
+2022-12-24 02:45:26,636 - INFO  [ExpirationReaper-0-DeleteRecords:Logging@66] - [ExpirationReaper-0-DeleteRecords]: Starting
+2022-12-24 02:45:26,636 - INFO  [ExpirationReaper-0-ElectLeader:Logging@66] - [ExpirationReaper-0-ElectLeader]: Starting
+2022-12-24 02:45:26,643 - INFO  [LogDirFailureHandler:Logging@66] - [LogDirFailureHandler]: Starting
+2022-12-24 02:45:26,671 - INFO  [main:Logging@66] - Creating /brokers/ids/0 (is it secure? false)
+2022-12-24 02:45:27,227 - INFO  [main:Logging@66] - Stat of the created znode at /brokers/ids/0 is: 25,25,1671867927222,1671867927222,1,0,0,73212485192515584,204,0,25
+
+2022-12-24 02:45:27,228 - INFO  [main:Logging@66] - Registered broker 0 at path /brokers/ids/0 with addresses: PLAINTEXT://localhost:33569, czxid (broker epoch): 25
+2022-12-24 02:45:27,259 - INFO  [ExpirationReaper-0-topic:Logging@66] - [ExpirationReaper-0-topic]: Starting
+2022-12-24 02:45:27,262 - INFO  [ExpirationReaper-0-Heartbeat:Logging@66] - [ExpirationReaper-0-Heartbeat]: Starting
+2022-12-24 02:45:27,262 - INFO  [ExpirationReaper-0-Rebalance:Logging@66] - [ExpirationReaper-0-Rebalance]: Starting
+2022-12-24 02:45:27,266 - INFO  [controller-event-thread:Logging@66] - Successfully created /controller_epoch with initial epoch 0
+2022-12-24 02:45:27,271 - INFO  [main:Logging@66] - [GroupCoordinator 0]: Starting up.
+2022-12-24 02:45:27,274 - INFO  [main:Logging@66] - [GroupCoordinator 0]: Startup complete.
+2022-12-24 02:45:27,276 - INFO  [main-EventThread:Logging@66] - Feature ZK node created at path: /feature
+2022-12-24 02:45:27,290 - INFO  [main:Logging@66] - [ProducerId Manager 0]: Acquired new producerId block (brokerId:0,blockStartProducerId:0,blockEndProducerId:999) by writing to Zk with path version 1
+2022-12-24 02:45:27,291 - INFO  [main:Logging@66] - [TransactionCoordinator id=0] Starting up.
+2022-12-24 02:45:27,294 - INFO  [TxnMarkerSenderThread-0:Logging@66] - [Transaction Marker Channel Manager 0]: Starting
+2022-12-24 02:45:27,294 - INFO  [main:Logging@66] - [TransactionCoordinator id=0] Startup complete.
+2022-12-24 02:45:27,300 - INFO  [feature-zk-node-event-process-thread:Logging@66] - Updated cache from existing <empty> to latest FinalizedFeaturesAndEpoch(features=Features{}, epoch=0).
+2022-12-24 02:45:27,304 - INFO  [ExpirationReaper-0-AlterAcls:Logging@66] - [ExpirationReaper-0-AlterAcls]: Starting
+2022-12-24 02:45:27,316 - INFO  [/config/changes-event-process-thread:Logging@66] - [/config/changes-event-process-thread]: Starting
+2022-12-24 02:45:27,322 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Starting socket server acceptors and processors
+2022-12-24 02:45:27,328 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Started data-plane acceptor and processor(s) for endpoint : ListenerName(PLAINTEXT)
+2022-12-24 02:45:27,329 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Started socket server acceptors and processors
+2022-12-24 02:45:27,330 - WARN  [main:AppInfoParser@46] - Error while loading kafka-version.properties: null
+2022-12-24 02:45:27,331 - INFO  [main:AppInfoParser$AppInfo@119] - Kafka version: unknown
+2022-12-24 02:45:27,331 - INFO  [main:AppInfoParser$AppInfo@120] - Kafka commitId: unknown
+2022-12-24 02:45:27,331 - INFO  [main:AppInfoParser$AppInfo@121] - Kafka startTimeMs: 1671867925014
+2022-12-24 02:45:27,332 - INFO  [main:Logging@66] - [KafkaServer id=0] started
+2022-12-24 02:45:27,347 - INFO  [main:AbstractConfig@372] - AdminClientConfig values: 
+	bootstrap.servers = [localhost:33569]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2022-12-24 02:45:27,357 - INFO  [main:AppInfoParser$AppInfo@119] - Kafka version: unknown
+2022-12-24 02:45:27,357 - INFO  [main:AppInfoParser$AppInfo@120] - Kafka commitId: unknown
+2022-12-24 02:45:27,357 - INFO  [main:AppInfoParser$AppInfo@121] - Kafka startTimeMs: 1671867927357
+2022-12-24 02:45:27,418 - INFO  [BrokerToControllerChannelManager broker=0 name=alterIsr:Logging@66] - [BrokerToControllerChannelManager broker=0 name=alterIsr]: Recorded new controller, from now on will use broker localhost:33569 (id: 0 rack: null)
+2022-12-24 02:45:27,424 - INFO  [data-plane-kafka-request-handler-4:Logging@66] - Creating topic inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover with configuration {} and initial partition assignment HashMap(0 -> ArrayBuffer(0))
+2022-12-24 02:45:27,484 - INFO  [data-plane-kafka-request-handler-5:Logging@66] - [ReplicaFetcherManager on broker 0] Removed fetcher for partitions Set(inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0)
+2022-12-24 02:45:27,521 - INFO  [data-plane-kafka-request-handler-5:Logging@66] - [Log partition=inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0, dir=/tmp/junit7191222426131627691/junit8388921035389885209] Loading producer state till offset 0 with message format version 2
+2022-12-24 02:45:27,528 - INFO  [data-plane-kafka-request-handler-5:Logging@66] - Created log for partition inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 in /tmp/junit7191222426131627691/junit8388921035389885209/inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 with properties {compression.type -> producer, message.downconversion.enable -> true, min.insync.replicas -> 1, segment.jitter.ms -> 0, cleanup.policy -> [delete], flush.ms -> 9223372036854775807, segment.bytes -> 1073741824, retention.ms -> 604800000, flush.messages -> 9223372036854775807, message.format.version -> 2.8-IV1, file.delete.delay.ms -> 60000, max.compaction.lag.ms -> 9223372036854775807, max.message.bytes -> 1000000, min.compaction.lag.ms -> 0, message.timestamp.type -> CreateTime, preallocate -> false, min.cleanable.dirty.ratio -> 0.5, index.interval.bytes -> 4096, unclean.leader.election.enable -> false, retention.bytes -> -1, delete.retention.ms -> 86400000, segment.ms -> 604800000, message.timestamp.difference.max.ms -> 9223372036854775807, segment.index.bytes -> 10485760}.
+2022-12-24 02:45:27,529 - INFO  [data-plane-kafka-request-handler-5:Logging@66] - [Partition inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 broker=0] No checkpointed highwatermark is found for partition inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0
+2022-12-24 02:45:27,529 - INFO  [data-plane-kafka-request-handler-5:Logging@66] - [Partition inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 broker=0] Log loaded for partition inputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 with initial high watermark 0
+2022-12-24 02:45:27,557 - INFO  [kafka-admin-client-thread | adminclient-1:AppInfoParser@83] - App info kafka.admin.client for adminclient-1 unregistered
+2022-12-24 02:45:27,559 - INFO  [kafka-admin-client-thread | adminclient-1:Metrics@659] - Metrics scheduler closed
+2022-12-24 02:45:27,560 - INFO  [kafka-admin-client-thread | adminclient-1:Metrics@663] - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2022-12-24 02:45:27,560 - INFO  [kafka-admin-client-thread | adminclient-1:Metrics@669] - Metrics reporters closed
+2022-12-24 02:45:27,562 - INFO  [main:AbstractConfig@372] - AdminClientConfig values: 
+	bootstrap.servers = [localhost:33569]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2022-12-24 02:45:27,563 - INFO  [main:AppInfoParser$AppInfo@119] - Kafka version: unknown
+2022-12-24 02:45:27,564 - INFO  [main:AppInfoParser$AppInfo@120] - Kafka commitId: unknown
+2022-12-24 02:45:27,564 - INFO  [main:AppInfoParser$AppInfo@121] - Kafka startTimeMs: 1671867927563
+2022-12-24 02:45:27,576 - INFO  [data-plane-kafka-request-handler-2:Logging@66] - Creating topic outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover with configuration {} and initial partition assignment HashMap(0 -> ArrayBuffer(0))
+2022-12-24 02:45:27,588 - INFO  [data-plane-kafka-request-handler-3:Logging@66] - [ReplicaFetcherManager on broker 0] Removed fetcher for partitions Set(outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0)
+2022-12-24 02:45:27,591 - INFO  [data-plane-kafka-request-handler-3:Logging@66] - [Log partition=outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0, dir=/tmp/junit7191222426131627691/junit8388921035389885209] Loading producer state till offset 0 with message format version 2
+2022-12-24 02:45:27,592 - INFO  [data-plane-kafka-request-handler-3:Logging@66] - Created log for partition outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 in /tmp/junit7191222426131627691/junit8388921035389885209/outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 with properties {compression.type -> producer, message.downconversion.enable -> true, min.insync.replicas -> 1, segment.jitter.ms -> 0, cleanup.policy -> [delete], flush.ms -> 9223372036854775807, segment.bytes -> 1073741824, retention.ms -> 604800000, flush.messages -> 9223372036854775807, message.format.version -> 2.8-IV1, file.delete.delay.ms -> 60000, max.compaction.lag.ms -> 9223372036854775807, max.message.bytes -> 1000000, min.compaction.lag.ms -> 0, message.timestamp.type -> CreateTime, preallocate -> false, min.cleanable.dirty.ratio -> 0.5, index.interval.bytes -> 4096, unclean.leader.election.enable -> false, retention.bytes -> -1, delete.retention.ms -> 86400000, segment.ms -> 604800000, message.timestamp.difference.max.ms -> 9223372036854775807, segment.index.bytes -> 10485760}.
+2022-12-24 02:45:27,592 - INFO  [data-plane-kafka-request-handler-3:Logging@66] - [Partition outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 broker=0] No checkpointed highwatermark is found for partition outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0
+2022-12-24 02:45:27,592 - INFO  [data-plane-kafka-request-handler-3:Logging@66] - [Partition outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 broker=0] Log loaded for partition outputEmitOnChangeIntegrationTestshouldEmitSameRecordAfterFailover-0 with initial high watermark 0
+2022-12-24 02:45:27,597 - INFO  [kafka-admin-client-thread | adminclient-2:AppInfoParser@83] - App info kafka.admin.client for adminclient-2 unregistered
+2022-12-24 02:45:27,598 - INFO  [kafka-admin-client-thread | adminclient-2:Metrics@659] - Metrics scheduler closed
+2022-12-24 02:45:27,599 - INFO  [kafka-admin-client-thread | adminclient-2:Metrics@663] - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2022-12-24 02:45:27,599 - INFO  [kafka-admin-client-thread | adminclient-2:Metrics@669] - Metrics reporters closed
+2022-12-24 02:45:27,621 - INFO  [main:Logging@66] - [KafkaServer id=0] shutting down
+2022-12-24 02:45:27,621 - INFO  [main:Logging@66] - [KafkaServer id=0] Starting controlled shutdown
+2022-12-24 02:45:27,634 - INFO  [main:Logging@66] - [KafkaServer id=0] Controlled shutdown succeeded
+2022-12-24 02:45:27,635 - INFO  [main:Logging@66] - [/config/changes-event-process-thread]: Shutting down
+2022-12-24 02:45:27,636 - INFO  [/config/changes-event-process-thread:Logging@66] - [/config/changes-event-process-thread]: Stopped
+2022-12-24 02:45:27,636 - INFO  [main:Logging@66] - [/config/changes-event-process-thread]: Shutdown completed
+2022-12-24 02:45:27,637 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Stopping socket server request processors
+2022-12-24 02:45:27,642 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Stopped socket server request processors
+2022-12-24 02:45:27,643 - INFO  [main:Logging@66] - [data-plane Kafka Request Handler on Broker 0], shutting down
+2022-12-24 02:45:27,645 - INFO  [main:Logging@66] - [data-plane Kafka Request Handler on Broker 0], shut down completely
+2022-12-24 02:45:27,648 - INFO  [main:Logging@66] - [ExpirationReaper-0-AlterAcls]: Shutting down
+2022-12-24 02:45:27,704 - INFO  [ExpirationReaper-0-AlterAcls:Logging@66] - [ExpirationReaper-0-AlterAcls]: Stopped
+2022-12-24 02:45:27,704 - INFO  [main:Logging@66] - [ExpirationReaper-0-AlterAcls]: Shutdown completed
+2022-12-24 02:45:27,705 - INFO  [main:Logging@66] - [KafkaApi-0] Shutdown complete.
+2022-12-24 02:45:27,706 - INFO  [main:Logging@66] - [ExpirationReaper-0-topic]: Shutting down
+2022-12-24 02:45:27,859 - INFO  [ExpirationReaper-0-topic:Logging@66] - [ExpirationReaper-0-topic]: Stopped
+2022-12-24 02:45:27,859 - INFO  [main:Logging@66] - [ExpirationReaper-0-topic]: Shutdown completed
+2022-12-24 02:45:27,861 - INFO  [main:Logging@66] - [TransactionCoordinator id=0] Shutting down.
+2022-12-24 02:45:27,862 - INFO  [main:Logging@66] - [ProducerId Manager 0]: Shutdown complete: last producerId assigned 0
+2022-12-24 02:45:27,862 - INFO  [main:Logging@66] - [Transaction State Manager 0]: Shutdown complete
+2022-12-24 02:45:27,863 - INFO  [main:Logging@66] - [Transaction Marker Channel Manager 0]: Shutting down
+2022-12-24 02:45:27,863 - INFO  [TxnMarkerSenderThread-0:Logging@66] - [Transaction Marker Channel Manager 0]: Stopped
+2022-12-24 02:45:27,863 - INFO  [main:Logging@66] - [Transaction Marker Channel Manager 0]: Shutdown completed
+2022-12-24 02:45:27,864 - INFO  [main:Logging@66] - [TransactionCoordinator id=0] Shutdown complete.
+2022-12-24 02:45:27,864 - INFO  [main:Logging@66] - [GroupCoordinator 0]: Shutting down.
+2022-12-24 02:45:27,865 - INFO  [main:Logging@66] - [ExpirationReaper-0-Heartbeat]: Shutting down
+2022-12-24 02:45:28,062 - INFO  [ExpirationReaper-0-Heartbeat:Logging@66] - [ExpirationReaper-0-Heartbeat]: Stopped
+2022-12-24 02:45:28,063 - INFO  [main:Logging@66] - [ExpirationReaper-0-Heartbeat]: Shutdown completed
+2022-12-24 02:45:28,063 - INFO  [main:Logging@66] - [ExpirationReaper-0-Rebalance]: Shutting down
+2022-12-24 02:45:28,263 - INFO  [ExpirationReaper-0-Rebalance:Logging@66] - [ExpirationReaper-0-Rebalance]: Stopped
+2022-12-24 02:45:28,263 - INFO  [main:Logging@66] - [ExpirationReaper-0-Rebalance]: Shutdown completed
+2022-12-24 02:45:28,264 - INFO  [main:Logging@66] - [GroupCoordinator 0]: Shutdown complete.
+2022-12-24 02:45:28,264 - INFO  [main:Logging@66] - [ReplicaManager broker=0] Shutting down
+2022-12-24 02:45:28,265 - INFO  [main:Logging@66] - [LogDirFailureHandler]: Shutting down
+2022-12-24 02:45:28,265 - INFO  [main:Logging@66] - [LogDirFailureHandler]: Shutdown completed
+2022-12-24 02:45:28,265 - INFO  [LogDirFailureHandler:Logging@66] - [LogDirFailureHandler]: Stopped
+2022-12-24 02:45:28,265 - INFO  [main:Logging@66] - [ReplicaFetcherManager on broker 0] shutting down
+2022-12-24 02:45:28,266 - INFO  [main:Logging@66] - [ReplicaFetcherManager on broker 0] shutdown completed
+2022-12-24 02:45:28,267 - INFO  [main:Logging@66] - [ReplicaAlterLogDirsManager on broker 0] shutting down
+2022-12-24 02:45:28,267 - INFO  [main:Logging@66] - [ReplicaAlterLogDirsManager on broker 0] shutdown completed
+2022-12-24 02:45:28,267 - INFO  [main:Logging@66] - [ExpirationReaper-0-Fetch]: Shutting down
+2022-12-24 02:45:28,412 - INFO  [ExpirationReaper-0-Fetch:Logging@66] - [ExpirationReaper-0-Fetch]: Stopped
+2022-12-24 02:45:28,412 - INFO  [main:Logging@66] - [ExpirationReaper-0-Fetch]: Shutdown completed
+2022-12-24 02:45:28,413 - INFO  [main:Logging@66] - [ExpirationReaper-0-Produce]: Shutting down
+2022-12-24 02:45:28,612 - INFO  [ExpirationReaper-0-Produce:Logging@66] - [ExpirationReaper-0-Produce]: Stopped
+2022-12-24 02:45:28,612 - INFO  [main:Logging@66] - [ExpirationReaper-0-Produce]: Shutdown completed
+2022-12-24 02:45:28,613 - INFO  [main:Logging@66] - [ExpirationReaper-0-DeleteRecords]: Shutting down
+2022-12-24 02:45:28,813 - INFO  [ExpirationReaper-0-DeleteRecords:Logging@66] - [ExpirationReaper-0-DeleteRecords]: Stopped
+2022-12-24 02:45:28,813 - INFO  [main:Logging@66] - [ExpirationReaper-0-DeleteRecords]: Shutdown completed
+2022-12-24 02:45:28,813 - INFO  [main:Logging@66] - [ExpirationReaper-0-ElectLeader]: Shutting down
+2022-12-24 02:45:29,013 - INFO  [ExpirationReaper-0-ElectLeader:Logging@66] - [ExpirationReaper-0-ElectLeader]: Stopped
+2022-12-24 02:45:29,013 - INFO  [main:Logging@66] - [ExpirationReaper-0-ElectLeader]: Shutdown completed
+2022-12-24 02:45:29,015 - INFO  [main:Logging@66] - [ReplicaManager broker=0] Shut down completely
+2022-12-24 02:45:29,015 - INFO  [main:Logging@66] - [BrokerToControllerChannelManager broker=0 name=alterIsr]: Shutting down
+2022-12-24 02:45:29,016 - INFO  [BrokerToControllerChannelManager broker=0 name=alterIsr:Logging@66] - [BrokerToControllerChannelManager broker=0 name=alterIsr]: Stopped
+2022-12-24 02:45:29,016 - INFO  [main:Logging@66] - [BrokerToControllerChannelManager broker=0 name=alterIsr]: Shutdown completed
+2022-12-24 02:45:29,017 - INFO  [main:Logging@66] - Broker to controller channel manager for alterIsr shutdown
+2022-12-24 02:45:29,018 - INFO  [main:Logging@66] - Shutting down.
+2022-12-24 02:45:29,040 - INFO  [main:Logging@66] - Shutdown complete.
+2022-12-24 02:45:29,047 - INFO  [main:Logging@66] - [feature-zk-node-event-process-thread]: Shutting down
+2022-12-24 02:45:29,047 - INFO  [feature-zk-node-event-process-thread:Logging@66] - [feature-zk-node-event-process-thread]: Stopped
+2022-12-24 02:45:29,047 - INFO  [main:Logging@66] - [feature-zk-node-event-process-thread]: Shutdown completed
+2022-12-24 02:45:29,048 - INFO  [main:Logging@66] - [ZooKeeperClient Kafka server] Closing.
+2022-12-24 02:45:29,150 - INFO  [main:ZooKeeper@1422] - Session: 0x1041a5e0d060000 closed
+2022-12-24 02:45:29,150 - INFO  [main-EventThread:ClientCnxn$EventThread@524] - EventThread shut down for session: 0x1041a5e0d060000
+2022-12-24 02:45:29,151 - INFO  [main:Logging@66] - [ZooKeeperClient Kafka server] Closed.
+2022-12-24 02:45:29,152 - INFO  [main:Logging@66] - [ThrottledChannelReaper-Fetch]: Shutting down
+2022-12-24 02:45:29,369 - INFO  [ThrottledChannelReaper-Fetch:Logging@66] - [ThrottledChannelReaper-Fetch]: Stopped
+2022-12-24 02:45:29,369 - INFO  [main:Logging@66] - [ThrottledChannelReaper-Fetch]: Shutdown completed
+2022-12-24 02:45:29,370 - INFO  [main:Logging@66] - [ThrottledChannelReaper-Produce]: Shutting down
+2022-12-24 02:45:29,370 - INFO  [main:Logging@66] - [ThrottledChannelReaper-Produce]: Shutdown completed
+2022-12-24 02:45:29,370 - INFO  [ThrottledChannelReaper-Produce:Logging@66] - [ThrottledChannelReaper-Produce]: Stopped
+2022-12-24 02:45:29,370 - INFO  [main:Logging@66] - [ThrottledChannelReaper-Request]: Shutting down
+2022-12-24 02:45:29,371 - INFO  [main:Logging@66] - [ThrottledChannelReaper-Request]: Shutdown completed
+2022-12-24 02:45:29,371 - INFO  [ThrottledChannelReaper-Request:Logging@66] - [ThrottledChannelReaper-Request]: Stopped
+2022-12-24 02:45:29,371 - INFO  [main:Logging@66] - [ThrottledChannelReaper-ControllerMutation]: Shutting down
+2022-12-24 02:45:29,371 - INFO  [main:Logging@66] - [ThrottledChannelReaper-ControllerMutation]: Shutdown completed
+2022-12-24 02:45:29,371 - INFO  [ThrottledChannelReaper-ControllerMutation:Logging@66] - [ThrottledChannelReaper-ControllerMutation]: Stopped
+2022-12-24 02:45:29,372 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Shutting down socket server
+2022-12-24 02:45:29,389 - INFO  [main:Logging@66] - [SocketServer listenerType=ZK_BROKER, nodeId=0] Shutdown completed
+2022-12-24 02:45:29,390 - INFO  [main:Metrics@659] - Metrics scheduler closed
+2022-12-24 02:45:29,390 - INFO  [main:Metrics@663] - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2022-12-24 02:45:29,390 - INFO  [main:Metrics@669] - Metrics reporters closed
+2022-12-24 02:45:29,391 - INFO  [main:Logging@66] - Broker and topic stats closed
+2022-12-24 02:45:29,392 - INFO  [main:AppInfoParser@83] - App info kafka.server for 0 unregistered
+2022-12-24 02:45:29,392 - INFO  [main:Logging@66] - [KafkaServer id=0] shut down completed
+2022-12-24 02:45:29,396 - INFO  [ConnnectionExpirer:NIOServerCnxnFactory$ConnectionExpirerThread@583] - ConnnectionExpirerThread interrupted
+2022-12-24 02:45:29,396 - INFO  [NIOServerCxnFactory.AcceptThread:/127.0.0.1:0:NIOServerCnxnFactory$AcceptThread@219] - accept thread exitted run method
+2022-12-24 02:45:29,397 - INFO  [NIOServerCxnFactory.SelectorThread-2:NIOServerCnxnFactory$SelectorThread@420] - selector thread exitted run method
+2022-12-24 02:45:29,397 - INFO  [NIOServerCxnFactory.SelectorThread-0:NIOServerCnxnFactory$SelectorThread@420] - selector thread exitted run method
+2022-12-24 02:45:29,399 - INFO  [NIOServerCxnFactory.SelectorThread-1:NIOServerCnxnFactory$SelectorThread@420] - selector thread exitted run method
+2022-12-24 02:45:29,399 - INFO  [main:ZooKeeperServer@573] - shutting down
+2022-12-24 02:45:29,400 - INFO  [main:SessionTrackerImpl@237] - Shutting down
+2022-12-24 02:45:29,400 - INFO  [main:PrepRequestProcessor@1008] - Shutting down
+2022-12-24 02:45:29,400 - INFO  [main:SyncRequestProcessor@191] - Shutting down
+2022-12-24 02:45:29,400 - INFO  [ProcessThread(sid:0 cport:34277)::PrepRequestProcessor@156] - PrepRequestProcessor exited loop!
+2022-12-24 02:45:29,400 - INFO  [SyncThread:0:SyncRequestProcessor@169] - SyncRequestProcessor exited!
+2022-12-24 02:45:29,400 - INFO  [main:FinalRequestProcessor@514] - shutdown of request processor complete
+
+Thanks for using JUnit! Support its development at https://junit.org/sponsoring
+
+[36m╷[0m
+[36m├─[0m [36mJUnit Jupiter[0m [32m✔[0m
+[36m└─[0m [36mJUnit Vintage[0m [32m✔[0m
+[36m   └─[0m [36mEmitOnChangeIntegrationTest[0m [32m✔[0m
+[36m      └─[0m [31mshouldEmitSameRecordAfterFailover[0m [31m✘[0m [31mjava.lang.ExceptionInInitializerError[0m
+
+Failures (1):
+  JUnit Vintage:EmitOnChangeIntegrationTest:shouldEmitSameRecordAfterFailover
+    MethodSource [className = 'org.apache.kafka.streams.integration.EmitOnChangeIntegrationTest', methodName = 'shouldEmitSameRecordAfterFailover', methodParameterTypes = '']
+    => java.lang.ExceptionInInitializerError
+       org.apache.kafka.streams.KafkaStreams.<init>(KafkaStreams.java:691)
+       org.apache.kafka.streams.integration.EmitOnChangeIntegrationTest.shouldEmitSameRecordAfterFailover(EmitOnChangeIntegrationTest.java:106)
+       sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+       sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+       sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+       [...]
+     Caused by: org.apache.kafka.common.config.ConfigException: Invalid value org.apache.kafka.streams.errors.LogAndFailExceptionHandler for configuration default.deserialization.exception.handler: Class org.apache.kafka.streams.errors.LogAndFailExceptionHandler could not be found.
+       org.apache.kafka.common.config.ConfigDef.parseType(ConfigDef.java:744)
+       org.apache.kafka.common.config.ConfigDef$ConfigKey.<init>(ConfigDef.java:1142)
+       org.apache.kafka.common.config.ConfigDef.define(ConfigDef.java:152)
+       org.apache.kafka.common.config.ConfigDef.define(ConfigDef.java:172)
+       org.apache.kafka.common.config.ConfigDef.define(ConfigDef.java:211)
+       [...]
+
+Test run finished after 4424 ms
+[         3 containers found      ]
+[         0 containers skipped    ]
+[         3 containers started    ]
+[         0 containers aborted    ]
+[         3 containers successful ]
+[         0 containers failed     ]
+[         1 tests found           ]
+[         0 tests skipped         ]
+[         1 tests started         ]
+[         0 tests aborted         ]
+[         0 tests successful      ]
+[         1 tests failed          ]
+

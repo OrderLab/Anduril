@@ -6,7 +6,6 @@ import feedback.log.entry.LogEntry;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 public final class ThreadDiff implements DiffDump {
     public static final class CodeLocation implements Serializable {
@@ -71,7 +70,7 @@ public final class ThreadDiff implements DiffDump {
         return result;
     }
 
-    ThreadDiff(final String thread, final ArrayList<LogEntry> good, final ArrayList<LogEntry> bad) {
+    public ThreadDiff(final String thread, final ArrayList<LogEntry> good, final ArrayList<LogEntry> bad) {
         this.thread = thread;
         final CodeLocation[] goodLocations = convertLogEntries(good);
         final CodeLocation[] badLocations = convertLogEntries(bad);
@@ -133,7 +132,7 @@ public final class ThreadDiff implements DiffDump {
     }
 
     public ThreadDiff(final ArrayList<ThreadDiff.CodeLocation> good,
-                                    final ArrayList<ThreadDiff.CodeLocation> bad)  {
+                      final ArrayList<ThreadDiff.CodeLocation> bad)  {
         this.thread = null;
         this.common = null;
         final CodeLocation[] goodLocations = convertCodeLocations(good);

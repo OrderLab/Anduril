@@ -1,0 +1,18 @@
+2022-12-12 13:54:40,241 - WARN  [main:NativeCodeLoader@60] - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-12-12 13:54:40,916 - WARN  [main:ErasureCodeNative@55] - ISA-L support is not available in your platform... using builtin-java codec where applicable
+2022-12-12 13:54:41,086 - INFO  [Thread-5:DataStreamer@1791] - Exception in createBlockOutputStream #1: blk_-9223372036854775791_1001
+java.io.EOFException: Unexpected EOF while trying to read response from server
+	at org.apache.hadoop.hdfs.protocolPB.PBHelperClient.vintPrefixed(PBHelperClient.java:551)
+	at org.apache.hadoop.hdfs.DataStreamer.createBlockOutputStream(DataStreamer.java:1763)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:106)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-12-12 13:54:41,089 - WARN  [Thread-5:StripedDataStreamer@112] - Excluding datanode DatanodeInfoWithStorage[127.0.0.1:17867,DS-4dc88692-5e33-444c-a7c6-a75c6890fd8f,DISK]
+2022-12-12 13:54:41,093 - WARN  [Thread-5:DataStreamer@825] - DataStreamer Exception
+java.io.IOException: Unable to create new block.#1: failed, block==null
+	at org.apache.hadoop.hdfs.StripedDataStreamer.nextBlockOutputStream(StripedDataStreamer.java:114)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:715)
+	at org.apache.hadoop.hdfs.StripedDataStreamer.run(StripedDataStreamer.java:46)
+2022-12-12 13:54:41,093 - WARN  [Thread-5:DataStreamer@1476] - Could not get block locations. Source file "/1/test" - Aborting...#1: failed, block==null
+2022-12-12 13:54:41,807 - WARN  [main:DFSStripedOutputStream@1324] - Block group <1> failed to write 1 blocks. It's at high risk of losing data.
+2022-12-12 13:54:46,848 - INFO  [main:GrayHDFSClientMain@51] - Corruption Target is 27871

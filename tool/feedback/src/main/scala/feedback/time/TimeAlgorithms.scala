@@ -25,12 +25,20 @@ object TimeAlgorithms {
       case (Some(location), event) => (location, event)
     }
     val goodTimeline = (good, bad) match {
-      case (UnitTestLog(good, _), UnitTestLog(bad, result)) =>
+      case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
         TimeAlignment.tracedAlign(good, bad, LogType.GOOD) flatMap {
           case Injection(showtime, injection, occurrence) =>
             Some(InjectionTiming(showtime, -1, injection.injection, occurrence))
           case _ => None
         }
+      case (DistributedWorkloadLog(goodLogs), DistributedWorkloadLog(badLogs)) =>
+        goodLogs.zipAll(badLogs, null, null).zipWithIndex map {
+          case ((g, b), pid) => TimeAlignment.tracedAlign(g, b, LogType.GOOD) flatMap {
+            case Injection(showtime, injection, occurrence) =>
+              Some(InjectionTiming(showtime, pid, injection.injection, occurrence))
+            case _ => None
+          }
+        } reduce { _ ++ _ }
     }
     var badTimeline = bad match {
       case UnitTestLog(NormalLogFile(_, entries), _) => entries.iterator map { entry =>
@@ -42,6 +50,17 @@ object TimeAlgorithms {
           case (_, event) => CriticalLogTiming(entry.showtime, event)
         } getOrElse NormalLogTiming(entry.showtime)
       }
+      case DistributedWorkloadLog(logs) => logs map {
+        case NormalLogFile(_, entries) => entries.iterator map { entry =>
+          eventList find {
+            case (location, _) =>
+              location.classname.equals(entry.classname) &&
+                location.fileLogLine == entry.fileLogLine
+          } map {
+            case (_, event) => CriticalLogTiming(entry.showtime, event)
+          } getOrElse NormalLogTiming(entry.showtime)
+        }
+      } reduce { _ ++ _ }
     }
     if (!isResultEventLogged) {
       Symptoms.findResultEvent(bad, spec) foreach { timing =>
