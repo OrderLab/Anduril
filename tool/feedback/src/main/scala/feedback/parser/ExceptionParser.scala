@@ -21,7 +21,7 @@ object ExceptionParser {
   // TODO: remove the limitation of only accepting one line of log before parsing an exception
   // TODO: accept names like "Exception"?
 
-  private val NestedExceptionHeaderPattern = raw"(?s)Caused by: ([^\n]+\n)".r
+  private val NestedExceptionHeaderPattern = raw"(?s)[ \t]*Caused by: ([^\n]+\n)".r
 
   private def parseExceptionHeader(text: String): Option[(String, Option[String])] =
     ExceptionGrammar.parseExceptionWithoutMsg(text) match {

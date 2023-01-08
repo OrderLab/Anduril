@@ -4,7 +4,6 @@ import feedback.common.ActionMayThrow;
 import feedback.common.Env;
 import feedback.log.LogFile;
 import feedback.log.entry.LogEntry;
-import scala.Tuple2;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
