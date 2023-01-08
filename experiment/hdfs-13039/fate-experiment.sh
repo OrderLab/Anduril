@@ -34,6 +34,7 @@ java \
 -Dbuild.test.dir=$SCRIPT_DIR/build \
 -Dlog4j.configuration=file:$SCRIPT_DIR/log4j.properties \
 -DflakyAgent.distributedMode=true \
+-DflakyAgent.disableAgent=true \
 runtime.fate.FateAgent $trials_dir  $trials_dir/injection-$id.json \
 > $trials_dir/$id/output.txt 2>&1 &
 pid=$!

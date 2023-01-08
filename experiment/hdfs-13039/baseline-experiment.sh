@@ -33,7 +33,8 @@ java \
 -cp $runtime_jar \
 -Dbuild.test.dir=$SCRIPT_DIR/build \
 -Dlog4j.configuration=file:$SCRIPT_DIR/log4j.properties \
--Dbaseline.policy=exhaustive \
+-Dbaseline.policy=crashtuner \
+-DflakyAgent.disableAgent=true \
 -DflakyAgent.distributedMode=true \
 runtime.baseline.BaselineAgent $trials_dir  $trials_dir/injection-$id.json \
 > $trials_dir/$id/output.txt 2>&1 &
@@ -46,7 +47,7 @@ INJECT_HADOOP_OPTS="-DflakyAgent.injectionPointsPath=$SCRIPT_DIR/tree.json" \
 $SCRIPT_DIR/cluster/reproduction.sh > $trials_dir/$id/workload-output.log 2>&1
 
 sleep 1
-java -cp $runtime_jar runtime.fate.FateAgent # shutdown
+java -cp $runtime_jar runtime.baseline.BaselineAgent # shutdown
 sleep 1
 
 mv $SCRIPT_DIR/cluster/logs-* $trials_dir/$id
