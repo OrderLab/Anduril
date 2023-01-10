@@ -30,6 +30,8 @@ java \
 > $SCRIPT_DIR/output.txt 2>&1 &
 pid=$!
 
+sleep 20
+
 HADOOP_CLASSPATH="$runtime_jar" \
 INJECT_HADOOP_OPTS="-DflakyAgent.logInject=true -DflakyAgent.injectionPointsPath=$SCRIPT_DIR/tree.json" \
 $SCRIPT_DIR/cluster/reproduction.sh
