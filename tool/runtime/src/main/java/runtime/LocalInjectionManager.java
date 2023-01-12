@@ -125,6 +125,7 @@ public class LocalInjectionManager {
              final JsonReader reader = Json.createReader(inputStream)) {
             final JsonObject json = reader.readObject();
             final JsonArray arr = json.getJsonArray("injections");
+            final JsonArray events = json.getJsonArray("nodes");
             for (int i = 0; i < arr.size(); i++) {
                 final JsonObject spec = arr.getJsonObject(i);
                 final int injectionId = spec.getInt("id");
@@ -134,10 +135,15 @@ public class LocalInjectionManager {
                         id2name.put(injectionId, name);
                     }
                 } else {
-                    final String event_type = spec.getString("type");
-                    Throwable exception = null;
                     //System specific exception will be constructed dynamically
-                    if (event_type == "internal_injection_event") {
+                    //Find the corresponding callee event
+                    final int callee = spec.getInt("callee");
+                    final JsonObject event = events.getJsonObject(callee);
+                    assert(event.getInt("id") == callee);
+                    String event_type = event.getString("type");
+
+                    Throwable exception;
+                    if (event_type.equals("internal_injection_event")) {
                         id2name.put(injectionId, spec.getString("exception"));
                     } else {
                         exception = ExceptionBuilder.createException(spec.getString("exception"));
