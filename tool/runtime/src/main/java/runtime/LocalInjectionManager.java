@@ -190,7 +190,7 @@ public class LocalInjectionManager {
                         id2exception.put(id, name2exception.get(name));
                     }
                 }
-                id2name.put(id, null);
+                id2name.remove(id);
             }
             final Throwable exception = id2exception.get(id);
             if (exception != null) {
