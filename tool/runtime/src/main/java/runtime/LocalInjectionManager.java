@@ -146,7 +146,7 @@ public class LocalInjectionManager {
                     if (event_type.equals("internal_injection_event")) {
                         final String exception_name = spec.getString("exception");
                         id2name.put(injectionId, exception_name);
-                        if (name2Tried.get(exception_name) != null) {
+                        if (name2Tried.get(exception_name) == null) {
                             name2Tried.put(exception_name, new AtomicBoolean(false));
                         }
                     } else {
