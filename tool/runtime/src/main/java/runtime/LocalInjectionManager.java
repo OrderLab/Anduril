@@ -171,16 +171,18 @@ public class LocalInjectionManager {
             // One type exception will only be created once during running
             final String name = id2name.get(id);
             if (name != null) {
-                Throwable exception = name2exception.get(name);
-                if (name2Tried.get(name) == null) {
-                    name2Tried.put(name,true);
-                    exception = ExceptionBuilder.createException(name);
-                    if (exception != null) {
-                        name2exception.put(name, exception);
+                synchronized (name) {
+                    Throwable exception = name2exception.get(name);
+                    if (name2Tried.get(name) == null) {
+                        name2Tried.put(name, true);
+                        exception = ExceptionBuilder.createException(name);
+                        if (exception != null) {
+                            name2exception.put(name, exception);
+                        }
                     }
-                }
-                if (exception != null) {
-                    id2exception.put(id, exception);
+                    if (exception != null) {
+                        id2exception.put(id, exception);
+                    }
                 }
             }
             final Throwable exception = id2exception.get(id);
