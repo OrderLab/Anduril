@@ -110,7 +110,6 @@ public final class LogFileDiff implements DiffDump {
         for (final LogEntry logEntry : this.bad.entries()) {
             if (!common.containsKey(logEntry.thread())) {
                 action.accept(new ThreadDiff.CodeLocation(logEntry));
-                System.out.println(logEntry.classname()+logEntry.fileLogLine());
             }
         }
     }
