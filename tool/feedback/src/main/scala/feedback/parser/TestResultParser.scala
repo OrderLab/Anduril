@@ -13,7 +13,7 @@ object TestResultParser {
   // Must enable DOTALL mode
   private val OK_JUnit4 = raw"(?s)(.*)\n+Time: ($testDurationRegex)\n\nOK \(\d+ tests?\)\n".r
   private val FAIL_JUnit4Single =
-    raw"(?s)(.*)\n+Time: ($testDurationRegex)\nThere [a-z]+ (\d+) failures?:\n(\d+\).+)\n\nFAILURES!!!\nTests run: *(\d+), *Failures: *(\d+)\n".r
+    raw"(?s)(.*)\n+Time: ($testDurationRegex)\nThere [a-z]+ (\d+) failures?:\n(.+)\n\nFAILURES!!!\nTests run: *(\d+), *Failures: *(\d+)\n".r
   private val FAIL_JUnit4Double =
     raw"(?s)(.*)\n+Time: ($testDurationRegex)\nThere [a-z]+ (\d+) failures?:\n(\d+\).+)\n(\d+\).+)\n\nFAILURES!!!\nTests run: *(\d+), *Failures: *(\d+)\n".r
 
@@ -51,16 +51,19 @@ object TestResultParser {
         Some(msg, OK(parseDuration(duration)))
       //case FAIL_JUnit4Double(msg, duration, _, failures1, _, _, _) =>
       //  ExceptionParser.parseJunit4TestFailures(failures1) match {
+
       case FAIL_JUnit4Double(msg, duration, _, _, failures2, _, _) =>
         ExceptionParser.parseJunit4TestFailures(failures2) match {
           case (testMethod, testClass, nestedException) =>
             Some(msg, FAIL(parseDuration(duration), testMethod, testClass, nestedException))
         }
+
       case FAIL_JUnit4Single(msg, duration, _, failures, _, _) =>
         ExceptionParser.parseJunit4TestFailures(failures) match {
           case (testMethod, testClass, nestedException) =>
             Some(msg, FAIL(parseDuration(duration), testMethod, testClass, nestedException))
         }
+
       case JUnit5Pattern(msg, failures, duration, successful, failed) =>
         // TODO: extract the failure content
         (successful.toInt, failed.toInt) match {
@@ -68,6 +71,7 @@ object TestResultParser {
           case (1, 0) => Some(msg, OK(duration.toInt))
           case (0, 1) => Some(msg, ExceptionParser.parseJUnit5Failure(failures, duration.toInt))
         }
+
       case _ => None
     }
   }

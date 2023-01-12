@@ -27,6 +27,9 @@ public class LocalInjectionManager {
     protected final ConcurrentMap<Integer, String> id2name = new ConcurrentHashMap<>();
 
     private final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, Boolean> name2Tried = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, Throwable> name2exception = new ConcurrentHashMap<>();
+
     private final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
 //    private final ConcurrentMap<Integer, Integer> thread2block = new ConcurrentHashMap<>();
     private final ConcurrentMap<Integer, Integer> block2times = new ConcurrentHashMap<>();
@@ -131,9 +134,16 @@ public class LocalInjectionManager {
                         id2name.put(injectionId, name);
                     }
                 } else {
-                    final Throwable exception = ExceptionBuilder.createException(spec.getString("exception"));
-                    if (exception != null) {
-                        id2exception.put(injectionId, exception);
+                    final String event_type = spec.getString("type");
+                    Throwable exception = null;
+                    //System specific exception will be constructed dynamically
+                    if (event_type == "internal_injection_event") {
+                        id2name.put(injectionId, spec.getString("exception"));
+                    } else {
+                        exception = ExceptionBuilder.createException(spec.getString("exception"));
+                        if (exception != null) {
+                            id2exception.put(injectionId, exception);
+                        }
                     }
                 }
             }
@@ -150,6 +160,22 @@ public class LocalInjectionManager {
         if (!injected.get()) {
             if (!TraceAgent.config.isTimeFeedback && !feedbackManager.isAllowed(id)) {
                 return;
+            }
+            // System-specific exception
+            // One type exception will only be created once during running
+            final String name = id2name.get(id);
+            if (name != null) {
+                Throwable exception = name2exception.get(name);
+                if (name2Tried.get(name) == null) {
+                    name2Tried.put(name,true);
+                    exception = ExceptionBuilder.createException(name);
+                    if (exception != null) {
+                        name2exception.put(name, exception);
+                    }
+                }
+                if (exception != null) {
+                    id2exception.put(id, exception);
+                }
             }
             final Throwable exception = id2exception.get(id);
             if (exception != null) {

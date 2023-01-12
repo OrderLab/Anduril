@@ -150,6 +150,7 @@ public final class ThreadDiff implements DiffDump {
     // don't filter the duplicate entries
     @Override
     public void dumpBadDiff(final ActionMayThrow<CodeLocation> action) {
+        this.badOnly.toString();
         this.badOnly.forEach(action);
     }
 }
