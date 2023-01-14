@@ -81,12 +81,18 @@ public class TimeFeedbackManager extends FeedbackManager {
             double min = 0;
             int size = 0;
             for (final Map.Entry<Integer, Integer> entry : time.entrySet()) {
+                final Integer k = entry.getKey();
                 final double v = entry.getValue();
                 if (size == 0 || v < min) {
                     min = v;
                 }
-                size++;
+
+                if (location.get(k) < min) {
+                    min = location.get(k);
+                }
+                size = size + 2;
             }
+            /**
             for (final Map.Entry<Integer, Integer> entry : location.entrySet()) {
                 final double v = entry.getValue();
                 if (size == 0 || v < min) {
@@ -94,6 +100,7 @@ public class TimeFeedbackManager extends FeedbackManager {
                 }
                 size++;
             }
+             **/
             if (size == 0) {
                 return INF;
             }
@@ -196,9 +203,12 @@ public class TimeFeedbackManager extends FeedbackManager {
 
     @Override
     public void calc(final int windowSize) {
+
+        final Map<Integer, Map<Integer, Integer>> locationPriorities = new TreeMap<>();
         for (int i = 0; i < super.graph.startNumber; i++) {
             final int finalI = i;
             super.graph.calculatePriorities(i, super.active.getOrDefault(i, 0), (injectionId, weight) -> {
+                /**
                 final Map<TimePriorityTable.Key, TimePriorityTable.UtilityReducer> injections =
                         this.timePriorityTable.injections.get(injectionId);
                 if (injections != null) {
@@ -208,6 +218,10 @@ public class TimeFeedbackManager extends FeedbackManager {
                         }
                     });
                 }
+                 **/
+                locationPriorities.computeIfAbsent(injectionId,
+                        k -> new TreeMap<>()).put(finalI, weight);
+
             });
         }
         if (this.mode == Mode.MIN_INTERLEAVE) {
@@ -244,7 +258,7 @@ public class TimeFeedbackManager extends FeedbackManager {
         } else {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, new double[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
-                final double priority = mode.formula.apply(v.timePriorities, v.locationPriorities);
+                final double priority = mode.formula.apply(v.timePriorities, locationPriorities.get(injection));
                 this.standalone.get(injection)[k.occurrence - 1] = priority;
                 priorities.add(priority);
             }));
