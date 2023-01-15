@@ -27,8 +27,8 @@ public class LocalInjectionManager {
     protected final ConcurrentMap<Integer, String> id2name = new ConcurrentHashMap<>();
 
     private final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
-    private final ConcurrentMap<String, AtomicBoolean> name2Tried = new ConcurrentHashMap<>();
-    private final ConcurrentMap<String, Throwable> name2exception = new ConcurrentHashMap<>();
+    //private final ConcurrentMap<String, AtomicBoolean> name2Tried = new ConcurrentHashMap<>();
+    //private final ConcurrentMap<String, Throwable> name2exception = new ConcurrentHashMap<>();
 
     private final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
 //    private final ConcurrentMap<Integer, Integer> thread2block = new ConcurrentHashMap<>();
@@ -146,9 +146,11 @@ public class LocalInjectionManager {
                     if (event_type.equals("internal_injection_event")) {
                         final String exception_name = spec.getString("exception");
                         id2name.put(injectionId, exception_name);
+                        /**
                         if (name2Tried.get(exception_name) == null) {
                             name2Tried.put(exception_name, new AtomicBoolean(false));
                         }
+                         **/
                     } else {
                         exception = ExceptionBuilder.createException(spec.getString("exception"));
                         if (exception != null) {
@@ -176,21 +178,17 @@ public class LocalInjectionManager {
             // Warn: Need synchronization?
             final String name = id2name.get(id);
             if (name != null) {
-                // TODO: finish the concurrency part
-                // WARN: it assumes that each exception name has distinct AtomicBoolean instance
-                AtomicBoolean tried = name2Tried.get(name);
-                synchronized (tried) {
-                    if (!tried.getAndSet(true)) {
+                // WARN: it makes sure that each injection point (id) has distinct fault instance
+                //AtomicBoolean tried = name2Tried.get(name);
+                synchronized (name) {
+                    if (id2name.get(id) != null) {
                         Throwable created_exception = ExceptionBuilder.createException(name);
                         if (created_exception != null) {
-                            name2exception.put(name, created_exception);
+                            id2exception.put(id, created_exception);
                         }
-                    }
-                    if (name2exception.get(name) != null) {
-                        id2exception.put(id, name2exception.get(name));
+                        id2name.remove(id);
                     }
                 }
-                id2name.remove(id);
             }
             final Throwable exception = id2exception.get(id);
             if (exception != null) {
