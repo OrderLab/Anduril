@@ -186,7 +186,7 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (occurrence > priorities.length) {
             return false;
         }
-        return priorities[occurrence - 1] < boundary;
+        return priorities[occurrence - 1] <= boundary;
     }
 
     @Override
@@ -198,7 +198,7 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (occurrence > priorities.length) {
             return false;
         }
-        return priorities[occurrence - 1] < boundary;
+        return priorities[occurrence - 1] <= boundary;
     }
 
     @Override
@@ -227,17 +227,21 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (this.mode == Mode.MIN_INTERLEAVE) {
             isTime = random.nextBoolean();
         }
+        // WARN: time priority exists iff location priority exists according to the algorithm in Timeline.java
         if (this.mode == Mode.MIN_RANDOM) {
             final Set<Integer> timeSet = new TreeSet<>();
-            final Set<Integer> locationSet = new TreeSet<>();
+            //final Set<Integer> locationSet = new TreeSet<>();
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
                 timeSet.addAll(v.timePriorities.keySet());
-                locationSet.addAll(v.locationPriorities.keySet());
+                //locationSet.addAll(v.timePriorities.keySet());
             }));
-            if (timeSet.isEmpty() && locationSet.isEmpty()) {
+            if (timeSet.isEmpty()) {
                 throw new RuntimeException("invalid table");
             }
-            final int c = random.nextInt(timeSet.size() + locationSet.size());
+
+            isTime = random.nextBoolean();
+            fixLog = random.nextInt(timeSet.size());
+            /**
             if (c < timeSet.size()) {
                 isTime = true;
                 fixLog = timeSet.toArray(new Integer[0])[c];
@@ -245,13 +249,14 @@ public class TimeFeedbackManager extends FeedbackManager {
                 isTime = false;
                 fixLog = locationSet.toArray(new Integer[0])[c - timeSet.size()];
             }
+              **/
         }
         final ArrayList<Double> priorities = new ArrayList<>(
                 this.timePriorityTable.boundaries.values().stream().reduce(0, Integer::sum));
         if (this.timePriorityTable.distributed) {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new double[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
-                final double priority = mode.formula.apply(v.timePriorities, v.locationPriorities);
+                final double priority = mode.formula.apply(v.timePriorities, locationPriorities.get(injection));
                 this.nodes[k.pid].get(injection)[k.occurrence - 1] = priority;
                 priorities.add(priority);
             }));
