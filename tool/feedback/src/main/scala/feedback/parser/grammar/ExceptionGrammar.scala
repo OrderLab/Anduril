@@ -58,6 +58,7 @@ object ExceptionGrammar {
       ( ( P( "Native Method" ) map { _ => Right(true) } )
         | ( P( "Unknown Source" ) map { _ => Right(false) } )
         | ( ( fileName ~ ":" ~ number ) map { Left(_) } )
+        | ( fileName map { Left(_, 1) } )
         ) ~ ")" ) ) map {
       case (classname, method, Left((filename, line))) =>
         NormalStackTraceElement(classname, method, filename, line)
