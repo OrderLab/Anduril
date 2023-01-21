@@ -42,7 +42,8 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
                 //boolean uncaught = false;
                 for (final SootMethod virtualMethod : analysisManager.callGraphAnalysis.virtualCalls
                         .get(analysis.internalCalls.get(unit))) {
-                    if (virtualMethod.hasActiveBody()) {
+                    if (virtualMethod.hasActiveBody()
+                            && !analysisManager.exceptionAnalysis.analyses.get(virtualMethod).methodExceptions.getOrDefault(this.exceptionType, emptySet).isEmpty()) {
                         frontiers.add(new InternalInjectionEvent(virtualMethod, this.exceptionType));
                         //if (analysisManager.exceptionAnalysis.analyses.get(virtualMethod).NewExceptionUncaught.contains(this.exceptionType))
                             //uncaught = true;

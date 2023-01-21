@@ -27,7 +27,7 @@ public class UncaughtThrowInjectionEvent extends ExceptionInjectionEvent {
     public JsonObjectBuilder dump(EventManager eventManager) {
         return Json.createObjectBuilder()
                 .add("id", eventManager.getId(this))
-                .add("type", "internal_injection_event")
+                .add("type", "Uncaught_throw_injection_event")
                 .add("exception", exceptionType.getName())
                 .add("invocation_class", exceptionMethod.getDeclaringClass().getName())
                 .add("invocation_method", exceptionMethod.getSubSignature());
