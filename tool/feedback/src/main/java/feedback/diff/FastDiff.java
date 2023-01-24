@@ -32,6 +32,7 @@ final class FastDiff<T> {
             choices[i] = CHOICE.BAD_ONLY;
         }
         int current = bad.length + 1;
+        int count = 0;
         for (final T e : good) {
             update[0] = opt[0];
             choices[current] = CHOICE.GOOD_ONLY;
@@ -41,7 +42,7 @@ final class FastDiff<T> {
                 int opt_i_1 = opt[i + 1];
                 int best = opt_i_1;
                 CHOICE choice = CHOICE.GOOD_ONLY;
-                if (e.equals(bad[i]) && best < opt_i) {
+                if (e.equals(bad[i]) && best < opt_i && previous < opt_i) {
                     best = opt_i;
                     choice = CHOICE.COMMON;
                 }
