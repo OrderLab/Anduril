@@ -32,7 +32,6 @@ final class FastDiff<T> {
             choices[i] = CHOICE.BAD_ONLY;
         }
         int current = bad.length + 1;
-        int count = 0;
         for (final T e : good) {
             update[0] = opt[0];
             choices[current] = CHOICE.GOOD_ONLY;
