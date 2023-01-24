@@ -42,7 +42,7 @@ static jintArray diff(JNIEnv *env, jint *good, int goodLength, jint *bad, int ba
         best = opt_i_1;
         int &choice = current[i + 1];
         choice = 0;
-        if (e == bad[i] && best < opt_i && previous < opt_i) {
+        if (e == bad[i] && best < opt_i && update_i < opt_i) {
             best = opt_i;
             choice = 2;
         }
