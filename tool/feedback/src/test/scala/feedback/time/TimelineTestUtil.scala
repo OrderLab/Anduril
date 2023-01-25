@@ -115,18 +115,26 @@ final class TestCase(override val name: String, tempDir: Path) extends BugCase(n
   }
 
   override def printAlign(printer: ActionMayThrow[String]): Unit = {
+    val trialEntries = this.trial match {
+      case UnitTestLog(trial, _) =>
+        TimeAlignment.getEntryMapping(trial)
+    }
+    val goodEntries = this.good match {
+      case UnitTestLog(good, _) =>
+        TimeAlignment.getEntryMapping(good)
+    }
     val badEntries = this.bad match {
       case UnitTestLog(bad, _) =>
         TimeAlignment.getEntryMapping(bad)
     }
     val trial = (this.trial, this.bad) match {
       case (UnitTestLog(trial, _), UnitTestLog(bad, _)) =>
-        val ruler = new TimeRuler(trial, bad, badEntries)
+        val ruler = new TimeRuler(trial, bad, trialEntries, badEntries)
         TimeAlignment.tracedAlign(trial, ruler, LogType.TRIAL)
     }
     val good = (this.good, this.bad) match {
       case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
-        val ruler = new TimeRuler(good, bad, badEntries)
+        val ruler = new TimeRuler(good, bad, goodEntries, badEntries)
         TimeAlignment.normalAlign(good, ruler, LogType.GOOD)
     }
     val bad = this.bad match {

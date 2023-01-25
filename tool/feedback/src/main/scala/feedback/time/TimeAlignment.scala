@@ -3,6 +3,7 @@ package feedback.time
 import feedback.diff.{LogFileDiff, ThreadDiff}
 import feedback.log.entry.{InjectionRecord, LogEntry}
 import feedback.log.{LogFile, NormalLogFile, TraceLogFile}
+import feedback.parser.LogFileParser
 import org.joda.time.DateTime
 
 import scala.jdk.CollectionConverters.SeqHasAsJava
@@ -13,8 +14,10 @@ final case class Injection(override val showtime: DateTime, injection: Injection
 
 final case class LogLine(override val showtime: DateTime, entry: LogEntry, logType: LogType) extends Timestamp
 
-final class TimeRuler(good: LogFile, bad: LogFile, badEntries: java.util.Map[Integer, DateTime]) {
-  def this(good: LogFile, bad: LogFile) = this(good, bad, TimeAlignment.getEntryMapping(bad))
+final class TimeRuler(good: LogFile, bad: LogFile,
+                      goodEntries: java.util.Map[Integer, DateTime], badEntries: java.util.Map[Integer, DateTime]) {
+  def this(good: LogFile, bad: LogFile) = this(good, bad,
+    TimeAlignment.getEntryMapping(good), TimeAlignment.getEntryMapping(bad))
 
 //  private val intervals = new LogFileDiff(good, bad).getIntervals.toArray(new Array[(java.lang.Integer, java.lang.Integer)](0))
   private val intervals = new ThreadDiff(null,
@@ -35,7 +38,11 @@ final class TimeRuler(good: LogFile, bad: LogFile, badEntries: java.util.Map[Int
           }
       }
     }
-    difference.good2bad(showtime)
+    if (k < intervals.size) {
+      val futureDifference = new TimeDifference(goodEntries.get(intervals(k)._1), badEntries.get(intervals(k)._2))
+      good.entries.find(!_.showtime.isBefore(showtime)).map(e => futureDifference.good2bad(e.showtime))
+        .getOrElse(difference.good2bad(showtime))
+    } else difference.good2bad(showtime)
   }
 }
 
@@ -52,12 +59,13 @@ object TimeAlignment {
             if (i == entries.length || (j < injections.length && entries(i).logLine > injections(j).logLine)) {
               val injection = injections(j)
               j += 1
-              Injection(ruler.forward(injection.logLine, injection.showtime), injection,
-                occurrences.merge(injection.injection, 1, _ + _))
+              val time = ruler.forward(injection.logLine, injection.showtime)
+              Injection(time, injection, occurrences.merge(injection.injection, 1, _ + _))
             } else {
               val entry = entries(i)
               i += 1
-              LogLine(ruler.forward(entry.logLine, entry.showtime), entry, tag)
+              val time = ruler.forward(entry.logLine, entry.showtime)
+              LogLine(time, entry, tag)
             }
         }
     }
@@ -79,6 +87,10 @@ object TimeAlignment {
     val badEntries = new java.util.TreeMap[Integer, DateTime]
     bad match {
       case NormalLogFile(_, entries) =>
+        entries foreach { entry =>
+          badEntries.put(entry.logLine, entry.showtime)
+        }
+      case TraceLogFile(header, entries, injections) =>
         entries foreach { entry =>
           badEntries.put(entry.logLine, entry.showtime)
         }
