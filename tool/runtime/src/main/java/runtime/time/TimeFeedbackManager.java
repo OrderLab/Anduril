@@ -7,6 +7,7 @@ import runtime.TraceAgent;
 
 import javax.json.JsonObject;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.BiFunction;
 
@@ -227,6 +228,8 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (this.mode == Mode.MIN_INTERLEAVE) {
             isTime = random.nextBoolean();
         }
+        System.out.printf("\nFlaky Agent Table Start Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         // WARN: time priority exists iff location priority exists according to the algorithm in Timeline.java
         if (this.mode == Mode.MIN_RANDOM) {
             final Set<Integer> timeSet = new TreeSet<>();

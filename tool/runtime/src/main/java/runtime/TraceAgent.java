@@ -16,7 +16,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -219,6 +221,8 @@ public final class TraceAgent {
             rmiRegistry.unbind(RMI_NAME);
             UnicastRemoteObject.unexportObject(s, true);
         } else {
+            System.out.printf("\nFlaky Agent Init Start Time:  %s\n",
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
             localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
             if (config.trialTimeout != -1) {
                 new Thread(() -> {
@@ -241,6 +245,8 @@ public final class TraceAgent {
             }));
             final Class<?> cls = Class.forName(args[3]);
             final Method method = cls.getMethod("main", String[].class);
+            System.out.printf("\nFlaky Agent Init End Time:   %s\n",
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
             method.invoke(null, (Object) Arrays.copyOfRange(args, 4, args.length));
         }
     }
