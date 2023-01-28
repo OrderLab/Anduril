@@ -66,3 +66,31 @@ final class HDFS_4233 extends DistributedWorkload {
     "org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.rollEditLog(NameNodeRpcServer.java:645)",
   )
 }
+
+@unused
+final class HDFS_13039 extends DistributedWorkload {
+  override val targetNode: Int = 4
+
+  override def checkLogClassName(classname: String): Boolean =
+    classname equals "DataXceiver"
+
+  override def checkFileLogLine(fileLogLine: Int): Boolean =
+    fileLogLine == 323
+
+  override def checkLogType(logType: LogType): Boolean =
+    logType == LogType.ERROR
+
+  override val targetStackTracePrefix: List[String] = List(
+    "org.apache.hadoop.io.IOUtils.readFully(IOUtils.java:212)",
+    "org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.doReadFully(PacketReceiver.java:211)",
+    "org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.doRead(PacketReceiver.java:134)",
+    "org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.receiveNextPacket(PacketReceiver.java:109)",
+    "org.apache.hadoop.hdfs.server.datanode.BlockReceiver.receivePacket(BlockReceiver.java:528)",
+    "org.apache.hadoop.hdfs.server.datanode.BlockReceiver.receiveBlock(BlockReceiver.java:971)",
+    "org.apache.hadoop.hdfs.server.datanode.DataXceiver.writeBlock(DataXceiver.java:902)",
+    "org.apache.hadoop.hdfs.protocol.datatransfer.Receiver.opWriteBlock(Receiver.java:173)",
+    "org.apache.hadoop.hdfs.protocol.datatransfer.Receiver.processOp(Receiver.java:107)",
+    "org.apache.hadoop.hdfs.server.datanode.DataXceiver.run(DataXceiver.java:290)",
+    "java.lang.Thread.run(Thread.java:748)",
+  )
+}

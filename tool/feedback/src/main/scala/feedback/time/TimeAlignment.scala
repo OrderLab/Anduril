@@ -2,7 +2,7 @@ package feedback.time
 
 import feedback.diff.{LogFileDiff, ThreadDiff}
 import feedback.log.entry.{InjectionRecord, LogEntry}
-import feedback.log.{LogFile, NormalLogFile, TraceLogFile}
+import feedback.log.{DistributedWorkloadLog, LogFile, NormalLogFile, TraceLogFile, UnitTestLog}
 import feedback.parser.LogFileParser
 import org.joda.time.DateTime
 
@@ -25,7 +25,10 @@ final class TimeRuler(good: LogFile, bad: LogFile,
     new java.util.ArrayList[LogEntry](bad.entries.toList.asJava)).common
 
   private var k = 0
-  private var difference = new TimeDifference(good, bad)
+  //private var difference = new TimeDifference(good, bad)
+  private var good_base = good.showtime
+  private var bad_base = bad.showtime
+  private var scale : Double = 1
 
   def forward(logLine: Int, showtime: DateTime): DateTime = {
     if (k < intervals.size) {
@@ -33,16 +36,25 @@ final class TimeRuler(good: LogFile, bad: LogFile,
         case (x, y) =>
           require(logLine <= x)
           if (logLine == x) {
-            difference = new TimeDifference(showtime, badEntries.get(y))
+            //difference = new TimeDifference(showtime, badEntries.get(y))
+            good_base = showtime
+            bad_base = badEntries.get(y)
             do k += 1 while (k < intervals.size && intervals(k)._2 < y)
+            if (k < intervals.size && (goodEntries.get(intervals(k)._1).getMillis - good_base.getMillis) > 0) {
+              scale = (badEntries.get(intervals(k)._2).getMillis - bad_base.getMillis).toDouble / (goodEntries.get(intervals(k)._1).getMillis - good_base.getMillis).toDouble
+              require(scale >= 0)
+            } else scale = 1
           }
       }
     }
+    bad_base.plus((scale*(showtime.getMillis - good_base.getMillis)).toLong)
+    /**
     if (k < intervals.size) {
       val futureDifference = new TimeDifference(goodEntries.get(intervals(k)._1), badEntries.get(intervals(k)._2))
       good.entries.find(!_.showtime.isBefore(showtime)).map(e => futureDifference.good2bad(e.showtime))
         .getOrElse(difference.good2bad(showtime))
     } else difference.good2bad(showtime)
+     **/
   }
 }
 
