@@ -59,7 +59,7 @@ object LogEntryBuilders {
   private[entry] val EmptyPattern = raw"(?s)".r
 
   def create(logLine: Int,
-             datetimeText: String,
+             datetime: DateTime,
              logTypeText: String,
              locationText: String,
              msg: String): LogEntryBuilder =
@@ -67,11 +67,14 @@ object LogEntryBuilders {
       case (thread, file, fileLine) =>
         new LogEntryBuilder(
           logLine,
-          LogFileParser.parseDatetime(datetimeText),
+          datetime,
           LogFileParser.parseLogType(logTypeText),
           thread,
           file,
           fileLine,
           new mutable.StringBuilder(msg))
     }
+
+  def create(logLine: Int, datetimeText: String, logTypeText: String, locationText: String, msg: String): LogEntryBuilder =
+    create(logLine, LogFileParser.parseDatetime(datetimeText), logTypeText, locationText, msg)
 }
