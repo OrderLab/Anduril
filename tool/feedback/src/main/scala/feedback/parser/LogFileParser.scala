@@ -72,7 +72,7 @@ object LogFileParser {
     def correct(datetimeText: String): DateTime = {
       val datetime = LogFileParser.parseDatetime(datetimeText)
       previousDataTime map { previousDataTime =>
-        if (previousDataTime isBefore(datetime)) {
+        if (datetime isBefore(previousDataTime)) {
           LOG.warn(s"Log time ${datetime.toString(datetimeFormatter)} is replaced with ${previousDataTime.toString(datetimeFormatter)}")
           previousDataTime
         } else datetime
