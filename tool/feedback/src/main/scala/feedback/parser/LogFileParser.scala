@@ -4,12 +4,15 @@ import feedback.log.entry.{InjectionRecord, LogEntry, LogEntryBuilder, LogEntryB
 import feedback.log.{LogFile, NormalLogFile, TestResult, TraceLogFile}
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
+import org.slf4j.LoggerFactory
 
 import java.io.File
 import java.nio.file.Path
 import scala.collection.mutable
 
 object LogFileParser {
+  private val LOG = LoggerFactory.getLogger(getClass)
+
   private val year = raw"\d{4}"
   private val month = raw"\d{2}"
   private val day = raw"\d{2}"
@@ -65,23 +68,34 @@ object LogFileParser {
   private val AttachedNormalPattern = raw"(?s)(.+.)$normalLogRegex".r
   private val AttachedNormalIdPattern = raw"(?s)(.+.)$normalIdLogRegex".r
 
-  def parseLogEntry(text: String, logLine: Int): Option[(Option[String], LogEntryBuilder)] = {
+  def parseLogEntry(previousDataTime: Option[DateTime], text: String, logLine: Int): Option[(Option[String], LogEntryBuilder)] = {
+    def correct(datetimeText: String): DateTime = {
+      val datetime = LogFileParser.parseDatetime(datetimeText)
+      previousDataTime map { previousDataTime =>
+        if (previousDataTime isBefore(datetime)) {
+          LOG.warn(s"Log time ${datetime.toString(datetimeFormatter)} is replaced with ${previousDataTime.toString(datetimeFormatter)}")
+          previousDataTime
+        } else datetime
+      } getOrElse datetime
+    }
     text match {
       case NormalPattern(datetime, logType, location, msg) =>
-        Some(None, LogEntryBuilders.create(logLine, datetime, logType, location, msg))
+        Some(None, LogEntryBuilders.create(logLine, correct(datetime), logType, location, msg))
       case SpecialPattern(datetime, logType, location, msg) =>
-        Some(None, LogEntryBuilders.create(logLine, datetime, logType, location, msg))
+        Some(None, LogEntryBuilders.create(logLine, correct(datetime), logType, location, msg))
       case NormalIdPattern(datetime, _, logType, location, msg) =>
-        Some(None, LogEntryBuilders.create(logLine, datetime, logType, location, msg))
+        Some(None, LogEntryBuilders.create(logLine, correct(datetime), logType, location, msg))
       case SpecialIdPattern(datetime, _, logType, location, msg) =>
-        Some(None, LogEntryBuilders.create(logLine, datetime, logType, location, msg))
+        Some(None, LogEntryBuilders.create(logLine, correct(datetime), logType, location, msg))
       case AttachedNormalPattern(header, datetime, logType, location, msg) =>
-        Some(Some(header), LogEntryBuilders.create(logLine, datetime, logType, location, msg))
+        Some(Some(header), LogEntryBuilders.create(logLine, correct(datetime), logType, location, msg))
       case AttachedNormalIdPattern(header, datetime, _, logType, location, msg) =>
-        Some(Some(header), LogEntryBuilders.create(logLine, datetime, logType, location, msg))
+        Some(Some(header), LogEntryBuilders.create(logLine, correct(datetime), logType, location, msg))
       case _ => None
     }
   }
+
+  def parseLogEntry(text: String, logLine: Int): Option[(Option[String], LogEntryBuilder)] = parseLogEntry(None, text, logLine)
 
   def parse(text: Array[String]): (LogFile, Option[TestResult]) = parse(text.iterator)
 
@@ -120,7 +134,7 @@ object LogFileParser {
     while (text.hasNext) {
       index += 1
       val line = text.next()
-      parseLogEntry(line, index + 1) match {
+      parseLogEntry(currentLogEntryBuilder map { _.showtime }, line, index + 1) match {
         // finish the previous appender
         case Some((headerOptional, logEntryBuilder)) =>
           if (headerPhase) {
