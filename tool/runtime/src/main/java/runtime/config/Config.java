@@ -92,7 +92,6 @@ public final class Config {
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
-        minimumTimeMode = Boolean.getBoolean("flakyAgent.minimumTimeMode");
     }
 
     private static final String[] experimentProperties = new String[] {
