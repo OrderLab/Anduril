@@ -73,6 +73,7 @@ public final class Config {
     public String timeFeedbackMode;
     public boolean isTimeFeedback;
     public boolean isProbabilityFeedback;
+    public boolean minimumTimeMode;
     public int injectionOccurrenceLimit;
     public int slidingWindowSize;
 
@@ -87,9 +88,11 @@ public final class Config {
         allowFeedback = Boolean.getBoolean("flakyAgent.feedback");
         isTimeFeedback = Boolean.getBoolean("flakyAgent.timeFeedback");
         isProbabilityFeedback = Boolean.getBoolean("flakyAgent.probabilityFeedback");
+        minimumTimeMode = Boolean.getBoolean("flakyAgent.minimumTimeMode");
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
+        minimumTimeMode = Boolean.getBoolean("flakyAgent.minimumTimeMode");
     }
 
     private static final String[] experimentProperties = new String[] {
@@ -113,6 +116,7 @@ public final class Config {
             "flakyAgent.probabilityFeedback",
             "flakyAgent.injectionOccurrenceLimit",
             "flakyAgent.slidingWindow",
+            "flakyAgent.minimumTimeMode",
     };
 
     private Config() { }

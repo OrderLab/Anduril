@@ -35,7 +35,7 @@ public class LocalInjectionManager {
     private final ConcurrentMap<Integer, Integer> block2times = new ConcurrentHashMap<>();
 
     protected int trialId = 0;
-    protected int windowSize = TraceAgent.config.slidingWindowSize;
+    protected int windowSize = TraceAgent.config.minimumTimeMode ? 1 : TraceAgent.config.slidingWindowSize;
     protected FeedbackManager feedbackManager = null;
 
     private static final JsonWriterFactory writerFactory;
@@ -101,7 +101,11 @@ public class LocalInjectionManager {
             } catch (final IOException ignored) { }
         }
         if (latestOK + 1 == this.trialId) {
-            windowSize *= 2;
+            if (TraceAgent.config.minimumTimeMode) {
+                windowSize += 1;
+            } else {
+                windowSize *= 2;
+            }
             if (windowSize > INF) {
                 windowSize = INF;
             }
