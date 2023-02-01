@@ -21,8 +21,86 @@ public class PriorityGraph {
     private final int[] starts;
     public final int startNumber;
     public final TreeMap<Integer, Integer> w = new TreeMap<>();
+    public final String specPath;
 
-    protected PriorityGraph(final JsonObject json, final int startNumber) {
+    public class FastGraph {
+        public class Edge {
+            public final int to;
+            public final Edge next;
+            public final ArrayList<Integer> v;
+            public Edge(final int to, final Edge next, final ArrayList<Integer> v) {
+                this.to = to;
+                this.next = next;
+                this.v = v;
+            }
+        }
+        public final Edge[] firstEdge;
+
+        void addEdge(final int x, final int y, final ArrayList<Integer> v) {
+            final Edge edge = new Edge(y, firstEdge[x], v);
+            firstEdge[x] = edge;
+        }
+
+        public FastGraph() {
+            int max = 0;
+            for (final Map.Entry<Integer, Map<Integer, ArrayList<Integer>>> entry : caller2callee2injections.entrySet()) {
+                final int x = entry.getKey();
+                max = Math.max(x, max);
+                for (final Integer y : outcome2cause.get(x)) {
+                    max = Math.max(y, max);
+                }
+                for (final Map.Entry<Integer, ArrayList<Integer>> entry2 : entry.getValue().entrySet()) {
+                    final int y = entry2.getKey();
+                    max = Math.max(y, max);
+//                    addEdge(x, y, entry2.getValue());
+                }
+            }
+            for (final Integer x : outcome2cause.keySet()) {
+                max = Math.max(x, max);
+                for (final Integer y : outcome2cause.get(x)) {
+                    max = Math.max(y, max);
+                }
+            }
+            firstEdge = new Edge[max + 1];
+            final Map<Integer, ArrayList<Integer>> sentinal = new HashMap<>();
+            final ArrayList<Integer> s2 = new ArrayList<>();
+            for (final Integer x : outcome2cause.keySet()) {
+                final Map<Integer, ArrayList<Integer>> m1 = caller2callee2injections.getOrDefault(x, sentinal);
+                for (final Integer y : outcome2cause.get(x)) {
+                    addEdge(x, y, m1.getOrDefault(y, s2));
+                }
+            }
+        }
+
+        public void calculatePriorities(final int start, final int initialPriority,
+                                        final BiConsumer<Integer, Integer> consumer) {
+            final LinkedList<Integer> queue = new LinkedList<>();
+            final LinkedList<Integer> weights = new LinkedList<>();
+            queue.add(start);
+            weights.add(initialPriority);
+            final Set<Integer> visited = new TreeSet<>(queue);
+            while (!queue.isEmpty()) {
+                final int node = queue.getFirst();
+                final int weight = weights.getFirst() + 1;
+                queue.removeFirst();
+                weights.removeFirst();
+                for (Edge e = firstEdge[node]; e != null; e = e.next) {
+                    final int child = e.to;
+                    if (!visited.contains(child)) {
+                        visited.add(child);
+                        queue.add(child);
+                        weights.add(weight);
+                    }
+                    for (final Integer injectionId : e.v) {
+                        consumer.accept(injectionId, weight);
+                    }
+                }
+            }
+        }
+    }
+
+    protected PriorityGraph(final String specPath, final JsonObject json, final int startNumber) {
+        this.specPath = specPath;
         this.json = json;
         this.startNumber = startNumber;
         this.startValues = new int[startNumber];
@@ -30,7 +108,15 @@ public class PriorityGraph {
     }
 
     public PriorityGraph(final JsonObject json) {
-        this(json, json.getInt("start"));
+        this(null, json);
+    }
+
+    public PriorityGraph(final JsonObject json, final int startNumber) {
+        this(null, json, startNumber);
+    }
+
+    public PriorityGraph(final String specPath, final JsonObject json) {
+        this(specPath, json, json.getInt("start"));
 
         final JsonArray injectionsJson = this.json.getJsonArray("injections");
         for (int i = 0; i < injectionsJson.size(); i++) {
@@ -62,7 +148,10 @@ public class PriorityGraph {
                 nodes.add(children.getInt(j));
             }
         }
+        this.fastGraph = new FastGraph();
     }
+
+    public FastGraph fastGraph;
 
     public void setStartValue(final int i, final int v) {
         this.startValues[i] = v;
@@ -140,32 +229,33 @@ public class PriorityGraph {
 
     public void calculatePriorities(final int start, final int initialPriority,
                                     final BiConsumer<Integer, Integer> consumer) {
-        final LinkedList<Integer> queue = new LinkedList<>();
-        final LinkedList<Integer> weights = new LinkedList<>();
-        queue.add(start);
-        weights.add(initialPriority);
-        final Set<Integer> visited = new TreeSet<>(queue);
-        while (!queue.isEmpty()) {
-            final int node = queue.getFirst();
-            final int weight = weights.getFirst() + 1;
-            queue.removeFirst();
-            weights.removeFirst();
-            if (this.outcome2cause.containsKey(node)) {
-                final Map<Integer, ArrayList<Integer>> m1 = caller2callee2injections.get(node);
-                for (final Integer child : outcome2cause.get(node)) {
-                    if (!visited.contains(child)) {
-                        visited.add(child);
-                        queue.add(child);
-                        weights.add(weight);
-                    }
-                    if (m1 != null && m1.containsKey(child)) {
-                        for (final Integer injectionId : m1.get(child)) {
-                            consumer.accept(injectionId, weight);
-                        }
-                    }
-                }
-            }
-        }
+        fastGraph.calculatePriorities(start, initialPriority, consumer);
+//        final LinkedList<Integer> queue = new LinkedList<>();
+//        final LinkedList<Integer> weights = new LinkedList<>();
+//        queue.add(start);
+//        weights.add(initialPriority);
+//        final Set<Integer> visited = new TreeSet<>(queue);
+//        while (!queue.isEmpty()) {
+//            final int node = queue.getFirst();
+//            final int weight = weights.getFirst() + 1;
+//            queue.removeFirst();
+//            weights.removeFirst();
+//            if (this.outcome2cause.containsKey(node)) {
+//                final Map<Integer, ArrayList<Integer>> m1 = caller2callee2injections.get(node);
+//                for (final Integer child : outcome2cause.get(node)) {
+//                    if (!visited.contains(child)) {
+//                        visited.add(child);
+//                        queue.add(child);
+//                        weights.add(weight);
+//                    }
+//                    if (m1 != null && m1.containsKey(child)) {
+//                        for (final Integer injectionId : m1.get(child)) {
+//                            consumer.accept(injectionId, weight);
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     // Find the event leading from start to end using depth first search
