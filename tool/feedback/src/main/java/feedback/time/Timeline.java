@@ -56,7 +56,7 @@ public final class Timeline {
             final Predicate<Timing> isTarget = timing ->
                     timing instanceof CriticalLogTiming && ((CriticalLogTiming) timing).id() == i;
             if (Arrays.stream(timeline).anyMatch(timing -> getId.apply(timing) != null)) {
-                updateTimeline(timeline, isTarget, getId, update);
+                updateTimeline(timeline, isTarget, getId, update, i_);
             } else {
                 LOG.warn("None of the injections can trigger event {}", i);
             }
@@ -74,7 +74,8 @@ public final class Timeline {
     static <T, U> void updateTimeline(final T[] timeline,
                                       final Predicate<T> isTarget,
                                       final Function<T, U> getId,
-                                      final UpdateAgent<T, U> update) {
+                                      final UpdateAgent<T, U> update,
+                                      final int eventnumber) {
         int prev = -1;
         int next = 0;
         while (next < timeline.length && !isTarget.test(timeline[next])) {
@@ -98,12 +99,12 @@ public final class Timeline {
             }
             if (prev == -1) {
                 if (next == timeline.length) {
-                    System.out.println("Prev and next are missed, replaced with bad run log");
+                    System.out.println("Prev and next are missed in " + eventnumber + ", replaced with bad run log");
                     //throw new RuntimeException("either prev or next must exist");
                     // Then the distance will be the total distance(or there may be overflow)
                     // Feeding in -1 will automatically result in length of the bad run log
                     update.update(id, next, -1);
-                    break;
+                    continue;
                 }
                 update.update(id, next, update.forwardDistance(i, next));
             } else {
