@@ -59,7 +59,7 @@ final class TimelineTest {
                         actual.put(id, new BestTargetLogForInjection(target, weight));
                     }
                 };
-        Timeline.updateTimeline(timeline, v -> v == 0, v -> v > 0 ? v : null, update);
+        Timeline.updateTimeline(timeline, v -> v == 0, v -> v > 0 ? v : null, update, -1);
         final Map<Integer, BestTargetLogForInjection> expected = new TreeMap<>();
         for (int i = 0; i < timeline.length; i++) {
             if (timeline[i] > 0) {
