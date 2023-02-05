@@ -15,7 +15,8 @@ public final class Timeline {
     public static TimePriorityTable computeTimeFeedback(final Timing[] timeline,
                                                         final int eventNumber,
                                                         final PriorityGraph graph,
-                                                        final TimePriorityTable table) {
+                                                        final TimePriorityTable table,
+                                                        final int limit ) {
         for (final Timing timing : timeline) {
             if (timing instanceof InjectionTiming) {
                 final InjectionTiming id = (InjectionTiming) timing;
@@ -41,9 +42,15 @@ public final class Timeline {
                 }
                 @Override
                 void update(final InjectionTiming id, final int target, final int weight) {
-                    table.injections.computeIfAbsent(id.injection(),
-                            k -> new TreeMap<>()).computeIfAbsent(new TimePriorityTable.Key(id.pid(), id.occurrence()),
-                            k -> new TimePriorityTable.UtilityReducer()).timePriorities.put(i, weight);
+                    if (weight < 0) {
+                        table.injections.computeIfAbsent(id.injection(),
+                                k -> new TreeMap<>()).computeIfAbsent(new TimePriorityTable.Key(id.pid(), id.occurrence()),
+                                k -> new TimePriorityTable.UtilityReducer()).timePriorities.put(i, limit);
+                    } else {
+                        table.injections.computeIfAbsent(id.injection(),
+                                k -> new TreeMap<>()).computeIfAbsent(new TimePriorityTable.Key(id.pid(), id.occurrence()),
+                                k -> new TimePriorityTable.UtilityReducer()).timePriorities.put(i, weight);
+                    }
                 }
             };
             final Predicate<Timing> isTarget = timing ->
@@ -91,7 +98,12 @@ public final class Timeline {
             }
             if (prev == -1) {
                 if (next == timeline.length) {
-                    throw new RuntimeException("either prev or next must exist");
+                    System.out.println("Prev and next are missed, replaced with bad run log");
+                    //throw new RuntimeException("either prev or next must exist");
+                    // Then the distance will be the total distance(or there may be overflow)
+                    // Feeding in -1 will automatically result in length of the bad run log
+                    update.update(id, next, -1);
+                    break;
                 }
                 update.update(id, next, update.forwardDistance(i, next));
             } else {

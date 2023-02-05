@@ -85,6 +85,6 @@ object TimeAlgorithms {
       case UnitTestLog(_, _) => new TimePriorityTable(false, 1)
       case DistributedWorkloadLog(logs) => new TimePriorityTable(true, logs.length)
     }
-    Timeline.computeTimeFeedback(timeline, events.length, new PriorityGraph(spec), table)
+    Timeline.computeTimeFeedback(timeline, events.length, new PriorityGraph(spec), table, badTimeline.size)
   }
 }

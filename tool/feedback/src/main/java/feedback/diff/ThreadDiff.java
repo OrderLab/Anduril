@@ -61,7 +61,7 @@ public final class ThreadDiff implements DiffDump {
     public final String thread;
     public final scala.Tuple2<Integer, Integer>[] common;
     private final List<CodeLocation> badOnly;
-    public List<Integer> badOnlyList = new ArrayList<>();
+    public final List<Integer> badOnlyList = new ArrayList<>();
 
     private static CodeLocation[] convertLogEntries(final ArrayList<LogEntry> logEntries) {
         final CodeLocation[] result = new CodeLocation[logEntries.size()];
@@ -79,7 +79,9 @@ public final class ThreadDiff implements DiffDump {
             final FastDiff<CodeLocation> diff = new FastDiff<>(goodLocations, badLocations);
             this.badOnly = diff.badOnly;
             this.common = new scala.Tuple2[diff.common];
-            this.badOnlyList = diff.badOnlyList;
+            for (int i : diff.badOnlyList) {
+                this.badOnlyList.add(bad.get(i).logLine());
+            }
             for (int i = 0; i < diff.common; i++) {
                 this.common[i] = new scala.Tuple2<>(good.get(diff.intervals[i]._1).logLine(),
                         bad.get(diff.intervals[i]._2).logLine());
