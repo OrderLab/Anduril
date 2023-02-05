@@ -44,8 +44,10 @@ object TimeAlgorithms {
         } reduce { _ ++ _ }
     }
 
+    var limit = 0
     var badTimeline = bad match {
       case UnitTestLog(NormalLogFile(_, entries), _) =>
+        limit += entries.length
         val badOnlySet = (good, bad) match {
           case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
             new ThreadDiff(null,
@@ -85,6 +87,6 @@ object TimeAlgorithms {
       case UnitTestLog(_, _) => new TimePriorityTable(false, 1)
       case DistributedWorkloadLog(logs) => new TimePriorityTable(true, logs.length)
     }
-    Timeline.computeTimeFeedback(timeline, events.length, new PriorityGraph(spec), table, badTimeline.size)
+    Timeline.computeTimeFeedback(timeline, events.length, new PriorityGraph(spec), table, limit)
   }
 }

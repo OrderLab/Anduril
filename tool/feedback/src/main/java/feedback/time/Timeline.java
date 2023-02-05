@@ -78,6 +78,7 @@ public final class Timeline {
                                       final int eventnumber) {
         int prev = -1;
         int next = 0;
+        int fail = 0;
         while (next < timeline.length && !isTarget.test(timeline[next])) {
             next++;
         }
@@ -99,7 +100,7 @@ public final class Timeline {
             }
             if (prev == -1) {
                 if (next == timeline.length) {
-                    System.out.println("Prev and next are missed in " + eventnumber + ", replaced with bad run log");
+                    fail = 1;
                     //throw new RuntimeException("either prev or next must exist");
                     // Then the distance will be the total distance(or there may be overflow)
                     // Feeding in -1 will automatically result in length of the bad run log
@@ -121,6 +122,9 @@ public final class Timeline {
                     }
                 }
             }
+        }
+        if (fail == 1) {
+            System.out.println("Prev and next are missed in " + eventnumber + ", replaced with bad run log");
         }
     }
 
