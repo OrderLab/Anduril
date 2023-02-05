@@ -1,13 +1,16 @@
 package feedback.time
 
 import feedback.diff.ThreadDiff
+import feedback.log.entry.LogEntry
 import feedback.log.{DistributedWorkloadLog, Log, NormalLogFile, UnitTestLog}
 import feedback.symptom.Symptoms
 import org.joda.time.DateTime
 import runtime.graph.PriorityGraph
 import runtime.time.TimePriorityTable
-
 import javax.json.JsonObject
+import scala.jdk.CollectionConverters.SeqHasAsJava
+import scala.jdk.CollectionConverters._
+
 import scala.util.Sorting
 
 sealed trait TimelineType extends Timing
@@ -40,16 +43,25 @@ object TimeAlgorithms {
           }
         } reduce { _ ++ _ }
     }
+
     var badTimeline = bad match {
-      case UnitTestLog(NormalLogFile(_, entries), _) => entries.iterator map { entry =>
-        eventList find {
-          case (location, _) =>
-            location.classname.equals(entry.classname) &&
-              location.fileLogLine == entry.fileLogLine
-        } map {
-          case (_, event) => CriticalLogTiming(entry.showtime, event)
-        } getOrElse NormalLogTiming(entry.showtime)
-      }
+      case UnitTestLog(NormalLogFile(_, entries), _) =>
+        val badOnlySet = (good, bad) match {
+          case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
+            new ThreadDiff(null,
+              new java.util.ArrayList[LogEntry](good.entries.toList.asJava),
+              new java.util.ArrayList[LogEntry](bad.entries.toList.asJava)).badOnlyList.asScala.toSet
+        }
+        entries.iterator map { entry =>
+          eventList find {
+            case (location, _) =>
+              location.classname.equals(entry.classname) &&
+                location.fileLogLine == entry.fileLogLine &&
+                  badOnlySet.contains(entry.logLine)
+          } map {
+            case (_, event) => CriticalLogTiming(entry.showtime, event)
+          } getOrElse NormalLogTiming(entry.showtime)
+        }
       case DistributedWorkloadLog(logs) => logs map {
         case NormalLogFile(_, entries) => entries.iterator map { entry =>
           eventList find {

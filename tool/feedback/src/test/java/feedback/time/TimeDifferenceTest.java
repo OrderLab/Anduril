@@ -13,7 +13,7 @@ final class TimeDifferenceTest {
     @Test
     void testBugCases(final @TempDir Path tempDir) {
         final BugCase[] cases = new BugCase[] {
-                new TestCase("hdfs-12070", tempDir),
+                new TestCase("kafka-12508", tempDir),
         };
         for (final BugCase bug : cases) {
             bug.printAlign(LOG::debug);

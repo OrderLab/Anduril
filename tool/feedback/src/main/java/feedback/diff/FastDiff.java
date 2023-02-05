@@ -5,6 +5,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 final class FastDiff<T> {
     enum CHOICE {
@@ -23,6 +24,7 @@ final class FastDiff<T> {
     final int common;
     final CHOICE[] path;
     final scala.Tuple2<Integer, Integer>[] intervals;
+    final List<Integer> badOnlyList = new ArrayList<>();
 
     FastDiff(final T[] good, final T[] bad) {
         int[] opt = new int[bad.length + 1], update = new int[bad.length + 1];
@@ -77,6 +79,7 @@ final class FastDiff<T> {
                     break;
                 case BAD_ONLY:
                     j--;
+                    this.badOnlyList.add(j);
                     this.badOnly.add(bad[j]);
                     break;
             }
