@@ -45,36 +45,48 @@ object TimeAlgorithms {
     }
 
     var limit = 0
-    var badTimeline = bad match {
-      case UnitTestLog(NormalLogFile(_, entries), _) =>
-        limit += entries.length
-        val badOnlySet = (good, bad) match {
-          case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
-            new ThreadDiff(null,
-              new java.util.ArrayList[LogEntry](good.entries.toList.asJava),
-              new java.util.ArrayList[LogEntry](bad.entries.toList.asJava)).badOnlyList.asScala.toSet
+    var badTimeline = (good, bad) match {
+      case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
+        bad match {
+          case NormalLogFile(_, entries) =>
+            limit += entries.length
+            val badOnlySet =
+                new ThreadDiff(null,
+                  new java.util.ArrayList[LogEntry](good.entries.toList.asJava),
+                  new java.util.ArrayList[LogEntry](bad.entries.toList.asJava)).badOnlyList.asScala.toSet
+            entries.iterator map { entry =>
+              eventList find {
+                case (location, _) =>
+                  location.classname.equals(entry.classname) &&
+                    location.fileLogLine == entry.fileLogLine &&
+                    badOnlySet.contains(entry.logLine)
+              } map {
+                case (_, event) => CriticalLogTiming(entry.showtime, event)
+              } getOrElse NormalLogTiming(entry.showtime)
+            }
         }
-        entries.iterator map { entry =>
-          eventList find {
-            case (location, _) =>
-              location.classname.equals(entry.classname) &&
-                location.fileLogLine == entry.fileLogLine &&
-                  badOnlySet.contains(entry.logLine)
-          } map {
-            case (_, event) => CriticalLogTiming(entry.showtime, event)
-          } getOrElse NormalLogTiming(entry.showtime)
-        }
-      case DistributedWorkloadLog(logs) => logs map {
-        case NormalLogFile(_, entries) => entries.iterator map { entry =>
-          eventList find {
-            case (location, _) =>
-              location.classname.equals(entry.classname) &&
-                location.fileLogLine == entry.fileLogLine
-          } map {
-            case (_, event) => CriticalLogTiming(entry.showtime, event)
-          } getOrElse NormalLogTiming(entry.showtime)
-        }
-      } reduce { _ ++ _ }
+      case (DistributedWorkloadLog(goodLogs), DistributedWorkloadLog(badLogs)) =>
+        goodLogs.zipAll(badLogs, null, null).zipWithIndex map {
+          case ((g, b), _) =>
+            b match {
+              case NormalLogFile(_, entries) =>
+                limit += entries.length
+                val badOnlySet =
+                  new ThreadDiff(null,
+                    new java.util.ArrayList[LogEntry](g.entries.toList.asJava),
+                    new java.util.ArrayList[LogEntry](b.entries.toList.asJava)).badOnlyList.asScala.toSet
+                entries.iterator map { entry =>
+                  eventList find {
+                    case (location, _) =>
+                      location.classname.equals(entry.classname) &&
+                        location.fileLogLine == entry.fileLogLine &&
+                          badOnlySet.contains(entry.logLine)
+                  } map {
+                    case (_, event) => CriticalLogTiming(entry.showtime, event)
+                  } getOrElse NormalLogTiming(entry.showtime)
+                }
+            }
+        } reduce { _ ++ _ }
     }
     if (!isResultEventLogged) {
       Symptoms.findResultEvent(bad, spec) foreach { timing =>
