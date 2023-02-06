@@ -13,9 +13,10 @@ public class FeedbackManager {
     private final JsonObject json;
     protected final PriorityGraph graph;
     protected final ArrayList<Integer> injections;
-    public FeedbackManager(final JsonObject json) {
+
+    public FeedbackManager(final String specPath, final JsonObject json) {
         this.json = json;
-        this.graph = new PriorityGraph(this.json);
+        this.graph = new PriorityGraph(specPath, this.json);
         final JsonArray injections_json = this.json.getJsonArray("injections");
         this.injections = new ArrayList<>(injections_json.size());
         for (int i = 0; i < injections_json.size(); i++) {

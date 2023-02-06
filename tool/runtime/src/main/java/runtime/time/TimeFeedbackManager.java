@@ -159,8 +159,8 @@ public class TimeFeedbackManager extends FeedbackManager {
     protected final TimePriorityTable timePriorityTable;
     private final Random random = new Random(System.currentTimeMillis());
 
-    public TimeFeedbackManager(final JsonObject json, final String timePriorityTable) {
-        super(json);
+    public TimeFeedbackManager(final String specPath, final JsonObject json, final String timePriorityTable) {
+        super(specPath, json);
         this.timePriorityTable = TimePriorityTable.load(timePriorityTable);
         switch (TraceAgent.config.timeFeedbackMode) {
             case "add"            : this.mode = Mode.E_ADD; break;
@@ -202,28 +202,18 @@ public class TimeFeedbackManager extends FeedbackManager {
         return priorities[occurrence - 1] <= boundary;
     }
 
+    private static final Map<Integer, Integer> sentinel = new HashMap<>();
+
     @Override
     public void calc(final int windowSize) {
-
         final Map<Integer, Map<Integer, Integer>> locationPriorities = new TreeMap<>();
+        System.out.printf("\nSys Graph whz Start Time:   %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+//        NativeAlgorithms.computeTimeTable(new int[2], 2, super.graph.specPath, (x, y) -> System.out.printf("asdfasdf %d %d\n",x,y));
         for (int i = 0; i < super.graph.startNumber; i++) {
             final int finalI = i;
-            super.graph.calculatePriorities(i, super.active.getOrDefault(i, 0), (injectionId, weight) -> {
-                /**
-                final Map<TimePriorityTable.Key, TimePriorityTable.UtilityReducer> injections =
-                        this.timePriorityTable.injections.get(injectionId);
-                if (injections != null) {
-                    injections.forEach((k, v) -> {
-                        if (v.timePriorities.containsKey(finalI)) {
-                            v.locationPriorities.putIfAbsent(finalI, weight);
-                        }
-                    });
-                }
-                 **/
-                locationPriorities.computeIfAbsent(injectionId,
-                        k -> new TreeMap<>()).put(finalI, weight);
-
-            });
+            super.graph.calculatePriorities(i, super.active.getOrDefault(i, 0), (injectionId, weight) ->
+                    locationPriorities.computeIfAbsent(injectionId, k -> new TreeMap<>()).put(finalI, weight));
         }
         if (this.mode == Mode.MIN_INTERLEAVE) {
             isTime = random.nextBoolean();
@@ -271,6 +261,16 @@ public class TimeFeedbackManager extends FeedbackManager {
         } else {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, new double[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
+                System.out.printf("%d,%d,", injection, k.occurrence);
+                for (int log = 0; log < super.graph.startNumber; log++) {
+                    if (v.timePriorities.containsKey(log)) {
+                        System.out.printf("(%d_%d_%d),", log,
+                                locationPriorities.getOrDefault(injection, sentinel)
+                                        .getOrDefault(log, -1),
+                                v.timePriorities.get(log));
+                    }
+                }
+                System.out.println();
                 final double priority;
                 if (k.occurrence > 3) {
                     priority = mode.formula.apply(v.timePriorities, locationPriorities.get(injection));
@@ -282,7 +282,7 @@ public class TimeFeedbackManager extends FeedbackManager {
             }));
         }
         this.boundary = kth(priorities, windowSize, INF);
-        LOG.info(getMode());
+        System.out.println("Using time feedback mode: " + getMode());
     }
 
     // reference: https://www.geeksforgeeks.org/quicksort-using-random-pivoting/
