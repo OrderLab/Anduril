@@ -36,7 +36,7 @@ final class LocationFeedbackExperimentTest extends ThreadTestBase {
 
     private static final class FeedbackTestHelper extends FeedbackManager {
         private FeedbackTestHelper(final JsonObject json) {
-            super(json);
+            super(null, json);
         }
 
         private int weightBound;
