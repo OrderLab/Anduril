@@ -10,6 +10,7 @@ import javax.json.stream.JsonGenerator;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -38,6 +39,7 @@ public class LocalInjectionManager {
     protected int trialId = 0;
     protected int windowSize = TraceAgent.config.minimumTimeMode ? 1 : TraceAgent.config.slidingWindowSize;
     protected FeedbackManager feedbackManager = null;
+    protected JsonObject json = null;
 
     private static final JsonWriterFactory writerFactory;
 
@@ -60,12 +62,16 @@ public class LocalInjectionManager {
         int start = 0;
         try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
              final JsonReader reader = Json.createReader(inputStream)) {
-            final JsonObject json = reader.readObject();
-            start = json.getInt("start");
+            System.out.printf("\nFlaky Agent Read Json Start Time:  %s\n",
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+            this.json = reader.readObject();
+            System.out.printf("\nFlaky Agent Read Json End Time:  %s\n",
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+            start = this.json.getInt("start");
             if (TraceAgent.config.isTimeFeedback) {
-                feedbackManager = new TimeFeedbackManager(json, TraceAgent.config.timePriorityTable);
+                feedbackManager = new TimeFeedbackManager(this.specPath, this.json, TraceAgent.config.timePriorityTable);
             } else {
-                feedbackManager = new FeedbackManager(json);
+                feedbackManager = new FeedbackManager(this.specPath, this.json);
             }
         } catch (final IOException e) {
             LOG.error("Error while loading files", e);
@@ -128,50 +134,37 @@ public class LocalInjectionManager {
                 throw new RuntimeException(e);
             }
         }
-        try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
-             final JsonReader reader = Json.createReader(inputStream)) {
-            final JsonObject json = reader.readObject();
-            final JsonArray arr = json.getJsonArray("injections");
-            final JsonArray events = json.getJsonArray("nodes");
-            for (int i = 0; i < arr.size(); i++) {
-                final JsonObject spec = arr.getJsonObject(i);
-                final int injectionId = spec.getInt("id");
-                if (TraceAgent.config.distributedMode) {
-                    final String name = spec.getString("exception");
-                    if (name != null) {
-                        id2name.put(injectionId, name);
-                    }
+        final JsonArray arr = this.json.getJsonArray("injections");
+        final JsonArray events = this.json.getJsonArray("nodes");
+        for (int i = 0; i < arr.size(); i++) {
+            final JsonObject spec = arr.getJsonObject(i);
+            final int injectionId = spec.getInt("id");
+            if (TraceAgent.config.distributedMode) {
+                final String name = spec.getString("exception");
+                if (name != null) {
+                    id2name.put(injectionId, name);
+                }
+            } else {
+                //System specific exception will be constructed dynamically
+                //Find the corresponding callee event
+                final int callee = spec.getInt("callee");
+                final JsonObject event = events.getJsonObject(callee);
+                assert(event.getInt("id") == callee);
+                String event_type = event.getString("type");
+                Throwable exception;
+                if (event_type.equals("internal_injection_event")) {
+                    final String exception_name = spec.getString("exception");
+                    id2name.put(injectionId, exception_name);
                 } else {
-                    //System specific exception will be constructed dynamically
-                    //Find the corresponding callee event
-                    final int callee = spec.getInt("callee");
-                    final JsonObject event = events.getJsonObject(callee);
-                    assert(event.getInt("id") == callee);
-                    String event_type = event.getString("type");
-
-                    Throwable exception;
-                    if (event_type.equals("internal_injection_event")) {
-                        final String exception_name = spec.getString("exception");
-                        id2name.put(injectionId, exception_name);
-                        /**
-                        if (name2Tried.get(exception_name) == null) {
-                            name2Tried.put(exception_name, new AtomicBoolean(false));
-                        }
-                         **/
-                    } else {
-                        exception = ExceptionBuilder.createException(spec.getString("exception"));
-                        if (exception != null) {
-                            id2exception.put(injectionId, exception);
-                        }
+                    exception = ExceptionBuilder.createException(spec.getString("exception"));
+                    if (exception != null) {
+                        id2exception.put(injectionId, exception);
                     }
                 }
             }
-        } catch (final IOException e) {
-            LOG.error("Error while loading files", e);
-            System.exit(-1);
         }
         if (!TraceAgent.config.isTimeFeedback) {
-            LOG.info("injection allow set: {}", feedbackManager.allowSet);
+            System.out.println("injection allow set: " + feedbackManager.allowSet);
         }
     }
 
