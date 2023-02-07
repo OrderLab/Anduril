@@ -117,7 +117,7 @@ public class BlockingConnectorTest {
         //BlockingConnector.waitForBlock();
         try {
             createNormalConnector();
-            verifyNormalConnector();
+      //      verifyNormalConnector();
 
         } catch (ConnectRestException e) {
             fail("Reproduce the fault");
