@@ -181,6 +181,11 @@ public final class TraceAgent {
         }
     }
 
+    static public void triggerInject() {
+
+        localInjectionManager.startInject();
+    }
+
     private static final AtomicReference<TraceRemote> stub = new AtomicReference<>(null);
     public static final int RMI_PORT = 1099;
     public static final String RMI_NAME = "rmi_flaky";
@@ -223,7 +228,7 @@ public final class TraceAgent {
         } else {
             System.out.printf("\nFlaky Agent Init Start Time:  %s\n",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
-            localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
+            localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2], config.waitForStartup);
             if (config.trialTimeout != -1) {
                 new Thread(() -> {
                     try {

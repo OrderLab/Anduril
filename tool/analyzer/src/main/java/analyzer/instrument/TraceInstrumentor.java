@@ -17,12 +17,14 @@ public class TraceInstrumentor {
     //public static final SootMethod recordMethod;
     public static final SootMethod injectMethod;
     public static final SootMethod initMethod;
+    public static final SootMethod toggleMethod;
     static {
         agentClass = Scene.v().loadClassAndSupport(TraceAgent.class.getCanonicalName());
         //traceMethod = agentClass.getMethodByName("trace");
         //recordMethod = agentClass.getMethodByName("threadRecord");
         injectMethod = agentClass.getMethodByName("inject");
         initMethod = agentClass.getMethodByName("initStub");
+        toggleMethod = agentClass.getMethodByName("triggerInject");
     }
 
     public TraceInstrumentor(final BasicBlockAnalysis basicBlockAnalysis) {

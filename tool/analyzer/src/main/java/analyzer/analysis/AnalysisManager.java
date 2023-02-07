@@ -48,6 +48,18 @@ public final class AnalysisManager {
                 units.insertBefore(initStmt, head);
             }
         }
+        //Inject only after the start of test class
+        if (analysisInput.injectAfterStartup && !analysisInput.distributedMode) {
+            final PatchingChain<Unit> units = analysisInput.testMethod.retrieveActiveBody().getUnits();
+            Unit head = units.getFirst();
+            while (BasicBlockAnalysis.isLeadingStmt(head)) {
+                head = units.getSuccOf(head);
+            }
+            final StaticInvokeExpr toggleExpr =
+                    Jimple.v().newStaticInvokeExpr(TraceInstrumentor.toggleMethod.makeRef(), new ArrayList<>());
+            final InvokeStmt toggleStmt = Jimple.v().newInvokeStmt(toggleExpr);
+            units.insertBefore(toggleStmt, head);
+        }
         try (final FileWriter writer = new FileWriter("blockmap.txt")) {
             for (final Map.Entry<SootClass, Map<SootMethod, IntraProceduralAnalysis>> m
                     : globalIntraProceduralAnalysis.intraProceduralAnalyses.entrySet()) {

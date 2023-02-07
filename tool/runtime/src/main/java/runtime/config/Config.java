@@ -76,6 +76,7 @@ public final class Config {
     public boolean minimumTimeMode;
     public int injectionOccurrenceLimit;
     public int slidingWindowSize;
+    public boolean waitForStartup;
 
     private void setExperimentOnlyDefaultValues() {
         probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
@@ -89,6 +90,7 @@ public final class Config {
         isTimeFeedback = Boolean.getBoolean("flakyAgent.timeFeedback");
         isProbabilityFeedback = Boolean.getBoolean("flakyAgent.probabilityFeedback");
         minimumTimeMode = Boolean.getBoolean("flakyAgent.minimumTimeMode");
+        waitForStartup = Boolean.getBoolean("flakyAgent.waitForStartup");
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
@@ -116,6 +118,7 @@ public final class Config {
             "flakyAgent.injectionOccurrenceLimit",
             "flakyAgent.slidingWindow",
             "flakyAgent.minimumTimeMode",
+            "flakyAgent.waitForStartup"
     };
 
     private Config() { }

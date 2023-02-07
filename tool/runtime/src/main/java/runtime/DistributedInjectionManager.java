@@ -17,7 +17,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
                                        final String trialsPath,
                                        final String injectionPointsPath,
                                        final String injectionResultPath) {
-        super(trialsPath, injectionPointsPath, injectionResultPath);
+        super(trialsPath, injectionPointsPath, injectionResultPath,false);
         processRecords = new ProcessRecord[processNumber];
         for (int i = 0; i < processNumber; i++) {
             processRecords[i] = new ProcessRecord();
