@@ -108,6 +108,7 @@ public final class TraceAgent {
     static private final AtomicInteger injectionCounter = new AtomicInteger();
     public static final Config config = Config.getDefaultExperimentConfig();
 
+    protected static final AtomicBoolean enableInject = new AtomicBoolean(!config.waitForStartup);
     protected static final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
 
     static {
@@ -132,6 +133,9 @@ public final class TraceAgent {
     }
 
     static public void inject(final int id, final int blockId) throws Throwable {
+        if (!enableInject.get()) {
+            return;
+        }
         if (config.logInject) {
             LOG.info("flaky record injection {}", id);
         }
@@ -183,7 +187,7 @@ public final class TraceAgent {
 
     static public void triggerInject() {
 
-        localInjectionManager.startInject();
+        enableInject.compareAndSet(false, true);
     }
 
     private static final AtomicReference<TraceRemote> stub = new AtomicReference<>(null);
@@ -228,7 +232,7 @@ public final class TraceAgent {
         } else {
             System.out.printf("\nFlaky Agent Init Start Time:  %s\n",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
-            localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2], config.waitForStartup);
+            localInjectionManager = new LocalInjectionManager(args[0], args[1], args[2]);
             if (config.trialTimeout != -1) {
                 new Thread(() -> {
                     try {

@@ -21,7 +21,6 @@ public class LocalInjectionManager {
 
     protected final String trialsPath, specPath, injectionResultPath;
 
-    protected final AtomicBoolean enableInject;
     protected final AtomicBoolean injected = new AtomicBoolean(false);
     protected volatile InjectionIndex injectionPoint = null;
 
@@ -53,9 +52,7 @@ public class LocalInjectionManager {
 
     public LocalInjectionManager(final String trialsPath,
                                  final String specPath,
-                                 final String injectionResultPath,
-                                 final boolean waitForStartup) {
-        this.enableInject = new AtomicBoolean(!waitForStartup);
+                                 final String injectionResultPath) {
         this.trialsPath = trialsPath;
         this.specPath = specPath;
         this.injectionResultPath = injectionResultPath;
@@ -169,7 +166,7 @@ public class LocalInjectionManager {
     }
 
     public void inject(final int id, final int blockId) throws Throwable {
-        if (enableInject.get() && !injected.get()) {
+        if (!injected.get()) {
             if (!TraceAgent.config.isTimeFeedback && !feedbackManager.isAllowed(id)) {
                 return;
             }
@@ -231,9 +228,6 @@ public class LocalInjectionManager {
 //        thread2block.put(System.identityHashCode(Thread.currentThread()), id);
 //    }
 
-    public void startInject() {
-        enableInject.compareAndSet(false, true);
-    }
 
 
     public void dump() {
