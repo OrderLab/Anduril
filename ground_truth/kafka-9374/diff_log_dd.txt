@@ -1,4 +1,5 @@
 BlockingConnectorTest 110
+TypeUtil 201
 BlockingConnectorTest 236
 NetworkClient 757
 BlockingConnectorTest 209
