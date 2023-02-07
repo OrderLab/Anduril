@@ -108,7 +108,7 @@ public final class TraceAgent {
     static private final AtomicInteger injectionCounter = new AtomicInteger();
     public static final Config config = Config.getDefaultExperimentConfig();
 
-    protected static final AtomicBoolean enableInject = new AtomicBoolean(!config.waitForStartup);
+    protected static final AtomicBoolean enableInject = new AtomicBoolean(!config.waitForStartup || config.distributedMode);
     protected static final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
 
     static {
