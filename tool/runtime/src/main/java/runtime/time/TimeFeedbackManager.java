@@ -213,7 +213,7 @@ public class TimeFeedbackManager extends FeedbackManager {
         for (int i = 0; i < super.graph.startNumber; i++) {
             change[i] = super.active.getOrDefault(i, 0);
         }
-        this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> v.locationPriorities.forEach((log, priority) ->
+        this.timePriorityTable.distances.forEach((injection, m) -> m.forEach((k, v) -> v.forEach((log, priority) ->
                 locationPriorities.computeIfAbsent(injection, t -> new TreeMap<>()).put(log, priority + change[log]))));
         if (this.mode == Mode.MIN_INTERLEAVE) {
             isTime = random.nextBoolean();

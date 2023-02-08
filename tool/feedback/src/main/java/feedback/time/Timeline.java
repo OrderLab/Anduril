@@ -61,6 +61,12 @@ public final class Timeline {
                 LOG.warn("None of the injections can trigger event {}", i);
             }
         }
+        for (int i = 0; i < eventNumber; i++) {
+            final Integer finalI = i;
+            graph.calculatePriorities(i, 0, (injectionId, weight) ->
+                table.injections.get(injectionId).forEach((m, u) ->
+                        table.distances.computeIfAbsent(injectionId, k -> new HashMap<>()).computeIfAbsent(m, k -> new HashMap<>()).put(finalI, weight)));
+        }
         return table;
     }
 

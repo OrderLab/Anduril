@@ -13,6 +13,7 @@ public final class TimePriorityTable implements Serializable {
 
     // injection -> (pid,occur) -> log -> priority
     public final Map<Integer, Map<Key, UtilityReducer>> injections = new TreeMap<>();
+    public final Map<Integer, Map<Key, Map<Integer, Integer>>> distances = new TreeMap<>();
 
     // (pid,injection) -> # of occur
     public final Map<BoundaryKey, Integer> boundaries = new HashMap<>();
