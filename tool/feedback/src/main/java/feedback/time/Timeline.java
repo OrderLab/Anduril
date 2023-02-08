@@ -26,7 +26,10 @@ public final class Timeline {
         for (int i_ = 0; i_ < eventNumber; i_++) {
             final int i = i_;
             final Map<Integer, Integer> reachable = new TreeMap<>();
-            graph.calculatePriorities(i, 0, reachable::put);
+            graph.calculatePriorities(i, 0, (injectionId, weight) -> {
+                table.distances.computeIfAbsent(injectionId, k -> new HashMap<>()).put(i, weight);
+                reachable.put(injectionId, weight);
+            });
             final Function<Timing, InjectionTiming> getId = timing -> {
                 if (timing instanceof InjectionTiming) {
                     final InjectionTiming id = ((InjectionTiming) timing);
@@ -60,11 +63,6 @@ public final class Timeline {
             } else {
                 LOG.warn("None of the injections can trigger event {}", i);
             }
-        }
-        for (int i = 0; i < eventNumber; i++) {
-            final Integer finalI = i;
-            graph.calculatePriorities(i, 0, (injectionId, weight) ->
-                    table.distances.computeIfAbsent(injectionId, k -> new HashMap<>()).put(finalI, weight));
         }
         return table;
     }
