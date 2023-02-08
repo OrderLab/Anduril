@@ -209,12 +209,12 @@ public class TimeFeedbackManager extends FeedbackManager {
         final Map<Integer, Map<Integer, Integer>> locationPriorities = new TreeMap<>();
         System.out.printf("\nSys Graph whz Start Time:   %s\n",
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
-//        NativeAlgorithms.computeTimeTable(new int[2], 2, super.graph.specPath, (x, y) -> System.out.printf("asdfasdf %d %d\n",x,y));
+        final int[] change = new int[super.graph.startNumber];
         for (int i = 0; i < super.graph.startNumber; i++) {
-            final int finalI = i;
-            super.graph.calculatePriorities(i, super.active.getOrDefault(i, 0), (injectionId, weight) ->
-                    locationPriorities.computeIfAbsent(injectionId, k -> new TreeMap<>()).put(finalI, weight));
+            change[i] = super.active.getOrDefault(i, 0);
         }
+        this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> v.locationPriorities.forEach((log, priority) ->
+                locationPriorities.computeIfAbsent(injection, t -> new TreeMap<>()).put(log, priority + change[log]))));
         if (this.mode == Mode.MIN_INTERLEAVE) {
             isTime = random.nextBoolean();
         }
