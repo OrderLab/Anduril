@@ -252,10 +252,10 @@ public class TimeFeedbackManager extends FeedbackManager {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new double[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
                 final double priority;
-                if (k.occurrence > 3) {
-                    priority = mode.formula.apply(v.timePriorities, locationPriorities.get(injection));
-                } else {
+                if (TraceAgent.config.locationFeedbackFallbackMode && k.occurrence <= 3) {
                     priority = locationPriorities.get(injection).values().stream().mapToDouble(x->x).min().orElseGet(() -> INF);
+                } else {
+                    priority = mode.formula.apply(v.timePriorities, locationPriorities.get(injection));
                 }
                 this.nodes[k.pid].get(injection)[k.occurrence - 1] = priority;
                 priorities.add(priority);
@@ -274,10 +274,10 @@ public class TimeFeedbackManager extends FeedbackManager {
                 }
                 System.out.println();
                 final double priority;
-                if (k.occurrence > 3) {
-                    priority = mode.formula.apply(v.timePriorities, locationPriorities.get(injection));
-                } else {
+                if (TraceAgent.config.locationFeedbackFallbackMode && k.occurrence <= 3) {
                     priority = locationPriorities.get(injection).values().stream().mapToDouble(x->x).min().orElseGet(() -> INF);
+                } else {
+                    priority = mode.formula.apply(v.timePriorities, locationPriorities.get(injection));
                 }
                 this.standalone.get(injection)[k.occurrence - 1] = priority;
                 priorities.add(priority);

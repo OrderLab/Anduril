@@ -74,6 +74,7 @@ public final class Config {
     public boolean isTimeFeedback;
     public boolean isProbabilityFeedback;
     public boolean minimumTimeMode;
+    public boolean locationFeedbackFallbackMode;
     public int injectionOccurrenceLimit;
     public int slidingWindowSize;
     public boolean waitForStartup;
@@ -90,6 +91,7 @@ public final class Config {
         isTimeFeedback = Boolean.getBoolean("flakyAgent.timeFeedback");
         isProbabilityFeedback = Boolean.getBoolean("flakyAgent.probabilityFeedback");
         minimumTimeMode = Boolean.getBoolean("flakyAgent.minimumTimeMode");
+        locationFeedbackFallbackMode = Boolean.getBoolean("flakyAgent.locationFeedbackFallbackMode");
         waitForStartup = Boolean.getBoolean("flakyAgent.waitForStartup");
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
@@ -118,6 +120,7 @@ public final class Config {
             "flakyAgent.injectionOccurrenceLimit",
             "flakyAgent.slidingWindow",
             "flakyAgent.minimumTimeMode",
+            "flakyAgent.locationFeedbackFallbackMode",
             "flakyAgent.waitForStartup"
     };
 
