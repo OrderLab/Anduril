@@ -72,7 +72,11 @@ public class LocalInjectionManager {
             if (TraceAgent.config.isTimeFeedback) {
                 feedbackManager = new TimeFeedbackManager(this.specPath, this.json, this.timePriorityTable);
             } else {
-                feedbackManager = new FeedbackManager(this.specPath, this.json, this.timePriorityTable);
+                if (TraceAgent.config.minimumTimeMode) {
+                    feedbackManager = new FeedbackManager(this.specPath, this.json, this.timePriorityTable);
+                } else {
+                    feedbackManager = new FeedbackManager(this.specPath, this.json);
+                }
             }
         } catch (final IOException e) {
             LOG.error("Error while loading files", e);
