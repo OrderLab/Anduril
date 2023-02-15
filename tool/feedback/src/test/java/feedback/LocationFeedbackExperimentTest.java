@@ -56,7 +56,7 @@ final class LocationFeedbackExperimentTest extends ThreadTestBase {
             final int[] expected = new int[ids.length];
             final int[] expectedIds = new int[ids.length];
             super.graph.calculatePriorities(injectionId -> {
-                if (this.allowSet.add(injectionId) && allowSet.size() <= windowSize) {
+                if (this.allowSet.putIfAbsent(injectionId, 1_000_000_000) == null && allowSet.size() <= windowSize) {
                     expected[this.index] = this.graph.w.get(injectionId);
                     expectedIds[this.index] = injectionId;
                     index++;
