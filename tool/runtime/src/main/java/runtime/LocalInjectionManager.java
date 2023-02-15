@@ -131,6 +131,7 @@ public class LocalInjectionManager {
             for (final InjectionIndex index : this.injectionSet.keySet()) {
                 feedbackManager.allowSet.merge(index.id, -1, Integer::sum);
             }
+            feedbackManager.allowSet.values().removeIf(count -> count <= 0);
         }
         if (TraceAgent.config.isTimeFeedback) {
             try (final PrintWriter csv = new PrintWriter(
@@ -170,7 +171,7 @@ public class LocalInjectionManager {
             }
         }
         if (!TraceAgent.config.isTimeFeedback) {
-            System.out.println("injection allow set: " + feedbackManager.allowSet);
+            System.out.println("injection allow set: " + feedbackManager.allowSet.keySet());
         }
     }
 
