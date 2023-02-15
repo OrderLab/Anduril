@@ -98,8 +98,7 @@ public class FeedbackManager {
                 if (total > 0) {
                     this.allowSet.put(injectionId, total);
                 }
-                count.addAndGet(total);
-                return count.get() >= windowSize;
+                return count.addAndGet(total) >= windowSize;
             });
         }
     }

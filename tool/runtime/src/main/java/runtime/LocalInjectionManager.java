@@ -114,10 +114,10 @@ public class LocalInjectionManager {
                 injectionSet.put(index, new Object());
             } catch (final IOException ignored) { }
         }
-        if (latestOK + 1 == this.trialId) {
-            if (TraceAgent.config.minimumTimeMode) {
-                windowSize += 1;
-            } else {
+        if (TraceAgent.config.minimumTimeMode) {
+            windowSize += 1;
+        } else {
+            if (latestOK + 1 == this.trialId) {
                 windowSize *= 2;
             }
             if (windowSize > INF) {
