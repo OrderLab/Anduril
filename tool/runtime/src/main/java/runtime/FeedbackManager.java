@@ -30,6 +30,10 @@ public class FeedbackManager {
         }
     }
 
+    public FeedbackManager(final String specPath, final JsonObject json) {
+        this(specPath, json, null);
+    }
+
     protected final Map<Integer, Integer> active = new TreeMap<>();
 
     public void activate(final int id) {
@@ -59,21 +63,36 @@ public class FeedbackManager {
     }
 
     public void calc(final int windowSize) {
-        final AtomicInteger count = new AtomicInteger(0);
-        this.allowSet.clear();
-        for (int i = 0; i < this.graph.startNumber; i++) {
-            this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
-        }
-        this.graph.calculatePriorities(injectionId -> {
-            this.allowSet.add(injectionId);
-            if (this.timePriorityTable.distributed) {
-                for (int i = 0; i < timePriorityTable.nodes; i++) {
-                    count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(i, injectionId)));
-                }
-            } else {
-                count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(-1, injectionId)));
+        if (timePriorityTable == null) {
+            if (this.injections.size() <= windowSize) {
+                this.allowSet.addAll(this.injections);
+                return;
             }
-            return count.get() >= windowSize;
-        });
+            this.allowSet.clear();
+            for (int i = 0; i < this.graph.startNumber; i++) {
+                this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
+            }
+            this.graph.calculatePriorities(injectionId -> {
+                this.allowSet.add(injectionId);
+                return allowSet.size() >= windowSize;
+            });
+        } else {
+            final AtomicInteger count = new AtomicInteger(0);
+            this.allowSet.clear();
+            for (int i = 0; i < this.graph.startNumber; i++) {
+                this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
+            }
+            this.graph.calculatePriorities(injectionId -> {
+                this.allowSet.add(injectionId);
+                if (this.timePriorityTable.distributed) {
+                    for (int i = 0; i < timePriorityTable.nodes; i++) {
+                        count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(i, injectionId)));
+                    }
+                } else {
+                    count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(-1, injectionId)));
+                }
+                return count.get() >= windowSize;
+            });
+        }
     }
 }
