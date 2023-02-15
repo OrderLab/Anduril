@@ -94,8 +94,9 @@ public class FeedbackManager {
                 } else {
                     total += timePriorityTable.boundaries.getOrDefault(new TimePriorityTable.BoundaryKey(-1, injectionId), 0);
                 }
+                total = Math.min(total, TraceAgent.config.injectionOccurrenceLimit);
                 if (total > 0) {
-                    this.allowSet.put(injectionId, Math.min(total, TraceAgent.config.injectionOccurrenceLimit));
+                    this.allowSet.put(injectionId, total);
                 }
                 count.addAndGet(total);
                 return count.get() >= windowSize;
