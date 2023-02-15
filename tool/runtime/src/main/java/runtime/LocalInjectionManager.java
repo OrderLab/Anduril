@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.exception.ExceptionBuilder;
 import runtime.time.TimeFeedbackManager;
+import runtime.time.TimePriorityTable;
 
 import javax.json.*;
 import javax.json.stream.JsonGenerator;
@@ -44,6 +45,8 @@ public class LocalInjectionManager {
 
     static public final int INF = 1_000_000_000; // largest id
 
+    public final TimePriorityTable timePriorityTable;
+
     static {
         final Map<String, Object> options = new HashMap<>();
         options.put(JsonGenerator.PRETTY_PRINTING,true);
@@ -57,6 +60,7 @@ public class LocalInjectionManager {
         this.specPath = specPath;
         this.injectionResultPath = injectionResultPath;
         int start = 0;
+        this.timePriorityTable = TimePriorityTable.load(TraceAgent.config.timePriorityTable);
         try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
              final JsonReader reader = Json.createReader(inputStream)) {
             System.out.printf("\nFlaky Agent Read Json Start Time:  %s\n",
@@ -66,9 +70,9 @@ public class LocalInjectionManager {
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
             start = this.json.getInt("start");
             if (TraceAgent.config.isTimeFeedback) {
-                feedbackManager = new TimeFeedbackManager(this.specPath, this.json, TraceAgent.config.timePriorityTable);
+                feedbackManager = new TimeFeedbackManager(this.specPath, this.json, this.timePriorityTable);
             } else {
-                feedbackManager = new FeedbackManager(this.specPath, this.json);
+                feedbackManager = new FeedbackManager(this.specPath, this.json, this.timePriorityTable);
             }
         } catch (final IOException e) {
             LOG.error("Error while loading files", e);

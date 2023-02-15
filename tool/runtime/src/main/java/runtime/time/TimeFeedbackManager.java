@@ -156,12 +156,10 @@ public class TimeFeedbackManager extends FeedbackManager {
     private final Map<Integer, double[]>[] nodes;
     private final Map<Integer, double[]> standalone = new TreeMap<>();
 
-    protected final TimePriorityTable timePriorityTable;
     private final Random random = new Random(System.currentTimeMillis());
 
-    public TimeFeedbackManager(final String specPath, final JsonObject json, final String timePriorityTable) {
-        super(specPath, json);
-        this.timePriorityTable = TimePriorityTable.load(timePriorityTable);
+    public TimeFeedbackManager(final String specPath, final JsonObject json, final TimePriorityTable timePriorityTable) {
+        super(specPath, json, timePriorityTable);
         switch (TraceAgent.config.timeFeedbackMode) {
             case "add"            : this.mode = Mode.E_ADD; break;
             case "times"          : this.mode = Mode.E_TIMES; break;
@@ -172,10 +170,14 @@ public class TimeFeedbackManager extends FeedbackManager {
             case "min_random"     : this.mode = Mode.MIN_RANDOM; break;
             default: throw new RuntimeException("invalid time feedback formula");
         }
-        this.nodes = new Map[this.timePriorityTable.nodes];
-        for (int i = 0; i < this.timePriorityTable.nodes; i++) {
+        this.nodes = new Map[super.timePriorityTable.nodes];
+        for (int i = 0; i < super.timePriorityTable.nodes; i++) {
             this.nodes[i] = new TreeMap<>();
         }
+    }
+
+    public TimeFeedbackManager(final String specPath, final JsonObject json, final String timePriorityTable) {
+        this(specPath, json, TimePriorityTable.load(timePriorityTable));
     }
 
     @Override

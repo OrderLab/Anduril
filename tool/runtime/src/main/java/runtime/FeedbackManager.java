@@ -3,20 +3,24 @@ package runtime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.graph.PriorityGraph;
+import runtime.time.TimePriorityTable;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FeedbackManager {
     private static final Logger LOG = LoggerFactory.getLogger(FeedbackManager.class);
     private final JsonObject json;
     protected final PriorityGraph graph;
     protected final ArrayList<Integer> injections;
+    protected final TimePriorityTable timePriorityTable;
 
-    public FeedbackManager(final String specPath, final JsonObject json) {
+    public FeedbackManager(final String specPath, final JsonObject json, final TimePriorityTable timePriorityTable) {
         this.json = json;
         this.graph = new PriorityGraph(specPath, this.json);
+        this.timePriorityTable = timePriorityTable;
         final JsonArray injections_json = this.json.getJsonArray("injections");
         this.injections = new ArrayList<>(injections_json.size());
         for (int i = 0; i < injections_json.size(); i++) {
@@ -55,17 +59,21 @@ public class FeedbackManager {
     }
 
     public void calc(final int windowSize) {
-        if (this.injections.size() <= windowSize) {
-            this.allowSet.addAll(this.injections);
-            return;
-        }
+        final AtomicInteger count = new AtomicInteger(0);
         this.allowSet.clear();
         for (int i = 0; i < this.graph.startNumber; i++) {
             this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
         }
         this.graph.calculatePriorities(injectionId -> {
             this.allowSet.add(injectionId);
-            return allowSet.size() >= windowSize;
+            if (this.timePriorityTable.distributed) {
+                for (int i = 0; i < timePriorityTable.nodes; i++) {
+                    count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(i, injectionId)));
+                }
+            } else {
+                count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(-1, injectionId)));
+            }
+            return count.get() >= windowSize;
         });
     }
 }
