@@ -127,6 +127,11 @@ public class LocalInjectionManager {
                     .add("window", windowSize).build());
         } catch (final IOException ignored) { }
         feedbackManager.calc(windowSize);
+        if (TraceAgent.config.minimumTimeMode) {
+            for (final InjectionIndex index : this.injectionSet.keySet()) {
+                feedbackManager.allowSet.merge(index.id, -1, Integer::sum);
+            }
+        }
         if (TraceAgent.config.isTimeFeedback) {
             try (final PrintWriter csv = new PrintWriter(
                     Files.newOutputStream(Paths.get(this.trialsPath + "/" + this.trialId + ".csv")))) {

@@ -16,6 +16,7 @@ public class FeedbackManager {
     protected final PriorityGraph graph;
     protected final ArrayList<Integer> injections;
     protected final TimePriorityTable timePriorityTable;
+    private static final int INF = 1_000_000_000;
 
     public FeedbackManager(final String specPath, final JsonObject json, final TimePriorityTable timePriorityTable) {
         this.json = json;
@@ -44,10 +45,10 @@ public class FeedbackManager {
         active.merge(id, 1, Integer::sum);
     }
 
-    public final Set<Integer> allowSet = new TreeSet<>();
+    public final Map<Integer, Integer> allowSet = new TreeMap<>();
     // TODO: maybe concurrent set is better? without synchronized
     public synchronized boolean isAllowed(final int injectionId) {
-        return allowSet.contains(injectionId);
+        return allowSet.getOrDefault(injectionId, 0) > 0;
     }
 
     public boolean isAllowed(final int pid, final int injectionId, final int occurrence) {
@@ -65,7 +66,9 @@ public class FeedbackManager {
     public void calc(final int windowSize) {
         if (timePriorityTable == null) {
             if (this.injections.size() <= windowSize) {
-                this.allowSet.addAll(this.injections);
+                for (final Integer injection : this.injections) {
+                    this.allowSet.put(injection, INF);
+                }
                 return;
             }
             this.allowSet.clear();
@@ -73,7 +76,7 @@ public class FeedbackManager {
                 this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
             }
             this.graph.calculatePriorities(injectionId -> {
-                this.allowSet.add(injectionId);
+                this.allowSet.put(injectionId, INF);
                 return allowSet.size() >= windowSize;
             });
         } else {
@@ -83,14 +86,18 @@ public class FeedbackManager {
                 this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
             }
             this.graph.calculatePriorities(injectionId -> {
-                this.allowSet.add(injectionId);
+                int total = 0;
                 if (this.timePriorityTable.distributed) {
                     for (int i = 0; i < timePriorityTable.nodes; i++) {
-                        count.addAndGet(timePriorityTable.boundaries.getOrDefault(new TimePriorityTable.BoundaryKey(i, injectionId), 0));
+                        total += timePriorityTable.boundaries.getOrDefault(new TimePriorityTable.BoundaryKey(i, injectionId), 0);
                     }
                 } else {
-                    count.addAndGet(timePriorityTable.boundaries.getOrDefault(new TimePriorityTable.BoundaryKey(-1, injectionId), 0));
+                    total += timePriorityTable.boundaries.getOrDefault(new TimePriorityTable.BoundaryKey(-1, injectionId), 0);
                 }
+                if (total > 0) {
+                    this.allowSet.put(injectionId, total);
+                }
+                count.addAndGet(total);
                 return count.get() >= windowSize;
             });
         }
