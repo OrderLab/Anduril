@@ -86,10 +86,10 @@ public class FeedbackManager {
                 this.allowSet.add(injectionId);
                 if (this.timePriorityTable.distributed) {
                     for (int i = 0; i < timePriorityTable.nodes; i++) {
-                        count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(i, injectionId)));
+                        count.addAndGet(timePriorityTable.boundaries.getOrDefault(new TimePriorityTable.BoundaryKey(i, injectionId), 0));
                     }
                 } else {
-                    count.addAndGet(timePriorityTable.boundaries.get(new TimePriorityTable.BoundaryKey(-1, injectionId)));
+                    count.addAndGet(timePriorityTable.boundaries.getOrDefault(new TimePriorityTable.BoundaryKey(-1, injectionId), 0));
                 }
                 return count.get() >= windowSize;
             });
