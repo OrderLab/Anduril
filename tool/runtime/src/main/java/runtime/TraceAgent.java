@@ -136,9 +136,7 @@ public final class TraceAgent {
             }
         }
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.flush();
-            System.out.printf("\n0xfff time used: %s / %d\n\n", injectionOverhead.get(), injectionCount.get());
-            System.out.flush();
+            LOG.info("0xfff flaky agent workload time used: {} / {} ms", injectionOverhead.get(), injectionCount.get());
         }));
     }
 
