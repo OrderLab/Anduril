@@ -26,6 +26,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 public final class TraceAgent {
@@ -111,6 +112,10 @@ public final class TraceAgent {
     protected static final AtomicBoolean enableInject = new AtomicBoolean(!config.waitForStartup || config.distributedMode);
     protected static final ConcurrentMap<Integer, Throwable> id2exception = new ConcurrentHashMap<>();
 
+
+    public static final AtomicInteger injectionCount = new AtomicInteger(0);
+    public static final AtomicLong injectionOverhead = new AtomicLong(0);
+
     static {
         if (config.distributedMode && !config.disableAgent) {
             try (final InputStream inputStream = new FileInputStream(config.injectionPointsPath);
@@ -130,52 +135,64 @@ public final class TraceAgent {
                 System.exit(-1);
             }
         }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.flush();
+            System.out.printf("\n0xfff time used: %s / %d\n\n", injectionOverhead.get(), injectionCount.get());
+            System.out.flush();
+        }));
     }
 
     static public void inject(final int id, final int blockId) throws Throwable {
-        if (!enableInject.get()) {
-            return;
-        }
-        if (config.logInject) {
-            LOG.info("flaky record injection {}", id);
-        }
-        if (config.disableAgent) {
-            return;
-        }
-        if (config.distributedMode) {
-            final Throwable exception = id2exception.get(id);
-            if (exception != null) {
-                int decision = 0;
-                try {
-                    decision = getStub().inject(config.pid, id, blockId);
-                } catch (RemoteException ignored) { }
-                if (decision == 1) {
-                    throw exception;
-                }
-            }
-            return;
-        }
+        final long time = System.currentTimeMillis();
         try {
-            if (config.fixPointInjectionMode) {
-                if (id == config.targetId) {
-                    if (injectionCounter.incrementAndGet() == config.times) {
-                        final Throwable t = ExceptionBuilder.createException(config.exceptionName);
-                        if (t == null) {
-                            LOG.error("FlakyAgent: fail to construct the exception " + config.exceptionName);
-                        } else {
-//                            LOG.info("FlakyAgent: injected the exception " + exceptionName);
-                            throw t;
-                        }
+            if (!enableInject.get()) {
+                return;
+            }
+            if (config.logInject) {
+                LOG.info("flaky record injection {}", id);
+            }
+            if (config.disableAgent) {
+                return;
+            }
+            if (config.distributedMode) {
+                final Throwable exception = id2exception.get(id);
+                if (exception != null) {
+                    int decision = 0;
+                    try {
+                        decision = getStub().inject(config.pid, id, blockId);
+                    } catch (RemoteException ignored) {
+                    }
+                    if (decision == 1) {
+                        throw exception;
                     }
                 }
-            } else {
-                localInjectionManager.inject(id, blockId);
+                return;
             }
-        } catch(Throwable t) {
-            if (config.recordOnthefly && dumpFlag.compareAndSet(false, true)) {
-                localInjectionManager.dump();
+            try {
+                if (config.fixPointInjectionMode) {
+                    if (id == config.targetId) {
+                        if (injectionCounter.incrementAndGet() == config.times) {
+                            final Throwable t = ExceptionBuilder.createException(config.exceptionName);
+                            if (t == null) {
+                                LOG.error("FlakyAgent: fail to construct the exception " + config.exceptionName);
+                            } else {
+//                            LOG.info("FlakyAgent: injected the exception " + exceptionName);
+                                throw t;
+                            }
+                        }
+                    }
+                } else {
+                    localInjectionManager.inject(id, blockId);
+                }
+            } catch (Throwable t) {
+                if (config.recordOnthefly && dumpFlag.compareAndSet(false, true)) {
+                    localInjectionManager.dump();
+                }
+                throw t;
             }
-            throw t;
+        } finally {
+            injectionCount.addAndGet(1);
+            injectionOverhead.addAndGet(System.currentTimeMillis() - time);
         }
     }
 
