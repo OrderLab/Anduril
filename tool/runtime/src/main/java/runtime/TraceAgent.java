@@ -272,6 +272,7 @@ public final class TraceAgent {
             System.out.printf("\nFlaky Agent Init End Time:   %s\n",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
             System.out.flush();  // flush before the workload log starts
+            LOG.info("flaky workload sentinel message in case of empty logs");
             method.invoke(null, (Object) Arrays.copyOfRange(args, 4, args.length));
         }
     }
