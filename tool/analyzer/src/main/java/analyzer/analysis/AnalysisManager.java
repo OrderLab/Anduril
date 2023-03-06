@@ -90,7 +90,7 @@ public final class AnalysisManager {
     public AnalysisManager(final AnalysisInput analysisInput) {
         this.analysisInput = analysisInput;
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(analysisInput.classes);
-        this.returnExceptionAnalysis = new GlobalReturnAnalysis(analysisInput.classes, this.callGraphAnalysis);
+        //this.returnExceptionAnalysis = new GlobalReturnAnalysis(analysisInput.classes, this.callGraphAnalysis);
         this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis);
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(analysisInput.classes);
         this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput.classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
