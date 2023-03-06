@@ -15,7 +15,7 @@ import java.util.*;
 public final class AnalysisManager {
     //private final Map<SootClass, Map<SootMethod, IntraProceduralAnalysis>> intraproceduralAnalyses = new HashMap<>();
     public final GlobalExceptionAnalysis exceptionAnalysis;
-    public final GlobalReturnAnalysis returnExceptionAnalysis;
+    public GlobalReturnAnalysis returnExceptionAnalysis;
     public final GlobalSlicingAnalysis slicingAnalysis;
     public final GlobalCallGraphAnalysis callGraphAnalysis;
     public final AnalysisInput analysisInput;
