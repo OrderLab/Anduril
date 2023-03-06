@@ -77,6 +77,7 @@ public final class Config {
     public boolean locationFeedbackFallbackMode;
     public int injectionOccurrenceLimit;
     public int slidingWindowSize;
+    public int feedbackDelta;
     public boolean waitForStartup;
 
     private void setExperimentOnlyDefaultValues() {
@@ -96,6 +97,7 @@ public final class Config {
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
+        feedbackDelta = Integer.getInteger("flakyAgent.feedbackDelta", 1);
     }
 
     private static final String[] experimentProperties = new String[] {
@@ -120,6 +122,7 @@ public final class Config {
             "flakyAgent.injectionOccurrenceLimit",
             "flakyAgent.slidingWindow",
             "flakyAgent.minimumTimeMode",
+            "flakyAgent.feedbackDelta",
             "flakyAgent.locationFeedbackFallbackMode",
             "flakyAgent.waitForStartup"
     };
