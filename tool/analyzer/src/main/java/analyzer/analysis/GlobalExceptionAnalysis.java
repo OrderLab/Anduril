@@ -1,9 +1,11 @@
 package analyzer.analysis;
 
+import fj.test.Bool;
 import soot.*;
 import soot.toolkits.graph.BriefUnitGraph;
 import soot.toolkits.graph.UnitGraph;
 
+import javax.lang.model.type.PrimitiveType;
 import java.util.*;
 
 public final class GlobalExceptionAnalysis {
