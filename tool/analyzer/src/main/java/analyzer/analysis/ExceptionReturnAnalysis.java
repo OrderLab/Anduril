@@ -202,9 +202,11 @@ public class ExceptionReturnAnalysis {
         final LinkedList<Unit> q = new LinkedList<>();
         Value rhs = ((DefinitionStmt) start).getRightOp();
         SootMethod calleeMethod = ((InvokeExpr) rhs).getMethod();
-        for (SootMethod realCallee: this.globalCallGraphAnalysis.virtualCalls.get(calleeMethod)) {
-            if (analyses.containsKey(realCallee) && analyses.get(realCallee).transparent) {
-                q.add(start);
+        if (this.globalCallGraphAnalysis.virtualCalls.containsKey(calleeMethod)) {
+            for (SootMethod realCallee : this.globalCallGraphAnalysis.virtualCalls.get(calleeMethod)) {
+                if (analyses.containsKey(realCallee) && analyses.get(realCallee).transparent) {
+                    q.add(start);
+                }
             }
         }
 
