@@ -66,6 +66,9 @@ public class ExceptionReturnAnalysis {
                 }
             }
         }
+
+
+
     }
 
     public static boolean isWrapper(SootMethod sootMethod) {
@@ -104,14 +107,24 @@ public class ExceptionReturnAnalysis {
         while (!q.isEmpty()) {
             final Unit node = q.pollFirst();
             if (node instanceof DefinitionStmt) {
+                //System.out.println(node);
+                //System.out.println(((DefinitionStmt) node).getRightOp());
                 if (vs.contains(((DefinitionStmt) node).getRightOp())) {
                     // alias analysis
+
                     vs.add(((DefinitionStmt) node).getLeftOp());
+                } else if (((DefinitionStmt) node).getRightOp() instanceof CastExpr) {
+                    // Cast case
+                    if (vs.contains(((CastExpr) ((DefinitionStmt) node).getRightOp()).getOp())) {
+                        vs.add(((DefinitionStmt) node).getLeftOp());
+                    }
                 } else if (((DefinitionStmt) node).getRightOp() instanceof InvokeExpr) {
                     // find the wrapper call that take this variable as a argument
                     final SootMethod calleeMethod = ((InvokeExpr) ((DefinitionStmt) node).getRightOp()).getMethod();
                     if (isWrapper(calleeMethod)) {
                         for (Value param:((InvokeExpr) ((DefinitionStmt) node).getRightOp()).getArgs()) {
+                            //System.out.println(param);
+                            //System.out.println(vs);
                             if (vs.contains(param)) {
                                 final List<Unit> locations;
                                 if (!passLocations.containsKey(node)) {
@@ -127,7 +140,7 @@ public class ExceptionReturnAnalysis {
                 }
             }
             if (node instanceof ReturnStmt) {
-                if (vs.contains(((ThrowStmt) node).getOp())) {
+                if (vs.contains(((ReturnStmt) node).getOp())) {
                     toBeReturn = true;
                 }
                 continue;
@@ -202,7 +215,7 @@ public class ExceptionReturnAnalysis {
             if (passLocations.containsKey(node)) {
                 for (Unit next: passLocations.get(node)) {
                     if (!vs.contains(next)) {
-                        rhs = ((DefinitionStmt) node).getRightOp();
+                        rhs = ((DefinitionStmt) next).getRightOp();
                         if (rhs instanceof ParameterRef) {
                             // toggle?
                             if (!this.transparent) {

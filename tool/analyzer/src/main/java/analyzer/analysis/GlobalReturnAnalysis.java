@@ -41,7 +41,7 @@ public class GlobalReturnAnalysis {
         }
         // 2. Integrate New Exception Info
         boolean stop2 = false;
-        while(stop2) {
+        while(!stop2) {
             stop2 = true;
             for (ExceptionReturnAnalysis methodReturnAnalysis : analyses.values()) {
                 if (methodReturnAnalysis.newExceptionPropagateAnalysis(analyses)) {

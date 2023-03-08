@@ -92,4 +92,31 @@ public class ExceptionExample {
             //do nothing
         }
     }
+
+    void transparentWrapper() throws Throwable {
+        try {
+            Socket s = ss.accept();
+        } catch (IOException e) {
+            throw wrapperTransparent(e);
+        }
+    }
+
+    Throwable wrapperTransparent(Throwable e) {
+        return e;
+    }
+
+    void newExceptionInWrapper() throws Throwable {
+        try {
+            Socket s = ss.accept();
+        } catch (IOException e) {
+            throw wrapperNewException(e);
+        }
+    }
+
+    Throwable wrapperNewException(Throwable e) {
+        if (e instanceof IOException) {
+            return new SecurityException();
+        }
+        return null;
+    }
 }

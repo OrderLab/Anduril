@@ -66,7 +66,8 @@ public final class ExceptionHandlingAnalysis {
     public boolean update = false; // for global interprocedural analysis
 
     public ExceptionHandlingAnalysis(final List<SootClass> classes, final SootMethod method, final Body body,
-                                     final UnitGraph graph, final GlobalCallGraphAnalysis globalCallGraphAnalysis) {
+                                     final UnitGraph graph, final GlobalCallGraphAnalysis globalCallGraphAnalysis,
+                                     final Map<SootMethod, ExceptionReturnAnalysis> exceptionReturnAnalysis) {
         this.method = method;
         this.body = body;
         this.graph = graph;
@@ -86,7 +87,16 @@ public final class ExceptionHandlingAnalysis {
                             final SootClass exception = invocationClass;
                             unitCarryingException.put(unit, new HashSet<>(Collections.singletonList(exception)));
                             newExceptions.put(unit, exception);
-                            searchThrowLocation(unit, (Local) lhs);
+                            searchThrowLocation(unit, (Local) lhs, exceptionReturnAnalysis);
+                        }
+                    } else if (rhs instanceof InvokeExpr) {
+                        // Deal with new created exceptions in wrappers
+                        final SootMethod calleeMethod = ((InvokeExpr) rhs).getMethod();
+                        if (ExceptionReturnAnalysis.isWrapper(calleeMethod)) {
+                            for (SootClass exception:exceptionReturnAnalysis.get(calleeMethod).newExceptions) {
+                                unitCarryingException.put(unit, new HashSet<>(Collections.singletonList(exception)));
+                                searchThrowLocation(unit, (Local) lhs, exceptionReturnAnalysis);
+                            }
                         }
                     }
                 }
@@ -98,7 +108,7 @@ public final class ExceptionHandlingAnalysis {
             final Value value = ((DefinitionStmt) unit).getLeftOp();
             if (value instanceof Local) {
                 unitCarryingException.put(unit, new HashSet<>());
-                searchThrowLocation(unit, (Local) value);
+                searchThrowLocation(unit, (Local) value, exceptionReturnAnalysis);
             }
         }
         // infer the exception in newExceptions that is uncaught
@@ -193,7 +203,8 @@ public final class ExceptionHandlingAnalysis {
 //        }
     }
 
-    private void searchThrowLocation(final Unit unit, final Local v) {
+    private void searchThrowLocation(final Unit unit, final Local v,
+                                     final Map<SootMethod, ExceptionReturnAnalysis> exceptionReturnAnalysis) {
         final Set<Value> vs = new HashSet<>();
         vs.add(v);
         final Set<Unit> visited = new HashSet<>();
@@ -207,6 +218,21 @@ public final class ExceptionHandlingAnalysis {
             if (node instanceof DefinitionStmt) {
                 if (vs.contains(((DefinitionStmt) node).getRightOp())) {
                     vs.add(((DefinitionStmt) node).getLeftOp());
+                }
+                // Deal with transparent wrapper
+                Value rhs = ((DefinitionStmt) node).getRightOp();
+                if (rhs instanceof InvokeExpr) {
+                    final SootMethod calleeMethod = ((InvokeExpr) rhs).getMethod();
+                    if (ExceptionReturnAnalysis.isWrapper(calleeMethod)
+                            && exceptionReturnAnalysis.get(calleeMethod).transparent) {
+                        for (Value param : ((InvokeExpr) rhs).getArgs()) {
+                            if (vs.contains(param)) {
+                                vs.add(((DefinitionStmt) node).getLeftOp());
+                                break;
+                            }
+                        }
+
+                    }
                 }
             }
             if (node instanceof ThrowStmt) {

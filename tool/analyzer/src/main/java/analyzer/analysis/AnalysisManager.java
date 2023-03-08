@@ -15,7 +15,7 @@ import java.util.*;
 public final class AnalysisManager {
     //private final Map<SootClass, Map<SootMethod, IntraProceduralAnalysis>> intraproceduralAnalyses = new HashMap<>();
     public final GlobalExceptionAnalysis exceptionAnalysis;
-    public GlobalReturnAnalysis returnExceptionAnalysis;
+    public final GlobalReturnAnalysis returnExceptionAnalysis;
     public final GlobalSlicingAnalysis slicingAnalysis;
     public final GlobalCallGraphAnalysis callGraphAnalysis;
     public final AnalysisInput analysisInput;
@@ -27,7 +27,7 @@ public final class AnalysisManager {
         assert analysisInput != null;
         // Only need the class and the method to decide the excluded point
         if (analysisInput.excludedPoint.containsKey(location.sootClass)
-            && analysisInput.excludedPoint.get(location.sootClass).contains(location.sootMethod)) {
+                && analysisInput.excludedPoint.get(location.sootClass).contains(location.sootMethod)) {
             return null;
         }
         return new InjectionPoint(caller, callee, location, injectionCounter++);
@@ -76,12 +76,12 @@ public final class AnalysisManager {
         }
     }
 
-//Used for test
+    //Used for test
     public AnalysisManager(List<SootClass> classes) {
         this.analysisInput = null;
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(classes);
         this.returnExceptionAnalysis = new GlobalReturnAnalysis(classes, this.callGraphAnalysis);
-        this.exceptionAnalysis = new GlobalExceptionAnalysis(classes, this.callGraphAnalysis);
+        this.exceptionAnalysis = new GlobalExceptionAnalysis(classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses);
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(classes);
         this.slicingAnalysis = new GlobalSlicingAnalysis(classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
     }
@@ -90,8 +90,8 @@ public final class AnalysisManager {
     public AnalysisManager(final AnalysisInput analysisInput) {
         this.analysisInput = analysisInput;
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(analysisInput.classes);
-        //this.returnExceptionAnalysis = new GlobalReturnAnalysis(analysisInput.classes, this.callGraphAnalysis);
-        this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis);
+        this.returnExceptionAnalysis = new GlobalReturnAnalysis(analysisInput.classes, this.callGraphAnalysis);
+        this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses);
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(analysisInput.classes);
         this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput.classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
 //        SootClass c = Scene.v()
