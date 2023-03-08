@@ -15,3 +15,6 @@ for i in `find $hb_dir -name META-INF|grep target`; do
   done
   t=$((t+1))
 done
+mkdir -p $SCRIPT_DIR/deps/$t
+cp -r $hb_dir/hbase-server/target/classes/hbase-webapps $SCRIPT_DIR/deps/$t/
+t=$((t+1))
