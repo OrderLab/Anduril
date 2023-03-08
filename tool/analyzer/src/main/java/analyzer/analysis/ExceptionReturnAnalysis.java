@@ -56,10 +56,12 @@ public class ExceptionReturnAnalysis {
                         }
                     } else if (rhs instanceof ParameterRef) {
                         // Parameter Exception
-                        final SootClass invocationClass = ((RefType) rhs.getType()).getSootClass();
-                        if (SubTypingAnalysis.v().isThrowable(invocationClass)) {
-                            if (searchReturnLocationAndPropagate(unit, (Local) lhs)) {
-                                this.transparent = true;
+                        if ((rhs.getType()) instanceof  RefType) {
+                            final SootClass invocationClass = ((RefType) rhs.getType()).getSootClass();
+                            if (SubTypingAnalysis.v().isThrowable(invocationClass)) {
+                                if (searchReturnLocationAndPropagate(unit, (Local) lhs)) {
+                                    this.transparent = true;
+                                }
                             }
                         }
                     }
