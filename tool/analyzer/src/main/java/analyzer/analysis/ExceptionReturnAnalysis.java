@@ -74,6 +74,9 @@ public class ExceptionReturnAnalysis {
     }
 
     public static boolean isWrapper(SootMethod sootMethod) {
+        if  (!sootMethod.hasActiveBody()) {
+            return false;
+        }
         Type returned = sootMethod.getReturnType();
         // Take care of  ArrayType of RefType
         if (returned instanceof RefType) {
