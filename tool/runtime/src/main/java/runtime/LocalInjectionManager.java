@@ -45,7 +45,7 @@ public class LocalInjectionManager {
 
     static public final int INF = 1_000_000_000; // largest id
 
-    public final TimePriorityTable timePriorityTable;
+    public TimePriorityTable timePriorityTable = null;
 
     static {
         final Map<String, Object> options = new HashMap<>();
@@ -60,7 +60,9 @@ public class LocalInjectionManager {
         this.specPath = specPath;
         this.injectionResultPath = injectionResultPath;
         int start = 0;
-        this.timePriorityTable = TimePriorityTable.load(TraceAgent.config.timePriorityTable);
+        if (TraceAgent.config.isTimeFeedback) {
+            this.timePriorityTable = TimePriorityTable.load(TraceAgent.config.timePriorityTable);
+        }
         try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
              final JsonReader reader = Json.createReader(inputStream)) {
             System.out.printf("\nFlaky Agent Read Json Start Time:  %s\n",
