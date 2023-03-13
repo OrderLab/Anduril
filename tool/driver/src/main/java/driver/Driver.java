@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 public final class Driver {
     private static final Logger LOG = LoggerFactory.getLogger(Driver.class);
 
-    private final static long FILE_SIZE_LIMIT = 10_000_000;  // 100 MB
+    private final static long FILE_SIZE_LIMIT = 100_000_000;  // 100 MB
     private final static int TRIAL_LIMIT = 1_000_000;
 
     public static void main(final String[] args) throws IOException, InterruptedException {
