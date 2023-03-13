@@ -17,6 +17,19 @@ public final class SubTypingAnalysis {
             "java.lang.Runnable",
             "java.lang.Throwable",
     };
+
+    private static final String[] throwableInJar = {
+            "com.google.protobuf.ServiceException",
+    };
+
+    private boolean matchWithThrowable(final SootClass sootClass) {
+        for (int i = 0; i < throwableInJar.length; i++) {
+            if (throwableInJar[i].equals(sootClass.getName()))
+                return true;
+        }
+        return false;
+    }
+
     private static final int[] flags = {
             1<<0,
             1<<0,
@@ -43,7 +56,7 @@ public final class SubTypingAnalysis {
     }
 
     public boolean isThrowable(final SootClass sootClass) {
-        return (dfsWithMemoir(sootClass) & flags[2]) != 0;
+        return ((dfsWithMemoir(sootClass) & flags[2]) != 0) || matchWithThrowable(sootClass);
     }
 
     public boolean isThreadOrRunnable(final SootClass sootClass) {
