@@ -164,6 +164,8 @@ public final class TraceAgent {
                         throw exception;
                     }
                 }
+                injectionCount.addAndGet(1);
+                injectionOverhead.addAndGet(System.currentTimeMillis() - time);
                 return;
             }
             try {
