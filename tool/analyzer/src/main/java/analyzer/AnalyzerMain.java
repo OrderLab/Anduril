@@ -7,6 +7,8 @@ import analyzer.phase.FlakyTestAnalyzer;
 import analyzer.phase.PhaseInfo;
 import analyzer.phase.PhaseManager;
 import analyzer.util.StringUtils;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -255,6 +257,8 @@ public class AnalyzerMain {
     }
 
     public static void main(String[] args) {
+        System.out.printf("\nStatic Analyzer Start Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         addScalaDependencies();
         addJunitDependencies();
         addextraDependencies();
@@ -292,6 +296,8 @@ public class AnalyzerMain {
         if (!main.initialize() || !main.run()) {
             System.exit(1);
         }
+        System.out.printf("\nStatic Analyzer End Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
     }
     // in alphabetical order
     private static final String[] scalaDependencies = new String[]{
