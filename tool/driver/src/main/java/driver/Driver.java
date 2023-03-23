@@ -96,6 +96,8 @@ public final class Driver {
                                 move(spec.currentDir.resolve("cluster").resolve("logs-" + i).toFile(),
                                         outputDir.resolve("logs-" + i).toFile());
                             }
+                            move(spec.currentDir.resolve("output.txt").toFile(),
+                                    outputDir.resolve("output.txt").toFile());
                         }
                         Thread.sleep(3000);
                         final Process feedbackProcess = start(feedback);
