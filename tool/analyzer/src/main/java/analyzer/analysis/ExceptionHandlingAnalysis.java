@@ -75,7 +75,7 @@ public final class ExceptionHandlingAnalysis {
         this.body = body;
         this.graph = graph;
         this.units = body.getUnits();
-        this.enableExceptionReturn = enableExceptionReturn
+        this.enableExceptionReturn = enableExceptionReturn;
         Set<SootClass> classSet = new HashSet<>(classes);
         int counter = 0;
         // prepare ids, and infer throw locations for the variables carrying exceptions
