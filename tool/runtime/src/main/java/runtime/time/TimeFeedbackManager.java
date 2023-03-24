@@ -251,6 +251,16 @@ public class TimeFeedbackManager extends FeedbackManager {
         if (this.timePriorityTable.distributed) {
             this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new double[v]));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
+                System.out.printf("%d,%d,%d", injection, k.occurrence, k.pid);
+                for (int log = 0; log < super.graph.startNumber; log++) {
+                    if (v.timePriorities.containsKey(log)) {
+                        System.out.printf("(%d_%d_%d),", log,
+                                locationPriorities.getOrDefault(injection, sentinel)
+                                        .getOrDefault(log, -1),
+                                v.timePriorities.get(log));
+                    }
+                }
+                System.out.println();
                 final double priority;
                 if (TraceAgent.config.locationFeedbackFallbackMode && k.occurrence <= 3) {
                     priority = locationPriorities.get(injection).values().stream().mapToDouble(x->x).min().orElseGet(() -> INF);
