@@ -46,6 +46,8 @@ public final class ExceptionHandlingAnalysis {
     //Exception that is created and uncaught in this method.
     public final Set<SootClass> NewExceptionUncaught = new HashSet<>();
 
+    public boolean enableExceptionReturn = false;
+
     public boolean updateWith(final SootMethod method, final Set<SootClass> exceptions) {
 //        if (this.method.getDeclaringClass().getName()
 //                .equals("org.apache.zookeeper.server.quorum.Leader$LearnerCnxAcceptor$LearnerCnxAcceptorHandler")) {
@@ -67,11 +69,13 @@ public final class ExceptionHandlingAnalysis {
 
     public ExceptionHandlingAnalysis(final List<SootClass> classes, final SootMethod method, final Body body,
                                      final UnitGraph graph, final GlobalCallGraphAnalysis globalCallGraphAnalysis,
-                                     final Map<SootMethod, ExceptionReturnAnalysis> exceptionReturnAnalysis) {
+                                     final Map<SootMethod, ExceptionReturnAnalysis> exceptionReturnAnalysis,
+                                     final boolean enableExceptionReturn ) {
         this.method = method;
         this.body = body;
         this.graph = graph;
         this.units = body.getUnits();
+        this.enableExceptionReturn = enableExceptionReturn
         Set<SootClass> classSet = new HashSet<>(classes);
         int counter = 0;
         // prepare ids, and infer throw locations for the variables carrying exceptions
@@ -92,10 +96,13 @@ public final class ExceptionHandlingAnalysis {
                     } else if (rhs instanceof InvokeExpr) {
                         // Deal with new created exceptions in wrappers
                         final SootMethod calleeMethod = ((InvokeExpr) rhs).getMethod();
-                        if (ExceptionReturnAnalysis.isWrapper(calleeMethod)) {
-                            for (SootClass exception:exceptionReturnAnalysis.get(calleeMethod).newExceptions) {
-                                unitCarryingException.put(unit, new HashSet<>(Collections.singletonList(exception)));
-                                searchThrowLocation(unit, (Local) lhs, exceptionReturnAnalysis);
+
+                        if (enableExceptionReturn) {
+                            if (ExceptionReturnAnalysis.isWrapper(calleeMethod)) {
+                                for (SootClass exception : exceptionReturnAnalysis.get(calleeMethod).newExceptions) {
+                                    unitCarryingException.put(unit, new HashSet<>(Collections.singletonList(exception)));
+                                    searchThrowLocation(unit, (Local) lhs, exceptionReturnAnalysis);
+                                }
                             }
                         }
                     }
@@ -223,7 +230,7 @@ public final class ExceptionHandlingAnalysis {
                 Value rhs = ((DefinitionStmt) node).getRightOp();
                 if (rhs instanceof InvokeExpr) {
                     final SootMethod calleeMethod = ((InvokeExpr) rhs).getMethod();
-                    if (ExceptionReturnAnalysis.isWrapper(calleeMethod)
+                    if (this.enableExceptionReturn && ExceptionReturnAnalysis.isWrapper(calleeMethod)
                             && exceptionReturnAnalysis.get(calleeMethod).transparent) {
                         for (Value param : ((InvokeExpr) rhs).getArgs()) {
                             if (vs.contains(param)) {

@@ -29,6 +29,7 @@ public class AnalysisInput {
     public static final String secondaryPrefix = System.getProperty("analysis.secondaryPrefix", "#");
     public static final boolean distributedMode = Boolean.getBoolean("analysis.distributedMode");
     public static final boolean injectAfterStartup = Boolean.getBoolean("analysis.injectAfterStartup");
+    public static final boolean enableExceptionReturn = Boolean.getBoolean("analysis.exceptionReturnAnalysis");
 
     public final Set<ProgramLocation> logEvents = new HashSet<>();
     public final List<SootClass> mainClasses = new ArrayList<>();

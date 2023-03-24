@@ -12,6 +12,7 @@ public final class GlobalExceptionAnalysis {
     public final Map<SootMethod, ExceptionHandlingAnalysis> analyses = new HashMap<>();
     public final Map<SootMethod, Set<SootMethod>> usage = new HashMap<>(); // method -> methods using this method
     public static final Set<SootMethod> emptySet = new HashSet<>();
+    public static final boolean enableExceptionReturn = Boolean.getBoolean("analysis.enableExceptionReturnAnalysis");
 
     public GlobalExceptionAnalysis(final List<SootClass> classes,
                                    final GlobalCallGraphAnalysis globalCallGraphAnalysis,
@@ -23,7 +24,8 @@ public final class GlobalExceptionAnalysis {
                     final Body body = sootMethod.getActiveBody();
                     final UnitGraph graph = new BriefUnitGraph(body);
                     final ExceptionHandlingAnalysis analysis =
-                            new ExceptionHandlingAnalysis(classes, sootMethod, body, graph, globalCallGraphAnalysis, exceptionReturnAnalysis);
+                            new ExceptionHandlingAnalysis(classes, sootMethod, body, graph, globalCallGraphAnalysis,
+                                    exceptionReturnAnalysis, enableExceptionReturn);
                     analyses.put(sootMethod, analysis);
                     for (final SootMethod method : analysis.methodOccurrences.keySet()) {
 //                        if (method.getName().equals("commit") &&
