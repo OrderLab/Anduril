@@ -9,8 +9,12 @@ from matplotlib import pyplot as plt
 
 if __name__ == "__main__":
     # Need to be manually changed
-    target_id = 213014
-    target_occurrence = 77
+    #target_id = 210368
+    #target_occurrence = 2
+    #target_pid = 3
+    target_id = 216462
+    target_occurrence = 4
+    target_pid = -1
     ## border line
     
     
@@ -20,10 +24,9 @@ if __name__ == "__main__":
     
         target_priority = -1
         try:
-            file = open("example/"+str(file_index)+".out", "r")
+            file = open("hdfs-12070/output-"+str(file_index)+".txt", "r")
         except:
             print("Finish processing "+str(file_index)+" files!")
-            plt.plot(range(len(ranks)),ranks)
             break
             
         lines = file.readlines()
@@ -51,16 +54,22 @@ if __name__ == "__main__":
             result = re.split(",", line)
             injection_id = int(result[0])
             occurrence = int(result[1])
+            
+            start = 2
+            pid = -1
+            if not (target_pid == -1):
+                pid = int(result[2])
+                start = 3
         
             min_times = 1000000
-            for log_priorities in range(2, len(result)-1):
+            for log_priorities in range(start, len(result)-1):
                 log_loc_time = re.split("_",result[log_priorities][1:(len(result[log_priorities])-1)])
                 temp = int(log_loc_time[1])*int(log_loc_time[2])
                 if ( temp < min_times):
                     min_times = temp
                
-                if injection_id == target_id and occurrence == target_occurrence: 
-                    target_priority = min_times
+            if injection_id == target_id and occurrence == target_occurrence and pid == target_pid: 
+                target_priority = min_times
             
             priority_list.append(min_times)
        
@@ -76,6 +85,12 @@ if __name__ == "__main__":
             rank = rank + 1
             
         file_index = file_index + 1    
+        
+        if file_index == 300:
+            print(rank)
+            break
+        
+    plt.plot(range(len(ranks)),ranks)        
     
         
     
