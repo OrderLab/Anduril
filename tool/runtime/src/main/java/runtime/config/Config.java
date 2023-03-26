@@ -79,6 +79,7 @@ public final class Config {
     public int slidingWindowSize;
     public int feedbackDelta;
     public boolean waitForStartup;
+    public boolean locationMulti;
 
     private void setExperimentOnlyDefaultValues() {
         probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
@@ -94,6 +95,7 @@ public final class Config {
         minimumTimeMode = Boolean.getBoolean("flakyAgent.minimumTimeMode");
         locationFeedbackFallbackMode = Boolean.getBoolean("flakyAgent.locationFeedbackFallbackMode");
         waitForStartup = Boolean.getBoolean("flakyAgent.waitForStartup");
+        locationMulti = Boolean.getBoolean("flakyAgent.locationMultiplyPolicy");
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
@@ -124,7 +126,8 @@ public final class Config {
             "flakyAgent.minimumTimeMode",
             "flakyAgent.feedbackDelta",
             "flakyAgent.locationFeedbackFallbackMode",
-            "flakyAgent.waitForStartup"
+            "flakyAgent.waitForStartup",
+            "flakyAgent.locationMultiplyPolicy"
     };
 
     private Config() { }
