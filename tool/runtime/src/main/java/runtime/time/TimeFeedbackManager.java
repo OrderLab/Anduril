@@ -214,7 +214,7 @@ public class TimeFeedbackManager extends FeedbackManager {
         final int[] change = new int[super.graph.startNumber];
         for (int i = 0; i < super.graph.startNumber; i++) {
             if (TraceAgent.config.locationMulti) {
-                change[i] = super.active.getOrDefault(i, 1) + 1;
+                change[i] = super.active.getOrDefault(i, 0) + 1;
             } else {
                 change[i] = super.active.getOrDefault(i, 0);
             }
