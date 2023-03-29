@@ -213,7 +213,12 @@ public class TimeFeedbackManager extends FeedbackManager {
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         final int[] change = new int[super.graph.startNumber];
         for (int i = 0; i < super.graph.startNumber; i++) {
-            change[i] = super.active.getOrDefault(i, 0);
+            if (TraceAgent.config.locationMulti) {
+                change[i] = super.active.getOrDefault(i + 1, 1);
+            } else {
+                change[i] = super.active.getOrDefault(i, 0);
+            }
+            
         }
 
         if (TraceAgent.config.locationMulti) {
@@ -223,7 +228,7 @@ public class TimeFeedbackManager extends FeedbackManager {
             this.timePriorityTable.distances.forEach((injection, m) -> m.forEach((log, priority) ->
                     locationPriorities.computeIfAbsent(injection, t -> new TreeMap<>()).put(log, priority + change[log])));
         }
-        
+
         if (this.mode == Mode.MIN_INTERLEAVE) {
             isTime = random.nextBoolean();
         }
