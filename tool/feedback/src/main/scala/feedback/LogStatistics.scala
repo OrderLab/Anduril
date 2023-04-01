@@ -1,22 +1,21 @@
 package feedback
 
 import feedback.common.ActionMayThrow
-import feedback.diff.{DiffDump, LogFileDiff, ThreadDiff}
-import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
-import feedback.parser.TextParser
-import feedback.symptom.Symptoms
-import feedback.time.TimeAlgorithms
-import javax.json.JsonObject
+import feedback.log.entry.ExceptionLogEntry
+import feedback.log.{DistributedWorkloadLog, Log, LogFile, UnitTestLog}
 
 object LogStatistics {
+  private def countExceptions(log: LogFile): Int = log.entries.count(_ match {
+    case ExceptionLogEntry(logLine, showtime, logType, thread, classname, fileLogLine, msg, nestedException) => true
+    case _ => false
+  })
 
-  def countLines(log: Log, action: ActionMayThrow[String]): Unit = log match {
+  def countLog(log: Log, printer: ActionMayThrow[String]): Unit = log match {
     case UnitTestLog(logFile, _) =>
-        action.accept(logFile.entries.length.toString)
+      printer.accept(s"The number of log entries: ${logFile.entries.length}")
+      printer.accept(s"The number of exceptions: ${countExceptions(logFile)}")
     case DistributedWorkloadLog(logFiles) =>
-      logFiles foreach {
-        logFile => action.accept(logFile.entries.length.toString)
-      }
+      printer.accept(s"The number of log entries: ${logFiles.map(_.entries.length).sum}")
+      printer.accept(s"The number of exceptions: ${logFiles.map(countExceptions).sum}")
   }
-
 }

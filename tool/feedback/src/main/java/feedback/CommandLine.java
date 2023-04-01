@@ -113,8 +113,8 @@ public final class CommandLine {
         if (cmd.hasOption("double-diff-set")) {
             this.computeDoubleDiffSet(printer::println);
         }
-        if (cmd.hasOption("log-count")) {
-            LogStatistics.countLines(LogParser.parseLog(cmd.getOptionValue("logs")),printer::println);
+        if (cmd.hasOption("log")) {
+            LogStatistics.countLog(LogParser.parseLog(cmd.getOptionValue("logs")), printer::println);
         }
     }
 
@@ -214,14 +214,8 @@ public final class CommandLine {
                 "compute the location-based feedback based on the trial run, the good run, the bad run");
         options.addOption(locationFeedback);
 
-
-        final Option logs = new Option("log", "logs", true,
-                "arbitrary logs");
-        options.addOption(logs);
-
-        final Option logCount = new Option("lc", "log-count", false,
-                "compute the count of lines in the logs");
-        options.addOption(logCount);
+        final Option log = new Option("l", "log", true, "arbitrary log");
+        options.addOption(log);
 
         return options;
     }
