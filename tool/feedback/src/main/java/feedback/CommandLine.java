@@ -114,7 +114,7 @@ public final class CommandLine {
             this.computeDoubleDiffSet(printer::println);
         }
         if (cmd.hasOption("log")) {
-            LogStatistics.countLog(LogParser.parseLog(cmd.getOptionValue("logs")), printer::println);
+            LogStatistics.countLog(LogParser.parseLog(cmd.getOptionValue("log")), printer::println);
         }
         if (cmd.hasOption("unique-count")) {
             LogStatistics.countUniqueFaults(LogParser.parseLog(cmd.getOptionValue("unique-count")), printer::println);
