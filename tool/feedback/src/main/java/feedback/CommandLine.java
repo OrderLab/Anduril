@@ -116,6 +116,9 @@ public final class CommandLine {
         if (cmd.hasOption("log")) {
             LogStatistics.countLog(LogParser.parseLog(cmd.getOptionValue("logs")), printer::println);
         }
+        if (cmd.hasOption("unique-count")) {
+            LogStatistics.countUniqueFaults(LogParser.parseLog(cmd.getOptionValue("unique-count")), printer::println);
+        }
     }
 
     private Serializable objectHandler()
@@ -216,6 +219,9 @@ public final class CommandLine {
 
         final Option log = new Option("l", "log", true, "arbitrary log");
         options.addOption(log);
+
+        final Option uc = new Option("u", "unique-count", true, "arbitrary log");
+        options.addOption(uc);
 
         return options;
     }
