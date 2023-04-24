@@ -80,6 +80,7 @@ public final class Config {
     public int feedbackDelta;
     public boolean waitForStartup;
     public boolean locationMulti;
+    public boolean dynamicCreate;
 
     private void setExperimentOnlyDefaultValues() {
         probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
@@ -96,6 +97,7 @@ public final class Config {
         locationFeedbackFallbackMode = Boolean.getBoolean("flakyAgent.locationFeedbackFallbackMode");
         waitForStartup = Boolean.getBoolean("flakyAgent.waitForStartup");
         locationMulti = Boolean.getBoolean("flakyAgent.locationMultiplyPolicy");
+        dynamicCreate = Boolean.getBoolean("flakyAgent.dynamicCreate");
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
@@ -127,7 +129,8 @@ public final class Config {
             "flakyAgent.feedbackDelta",
             "flakyAgent.locationFeedbackFallbackMode",
             "flakyAgent.waitForStartup",
-            "flakyAgent.locationMultiplyPolicy"
+            "flakyAgent.locationMultiplyPolicy",
+            "flakyAgent.dynamicCreate"
     };
 
     private Config() { }

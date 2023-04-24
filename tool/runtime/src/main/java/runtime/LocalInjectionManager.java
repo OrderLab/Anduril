@@ -165,13 +165,18 @@ public class LocalInjectionManager {
                 assert(event.getInt("id") == callee);
                 String event_type = event.getString("type");
                 Throwable exception;
-                if (event_type.equals("Uncaught_throw_injection_event")) {
+                if (TraceAgent.config.dynamicCreate) {
                     final String exception_name = spec.getString("exception");
                     id2name.put(injectionId, exception_name);
                 } else {
-                    exception = ExceptionBuilder.createException(spec.getString("exception"));
-                    if (exception != null) {
-                        id2exception.put(injectionId, exception);
+                    if (event_type.equals("Uncaught_throw_injection_event")) {
+                        final String exception_name = spec.getString("exception");
+                        id2name.put(injectionId, exception_name);
+                    } else {
+                        exception = ExceptionBuilder.createException(spec.getString("exception"));
+                        if (exception != null) {
+                            id2exception.put(injectionId, exception);
+                        }
                     }
                 }
             }
