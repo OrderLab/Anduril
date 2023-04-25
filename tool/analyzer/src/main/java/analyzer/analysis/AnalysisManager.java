@@ -10,6 +10,7 @@ import soot.toolkits.graph.UnitGraph;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public final class AnalysisManager {
@@ -89,11 +90,21 @@ public final class AnalysisManager {
 
     public AnalysisManager(final AnalysisInput analysisInput) {
         this.analysisInput = analysisInput;
+        System.out.printf("\nGlobal Call Graph Analysis Start Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(analysisInput.classes);
+        System.out.printf("\nException Handling Analysis Start Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.returnExceptionAnalysis = new GlobalReturnAnalysis(analysisInput.classes, this.callGraphAnalysis);
         this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses);
+        System.out.printf("\nIntra control flow graph Analysis Start Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(analysisInput.classes);
+        System.out.printf("\nSlicing Analysis Start Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput.classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
+        System.out.printf("\nSlicing Analysis End Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
 //        SootClass c = Scene.v()
 //                .getSootClass("org.apache.zookeeper.server.quorum.Leader$LearnerCnxAcceptor$LearnerCnxAcceptorHandler");
 //        SootMethod m = c.getMethod("void acceptConnections()");

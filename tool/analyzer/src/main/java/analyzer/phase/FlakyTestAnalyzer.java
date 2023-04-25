@@ -16,10 +16,8 @@ import org.slf4j.LoggerFactory;
 import soot.*;
 import soot.jimple.NewExpr;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Identify all the module entry points (thread and its run methods) in a system.
@@ -56,7 +54,11 @@ public class FlakyTestAnalyzer extends SceneTransformer {
         final AnalysisInput analysisInput = new AnalysisInput(AnalyzerOptions.getInstance(),
                 Scene.v().getApplicationClasses());
         final AnalysisManager analysisManager = new AnalysisManager(analysisInput);
+        System.out.printf("\nEvent Chaining Start Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         final EventManager eventManager = new EventManager(analysisManager);
+        System.out.printf("\nEvent Chaining End Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         analysisManager.instrument();
         eventManager.dump("tree.json");
         eventManager.instrumentInjections();

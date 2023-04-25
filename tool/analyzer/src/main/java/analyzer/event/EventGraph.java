@@ -55,6 +55,7 @@ public class EventGraph {
             }
         }
         this.startingPointNumber = nodes.size();
+        int fork = 0;
         while (!queue.isEmpty()) {
             final EventGraph.Node node = queue.pollFirst();
             // TODO: remove the constraint
@@ -62,6 +63,7 @@ public class EventGraph {
 //            if (node.depth == 8) {
 //                continue;
 //            }
+            int new_children = 0;
             for (final ProgramEvent event : node.event.computeFrontiers(analysisManager)) {
                 EventGraph.Node child;
                 if (nodes.containsKey(event)) {
@@ -71,6 +73,7 @@ public class EventGraph {
                     nodeIds.put(event, nodeIds.size());
                     nodes.put(event, child);
                     queue.addLast(child);
+                    new_children++;
                 }
                 node.out.add(child);
                 child.in.add(node);
@@ -81,7 +84,12 @@ public class EventGraph {
             if (node.event instanceof InternalInjectionEvent) {
                 this.injectionPoints.addAll(((InternalInjectionEvent) node.event).injectionPoints);
             }
+            if (new_children >= 2) {
+                fork++;
+            }
         }
+        System.out.println("The total number of events are:" + nodes.size());
+        System.out.println("The number of forked events are:" + fork);
         //After all, calculate the uncaughtException Event and add the injections Points
         final List<InjectionPoint> uncaughtThrowInjectionPoints = new LinkedList<>();
         for (final InjectionPoint injectionPoint : this.injectionPoints) {
