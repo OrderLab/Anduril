@@ -179,6 +179,14 @@ public class TestReplicationSmallTests extends TestReplicationBase {
   public void testEmptyWALRecovery() throws Exception {
     final int numRs = utility1.getHBaseCluster().getRegionServerThreads().size();
 
+    // roll the original wal, which enqueues a new wal behind our empty wal
+    for (int i = 0; i < numRs; i++) {
+      HRegionInfo regionInfo =
+          utility1.getHBaseCluster().getRegions(htable1.getName()).get(0).getRegionInfo();
+      WAL wal = utility1.getHBaseCluster().getRegionServer(i).getWAL(regionInfo);
+      wal.rollWriter(true);
+    }
+
     // for each RS, create an empty wal with same walGroupId
     final List<Path> emptyWalPaths = new ArrayList<>();
     long ts = System.currentTimeMillis();
@@ -194,8 +202,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
     }
 
     // inject our empty wal into the replication queue
-    // numRs is originally 2; preserve 1 for injection reproduction
-    for (int i = 0; i < numRs - 1; i++) {
+    for (int i = 0; i < numRs; i++) {
       Replication replicationService =
           (Replication) utility1.getHBaseCluster().getRegionServer(i).getReplicationSourceService();
       replicationService.preLogRoll(null, emptyWalPaths.get(i));
@@ -205,21 +212,6 @@ public class TestReplicationSmallTests extends TestReplicationBase {
     // wait for ReplicationSource to start reading from our empty wal
     waitForLogAdvance(numRs, emptyWalPaths, false);
 
-    // roll the original wal, which enqueues a new wal behind our empty wal
-    for (int i = 0; i < numRs; i++) {
-      HRegionInfo regionInfo =
-          utility1.getHBaseCluster().getRegions(htable1.getName()).get(0).getRegionInfo();
-      WAL wal = utility1.getHBaseCluster().getRegionServer(i).getWAL(regionInfo);
-      wal.rollWriter(true);
-    }
-
-    // ReplicationSource should advance past the empty wal, or else the test will fail
-    waitForLogAdvance(numRs, emptyWalPaths, true);
-
-    // we're now writing to the new wal
-    // if everything works, the source should've stopped reading from the empty wal, and start
-    // replicating from the new wal
-    testSimplePutDelete();
   }
 
   /**

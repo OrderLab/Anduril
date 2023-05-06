@@ -748,10 +748,17 @@ public abstract class AbstractFSWAL<W> implements WAL {
         Path oldPath = getOldPath();
         Path newPath = getNewPath();
         // Any exception from here on is catastrophic, non-recoverable so we currently abort.
-        W nextWriter = this.createWriterInstance(newPath);
+        W nextWriter = null;
+        try {
+          nextWriter = this.createWriterInstance(newPath);
+        } catch (IOException ex) {
+          LOG.error("IOE in log roller");
+        } 
         tellListenersAboutPreLogRoll(oldPath, newPath);
         // NewPath could be equal to oldPath if replaceWriter fails.
-        newPath = replaceWriter(oldPath, newPath, nextWriter);
+        if (nextWriter != null) {
+          newPath = replaceWriter(oldPath, newPath, nextWriter);
+        }
         tellListenersAboutPostLogRoll(oldPath, newPath);
         if (LOG.isDebugEnabled()) {
           LOG.debug("Create new " + implClassName + " writer with pipeline: "

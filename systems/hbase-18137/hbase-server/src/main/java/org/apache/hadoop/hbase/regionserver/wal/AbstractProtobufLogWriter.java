@@ -54,7 +54,7 @@ import org.apache.hadoop.hbase.util.FSUtils;
  */
 @InterfaceAudience.LimitedPrivate(HBaseInterfaceAudience.CONFIG)
 public abstract class AbstractProtobufLogWriter {
-
+  private static volatile int cc = 0;
   private static final Log LOG = LogFactory.getLog(AbstractProtobufLogWriter.class);
 
   protected CompressionContext compressionContext;
@@ -167,6 +167,10 @@ public abstract class AbstractProtobufLogWriter {
 
     boolean doTagCompress = doCompress
         && conf.getBoolean(CompressionContext.ENABLE_WAL_TAGS_COMPRESSION, true);
+
+    //if (++cc==13) {
+    //  throw new IOException("Try to reproduce");
+    //}
     length.set(writeMagicAndWALHeader(ProtobufLogReader.PB_WAL_MAGIC, buildWALHeader(conf,
       WALHeader.newBuilder().setHasCompression(doCompress).setHasTagCompression(doTagCompress))));
 

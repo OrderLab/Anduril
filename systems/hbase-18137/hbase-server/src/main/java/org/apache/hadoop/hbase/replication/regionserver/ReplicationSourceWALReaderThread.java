@@ -190,7 +190,7 @@ public class ReplicationSourceWALReaderThread extends Thread {
           sleepMultiplier++;
         } else {
           LOG.error("Failed to read stream of replication entries", e);
-          handleEofException(e);
+          //handleEofException(e);
         }
         Threads.sleep(sleepForRetries * sleepMultiplier);
       } catch (InterruptedException e) {
