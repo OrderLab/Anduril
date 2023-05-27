@@ -1,0 +1,38 @@
+2023-05-27 15:32:43,485 - INFO  [Thread-3:ContextHandler@910] - Stopped o.e.j.s.ServletContextHandler@5804d4a2{/static,jar:file:/home/tonypan/flaky-reproduction/systems/hdfs-12248/hadoop-tools/hadoop-distcp/target/lib/hadoop-hdfs-3.0.0-beta1-SNAPSHOT-tests.jar!/webapps/static,UNAVAILABLE}
+E
+Time: 8.285
+There was 1 failure:
+1) testRollBackImage(org.apache.hadoop.hdfs.TestRollingUpgrade)
+1: Error: flush failed for required journal (JournalAndStream(mgr=QJM to [127.0.0.1:33807, 127.0.0.1:42403, 127.0.0.1:36495], stream=QuorumOutputStream starting at txid 17))
+	at org.apache.hadoop.util.ExitUtil.terminate(ExitUtil.java:304)
+	at org.apache.hadoop.hdfs.server.namenode.JournalSet.mapJournalsAndReportErrors(JournalSet.java:400)
+	at org.apache.hadoop.hdfs.server.namenode.JournalSet.access$100(JournalSet.java:55)
+	at org.apache.hadoop.hdfs.server.namenode.JournalSet$JournalSetOutputStream.flush(JournalSet.java:521)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.logSync(FSEditLog.java:706)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.logSyncAll(FSEditLog.java:603)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.endCurrentLogSegment(FSEditLog.java:1379)
+	at org.apache.hadoop.hdfs.server.namenode.FSEditLog.close(FSEditLog.java:393)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.stopActiveServices(FSNamesystem.java:1323)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode$NameNodeHAContext.stopActiveServices(NameNode.java:1893)
+	at org.apache.hadoop.hdfs.server.namenode.ha.ActiveState.exitState(ActiveState.java:70)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.stop(NameNode.java:1012)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.stopAndJoinNameNode(MiniDFSCluster.java:2039)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.shutdown(MiniDFSCluster.java:1979)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.shutdown(MiniDFSCluster.java:1950)
+	at org.apache.hadoop.hdfs.MiniDFSCluster.shutdown(MiniDFSCluster.java:1943)
+	at org.apache.hadoop.hdfs.qjournal.MiniQJMHACluster.shutdown(MiniQJMHACluster.java:169)
+	at org.apache.hadoop.hdfs.TestRollingUpgrade.testRollBackImage(TestRollingUpgrade.java:121)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+2023-05-27 15:32:43,499 - INFO  [Thread-0:TraceAgent@139] - 0xfff flaky agent workload time used: 125 / 34543 ms

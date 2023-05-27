@@ -139,6 +139,13 @@ object ExceptionParser {
       case (_, None) => // for HBase
         parseNormalNestedException(exception :+ "\tat Foo.bar(Baz.java:9)") match {
           case (None, Some(nestedException)) => nestedException
+          case (_, None) =>
+            val exception = text.slice(2, text.length)
+            // Consider change it to foo?
+            parseNormalNestedException(("org.apache.hadoop.util.ExitUtil.ExitException: "+text(1))+:exception) match {
+              case (None, Some(nestedException)) => nestedException
+              //for org.apache.hadoop.util.ExitUtil.ExitException in HDFS-12248
+            }
         }
     })
   }
