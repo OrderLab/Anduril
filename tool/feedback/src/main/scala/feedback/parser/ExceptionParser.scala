@@ -165,6 +165,15 @@ object ExceptionParser {
           case (_, None) => // for Kafka-12508
             parseJUnit5ResultNestedException(s"$exception\n       Foo.bar(Baz.java:9)") match {
               case (None, Some(nestedException)) => nestedException
+              case (_,None) => // handle the case where is no ": msg" behind the fault name
+                val pos = exception.indexOf("\n")
+                val exception_name = exception.substring(0,pos)
+                val stacktrace = exception.substring(pos+1)
+                val new_exception = exception_name + ": foo\n" + stacktrace
+
+                parseJUnit5ResultNestedException(new_exception) match {
+                  case (None, Some(nestedException)) => nestedException
+                }
             }
         })
   }
