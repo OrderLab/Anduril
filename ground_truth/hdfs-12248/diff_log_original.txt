@@ -1,4 +1,8 @@
-StandbyCheckpointer$CheckpointerThread 447
+StandbyCheckpointer$CheckpointerThread 451
+StandbyCheckpointer 179
+TransferFsImage 394
+MetricsConfig 134
+LocalInjectionManager 110
 Server$Listener$Reader 1067
 Server$Listener 1146
 JournalNode 96
@@ -7,9 +11,8 @@ Journal 220
 Storage$StorageDirectory 603
 Storage$StorageDirectory 847
 JNStorage 217
-FSImageFormatProtobuf$Saver 429
-FSImageFormatProtobuf$Saver 432
 JvmPauseMonitor$Monitor 188
+JvmPauseMonitor$Monitor 205
 Server$Listener 1178
 Server 2719
 Journal 332
@@ -18,7 +21,6 @@ Journal 209
 Journal 561
 CacheReplicationMonitor 160
 FileJournalManager 143
-TransferFsImage 396
 NameNodeRpcServer 1302
 FSEditLog 1277
 FSEditLog 1369
@@ -26,6 +28,7 @@ FSEditLog 600
 FSEditLog 605
 FSEditLog 770
 FSEditLog 1324
+TransferFsImage 396
 FSNamesystem$LazyPersistFileScrubber 3985
 FSNamesystem$NameNodeEditLogRoller 3894
 CacheReplicationMonitor 169
