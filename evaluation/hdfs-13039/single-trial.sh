@@ -27,7 +27,7 @@ $@ runtime.TraceAgent $p1 $p2 $p3 $p4 \
 > $SCRIPT_DIR/output.txt 2>&1 &
 pid=$!
 
-sleep 10
+sleep 60
 
 HADOOP_CLASSPATH="$runtime_jar" \
 INJECT_HADOOP_OPTS="-DflakyAgent.injectionPointsPath=$SCRIPT_DIR/tree.json" \

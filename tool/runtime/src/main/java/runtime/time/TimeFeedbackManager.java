@@ -360,12 +360,15 @@ public class TimeFeedbackManager extends FeedbackManager {
         csv.println(getMode());
         if (timePriorityTable.distributed) {
             csv.println("pid,id,occurrence,priority");
+            int index = 0;
             for (final Map<Integer, double[]> node : nodes) {
+                int finalIndex = index;
                 node.forEach((i, arr) -> {
                     for (int j = 0; j < arr.length; j++) {
-                        csv.printf("%d,%d,%.4f\n", i, j + 1, arr[j]);
+                        csv.printf("%d,%d,%d,%.4f\n", finalIndex, i, j + 1, arr[j]);
                     }
                 });
+                index += 1;
             }
         } else {
             csv.println("id,occurrence,priority");
