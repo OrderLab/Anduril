@@ -23,5 +23,6 @@ for i in `find $ca_dir -name resources`; do
   t=$((t+1))
 done
 
+cp $SCRIPT_DIR/logback-dtest.xml $SCRIPT_DIR/test/conf
 #mkdir -p $SCRIPT_DIR/deps/$t
 #cp -a $ca_dir/build/test/classes/. $SCRIPT_DIR/deps/$t/ 

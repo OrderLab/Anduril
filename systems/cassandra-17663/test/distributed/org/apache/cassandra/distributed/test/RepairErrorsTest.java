@@ -102,7 +102,7 @@ public class RepairErrorsTest extends TestBaseImpl
     @Test
     public void testRemoteStreamFailure() throws Exception
     {
-        dummy_sym();
+ 	dummy_sym();
         try (Cluster cluster = init(Cluster.build(3)
                                            .withConfig(config -> config.with(GOSSIP, NETWORK)
                                                                        .set("disk_failure_policy", "stop")
@@ -143,11 +143,10 @@ public class RepairErrorsTest extends TestBaseImpl
         }
     }
 
+    // Dummy symptom event
     private void dummy_sym() {
       return;
     }
-
-
 
     @SuppressWarnings("Convert2MethodRef")
     private void assertNoActiveRepairSessions(IInvokableInstance instance)
@@ -227,7 +226,7 @@ public class RepairErrorsTest extends TestBaseImpl
     public static class ByteBuddyHelperStreamFailure
     {
         public static void installStreamHandlingFailure(ClassLoader cl, int nodeNumber)
-        {
+        {   /*
             if (nodeNumber == 3)
             {
                 new ByteBuddy().rebase(CassandraIncomingFile.class)
@@ -236,7 +235,7 @@ public class RepairErrorsTest extends TestBaseImpl
                         .make()
                         .load(cl, ClassLoadingStrategy.Default.INJECTION);
             }
-
+            */
             if (nodeNumber == 1)
             {
                 new ByteBuddy().rebase(SystemKeyspace.class)
@@ -250,7 +249,7 @@ public class RepairErrorsTest extends TestBaseImpl
         @SuppressWarnings("unused")
         public static void read(DataInputPlus in, int version) throws IOException
         {
-            //throw new IOException("Failing incoming file read from test!");
+            throw new IOException("Failing incoming file read from test!");
         }
 
         @SuppressWarnings("unused")
@@ -260,8 +259,7 @@ public class RepairErrorsTest extends TestBaseImpl
             {
                 try
                 {
-                   // TimeUnit.SECONDS.sleep(10);
-                    TimeUnit.SECONDS.sleep(0);
+                    TimeUnit.SECONDS.sleep(10);
                 }
                 catch (InterruptedException e)
                 {
