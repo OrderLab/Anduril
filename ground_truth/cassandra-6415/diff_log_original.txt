@@ -1,0 +1,8 @@
+RepairSession 252
+CassandraDaemon$2 187
+CompactionTask 115
+CompactionTask 275
+MigrationManager 234
+FBUtilities 361
+Gossiper 850
+ColumnFamilyStore 740
