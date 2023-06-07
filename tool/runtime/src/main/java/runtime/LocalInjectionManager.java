@@ -1,5 +1,6 @@
 package runtime;
 
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.exception.ExceptionBuilder;
@@ -12,6 +13,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -33,6 +36,7 @@ public class LocalInjectionManager {
     //private final ConcurrentMap<String, Throwable> name2exception = new ConcurrentHashMap<>();
 
     private final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Integer, ConcurrentMap<Integer, Pair<LocalDateTime,String>>> id2times2time = new ConcurrentHashMap<>();
 //    private final ConcurrentMap<Integer, Integer> thread2block = new ConcurrentHashMap<>();
     private final ConcurrentMap<Integer, Integer> block2times = new ConcurrentHashMap<>();
 
@@ -264,4 +268,34 @@ public class LocalInjectionManager {
             jsonWriter.writeObject(json.build());
         } catch (final IOException ignored) { }
     }
+
+    // Note: This method also utilize the id2Times for counter
+    public void recordInjectionTime(final int pid, final int id) {
+        LocalDateTime now = LocalDateTime.now();
+        id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
+        final ConcurrentMap<Integer,Pair<LocalDateTime,String>> injection_trace = id2times2time.get(id);
+        final int occurrence;
+        // Get the current occurrence
+        // Warn: should not be called at the same time with inject()
+        synchronized (injection_trace) {
+            occurrence = this.id2times.getOrDefault(id, 0) + 1;
+            this.id2times.put(id, occurrence);
+        }
+        injection_trace.put(occurrence,new Pair<>(now,Thread.currentThread().getName()));
+    }
+
+    public void printRecordInjectionTime() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
+        try (final PrintWriter csv = new PrintWriter(
+                Files.newOutputStream(Paths.get(this.trialsPath + "/" + "InjectionTimeRecord" + ".csv")))) {
+                csv.println("id,occurrence,time,thread");
+                this.id2times2time.forEach((id, times2time)->
+                        times2time.forEach((times,time_thread_pair)->
+                                csv.printf("%d,%d,%s,%s\n", id,times,
+                                        time_thread_pair.getKey().format(format),time_thread_pair.getValue())));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
