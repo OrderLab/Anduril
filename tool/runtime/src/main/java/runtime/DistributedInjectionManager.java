@@ -97,11 +97,11 @@ public class DistributedInjectionManager extends LocalInjectionManager {
     }
 
     public void printRecordInjectionTime() {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
         try (final PrintWriter csv = new PrintWriter(
                 Files.newOutputStream(Paths.get(this.trialsPath + "/" + "InjectionTimeRecord" + ".csv")))) {
+            csv.println("pid,id,occurrence,time");
             for (int pid = 0; pid < processRecords.length;pid++) {
-                csv.println("pid,id,occurrence,time");
                 int finalPid = pid;
                 processRecords[pid].id2times2time.forEach((id, times2time)->
                         times2time.forEach((times,time)->
