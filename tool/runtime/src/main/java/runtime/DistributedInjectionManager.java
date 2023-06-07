@@ -1,8 +1,13 @@
 package runtime;
 
-import com.oracle.tools.packager.Log;
+import runtime.time.TimeFeedbackManager;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -92,8 +97,18 @@ public class DistributedInjectionManager extends LocalInjectionManager {
     }
 
     public void printRecordInjectionTime() {
-        for (ProcessRecord record:processRecords) {
-            Log.info(record.id2times2time.toString());
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        try (final PrintWriter csv = new PrintWriter(
+                Files.newOutputStream(Paths.get(this.trialsPath + "/" + "InjectionTimeRecord" + ".csv")))) {
+            for (int pid = 0; pid < processRecords.length;pid++) {
+                csv.println("pid,id,occurrence,time");
+                int finalPid = pid;
+                processRecords[pid].id2times2time.forEach((id, times2time)->
+                        times2time.forEach((times,time)->
+                                csv.printf("%d,%d,%d,%s\n", finalPid,id,times,time.format(format))));
+            }
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
