@@ -239,15 +239,15 @@ public final class TraceAgent {
     static public void main(final String[] args) throws Throwable {
         // util for shutdown server
         if (args.length == 0) {
-            if (config.timeTraceCollectMode) {
-                distributedInjectionManager.printRecordInjectionTime();
-            }
             getStub().shutdown();
             return;
         }
         if (config.distributedMode) {
             distributedInjectionManager = new DistributedInjectionManager(Integer.parseInt(args[0]), args[1], args[2], args[3]);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> distributedInjectionManager.dump()));
+            if (config.timeTraceCollectMode) {
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> distributedInjectionManager.printRecordInjectionTime()));
+            }
             final Registry rmiRegistry = LocateRegistry.createRegistry(RMI_PORT);
             final TraceStub s = new TraceStub();
             rmiRegistry.rebind(RMI_NAME, UnicastRemoteObject.exportObject(s, 0));

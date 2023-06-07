@@ -1,5 +1,7 @@
 package runtime;
 
+import com.oracle.tools.packager.Log;
+
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -91,7 +93,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
 
     public void printRecordInjectionTime() {
         for (ProcessRecord record:processRecords) {
-            System.out.println(record.id2times);
+            Log.info(record.id2times2time.toString());
         }
     }
 
