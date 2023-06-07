@@ -13,7 +13,8 @@ public final class TraceStub implements TraceRemote {
         TraceAgent.waiter.countDown();
     }
 
-    public void recordInjectionTime(final int pid, final int id) {
+    @Override
+    public void recordInjectionTime(final int pid, final int id) throws RemoteException {
         TraceAgent.distributedInjectionManager.recordInjectionTime(pid,id);
     }
 }
