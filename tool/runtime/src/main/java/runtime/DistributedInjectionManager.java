@@ -1,6 +1,5 @@
 package runtime;
 
-import javafx.util.Pair;
 import runtime.time.TimeFeedbackManager;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DistributedInjectionManager extends LocalInjectionManager {
     public static class ProcessRecord {
         public final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
-        public final ConcurrentMap<Integer, ConcurrentMap<Integer, Pair<LocalDateTime,String>>> id2times2time = new ConcurrentHashMap<>();
+        public final ConcurrentMap<Integer, ConcurrentMap<Integer, ThreadTimePair>> id2times2time = new ConcurrentHashMap<>();
 //        public final Map<Integer, Integer> thread2block = new TreeMap<>();
 //        public final Map<Integer, Integer> block2times = new TreeMap<>();
     }
@@ -86,7 +85,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
         LocalDateTime now = LocalDateTime.now();
         final ProcessRecord record = processRecords[pid];
         record.id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
-        final ConcurrentMap<Integer,Pair<LocalDateTime,String>> injection_trace = record.id2times2time.get(id);
+        final ConcurrentMap<Integer,ThreadTimePair> injection_trace = record.id2times2time.get(id);
         final int occurrence;
         // Get the current occurrence
         // Warn: should not be called at the same time with inject()
@@ -94,7 +93,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
             occurrence = record.id2times.getOrDefault(id, 0) + 1;
             record.id2times.put(id, occurrence);
         }
-        injection_trace.put(occurrence,new Pair<>(now,Thread.currentThread().getName()));
+        injection_trace.put(occurrence,new ThreadTimePair(now,Thread.currentThread().getName()));
     }
 
     public void printRecordInjectionTime() {
@@ -107,7 +106,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
                 processRecords[pid].id2times2time.forEach((id, times2time)->
                         times2time.forEach((times,time_thread_pair)->
                                 csv.printf("%d,%d,%d,%s,%s\n", finalPid,id,times,
-                                        time_thread_pair.getKey().format(format),time_thread_pair.getValue())));
+                                        time_thread_pair.time.format(format),time_thread_pair.thread_name)));
             }
         } catch (final IOException e) {
             throw new RuntimeException(e);

@@ -1,6 +1,5 @@
 package runtime;
 
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.exception.ExceptionBuilder;
@@ -23,6 +22,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class LocalInjectionManager {
     private static final Logger LOG = LoggerFactory.getLogger(LocalInjectionManager.class);
 
+    public static class ThreadTimePair {
+        public final LocalDateTime time;
+        public final String thread_name;
+
+        public ThreadTimePair(LocalDateTime time, String thread_name) {
+            this.time = time;
+            this.thread_name = thread_name;
+        }
+    }
+
     protected final String trialsPath, specPath, injectionResultPath;
 
     protected final AtomicBoolean injected = new AtomicBoolean(false);
@@ -36,7 +45,7 @@ public class LocalInjectionManager {
     //private final ConcurrentMap<String, Throwable> name2exception = new ConcurrentHashMap<>();
 
     private final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
-    private final ConcurrentMap<Integer, ConcurrentMap<Integer, Pair<LocalDateTime,String>>> id2times2time = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Integer, ConcurrentMap<Integer, ThreadTimePair>> id2times2time = new ConcurrentHashMap<>();
 //    private final ConcurrentMap<Integer, Integer> thread2block = new ConcurrentHashMap<>();
     private final ConcurrentMap<Integer, Integer> block2times = new ConcurrentHashMap<>();
 
@@ -273,7 +282,7 @@ public class LocalInjectionManager {
     public void recordInjectionTime(final int pid, final int id) {
         LocalDateTime now = LocalDateTime.now();
         id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
-        final ConcurrentMap<Integer,Pair<LocalDateTime,String>> injection_trace = id2times2time.get(id);
+        final ConcurrentMap<Integer,ThreadTimePair> injection_trace = id2times2time.get(id);
         final int occurrence;
         // Get the current occurrence
         // Warn: should not be called at the same time with inject()
@@ -281,7 +290,7 @@ public class LocalInjectionManager {
             occurrence = this.id2times.getOrDefault(id, 0) + 1;
             this.id2times.put(id, occurrence);
         }
-        injection_trace.put(occurrence,new Pair<>(now,Thread.currentThread().getName()));
+        injection_trace.put(occurrence,new ThreadTimePair(now, Thread.currentThread().getName()));
     }
 
     public void printRecordInjectionTime() {
@@ -292,7 +301,7 @@ public class LocalInjectionManager {
                 this.id2times2time.forEach((id, times2time)->
                         times2time.forEach((times,time_thread_pair)->
                                 csv.printf("%d,%d,%s,%s\n", id,times,
-                                        time_thread_pair.getKey().format(format),time_thread_pair.getValue())));
+                                        time_thread_pair.time.format(format),time_thread_pair.thread_name)));
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
