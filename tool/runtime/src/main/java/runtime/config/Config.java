@@ -81,6 +81,7 @@ public final class Config {
     public boolean waitForStartup;
     public boolean locationMulti;
     public boolean dynamicCreate;
+    public boolean timeTraceCollectMode;
 
     private void setExperimentOnlyDefaultValues() {
         probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
@@ -98,6 +99,7 @@ public final class Config {
         waitForStartup = Boolean.getBoolean("flakyAgent.waitForStartup");
         locationMulti = Boolean.getBoolean("flakyAgent.locationMultiplyPolicy");
         dynamicCreate = Boolean.getBoolean("flakyAgent.dynamicCreate");
+        timeTraceCollectMode = Boolean.getBoolean("flakyAgent.timeTraceCollectMode");
 
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
@@ -130,7 +132,8 @@ public final class Config {
             "flakyAgent.locationFeedbackFallbackMode",
             "flakyAgent.waitForStartup",
             "flakyAgent.locationMultiplyPolicy",
-            "flakyAgent.dynamicCreate"
+            "flakyAgent.dynamicCreate",
+            "flakyAgent.timeTraceCollectMode"
     };
 
     private Config() { }

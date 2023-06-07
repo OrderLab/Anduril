@@ -12,4 +12,8 @@ public final class TraceStub implements TraceRemote {
     public void shutdown() throws RemoteException {
         TraceAgent.waiter.countDown();
     }
+
+    public void recordInjectionTime(final int pid, final int id) {
+        TraceAgent.distributedInjectionManager.recordInjectionTime(pid,id);
+    }
 }

@@ -1,5 +1,6 @@
 package runtime;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -7,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DistributedInjectionManager extends LocalInjectionManager {
     public static class ProcessRecord {
         public final ConcurrentMap<Integer, Integer> id2times = new ConcurrentHashMap<>();
+        public final ConcurrentMap<Integer, ConcurrentMap<Integer,LocalDateTime>> id2times2time = new ConcurrentHashMap<>();
 //        public final Map<Integer, Integer> thread2block = new TreeMap<>();
 //        public final Map<Integer, Integer> block2times = new TreeMap<>();
     }
@@ -70,4 +72,27 @@ public class DistributedInjectionManager extends LocalInjectionManager {
         }
         return 0;
     }
+
+    // Note: This method also utilize the id2Times for counter
+    public void recordInjectionTime(final int pid, final int id) {
+        LocalDateTime now = LocalDateTime.now();
+        final ProcessRecord record = processRecords[pid];
+        record.id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
+        final ConcurrentMap<Integer,LocalDateTime> injection_trace = record.id2times2time.get(id);
+        final int occurrence;
+        // Get the current occurrence
+        // Warn: should not be called at the same time with inject()
+        synchronized (injection_trace) {
+            occurrence = record.id2times.getOrDefault(id, 0) + 1;
+            record.id2times.put(id, occurrence);
+        }
+        injection_trace.put(occurrence,now);
+    }
+
+    public void printRecordInjectionTime() {
+        for (ProcessRecord record:processRecords) {
+            System.out.println(record.id2times);
+        }
+    }
+
 }

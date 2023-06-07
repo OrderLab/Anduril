@@ -141,9 +141,15 @@ public final class TraceAgent {
     }
 
     static public void inject(final int id, final int blockId) throws Throwable {
-        final long time = System.currentTimeMillis();
+        //final long time = System.currentTimeMillis();
         try {
             if (!enableInject.get()) {
+                return;
+            }
+            if (config.timeTraceCollectMode) {
+                if (config.distributedMode) {
+                    getStub().recordInjectionTime(config.pid, id);
+                }
                 return;
             }
             if (config.logInject) {
@@ -164,8 +170,8 @@ public final class TraceAgent {
                         throw exception;
                     }
                 }
-                injectionCount.addAndGet(1);
-                injectionOverhead.addAndGet(System.currentTimeMillis() - time);
+                //injectionCount.addAndGet(1);
+                //injectionOverhead.addAndGet(System.currentTimeMillis() - time);
                 return;
             }
             try {
@@ -191,8 +197,8 @@ public final class TraceAgent {
                 throw t;
             }
         } finally {
-            injectionCount.addAndGet(1);
-            injectionOverhead.addAndGet(System.currentTimeMillis() - time);
+            //injectionCount.addAndGet(1);
+            //injectionOverhead.addAndGet(System.currentTimeMillis() - time);
         }
     }
 
@@ -233,6 +239,9 @@ public final class TraceAgent {
     static public void main(final String[] args) throws Throwable {
         // util for shutdown server
         if (args.length == 0) {
+            if (config.timeTraceCollectMode) {
+                distributedInjectionManager.printRecordInjectionTime();
+            }
             getStub().shutdown();
             return;
         }
