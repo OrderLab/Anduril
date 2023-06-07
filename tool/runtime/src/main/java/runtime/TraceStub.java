@@ -14,7 +14,7 @@ public final class TraceStub implements TraceRemote {
     }
 
     @Override
-    public void recordInjectionTime(final int pid, final int id) throws RemoteException {
-        TraceAgent.distributedInjectionManager.recordInjectionTime(pid,id);
+    public void recordInjectionTime(final int pid, final int id, final String thread) throws RemoteException {
+        TraceAgent.distributedInjectionManager.recordInjectionTime(pid,id,thread);
     }
 }

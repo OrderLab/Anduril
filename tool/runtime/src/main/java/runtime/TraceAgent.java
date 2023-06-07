@@ -148,7 +148,9 @@ public final class TraceAgent {
             }
             if (config.timeTraceCollectMode) {
                 if (config.distributedMode) {
-                    getStub().recordInjectionTime(config.pid, id);
+                    getStub().recordInjectionTime(config.pid, id, Thread.currentThread().getName());
+                } else {
+                    localInjectionManager.recordInjectionTime(id);
                 }
                 return;
             }
