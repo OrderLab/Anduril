@@ -280,6 +280,9 @@ public final class TraceAgent {
                 }
                 waiter.countDown();
             }));
+            if (config.timeTraceCollectMode) {
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> localInjectionManager.printRecordInjectionTime()));
+            }
             final Class<?> cls = Class.forName(args[3]);
             final Method method = cls.getMethod("main", String[].class);
             System.out.printf("\nFlaky Agent Init End Time:   %s\n",

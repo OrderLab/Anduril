@@ -72,6 +72,9 @@ public class LocalInjectionManager {
         this.trialsPath = trialsPath;
         this.specPath = specPath;
         this.injectionResultPath = injectionResultPath;
+        if (TraceAgent.config.timeTraceCollectMode) {
+            return;
+        }
         int start = 0;
         if (TraceAgent.config.isTimeFeedback) {
             this.timePriorityTable = TimePriorityTable.load(TraceAgent.config.timePriorityTable);
