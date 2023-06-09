@@ -283,13 +283,14 @@ public class LocalInjectionManager {
 
     // Note: This method also utilize the id2Times for counter
     public void recordInjectionTime(final int id) {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now;
         id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
         final ConcurrentMap<Integer,ThreadTimePair> injection_trace = id2times2time.get(id);
         final int occurrence;
         // Get the current occurrence
         // Warn: should not be called at the same time with inject()
         synchronized (injection_trace) {
+            now = LocalDateTime.now();
             occurrence = this.id2times.getOrDefault(id, 0) + 1;
             this.id2times.put(id, occurrence);
         }

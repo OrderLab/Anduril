@@ -28,6 +28,8 @@ final class TimeRuler(good: LogFile, bad: LogFile,
   //private var difference = new TimeDifference(good, bad)
   private var good_base = good.showtime
   private var bad_base = bad.showtime
+  private var good_end = good.showtime
+  private var bad_end = bad.showtime
   private var scale : Double = 1
 
   def forward(logLine: Int, showtime: DateTime): DateTime = {
@@ -56,6 +58,27 @@ final class TimeRuler(good: LogFile, bad: LogFile,
     } else difference.good2bad(showtime)
      **/
   }
+
+  def forward(showtime: DateTime): DateTime = {
+    if (k < intervals.size && good_end.getMillis < showtime.getMillis) {
+      good_base = good_end
+      bad_base = bad_end
+      do {
+        if (goodEntries.get(intervals(k)._1).getMillis > good_base.getMillis) {
+          good_base = goodEntries.get(intervals(k)._1)
+          bad_base = badEntries.get(intervals(k)._2)
+        }
+        k += 1
+      } while (k < intervals.size && goodEntries.get(intervals(k)._1).getMillis < showtime.getMillis)
+      if (k < intervals.size) {
+        good_end = goodEntries.get(intervals(k)._1)
+        bad_end = badEntries.get(intervals(k)._2)
+        scale = (bad_end.getMillis - bad_base.getMillis).toDouble / (good_end.getMillis - good_base.getMillis).toDouble
+        require(scale >= 0)
+      } else scale = 1
+    }
+    bad_base.plus((scale*(showtime.getMillis - good_base.getMillis)).toLong)
+  }
 }
 
 object TimeAlignment {
@@ -83,8 +106,23 @@ object TimeAlignment {
     }
   }
 
+  def tracedAlign(good: LogFile, ruler: TimeRuler, tag: LogType, injections: Array[InjectionTiming]): Iterator[InjectionTiming] = {
+    var i = 0
+    new Iterator[InjectionTiming] {
+      override def hasNext: Boolean = (i < injections.length)
+      override def next(): InjectionTiming = {
+        val time = ruler.forward(injections(i).showtime)
+        i += 1
+        InjectionTiming(time, injections(i).pid, injections(i).injection, injections(i).occurrence)
+      }
+    }
+  }
+
   def tracedAlign(good: LogFile, bad: LogFile, tag: LogType): Iterator[Timestamp] =
     tracedAlign(good, new TimeRuler(good, bad), tag)
+
+  def tracedAlign(good: LogFile, bad: LogFile, tag: LogType, injections: Array[InjectionTiming]): Iterator[InjectionTiming] =
+    tracedAlign(good, new TimeRuler(good, bad), tag, injections)
 
   def normalAlign(good: LogFile, ruler: TimeRuler, tag: LogType): Iterator[Timestamp] = {
     good match {

@@ -82,7 +82,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
 
     // Note: This method also utilize the id2Times for counter
     public void recordInjectionTime(final int pid, final int id, final String thread) {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now;
         final ProcessRecord record = processRecords[pid];
         record.id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
         final ConcurrentMap<Integer,ThreadTimePair> injection_trace = record.id2times2time.get(id);
@@ -90,6 +90,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
         // Get the current occurrence
         // Warn: should not be called at the same time with inject()
         synchronized (injection_trace) {
+            now = LocalDateTime.now();
             occurrence = record.id2times.getOrDefault(id, 0) + 1;
             record.id2times.put(id, occurrence);
         }

@@ -25,6 +25,7 @@ public final class Config {
     public int targetId;
     public int times;
     public boolean fixPointInjectionMode;
+    public String injectionTimeFile;
 
     private void setCommonDefaultValues() {
         exceptionName = System.getProperty("flakyAgent.fault", "#");
@@ -39,6 +40,8 @@ public final class Config {
         trialTimeout = Integer.getInteger("flakyAgent.trialTimeout", -1);
         targetId = Integer.getInteger("flakyAgent.injectionId", -1);
         times = Integer.getInteger("flakyAgent.injectionTimes", 0);
+
+
     }
 
     // baseline only
@@ -104,6 +107,9 @@ public final class Config {
         injectionOccurrenceLimit = Integer.getInteger("flakyAgent.injectionOccurrenceLimit", 3);
         slidingWindowSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
         feedbackDelta = Integer.getInteger("flakyAgent.feedbackDelta", 1);
+
+        injectionTimeFile =  System.getProperty("flakyAgent.injectionTimeCSV", "#");
+
     }
 
     private static final String[] experimentProperties = new String[] {
@@ -133,7 +139,8 @@ public final class Config {
             "flakyAgent.waitForStartup",
             "flakyAgent.locationMultiplyPolicy",
             "flakyAgent.dynamicCreate",
-            "flakyAgent.timeTraceCollectMode"
+            "flakyAgent.timeTraceCollectMode",
+            "flakyAgent.injectionTimeCSV"
     };
 
     private Config() { }
