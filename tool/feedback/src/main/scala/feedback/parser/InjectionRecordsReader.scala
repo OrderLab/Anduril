@@ -13,12 +13,22 @@ final case class InjectionInTrace(val pid: Int, val id: Int, val occurrence: Int
 
 }
 
+sealed trait InjectionTrace
+
+final case class UnitTestInjectionTrace(trace:Array[InjectionInTrace]) extends  InjectionTrace {
+
+}
+
+final case class DistributedInjectionTraces(traces:Array[Array[InjectionInTrace]]) extends InjectionTrace {
+
+}
+
 object InjectionRecordsReader {
 
-  def readRecordCSVs (rootDir: File): Array[Array[InjectionInTrace]] = {
+  def readRecordCSVs (rootDir: File): InjectionTrace = {
     if (rootDir.isDirectory) {
       val rootPath = rootDir.toPath
-      Env.parallel(rootDir.listFiles().toSeq
+      DistributedInjectionTraces(Env.parallel(rootDir.listFiles().toSeq
         .flatMap(f => TextParser.parseInjectionRecordFileId(f.getName))
         .sorted.zipWithIndex.map {
         case (id, index) =>
@@ -26,11 +36,9 @@ object InjectionRecordsReader {
           val files = rootPath.resolve(TextParser.getRecordFile(id)).toFile
       }, (file: File) => readSingleRecordCSV(file)).get.map{
         case (injectionArray, None) => injectionArray
-      }.toArray
+      }.toArray)
     } else {
-      var z = new Array[Array[InjectionInTrace]](1)
-      z(0) = readSingleRecordCSV(rootDir).toArray
-      z
+      UnitTestInjectionTrace(readSingleRecordCSV(rootDir))
     }
   }
 
