@@ -125,7 +125,7 @@ public final class CommandLine {
     private Serializable objectHandler()
             throws ExecutionException, InterruptedException {
         if (cmd.hasOption("time-feedback")) {
-            if (cmd.hasOption("")) {
+            if (cmd.hasOption("trace")) {
                 return this.computeTimeFeedbackWithCSVTrace();
             } else {
                 return this.computeTimeFeedback();
