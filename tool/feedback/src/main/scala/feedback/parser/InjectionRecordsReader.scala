@@ -33,10 +33,9 @@ object InjectionRecordsReader {
         .sorted.zipWithIndex.map {
         case (id, index) =>
           require(id == index)
-          val files = rootPath.resolve(TextParser.getRecordFile(id)).toFile
-      }, (file: File) => readSingleRecordCSV(file)).get.map{
-        case (injectionArray, None) => injectionArray
-      }.toArray)
+          val file = rootPath.resolve(TextParser.getRecordFile(id)).toFile
+          file
+      }, (file: File) => readSingleRecordCSV(file)).get.toArray)
     } else {
       UnitTestInjectionTrace(readSingleRecordCSV(rootDir))
     }

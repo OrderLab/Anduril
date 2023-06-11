@@ -99,19 +99,18 @@ public class DistributedInjectionManager extends LocalInjectionManager {
 
     public void printRecordInjectionTime() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
-        try (final PrintWriter csv = new PrintWriter(
-                Files.newOutputStream(Paths.get(this.trialsPath + "/" + "InjectionTimeRecord" + ".csv")))) {
-            csv.println("pid,id,occurrence,time,thread");
-            for (int pid = 0; pid < processRecords.length;pid++) {
+        for (int pid = 0; pid < processRecords.length; pid++) {
+            try (final PrintWriter csv = new PrintWriter(
+                    Files.newOutputStream(Paths.get(this.trialsPath + "/" + "InjectionTimeRecord-" + pid + ".csv")))) {
+                csv.println("pid,id,occurrence,time,thread");
                 int finalPid = pid;
-                processRecords[pid].id2times2time.forEach((id, times2time)->
-                        times2time.forEach((times,time_thread_pair)->
-                                csv.printf("%d,%d,%d,%s,%s\n", finalPid,id,times,
-                                        time_thread_pair.time.format(format),time_thread_pair.thread_name)));
+                processRecords[pid].id2times2time.forEach((id, times2time) ->
+                        times2time.forEach((times, time_thread_pair) ->
+                                csv.printf("%d,%d,%d,%s,%s\n", finalPid, id, times,
+                                        time_thread_pair.time.format(format), time_thread_pair.thread_name)));
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
             }
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
         }
     }
-
 }

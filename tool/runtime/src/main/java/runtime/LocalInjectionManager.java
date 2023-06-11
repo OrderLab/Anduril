@@ -301,10 +301,10 @@ public class LocalInjectionManager {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
         try (final PrintWriter csv = new PrintWriter(
                 Files.newOutputStream(Paths.get(this.trialsPath + "/" + "InjectionTimeRecord" + ".csv")))) {
-                csv.println("id,occurrence,time,thread");
+                csv.println("pid,id,occurrence,time,thread");
                 this.id2times2time.forEach((id, times2time)->
                         times2time.forEach((times,time_thread_pair)->
-                                csv.printf("%d,%d,%s,%s\n", id,times,
+                                csv.printf("%d,%d,%d,%s,%s\n", -1, id,times,
                                         time_thread_pair.time.format(format),time_thread_pair.thread_name)));
         } catch (final IOException e) {
             throw new RuntimeException(e);
