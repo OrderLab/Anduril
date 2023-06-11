@@ -3,11 +3,11 @@ package feedback
 import feedback.common.ActionMayThrow
 import feedback.diff.{DiffDump, LogFileDiff, ThreadDiff}
 import feedback.log.{DistributedWorkloadLog, Log, UnitTestLog}
-import feedback.parser.TextParser
+import feedback.parser.{InjectionTrace, TextParser}
 import feedback.symptom.Symptoms
 import feedback.time.TimeAlgorithms
-
 import javax.json.JsonObject
+
 
 object Algorithms {
 
@@ -60,7 +60,26 @@ object Algorithms {
         events(id) = Some(entry)
       }
     }
-    TimeAlgorithms.computeTimeFeedback(good, bad, spec, events)
+    TimeAlgorithms.computeTimeFeedback(good, bad, spec, events, None)
+  }
+
+  def computeTimeFeedbackWithTraceCSV(good: Log, bad: Log, spec: JsonObject, traceCSV:Option[InjectionTrace]): Serializable = {
+    val eventNumber = spec.getInt("start")
+    val isResultEventLogged = Symptoms.isResultEventLogged(spec)
+    val array = spec.getJsonArray("nodes")
+    val events = Array.fill[Option[ThreadDiff.CodeLocation]](eventNumber)(None)
+    (0 until array.size) foreach { i =>
+      val node = array.getJsonObject(i)
+      val id = node.getInt("id")
+      if (id < eventNumber && (id != 0 || isResultEventLogged)) {
+        require(node.getString("type") equals "location_event")
+        val location = node.getJsonObject("location")
+        val entry = new ThreadDiff.CodeLocation(
+          TextParser.getSimpleClassName(location.getString("class")), location.getInt("line_number"))
+        events(id) = Some(entry)
+      }
+    }
+    TimeAlgorithms.computeTimeFeedback(good, bad, spec, events, traceCSV)
   }
 
   def computeDiff(good: Log, bad: Log): List[DiffDump] = (good, bad) match {

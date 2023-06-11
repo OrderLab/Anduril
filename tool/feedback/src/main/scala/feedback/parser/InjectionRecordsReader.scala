@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 
 import scala.collection.mutable
 
-final case class InjectionInTrace(val pid: Int, val id: Int, val occurrence: Int,
+final case class InjectionPoint(val pid: Int, val id: Int, val occurrence: Int,
                                  val time: DateTime,
                                  val thread: String)  {
 
@@ -15,11 +15,11 @@ final case class InjectionInTrace(val pid: Int, val id: Int, val occurrence: Int
 
 sealed trait InjectionTrace
 
-final case class UnitTestInjectionTrace(trace:Array[InjectionInTrace]) extends  InjectionTrace {
+final case class UnitTestInjectionTrace(trace:Array[InjectionPoint]) extends  InjectionTrace {
 
 }
 
-final case class DistributedInjectionTraces(traces:Array[Array[InjectionInTrace]]) extends InjectionTrace {
+final case class DistributedInjectionTraces(traces:Array[Array[InjectionPoint]]) extends InjectionTrace {
 
 }
 
@@ -41,15 +41,17 @@ object InjectionRecordsReader {
     }
   }
 
-  def readSingleRecordCSV (f : File): Array[InjectionInTrace] = {
+  def readSingleRecordCSV (f : File): Array[InjectionPoint] = {
     val text = ParserUtil.getFileLinesAsync(f)
     var line = text.next()
-    val injections = mutable.ArrayBuffer.empty[InjectionInTrace]
+    val injections = mutable.ArrayBuffer.empty[InjectionPoint]
     while (text.hasNext) {
       line = text.next()
-      val Array(id, occurrence, time, thread) = line.split(",").map(_.trim)
-      injections += InjectionInTrace(-1, id.toInt, occurrence.toInt, LogFileParser.parseDatetime(time), thread)
+      val Array(pid, id, occurrence, time, millies,thread) = line.split(",").map(_.trim)
+      injections += InjectionPoint(pid.toInt, id.toInt, occurrence.toInt, LogFileParser.parseDatetime(time+","+millies), thread)
     }
     injections.toArray
   }
+
+  def readRecordCSVs(path: String): Option[InjectionTrace] = Some(readRecordCSVs(new File(path)))
 }

@@ -4,6 +4,7 @@ import feedback.common.ActionMayThrow;
 import feedback.common.Env;
 import feedback.diff.ThreadDiff;
 import feedback.log.Log;
+import feedback.parser.InjectionRecordsReader;
 import feedback.parser.LogParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -124,7 +125,11 @@ public final class CommandLine {
     private Serializable objectHandler()
             throws ExecutionException, InterruptedException {
         if (cmd.hasOption("time-feedback")) {
-            return this.computeTimeFeedback();
+            if (cmd.hasOption("")) {
+                return this.computeTimeFeedbackWithCSVTrace();
+            } else {
+                return this.computeTimeFeedback();
+            }
         }
         throw new RuntimeException("nothing to produce");
     }
@@ -146,6 +151,14 @@ public final class CommandLine {
         final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
         final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
         return Algorithms.computeTimeFeedback(good.get(), bad.get(), spec.get());
+    }
+
+    private Serializable computeTimeFeedbackWithCSVTrace()
+            throws ExecutionException, InterruptedException {
+        final Future<Log> good = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("good")));
+        final Future<Log> bad = Env.submit(() -> LogParser.parseLog(cmd.getOptionValue("bad")));
+        final Future<JsonObject> spec = Env.submit(() -> JsonUtil.loadJson(cmd.getOptionValue("spec")));
+        return Algorithms.computeTimeFeedbackWithTraceCSV(good.get(), bad.get(), spec.get(), InjectionRecordsReader.readRecordCSVs(cmd.getOptionValue("trace")));
     }
 
     private void computeDiff(final ActionMayThrow<ThreadDiff.CodeLocation> action)
@@ -222,6 +235,9 @@ public final class CommandLine {
 
         final Option uc = new Option("u", "unique-count", true, "arbitrary log");
         options.addOption(uc);
+
+        final Option trace = new Option("tr", "trace", true, "injection trace csv");
+        options.addOption(trace);
 
         return options;
     }

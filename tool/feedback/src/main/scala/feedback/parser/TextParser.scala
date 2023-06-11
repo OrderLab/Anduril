@@ -31,14 +31,14 @@ object TextParser {
     case _ => None
   }
 
-  private val InjectionRecordFilePattern = raw"InjectionRecord-(\d+).csv".r
+  private val InjectionRecordFilePattern = raw"InjectionTimeRecord-(\d+).csv".r
 
   def parseInjectionRecordFileId(text: String): Option[Int] = text match {
     case InjectionRecordFilePattern(id) => Some(id.toInt)
     case _ => None
   }
 
-  def getRecordFile(id: Int): String = raw"InjectionRecord-$id.csv"
+  def getRecordFile(id: Int): String = raw"InjectionTimeRecord-$id.csv"
 
   private val CaseDirPattern = """([a-zA-Z0-9]+)_(\d+)""".r
 

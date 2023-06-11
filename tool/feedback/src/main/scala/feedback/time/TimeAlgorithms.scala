@@ -3,14 +3,15 @@ package feedback.time
 import feedback.diff.ThreadDiff
 import feedback.log.entry.LogEntry
 import feedback.log.{DistributedWorkloadLog, Log, NormalLogFile, UnitTestLog}
+import feedback.parser.{DistributedInjectionTraces, InjectionPoint, InjectionRecordsReader, InjectionTrace, UnitTestInjectionTrace}
 import feedback.symptom.Symptoms
 import org.joda.time.DateTime
 import runtime.graph.PriorityGraph
 import runtime.time.TimePriorityTable
 import javax.json.JsonObject
+
 import scala.jdk.CollectionConverters.SeqHasAsJava
 import scala.jdk.CollectionConverters._
-
 import scala.util.Sorting
 
 sealed trait TimelineType extends Timing
@@ -22,26 +23,57 @@ final case class NormalLogTiming(override val showtime: DateTime) extends Timeli
 final case class CriticalLogTiming(override val showtime: DateTime, id: Int) extends TimelineType
 
 object TimeAlgorithms {
-  def computeTimeFeedback(good: Log, bad: Log, spec: JsonObject, events: Array[Option[ThreadDiff.CodeLocation]]): Serializable = {
+  def computeTimeFeedback(good: Log, bad: Log, spec: JsonObject,
+                          events: Array[Option[ThreadDiff.CodeLocation]], traceCSV:Option[InjectionTrace]): Serializable = {
     val isResultEventLogged = Symptoms.isResultEventLogged(spec)
     val eventList = (if (isResultEventLogged) events.toList.zipWithIndex else events.toList.zipWithIndex.drop(1)) map {
       case (Some(location), event) => (location, event)
     }
     val goodTimeline = (good, bad) match {
+        // Unit test workload
       case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
-        TimeAlignment.tracedAlign(good, bad, LogType.GOOD) flatMap {
-          case Injection(showtime, injection, occurrence) =>
-            Some(InjectionTiming(showtime, -1, injection.injection, occurrence))
-          case _ => None
-        }
-      case (DistributedWorkloadLog(goodLogs), DistributedWorkloadLog(badLogs)) =>
-        goodLogs.zipAll(badLogs, null, null).zipWithIndex map {
-          case ((g, b), pid) => TimeAlignment.tracedAlign(g, b, LogType.GOOD) flatMap {
-            case Injection(showtime, injection, occurrence) =>
-              Some(InjectionTiming(showtime, pid, injection.injection, occurrence))
+        traceCSV match {
+            // Injection Trace in log file
+          case None => TimeAlignment.tracedAlign (good, bad, LogType.GOOD) flatMap {
+            case Injection (showtime, injection, occurrence) =>
+              Some (InjectionTiming (showtime, - 1, injection.injection, occurrence) )
             case _ => None
           }
-        } reduce { _ ++ _ }
+            // Injection Trace in separate CSV
+          case Some(injectionArrayWrapper) => injectionArrayWrapper match {
+            case UnitTestInjectionTrace(injectionArray) =>
+              val sorted = injectionArray.map {
+                case InjectionPoint(_, id, occurrence, time, _) => InjectionTiming (time, - 1, id, occurrence)
+              }
+              Sorting.stableSort(sorted)
+              TimeAlignment.tracedAlign(good,bad,LogType.GOOD,sorted)
+          }
+        }
+        // Distributed workload
+      case (DistributedWorkloadLog(goodLogs), DistributedWorkloadLog(badLogs)) =>
+        traceCSV match {
+            // Injection Trace in log file
+          case None =>
+            goodLogs.zipAll(badLogs, null, null).zipWithIndex map {
+              case ((g, b), pid) => TimeAlignment.tracedAlign(g, b, LogType.GOOD) flatMap {
+                case Injection(showtime, injection, occurrence) =>
+                  Some(InjectionTiming(showtime, pid, injection.injection, occurrence))
+                case _ => None
+              }
+            } reduce { _ ++ _ }
+            // Injection Trace in separate CSV
+          case Some(injectionArrayWrapper) => injectionArrayWrapper match {
+            case DistributedInjectionTraces(injectionArrayArray) =>
+              goodLogs.zipAll(badLogs, null, null).zipAll(injectionArrayArray, null, null).zipWithIndex map {
+                case (((g, b), a), pid) =>
+                  val sorted = a.map {
+                    case InjectionPoint(_, id, occurrence, time, _) => InjectionTiming (time, pid, id, occurrence)
+                  }
+                  Sorting.stableSort(sorted)
+                  TimeAlignment.tracedAlign(g,b,LogType.GOOD,sorted)
+              } reduce { _ ++ _ }
+          }
+        }
     }
 
     var limit = 0
@@ -88,6 +120,7 @@ object TimeAlgorithms {
             }
         } reduce { _ ++ _ }
     }
+
     if (!isResultEventLogged) {
       Symptoms.findResultEvent(bad, spec) foreach { timing =>
         badTimeline ++= Iterator(CriticalLogTiming(timing.showtime, 0))
