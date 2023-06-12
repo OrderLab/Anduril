@@ -19,4 +19,14 @@ final class TimeDifferenceTest {
             bug.printAlign(LOG::debug);
         }
     }
+
+    @Test
+    void testBugCasesWithCSV(final @TempDir Path tempDir) {
+        final BugCaseCSV[] cases = new BugCaseCSV[] {
+                new TestCaseCSV("kafka-12508-csv", tempDir),
+        };
+        for (final BugCaseCSV bug : cases) {
+            bug.printAlign(LOG::debug);
+        }
+    }
 }

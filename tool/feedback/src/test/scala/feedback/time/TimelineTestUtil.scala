@@ -2,13 +2,14 @@ package feedback.time
 
 import feedback.common.ActionMayThrow
 import feedback.log.{Log, LogTestUtil, NormalLogFile, TraceLogFile, UnitTestLog}
-import feedback.parser.{LogFileParser, LogParser}
+import feedback.parser.{InjectionPoint, InjectionRecordsReader, InjectionTrace, LogFileParser, LogParser, UnitTestInjectionTrace}
 import org.apache.commons.lang3.StringUtils
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
-
 import java.nio.file.Path
+
 import javax.json.JsonObject
+
 import scala.util.Sorting
 
 private object TimelineTestUtil {
@@ -131,6 +132,105 @@ final class TestCase(override val name: String, tempDir: Path) extends BugCase(n
       case (UnitTestLog(trial, _), UnitTestLog(bad, _)) =>
         val ruler = new TimeRuler(trial, bad, trialEntries, badEntries)
         TimeAlignment.tracedAlign(trial, ruler, LogType.TRIAL)
+    }
+    val good = (this.good, this.bad) match {
+      case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>
+        val ruler = new TimeRuler(good, bad, goodEntries, badEntries)
+        TimeAlignment.normalAlign(good, ruler, LogType.GOOD)
+    }
+    val bad = this.bad match {
+      case UnitTestLog(NormalLogFile(_, entries), _) =>
+        entries.iterator map { entry =>
+          LogLine(entry.showtime, entry, LogType.BAD)
+        }
+    }
+    val timeline = (trial ++ good ++ bad).toArray[Timestamp]
+    Sorting.stableSort(timeline)
+    this.print(timeline, printer)
+  }
+
+  private[this] def print(timeline: Array[Timestamp], printer: ActionMayThrow[String]): Unit = {
+    // each line:  trial log   good log   bad log
+    var count = 0
+    var begin: Option[DateTime] = None
+    var end: Option[DateTime] = None
+    for (timing <- timeline) {
+      if (timing.isInstanceOf[Injection]) {
+        if (count == 0) {
+          begin = Some(timing.showtime)
+        }
+        end = Some(timing.showtime)
+        count += 1
+      }
+      else {
+        if (count != 0) {
+          printer.accept(TimelineTestUtil.getInjectionInterval(count, begin.get, end.get))
+          count = 0
+        }
+        printer.accept(timing match {
+          case Injection(showtime, injection, occurrence) =>
+            TimelineTestUtil.injectionTimingFormat(showtime, injection.injection, occurrence)
+          case LogLine(showtime, entry, logType) =>
+            TimelineTestUtil.logEntryTimingFormat(showtime, logType, entry.msg)
+        })
+      }
+    }
+    if (count != 0) {
+      printer.accept(TimelineTestUtil.getInjectionInterval(count, begin.get, end.get))
+    }
+  }
+}
+
+sealed abstract class BugCaseCSV(val name: String, tempDir: Path) {
+  this.prepareTempFiles()
+  private[this] val dir = tempDir.resolve(this.name)
+  val good: Log = LogParser.parseLog(dir.resolve("good-run-log"))
+  val bad: Log = LogParser.parseLog(dir.resolve("bad-run-log"))
+  val trace: InjectionTrace = InjectionRecordsReader.readRecordCSVs(dir.resolve("injection-trace").toString) match {
+    case Some(UnitTestInjectionTrace(injectionArray)) => UnitTestInjectionTrace(injectionArray)
+  }
+
+  def prepareTempFiles(): Unit
+  def print(printer: ActionMayThrow[String]): Unit
+  def printAlign(printer: ActionMayThrow[String]): Unit
+}
+
+final class TestCaseCSV(override val name: String, tempDir: Path) extends BugCaseCSV(name, tempDir) {
+  override def prepareTempFiles(): Unit = {
+    LogTestUtil.initTempFile(s"record-inject/$name/record-inject",
+      tempDir.resolve(s"$name/good-run-log"))
+    LogTestUtil.initTempFile(s"record-inject/$name/bad-run-log.txt",
+      tempDir.resolve(s"$name/bad-run-log"))
+    LogTestUtil.initTempFile(s"record-inject/$name/InjectionTimeRecord.csv",
+      tempDir.resolve(s"$name/injection-trace"))
+  }
+
+  override def print(printer: ActionMayThrow[String]): Unit = {
+    None
+  }
+
+  override def printAlign(printer: ActionMayThrow[String]): Unit = {
+    val goodEntries = this.good match {
+      case UnitTestLog(good, _) =>
+        TimeAlignment.getEntryMapping(good)
+    }
+    val badEntries = this.bad match {
+      case UnitTestLog(bad, _) =>
+        TimeAlignment.getEntryMapping(bad)
+    }
+    val trial = (this.good, this.bad) match {
+      case (UnitTestLog(trial, _), UnitTestLog(bad, _)) =>
+        val ruler = new TimeRuler(trial, bad, goodEntries, badEntries)
+        trace match {
+          case UnitTestInjectionTrace(injectionArray) =>
+            val sorted : Array[Timestamp] = injectionArray.map {
+              case InjectionPoint(_, id, occurrence, time, thread) => RecordedInjection( -1, id, occurrence,time,thread)
+            }
+            Sorting.stableSort(sorted)
+            TimeAlignment.tracedAlign(trial, ruler, LogType.TRIAL, sorted).map {
+              case RecordedInjection( _, id, occurrence,time,_) => Injection (time, null, occurrence)
+            }
+        }
     }
     val good = (this.good, this.bad) match {
       case (UnitTestLog(good, _), UnitTestLog(bad, _)) =>

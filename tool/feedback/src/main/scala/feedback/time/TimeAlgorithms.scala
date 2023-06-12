@@ -42,11 +42,14 @@ object TimeAlgorithms {
             // Injection Trace in separate CSV
           case Some(injectionArrayWrapper) => injectionArrayWrapper match {
             case UnitTestInjectionTrace(injectionArray) =>
-              val sorted = injectionArray.map {
-                case InjectionPoint(_, id, occurrence, time, _) => InjectionTiming (time, - 1, id, occurrence)
+              val sorted : Array[Timestamp] = injectionArray.map {
+                case InjectionPoint(_, id, occurrence, time, thread) => RecordedInjection( - 1, id, occurrence,time,thread)
               }
               Sorting.stableSort(sorted)
-              TimeAlignment.tracedAlign(good,bad,LogType.GOOD,sorted)
+              TimeAlignment.tracedAlign(good,bad,LogType.GOOD,sorted) flatMap  {
+                case RecordedInjection( _, id, occurrence,time,_) => Some (InjectionTiming (time, - 1, id, occurrence))
+                case _ => None
+              }
           }
         }
         // Distributed workload
@@ -66,11 +69,14 @@ object TimeAlgorithms {
             case DistributedInjectionTraces(injectionArrayArray) =>
               goodLogs.zipAll(badLogs, null, null).zipAll(injectionArrayArray, null, null).zipWithIndex map {
                 case (((g, b), a), pid) =>
-                  val sorted = a.map {
-                    case InjectionPoint(_, id, occurrence, time, _) => InjectionTiming (time, pid, id, occurrence)
+                  val sorted : Array[Timestamp] = a.map {
+                    case InjectionPoint(_, id, occurrence, time, thread) => RecordedInjection( pid, id, occurrence,time,thread)
                   }
                   Sorting.stableSort(sorted)
-                  TimeAlignment.tracedAlign(g,b,LogType.GOOD,sorted)
+                  TimeAlignment.tracedAlign(g,b,LogType.GOOD,sorted) flatMap  {
+                    case RecordedInjection( _, id, occurrence,time,_) => Some (InjectionTiming (time, - 1, id, occurrence))
+                    case _ => None
+                  }
               } reduce { _ ++ _ }
           }
         }

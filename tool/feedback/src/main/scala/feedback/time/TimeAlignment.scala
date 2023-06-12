@@ -14,6 +14,10 @@ final case class Injection(override val showtime: DateTime, injection: Injection
 
 final case class LogLine(override val showtime: DateTime, entry: LogEntry, logType: LogType) extends Timestamp
 
+final case class RecordedInjection(val pid: Int, val id: Int, val occurrence: Int,
+                                override val showtime: DateTime,
+                                val thread: String)  extends Timestamp
+
 final class TimeRuler(good: LogFile, bad: LogFile,
                       goodEntries: java.util.Map[Integer, DateTime], badEntries: java.util.Map[Integer, DateTime]) {
   def this(good: LogFile, bad: LogFile) = this(good, bad,
@@ -59,21 +63,25 @@ final class TimeRuler(good: LogFile, bad: LogFile,
      **/
   }
 
+  // Assume intervals' line number and showtime monatically increasing
   def forward(showtime: DateTime): DateTime = {
     if (k < intervals.size && good_end.getMillis < showtime.getMillis) {
       good_base = good_end
       bad_base = bad_end
       do {
-        if (goodEntries.get(intervals(k)._1).getMillis > good_base.getMillis) {
-          good_base = goodEntries.get(intervals(k)._1)
-          bad_base = badEntries.get(intervals(k)._2)
-        }
+        require(good_base.getMillis <= goodEntries.get(intervals(k)._1).getMillis)
+        require(bad_base.getMillis <= badEntries.get(intervals(k)._2).getMillis)
+        good_base = goodEntries.get(intervals(k)._1)
+        bad_base = badEntries.get(intervals(k)._2)
         k += 1
       } while (k < intervals.size && goodEntries.get(intervals(k)._1).getMillis < showtime.getMillis)
       if (k < intervals.size) {
         good_end = goodEntries.get(intervals(k)._1)
         bad_end = badEntries.get(intervals(k)._2)
-        scale = (bad_end.getMillis - bad_base.getMillis).toDouble / (good_end.getMillis - good_base.getMillis).toDouble
+        // Deal with the edge condition that both base and end are greater than the injection's showtime
+        if (good_base.getMillis < showtime.getMillis && (good_end.getMillis - good_base.getMillis > 0)) {
+          scale = (bad_end.getMillis - bad_base.getMillis).toDouble / (good_end.getMillis - good_base.getMillis).toDouble
+        } else scale = 1
         require(scale >= 0)
       } else scale = 1
     }
@@ -106,14 +114,17 @@ object TimeAlignment {
     }
   }
 
-  def tracedAlign(good: LogFile, ruler: TimeRuler, tag: LogType, injections: Array[InjectionTiming]): Iterator[InjectionTiming] = {
+  def tracedAlign(good: LogFile, ruler: TimeRuler, tag: LogType, injections: Array[Timestamp]): Iterator[Timestamp] = {
     var i = 0
-    new Iterator[InjectionTiming] {
-      override def hasNext: Boolean = (i < injections.length)
-      override def next(): InjectionTiming = {
-        val time = ruler.forward(injections(i).showtime)
-        i += 1
-        InjectionTiming(time, injections(i).pid, injections(i).injection, injections(i).occurrence)
+    new Iterator[Timestamp] {
+      override def hasNext: Boolean = i < injections.length
+      override def next(): Timestamp = {
+        injections(i) match {
+          case RecordedInjection(pid,id,occurrence,time,thread) =>
+            val new_time = ruler.forward (time)
+            i += 1
+            RecordedInjection (pid, id, occurrence, new_time, thread)
+        }
       }
     }
   }
@@ -121,7 +132,7 @@ object TimeAlignment {
   def tracedAlign(good: LogFile, bad: LogFile, tag: LogType): Iterator[Timestamp] =
     tracedAlign(good, new TimeRuler(good, bad), tag)
 
-  def tracedAlign(good: LogFile, bad: LogFile, tag: LogType, injections: Array[InjectionTiming]): Iterator[InjectionTiming] =
+  def tracedAlign(good: LogFile, bad: LogFile, tag: LogType, injections: Array[Timestamp]): Iterator[Timestamp] =
     tracedAlign(good, new TimeRuler(good, bad), tag, injections)
 
   def normalAlign(good: LogFile, ruler: TimeRuler, tag: LogType): Iterator[Timestamp] = {
