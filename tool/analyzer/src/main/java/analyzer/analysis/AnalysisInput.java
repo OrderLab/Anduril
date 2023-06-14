@@ -535,5 +535,23 @@ public class AnalysisInput {
                 }
             }
         }
+        if (options.getFlakyCase().equals("cassandra-6415")) {
+            this.testClass = Scene.v().getSootClass("org.apache.cassandra.service.CassandraDaemon$2");
+            this.testMethod = this.testClass.getMethod("void uncaughtException(java.lang.Thread,java.lang.Throwable)");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("error") &&
+                                inv.getDeclaringClass().getName().equals("org.slf4j.Logger") &&
+                                SootUtils.getLine(location.unit) == 187) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
