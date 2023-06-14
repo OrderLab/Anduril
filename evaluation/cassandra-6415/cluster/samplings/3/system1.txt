@@ -1,0 +1,1344 @@
+2022-03-28 15:33:18
+Full thread dump OpenJDK 64-Bit Server VM (25.275-b01 mixed mode):
+
+"MutationStage-7" #164 daemon prio=5 os_prio=0 tid=0x00007f8f8304a100 nid=0x5733 waiting on condition [0x00007f8f60b2f000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MutationStage-6" #163 daemon prio=5 os_prio=0 tid=0x00007f8f7281d100 nid=0x5732 waiting on condition [0x00007f8f60b70000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MutationStage-5" #162 daemon prio=5 os_prio=0 tid=0x00007f8f72c1d100 nid=0x5731 waiting on condition [0x00007f8f60bb1000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MutationStage-4" #161 daemon prio=5 os_prio=0 tid=0x00007f8f7303f100 nid=0x5730 waiting on condition [0x00007f8f60bf2000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MutationStage-3" #160 daemon prio=5 os_prio=0 tid=0x00007f8f7408de00 nid=0x572f waiting on condition [0x00007f8f61c70000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MutationStage-2" #159 daemon prio=5 os_prio=0 tid=0x00007f8f7408d900 nid=0x572e waiting on condition [0x00007f8f61cb1000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+
+"DestroyJavaVM" #158 prio=5 os_prio=0 tid=0x00007f8fa3413f00 nid=0x54dd waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"epollEventLoopGroup-2-1" #116 prio=10 os_prio=0 tid=0x00007f8f783f0600 nid=0x572a runnable [0x00007f8f61d33000]
+   java.lang.Thread.State: RUNNABLE
+	at io.netty.channel.epoll.Native.epollWait0(Native Method)
+	at io.netty.channel.epoll.Native.epollWait(Native.java:117)
+	at io.netty.channel.epoll.EpollEventLoop.epollWait(EpollEventLoop.java:226)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:250)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MessagingService-Incoming-/127.0.0.1" #156 prio=5 os_prio=0 tid=0x00007f8f65c9f000 nid=0x5729 runnable [0x00007f8f61d74000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	- locked <0x00000005dde2d930> (a java.lang.Object)
+	at org.apache.cassandra.io.util.NIODataInputStream.reBuffer(NIODataInputStream.java:66)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readByte(RebufferingInputStream.java:144)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readPrimitiveSlowly(RebufferingInputStream.java:108)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readInt(RebufferingInputStream.java:188)
+	at org.apache.cassandra.net.IncomingTcpConnection.receiveMessages(IncomingTcpConnection.java:194)
+	at org.apache.cassandra.net.IncomingTcpConnection.run(IncomingTcpConnection.java:98)
+
+"MutationStage-1" #115 daemon prio=5 os_prio=0 tid=0x00007f8f7484d100 nid=0x5718 waiting on condition [0x00007f8f61db5000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MessagingService-Incoming-/127.0.0.1" #113 prio=5 os_prio=0 tid=0x00007f8f65c9eb00 nid=0x5715 runnable [0x00007f8f61df6000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	- locked <0x00000005dde2ccf8> (a java.lang.Object)
+	at org.apache.cassandra.io.util.NIODataInputStream.reBuffer(NIODataInputStream.java:66)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readByte(RebufferingInputStream.java:144)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readPrimitiveSlowly(RebufferingInputStream.java:108)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readInt(RebufferingInputStream.java:188)
+	at org.apache.cassandra.net.IncomingTcpConnection.receiveMessages(IncomingTcpConnection.java:194)
+	at org.apache.cassandra.net.IncomingTcpConnection.run(IncomingTcpConnection.java:98)
+
+"PendingRangeCalculator:1" #111 daemon prio=5 os_prio=0 tid=0x00007f8f783efc00 nid=0x5707 waiting on condition [0x00007f8f61e37000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005d4e406d8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"BatchlogTasks:1" #109 daemon prio=5 os_prio=0 tid=0x00007f8f783ef700 nid=0x56ae waiting on condition [0x00007f8f61e78000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005d49103a8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"GossipTasks:1" #108 daemon prio=5 os_prio=0 tid=0x00007f8f783ef200 nid=0x56ad waiting on condition [0x00007f8f61eb9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000006413b4fa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MessagingService-Incoming-/127.0.0.1" #107 prio=5 os_prio=0 tid=0x00007f8f65c9e600 nid=0x567c runnable [0x00007f8f61efa000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	- locked <0x00000005dde2c0c0> (a java.lang.Object)
+	at org.apache.cassandra.io.util.NIODataInputStream.reBuffer(NIODataInputStream.java:66)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readByte(RebufferingInputStream.java:144)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readPrimitiveSlowly(RebufferingInputStream.java:108)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readInt(RebufferingInputStream.java:188)
+	at org.apache.cassandra.net.IncomingTcpConnection.receiveMessages(IncomingTcpConnection.java:194)
+	at org.apache.cassandra.net.IncomingTcpConnection.run(IncomingTcpConnection.java:98)
+
+"ReadRepairStage:20" #105 daemon prio=5 os_prio=0 tid=0x00007f8f63c76800 nid=0x5672 waiting on condition [0x00007f8f61f3b000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:19" #104 daemon prio=5 os_prio=0 tid=0x00007f8f63c76300 nid=0x5671 waiting on condition [0x00007f8f61f7c000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:18" #103 daemon prio=5 os_prio=0 tid=0x00007f8f63c75e00 nid=0x5670 waiting on condition [0x00007f8f61fbd000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:17" #102 daemon prio=5 os_prio=0 tid=0x00007f8f63c75900 nid=0x566f waiting on condition [0x00007f8f61ffe000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:16" #101 daemon prio=5 os_prio=0 tid=0x00007f8f63c75400 nid=0x566e waiting on condition [0x00007f8f62460000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:15" #100 daemon prio=5 os_prio=0 tid=0x00007f8f63c74f00 nid=0x566c waiting on condition [0x00007f8f624a1000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:14" #99 daemon prio=5 os_prio=0 tid=0x00007f8f63c74a00 nid=0x5667 waiting on condition [0x00007f8f624e2000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:13" #98 daemon prio=5 os_prio=0 tid=0x00007f8f63c74500 nid=0x5666 waiting on condition [0x00007f8f62523000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:12" #97 daemon prio=5 os_prio=0 tid=0x00007f8f63c74000 nid=0x5664 waiting on condition [0x00007f8f62564000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:11" #96 daemon prio=5 os_prio=0 tid=0x00007f8f63c73b00 nid=0x5662 waiting on condition [0x00007f8f625a5000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:10" #95 daemon prio=5 os_prio=0 tid=0x00007f8f63c73600 nid=0x5660 waiting on condition [0x00007f8f625e6000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:9" #94 daemon prio=5 os_prio=0 tid=0x00007f8f63c73100 nid=0x565f waiting on condition [0x00007f8f62627000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:8" #93 daemon prio=5 os_prio=0 tid=0x00007f8f63c72c00 nid=0x565d waiting on condition [0x00007f8f62668000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:7" #92 daemon prio=5 os_prio=0 tid=0x00007f8f63c72700 nid=0x565a waiting on condition [0x00007f8f626a9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:6" #91 daemon prio=5 os_prio=0 tid=0x00007f8f63c72200 nid=0x5658 waiting on condition [0x00007f8f626ea000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:5" #90 daemon prio=5 os_prio=0 tid=0x00007f8f63c71d00 nid=0x5657 waiting on condition [0x00007f8f6272b000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:4" #89 daemon prio=5 os_prio=0 tid=0x00007f8f63c71800 nid=0x5656 waiting on condition [0x00007f8f6276c000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:3" #88 daemon prio=5 os_prio=0 tid=0x00007f8f63c71300 nid=0x5654 waiting on condition [0x00007f8f627ad000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:2" #87 daemon prio=5 os_prio=0 tid=0x00007f8f63c70e00 nid=0x5653 waiting on condition [0x00007f8f627ee000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ReadRepairStage:1" #86 daemon prio=5 os_prio=0 tid=0x00007f8f63c70900 nid=0x564f waiting on condition [0x00007f8f6282f000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005def00638> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MiscStage:1" #85 daemon prio=5 os_prio=0 tid=0x00007f8f63c70400 nid=0x564e waiting on condition [0x00007f8f62870000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deef1540> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MigrationStage:1" #84 daemon prio=5 os_prio=0 tid=0x00007f8f63c6ff00 nid=0x564c waiting on condition [0x00007f8f628b1000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deee2020> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"AntiEntropyStage:1" #83 daemon prio=5 os_prio=0 tid=0x00007f8f63c6fa00 nid=0x5649 waiting on condition [0x00007f8f628f2000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deed28c8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"GossipStage:1" #82 daemon prio=5 os_prio=0 tid=0x00007f8f63c6f500 nid=0x5646 waiting on condition [0x00007f8f62933000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deec3300> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:20" #81 daemon prio=5 os_prio=0 tid=0x00007f8f63c6f000 nid=0x5644 waiting on condition [0x00007f8f62974000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:19" #80 daemon prio=5 os_prio=0 tid=0x00007f8f63c6eb00 nid=0x5642 waiting on condition [0x00007f8f629b5000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:18" #79 daemon prio=5 os_prio=0 tid=0x00007f8f63c6e600 nid=0x5640 waiting on condition [0x00007f8f629f6000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:17" #78 daemon prio=5 os_prio=0 tid=0x00007f8f63c6e100 nid=0x563d waiting on condition [0x00007f8f62a37000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:16" #77 daemon prio=5 os_prio=0 tid=0x00007f8f63c6dc00 nid=0x563b waiting on condition [0x00007f8f62a78000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:15" #76 daemon prio=5 os_prio=0 tid=0x00007f8f63c6d700 nid=0x5639 waiting on condition [0x00007f8f62ab9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:14" #75 daemon prio=5 os_prio=0 tid=0x00007f8f63c6d200 nid=0x5638 waiting on condition [0x00007f8f62afa000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:13" #74 daemon prio=5 os_prio=0 tid=0x00007f8f63c6cd00 nid=0x5637 waiting on condition [0x00007f8f62b3b000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:12" #73 daemon prio=5 os_prio=0 tid=0x00007f8f63c6c800 nid=0x5635 waiting on condition [0x00007f8f62b7c000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:11" #72 daemon prio=5 os_prio=0 tid=0x00007f8f63c6c300 nid=0x5633 waiting on condition [0x00007f8f62bbd000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:10" #71 daemon prio=5 os_prio=0 tid=0x00007f8f63c6be00 nid=0x5632 waiting on condition [0x00007f8f62bfe000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:9" #70 daemon prio=5 os_prio=0 tid=0x00007f8f63c6b900 nid=0x5630 waiting on condition [0x00007f8f66878000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:8" #69 daemon prio=5 os_prio=0 tid=0x00007f8f63c6b400 nid=0x562e waiting on condition [0x00007f8f668b9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:7" #68 daemon prio=5 os_prio=0 tid=0x00007f8f63c6af00 nid=0x562d waiting on condition [0x00007f8f668fa000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:6" #67 daemon prio=5 os_prio=0 tid=0x00007f8f63c6aa00 nid=0x562c waiting on condition [0x00007f8f6693b000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:5" #66 daemon prio=5 os_prio=0 tid=0x00007f8f63c6a500 nid=0x562b waiting on condition [0x00007f8f6697c000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:4" #65 daemon prio=5 os_prio=0 tid=0x00007f8f63c6a000 nid=0x5629 waiting on condition [0x00007f8f669bd000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:3" #64 daemon prio=5 os_prio=0 tid=0x00007f8f63c69b00 nid=0x5628 waiting on condition [0x00007f8f669fe000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:2" #63 daemon prio=5 os_prio=0 tid=0x00007f8f63c69600 nid=0x5626 waiting on condition [0x00007f8f7646b000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"InternalResponseStage:1" #62 daemon prio=5 os_prio=0 tid=0x00007f8f63c69100 nid=0x5625 waiting on condition [0x00007f8f764ac000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005deeae798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MessagingService-Incoming-/127.0.0.1" #61 prio=5 os_prio=0 tid=0x00007f8f65c9e100 nid=0x5615 runnable [0x00007f8f764ed000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	- locked <0x00000005dde0b1b0> (a java.lang.Object)
+	at org.apache.cassandra.io.util.NIODataInputStream.reBuffer(NIODataInputStream.java:66)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readByte(RebufferingInputStream.java:144)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readPrimitiveSlowly(RebufferingInputStream.java:108)
+	at org.apache.cassandra.io.util.RebufferingInputStream.readInt(RebufferingInputStream.java:188)
+	at org.apache.cassandra.net.IncomingTcpConnection.receiveMessages(IncomingTcpConnection.java:194)
+	at org.apache.cassandra.net.IncomingTcpConnection.run(IncomingTcpConnection.java:98)
+
+"MessagingService-Outgoing-/127.0.0.3-Gossip" #59 prio=5 os_prio=0 tid=0x00007f8f783eed00 nid=0x560c waiting on condition [0x00007f8f7652e000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005d43c5000> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.cassandra.utils.CoalescingStrategies$DisabledCoalescingStrategy.coalesceInternal(CoalescingStrategies.java:509)
+	at org.apache.cassandra.utils.CoalescingStrategies$CoalescingStrategy.coalesce(CoalescingStrategies.java:231)
+	at org.apache.cassandra.net.OutboundTcpConnection.run(OutboundTcpConnection.java:235)
+
+"MessagingService-Outgoing-/127.0.0.3-Large" #58 prio=5 os_prio=0 tid=0x00007f8f783ee800 nid=0x560b waiting on condition [0x00007f8f7656f000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005d43c47b8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.cassandra.utils.CoalescingStrategies$DisabledCoalescingStrategy.coalesceInternal(CoalescingStrategies.java:509)
+	at org.apache.cassandra.utils.CoalescingStrategies$CoalescingStrategy.coalesce(CoalescingStrategies.java:231)
+	at org.apache.cassandra.net.OutboundTcpConnection.run(OutboundTcpConnection.java:235)
+
+"MessagingService-Outgoing-/127.0.0.3-Small" #57 prio=5 os_prio=0 tid=0x00007f8f783ee300 nid=0x560a waiting on condition [0x00007f8f765b0000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000005d43c3f70> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.cassandra.utils.CoalescingStrategies$DisabledCoalescingStrategy.coalesceInternal(CoalescingStrategies.java:509)
+	at org.apache.cassandra.utils.CoalescingStrategies$CoalescingStrategy.coalesce(CoalescingStrategies.java:231)
+	at org.apache.cassandra.net.OutboundTcpConnection.run(OutboundTcpConnection.java:235)
+
+"MessagingService-Outgoing-/127.0.0.2-Gossip" #56 prio=5 os_prio=0 tid=0x00007f8f783ede00 nid=0x5607 waiting on condition [0x00007f8f765f1000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000064144e588> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.cassandra.utils.CoalescingStrategies$DisabledCoalescingStrategy.coalesceInternal(CoalescingStrategies.java:509)
+	at org.apache.cassandra.utils.CoalescingStrategies$CoalescingStrategy.coalesce(CoalescingStrategies.java:231)
+	at org.apache.cassandra.net.OutboundTcpConnection.run(OutboundTcpConnection.java:235)
+
+"MessagingService-Outgoing-/127.0.0.2-Large" #55 prio=5 os_prio=0 tid=0x00007f8f783ed900 nid=0x5606 waiting on condition [0x00007f8f77850000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000006414615e0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.cassandra.utils.CoalescingStrategies$DisabledCoalescingStrategy.coalesceInternal(CoalescingStrategies.java:509)
+	at org.apache.cassandra.utils.CoalescingStrategies$CoalescingStrategy.coalesce(CoalescingStrategies.java:231)
+	at org.apache.cassandra.net.OutboundTcpConnection.run(OutboundTcpConnection.java:235)
+
+"MessagingService-Outgoing-/127.0.0.2-Small" #54 prio=5 os_prio=0 tid=0x00007f8f783ed400 nid=0x5605 waiting on condition [0x00007f8f77891000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbd41e8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.cassandra.utils.CoalescingStrategies$DisabledCoalescingStrategy.coalesceInternal(CoalescingStrategies.java:509)
+	at org.apache.cassandra.utils.CoalescingStrategies$CoalescingStrategy.coalesce(CoalescingStrategies.java:231)
+	at org.apache.cassandra.net.OutboundTcpConnection.run(OutboundTcpConnection.java:235)
+
+"ACCEPT-/127.0.0.1" #53 prio=5 os_prio=0 tid=0x00007f8f783eca00 nid=0x5600 runnable [0x00007f8f79462000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.ServerSocketChannelImpl.accept0(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:421)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:249)
+	- locked <0x000000063fbd6238> (a java.lang.Object)
+	at sun.nio.ch.ServerSocketAdaptor.accept(ServerSocketAdaptor.java:113)
+	- locked <0x000000063fbd6248> (a java.lang.Object)
+	at org.apache.cassandra.net.MessagingService$SocketThread.run(MessagingService.java:1299)
+
+"IndexSummaryManager:1" #51 daemon prio=1 os_prio=4 tid=0x00007f8f783ec500 nid=0x55ff waiting on condition [0x00007f8f794a3000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbd8180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"HintsDispatcher:2" #50 daemon prio=1 os_prio=4 tid=0x00007f8f783eb100 nid=0x55fe waiting on condition [0x00007f8f7a479000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbde180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"HintsDispatcher:1" #49 daemon prio=1 os_prio=4 tid=0x00007f8f783ecf00 nid=0x55fd waiting on condition [0x00007f8f794e4000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbde180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"LocalPool-Cleaner" #46 daemon prio=1 os_prio=4 tid=0x00007f8f690b4100 nid=0x55f6 in Object.wait() [0x00007f8f7cc62000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000063fbe0178> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x000000063fbe0178> (a java.lang.ref.ReferenceQueue$Lock)
+	at org.apache.cassandra.utils.memory.BufferPool.cleanupOneReference(BufferPool.java:504)
+	at org.apache.cassandra.utils.memory.BufferPool$$Lambda$202/1968742729.run(Unknown Source)
+	at org.apache.cassandra.concurrent.InfiniteLoopExecutor.loop(InfiniteLoopExecutor.java:54)
+	at org.apache.cassandra.concurrent.InfiniteLoopExecutor$$Lambda$89/516537656.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"NonPeriodicTasks:1" #45 daemon prio=5 os_prio=0 tid=0x00007f8f783ec000 nid=0x55eb waiting on condition [0x00007f8f7a4ba000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbe21a0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1081)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"CacheCleanupExecutor:1" #44 daemon prio=1 os_prio=4 tid=0x00007f8f7408ca00 nid=0x55ea waiting on condition [0x00007f8f7a4fb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbd24f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ValidationExecutor:1" #43 daemon prio=1 os_prio=4 tid=0x00007f8f7408c500 nid=0x55e9 waiting on condition [0x00007f8f7b479000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbe6180> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"CompactionExecutor:2" #42 daemon prio=1 os_prio=4 tid=0x00007f8f7408c000 nid=0x55e8 waiting on condition [0x00007f8f7b4ba000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbe8180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"CompactionExecutor:1" #41 daemon prio=1 os_prio=4 tid=0x00007f8f7408bb00 nid=0x55e7 waiting on condition [0x00007f8f7b4fb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbe8180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"Reference-Reaper" #40 daemon prio=5 os_prio=0 tid=0x00007f8f7408b100 nid=0x55e4 in Object.wait() [0x00007f8f7c079000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000063fbec178> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x000000063fbec178> (a java.lang.ref.ReferenceQueue$Lock)
+	at org.apache.cassandra.utils.concurrent.Ref.reapOneReference(Ref.java:376)
+	at org.apache.cassandra.utils.concurrent.Ref$$Lambda$143/1383246742.run(Unknown Source)
+	at org.apache.cassandra.concurrent.InfiniteLoopExecutor.loop(InfiniteLoopExecutor.java:54)
+	at org.apache.cassandra.concurrent.InfiniteLoopExecutor$$Lambda$89/516537656.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ScheduledFastTasks:1" #39 daemon prio=5 os_prio=0 tid=0x00007f8f783ebb00 nid=0x55e2 waiting on condition [0x00007f8f7c0ba000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbf0180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"OptionalTasks:1" #38 daemon prio=5 os_prio=0 tid=0x00007f8f783eb600 nid=0x55db waiting on condition [0x00007f8f7c0fb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbf2180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"PERIODIC-COMMIT-LOG-SYNCER" #36 prio=5 os_prio=0 tid=0x00007f8f783ea700 nid=0x55d6 waiting on condition [0x00007f8f7cca3000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:338)
+	at org.apache.cassandra.db.commitlog.AbstractCommitLogService$SyncRunnable.sync(AbstractCommitLogService.java:198)
+	at org.apache.cassandra.db.commitlog.AbstractCommitLogService$SyncRunnable.run(AbstractCommitLogService.java:159)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"COMMIT-LOG-ALLOCATOR" #35 prio=5 os_prio=0 tid=0x00007f8f783ea200 nid=0x55d4 waiting on condition [0x00007f8f7cce4000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.utils.concurrent.WaitQueue$AbstractSignal.awaitUninterruptibly(WaitQueue.java:280)
+	at org.apache.cassandra.utils.concurrent.WaitQueue.waitOnCondition(WaitQueue.java:533)
+	at org.apache.cassandra.db.commitlog.AbstractCommitLogSegmentManager$1.runMayThrow(AbstractCommitLogSegmentManager.java:143)
+	at org.apache.cassandra.utils.WrappedRunnable.run(WrappedRunnable.java:28)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"Attach Listener" #34 daemon prio=9 os_prio=0 tid=0x00007f8f7d014100 nid=0x55ad waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"SlabPoolCleaner" #33 daemon prio=5 os_prio=0 tid=0x00007f8f783e9d00 nid=0x55ab waiting on condition [0x00007f8f838ab000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:304)
+	at org.apache.cassandra.utils.concurrent.WaitQueue$AbstractSignal.await(WaitQueue.java:292)
+	at org.apache.cassandra.utils.memory.MemtableCleanerThread$Clean.run(MemtableCleanerThread.java:71)
+	at org.apache.cassandra.concurrent.InfiniteLoopExecutor.loop(InfiniteLoopExecutor.java:54)
+	at org.apache.cassandra.concurrent.InfiniteLoopExecutor$$Lambda$89/516537656.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"SecondaryIndexManagement:1" #32 daemon prio=5 os_prio=0 tid=0x00007f8f783e9800 nid=0x55a9 waiting on condition [0x00007f8f838ec000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbe0528> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MemtableReclaimMemory:1" #31 daemon prio=5 os_prio=0 tid=0x00007f8f783e9300 nid=0x5591 waiting on condition [0x00007f8f8dc7f000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbf23f8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MemtablePostFlush:1" #30 daemon prio=5 os_prio=0 tid=0x00007f8f783e8e00 nid=0x558e waiting on condition [0x00007f8f90079000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbe07c8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"PerDiskMemtableFlushWriter_0:2" #29 daemon prio=5 os_prio=0 tid=0x00007f8f783e8900 nid=0x558d waiting on condition [0x00007f8f900ba000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbd2ae8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"PerDiskMemtableFlushWriter_0:1" #28 daemon prio=5 os_prio=0 tid=0x00007f8f783e8400 nid=0x558c waiting on condition [0x00007f8f900fb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbd2ae8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MemtableFlushWriter:2" #27 daemon prio=5 os_prio=0 tid=0x00007f8f783e7f00 nid=0x5589 waiting on condition [0x00007f8f90879000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbf2698> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"MemtableFlushWriter:1" #26 daemon prio=5 os_prio=0 tid=0x00007f8f783e7a00 nid=0x5588 waiting on condition [0x00007f8f908ba000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbf2698> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"EXPIRING-MAP-REAPER:1" #25 daemon prio=5 os_prio=0 tid=0x00007f8f768ee100 nid=0x5566 waiting on condition [0x00007f8f908fb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbe0a68> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"process reaper" #24 daemon prio=10 os_prio=0 tid=0x00007f8f783e6100 nid=0x5562 waiting on condition [0x00007f8f91838000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbd2d80> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+"RMI TCP Accept-0" #23 daemon prio=5 os_prio=0 tid=0x00007f8fa3420c00 nid=0x555c runnable [0x00007f8f91879000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:409)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:560)
+	at java.net.ServerSocket.accept(ServerSocket.java:528)
+	at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:405)
+	at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377)
+	at java.lang.Thread.run(Thread.java:748)
+
+"RMI TCP Accept-7211" #22 daemon prio=5 os_prio=0 tid=0x00007f8fa3420700 nid=0x555b runnable [0x00007f8f918ba000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:409)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:560)
+	at java.net.ServerSocket.accept(ServerSocket.java:528)
+	at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:405)
+	at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:377)
+	at java.lang.Thread.run(Thread.java:748)
+
+"ScheduledTasks:1" #21 daemon prio=5 os_prio=0 tid=0x00007f8fa341fd00 nid=0x5557 waiting on condition [0x00007f8f918fb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbd83f8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.cassandra.concurrent.NamedThreadFactory.lambda$threadLocalDeallocator$0(NamedThreadFactory.java:84)
+	at org.apache.cassandra.concurrent.NamedThreadFactory$$Lambda$13/1010670443.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+"AsyncAppender-Worker-ASYNCDEBUGLOG" #20 daemon prio=5 os_prio=0 tid=0x00007f8fa341e900 nid=0x5554 waiting on condition [0x00007f8f92888000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000063fbf05f8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ArrayBlockingQueue.take(ArrayBlockingQueue.java:403)
+	at ch.qos.logback.core.AsyncAppenderBase$Worker.run(AsyncAppenderBase.java:250)
+
+"Service Thread" #18 daemon prio=9 os_prio=0 tid=0x00007f8fa341da00 nid=0x5543 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread11" #17 daemon prio=9 os_prio=0 tid=0x00007f8fa341d500 nid=0x5542 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread10" #16 daemon prio=9 os_prio=0 tid=0x00007f8fa341d000 nid=0x5541 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread9" #15 daemon prio=9 os_prio=0 tid=0x00007f8fa341cb00 nid=0x5540 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread8" #14 daemon prio=9 os_prio=0 tid=0x00007f8fa341c600 nid=0x553f waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread7" #13 daemon prio=9 os_prio=0 tid=0x00007f8fa341c100 nid=0x553e waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread6" #12 daemon prio=9 os_prio=0 tid=0x00007f8fa341bc00 nid=0x553d waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread5" #11 daemon prio=9 os_prio=0 tid=0x00007f8fa341b700 nid=0x553c waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread4" #10 daemon prio=9 os_prio=0 tid=0x00007f8fa341b200 nid=0x553b waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread3" #9 daemon prio=9 os_prio=0 tid=0x00007f8fa341ad00 nid=0x553a waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread2" #8 daemon prio=9 os_prio=0 tid=0x00007f8fa341a800 nid=0x5539 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" #7 daemon prio=9 os_prio=0 tid=0x00007f8fa341a300 nid=0x5538 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #6 daemon prio=9 os_prio=0 tid=0x00007f8fa3419e00 nid=0x5537 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" #5 daemon prio=9 os_prio=0 tid=0x00007f8fa3417600 nid=0x5525 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Surrogate Locker Thread (Concurrent GC)" #4 daemon prio=9 os_prio=0 tid=0x00007f8fa3417100 nid=0x5524 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" #3 daemon prio=8 os_prio=0 tid=0x00007f8fa3415800 nid=0x551a in Object.wait() [0x00007f8fa6cca000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000063fbd8d98> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x000000063fbd8d98> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+"Reference Handler" #2 daemon prio=10 os_prio=0 tid=0x00007f8fa3415300 nid=0x5519 in Object.wait() [0x00007f8fa6d0b000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000063fbd3c80> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	- locked <0x000000063fbd3c80> (a java.lang.ref.Reference$Lock)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+"VM Thread" os_prio=0 tid=0x00007f8fa3438c80 nid=0x5518 runnable 
+
+"Gang worker#0 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3435300 nid=0x54fc runnable 
+
+"Gang worker#1 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3435580 nid=0x54fd runnable 
+
+"Gang worker#2 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3435800 nid=0x54fe runnable 
+
+"Gang worker#3 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3435a80 nid=0x54ff runnable 
+
+"Gang worker#4 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3435d00 nid=0x5500 runnable 
+
+"Gang worker#5 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3435f80 nid=0x5501 runnable 
+
+"Gang worker#6 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3436200 nid=0x5502 runnable 
+
+"Gang worker#7 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3436480 nid=0x5503 runnable 
+
+"Gang worker#8 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3436700 nid=0x5504 runnable 
+
+"Gang worker#9 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3436980 nid=0x5505 runnable 
+
+"Gang worker#10 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3436c00 nid=0x5506 runnable 
+
+"Gang worker#11 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3436e80 nid=0x5507 runnable 
+
+"Gang worker#12 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3437100 nid=0x5508 runnable 
+
+"Gang worker#13 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3437380 nid=0x5509 runnable 
+
+"Gang worker#14 (Parallel GC Threads)" os_prio=0 tid=0x00007f8fa3437600 nid=0x550a runnable 
+
+"Concurrent Mark-Sweep GC Thread" os_prio=0 tid=0x00007f8fa3438780 nid=0x5515 runnable 
+
+"Gang worker#0 (Parallel CMS Threads)" os_prio=0 tid=0x00007f8fa3437d80 nid=0x5511 runnable 
+
+"Gang worker#1 (Parallel CMS Threads)" os_prio=0 tid=0x00007f8fa3438000 nid=0x5512 runnable 
+
+"Gang worker#2 (Parallel CMS Threads)" os_prio=0 tid=0x00007f8fa3438280 nid=0x5513 runnable 
+
+"Gang worker#3 (Parallel CMS Threads)" os_prio=0 tid=0x00007f8fa3438500 nid=0x5514 runnable 
+
+"VM Periodic Task Thread" os_prio=0 tid=0x00007f8fa3439400 nid=0x5544 waiting on condition 
+
+JNI global references: 923
+

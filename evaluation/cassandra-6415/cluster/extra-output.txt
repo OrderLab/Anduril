@@ -1,0 +1,11 @@
+xss =  -ea -javaagent:/home/tonypan/flaky-reproduction/experiment/cassandra-6415/cluster/src-1/bin/../lib/jamm-0.2.5.jar -XX:+UseThreadPriorities -XX:ThreadPriorityPolicy=42 -Xms7931M -Xmx7931M -Xmn1982M -XX:+HeapDumpOnOutOfMemoryError -Xss256k
+[2023-06-05 22:43:20,825] Nothing to repair for keyspace 'system'
+[2023-06-05 22:43:20,830] Starting repair command #1, repairing 3 ranges for keyspace gray_space
+[2023-06-05 22:43:21,624] Repair session e6375620-0413-11ee-971b-ed7ba4a7ec65 for range (3074457345618258602,-9223372036854775808] finished
+[2023-06-05 22:43:21,624] Repair session e67c0040-0413-11ee-971b-ed7ba4a7ec65 for range (-9223372036854775808,-3074457345618258603] finished
+[2023-06-05 22:43:21,635] Repair session e69a5db0-0413-11ee-971b-ed7ba4a7ec65 for range (-3074457345618258603,3074457345618258602] finished
+[2023-06-05 22:43:21,635] Repair command #1 finished
+[2023-06-05 22:43:21,644] Starting repair command #2, repairing 2 ranges for keyspace system_traces
+[2023-06-05 22:43:21,998] Repair session e6b2eec0-0413-11ee-971b-ed7ba4a7ec65 for range (3074457345618258602,-9223372036854775808] finished
+[2023-06-05 22:43:22,006] Repair session e6ccdf60-0413-11ee-971b-ed7ba4a7ec65 for range (-3074457345618258603,3074457345618258602] finished
+[2023-06-05 22:43:22,006] Repair command #2 finished
