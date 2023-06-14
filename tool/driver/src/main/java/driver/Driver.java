@@ -95,8 +95,13 @@ public final class Driver {
                             for (int i = 0; i < spec.processNumber; i++) {
                                 move(spec.currentDir.resolve("cluster").resolve("logs-" + i).toFile(),
                                         outputDir.resolve("logs-" + i).toFile());
+                                // Remove gc.log in distributed cassandra case
+                                delete(outputDir.resolve("logs-" + i).resolve("gc.log").toFile());
                             }
                             move(spec.currentDir.resolve("output.txt").toFile(),
+                                    outputDir.resolve("output.txt").toFile());
+                            // Keep the stack_trace file if there is any
+                            move(spec.currentDir.resolve("stack_trace.txt").toFile(),
                                     outputDir.resolve("output.txt").toFile());
                         }
                         Thread.sleep(3000);
