@@ -102,7 +102,7 @@ public final class Driver {
                                     outputDir.resolve("output.txt").toFile());
                             // Keep the stack_trace file if there is any
                             move(spec.currentDir.resolve("stack_trace.txt").toFile(),
-                                    outputDir.resolve("output.txt").toFile());
+                                    outputDir.resolve("stack_trace.txt").toFile());
                         }
                         Thread.sleep(3000);
                         final Process feedbackProcess = start(feedback);
