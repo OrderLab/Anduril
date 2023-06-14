@@ -74,7 +74,7 @@ object TimeAlgorithms {
                   }
                   Sorting.stableSort(sorted)
                   TimeAlignment.tracedAlign(g,b,LogType.GOOD,sorted) flatMap  {
-                    case RecordedInjection( _, id, occurrence,time,_) => Some (InjectionTiming (time, - 1, id, occurrence))
+                    case RecordedInjection( _, id, occurrence,time,_) => Some (InjectionTiming (time, pid, id, occurrence))
                     case _ => None
                   }
               } reduce { _ ++ _ }
