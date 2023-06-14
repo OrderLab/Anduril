@@ -33,6 +33,16 @@ pid=$!
 
 sleep 5
 
+# Download
+pushd cluster
+rm -rf src
+mkdir src
+cp -a $SCRIPT_DIR/../../systems/cassandra-6415/. src/
+pushd src
+rm -rf build
+ant jar
+popd
+popd
 
 tree_json="$SCRIPT_DIR/tree.json"
 tree_json=$(echo $tree_json | sed 's/\//\\\//g')

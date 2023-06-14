@@ -3,7 +3,8 @@
 workspace=$(cd "$(dirname "${BASH_SOURCE-$0}")"; pwd)
 
 id=$1
-SRC=$workspace/src-$id
+case_name=cassandra-6415
+SRC=$workspace/../../../systems/$case_name
 
 CASSANDRA_HOME=$SRC \
 CASSANDRA_CONF="$workspace/conf-$id" \
