@@ -20,13 +20,14 @@ object LogFileParser {
   private val minute = raw"\d{2}"
   private val second = raw"\d{2}"
   private val millisecond = raw"\d{3}"
-  private[parser] val datetimeRegex = raw"($year-$month-$day $hour:$minute:$second,$millisecond)"
+  private val connectDayHour = raw"T"
+  private[parser] val datetimeRegex = raw"($year-$month-$day.$hour:$minute:$second,$millisecond)"
 
   val datetimeFormatter: DateTimeFormatter =
     DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss,SSS")
 
   def parseDatetime(datetimeText: String): DateTime =
-    DateTime.parse(datetimeText, datetimeFormatter)
+    DateTime.parse(datetimeText.replace('T',' '), datetimeFormatter)
 
   private val typeRegex = raw"(INFO |WARN |ERROR|DEBUG|TRACE)"
 
