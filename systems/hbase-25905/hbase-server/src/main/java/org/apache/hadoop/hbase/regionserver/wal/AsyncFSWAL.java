@@ -382,7 +382,7 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
   }
 
   private void sync(AsyncWriter writer) {
-    LOG.info("Curious Count is " + unackedAppends.size());
+    //LOG.info("Curious Count is " + unackedAppends.size());
     fileLengthAtLastSync = writer.getLength();
     long currentHighestProcessedAppendTxid = highestProcessedAppendTxid;
     boolean shouldUseHsync =

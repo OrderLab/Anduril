@@ -21,7 +21,7 @@ for i in `head -n1 $hb_dir/hbase-build-configuration/target/cached_classpath.txt
 done
 for i in `find $JAVA_HOME -name "*.jar"`; do jars="$i:$jars"; done
 
-testcase="org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck"
+testcase="org.apache.hadoop.hbase.replication.TestReplicationSmallTests"
 
 java \
 -Dlog4j.configurationFile=file:$SCRIPT_DIR/log4j2.xml \

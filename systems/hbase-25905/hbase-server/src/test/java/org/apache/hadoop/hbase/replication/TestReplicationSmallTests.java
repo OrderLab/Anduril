@@ -117,7 +117,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
     WALKeyImpl key2 = new WALKeyImpl(regionInfo.getEncodedNameAsBytes(), tableName, key1.getWriteTime() + 1, MVCC);
     long txid2 = wal.appendData(regionInfo, key2, edit);
     LOG.info("Workloads are: " + txid1 + " " + txid2);
-    //AsyncFSWAL.testRollStuckHelper();
+    AsyncFSWAL.testRollStuckHelper();
     //runSimplePutTest();
   }
 
