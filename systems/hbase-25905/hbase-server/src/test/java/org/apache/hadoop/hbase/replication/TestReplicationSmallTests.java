@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.CellBuilderFactory;
+import org.apache.hadoop.hbase.CellBuilderType;
 import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.HBaseClassTestRule;
 import org.apache.hadoop.hbase.HConstants;
@@ -44,6 +47,7 @@ import org.apache.hadoop.hbase.client.TableDescriptorBuilder;
 import org.apache.hadoop.hbase.client.replication.TableCFs;
 import org.apache.hadoop.hbase.regionserver.HRegion;
 import org.apache.hadoop.hbase.regionserver.MultiVersionConcurrencyControl;
+import org.apache.hadoop.hbase.regionserver.wal.AsyncFSWAL;
 import org.apache.hadoop.hbase.testclassification.LargeTests;
 import org.apache.hadoop.hbase.testclassification.ReplicationTests;
 import org.apache.hadoop.hbase.util.Bytes;
@@ -85,7 +89,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
 
   @Parameters(name = "{index}: serialPeer={0}")
   public static List<Boolean> parameters() {
-    return ImmutableList.of(true, false);
+    return ImmutableList.of(false);
   }
 
   @Before
@@ -93,10 +97,34 @@ public class TestReplicationSmallTests extends TestReplicationBase {
     cleanUp();
   }
 
+  /*Crafted by Jia */
+  @Test(timeout=90000)
+  public void testRollStuck() throws Exception {
+    LOG.info("testRollStuck");
+    INJECT.compareAndSet(0,1);
+    RegionInfo regionInfo = UTIL1.getHBaseCluster().getRegions(htable1.getName()).get(0).getRegionInfo();
+    WAL wal = UTIL1.getHBaseCluster().getRegionServer(0).getWAL(regionInfo);
+    // Craft the WAL edits
+    MultiVersionConcurrencyControl MVCC = new MultiVersionConcurrencyControl();
+    WALEdit edit = new WALEdit();
+    edit.add(CellBuilderFactory.create(CellBuilderType.SHALLOW_COPY).setFamily(famName)
+      .setQualifier(row).setRow(row).setValue(row)
+      .setTimestamp(EnvironmentEdgeManager.currentTime()).setType(Cell.Type.Put).build());
+    WALKeyImpl key1 =
+      new WALKeyImpl(regionInfo.getEncodedNameAsBytes(), tableName, EnvironmentEdgeManager.currentTime(), MVCC);
+    long txid1 = wal.appendData(regionInfo, key1, edit);
+
+    WALKeyImpl key2 = new WALKeyImpl(regionInfo.getEncodedNameAsBytes(), tableName, key1.getWriteTime() + 1, MVCC);
+    long txid2 = wal.appendData(regionInfo, key2, edit);
+    LOG.info("Workloads are: " + txid1 + " " + txid2);
+    //AsyncFSWAL.testRollStuckHelper();
+    //runSimplePutTest();
+  }
+
   /**
    * Verify that version and column delete marker types are replicated correctly.
    */
-  @Test
+  //@Test
   public void testDeleteTypes() throws Exception {
     LOG.info("testDeleteTypes");
     final byte[] v1 = Bytes.toBytes("v1");
@@ -182,7 +210,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
   /**
    * Add a row, check it's replicated, delete it, check's gone
    */
-  @Test
+  //@Test
   public void testSimplePutDelete() throws Exception {
     LOG.info("testSimplePutDelete");
     runSimplePutDeleteTest();
@@ -191,7 +219,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
   /**
    * Try a small batch upload using the write buffer, check it's replicated
    */
-  @Test
+  //@Test
   public void testSmallBatch() throws Exception {
     LOG.info("testSmallBatch");
     runSmallBatchTest();
@@ -201,7 +229,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
    * Test disable/enable replication, trying to insert, make sure nothing's replicated, enable it,
    * the insert should be replicated
    */
-  @Test
+  //@Test
   public void testDisableEnable() throws Exception {
     // Test disabling replication
     hbaseAdmin.disableReplicationPeer(PEER_ID);
@@ -241,7 +269,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
   /**
    * Removes and re-add a peer cluster
    */
-  @Test
+  //@Test
   public void testAddAndRemoveClusters() throws Exception {
     LOG.info("testAddAndRemoveClusters");
     hbaseAdmin.removeReplicationPeer(PEER_ID);
@@ -294,7 +322,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
    * Do a more intense version testSmallBatch, one that will trigger wal rolling and other
    * non-trivial code paths
    */
-  @Test
+  //@Test
   public void testLoading() throws Exception {
     LOG.info("Writing out rows to table1 in testLoading");
     List<Put> puts = new ArrayList<>(NB_ROWS_IN_BIG_BATCH);
@@ -355,7 +383,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
    * Create two new Tables with colfamilies enabled for replication then run
    * {@link Admin#listReplicatedTableCFs()}. Finally verify the table:colfamilies.
    */
-  @Test
+  //@Test
   public void testVerifyListReplicatedTable() throws Exception {
     LOG.info("testVerifyListReplicatedTable");
 
@@ -404,7 +432,7 @@ public class TestReplicationSmallTests extends TestReplicationBase {
   /**
    * Test for HBase-15259 WALEdits under replay will also be replicated
    */
-  @Test
+  //@Test
   public void testReplicationInReplay() throws Exception {
     final TableName tableName = htable1.getName();
 

@@ -382,6 +382,7 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
   }
 
   private void sync(AsyncWriter writer) {
+    LOG.info("Curious Count is " + unackedAppends.size());
     fileLengthAtLastSync = writer.getLength();
     long currentHighestProcessedAppendTxid = highestProcessedAppendTxid;
     boolean shouldUseHsync =
@@ -657,6 +658,14 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
     return false;
   }
 
+
+  // Added by Jia Pan in helping writing cluster tests
+  private static boolean enableDelay = false;
+
+  public static void testRollStuckHelper() {
+    enableDelay = true;
+  }
+
   @Override
   protected long append(RegionInfo hri, WALKeyImpl key, WALEdit edits, boolean inMemstore)
     throws IOException {
@@ -665,6 +674,13 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
     }
     long txid =
       stampSequenceIdAndPublishToRingBuffer(hri, key, edits, inMemstore, waitingConsumePayloads);
+    // Crafted by Jia Pan
+    if (enableDelay) {
+      try {
+        Thread.sleep(100);
+      } catch (Exception ignored) {
+      }
+    }
     if (shouldScheduleConsumer()) {
       consumeExecutor.execute(consumer);
     }

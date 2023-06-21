@@ -60,8 +60,7 @@ public final class HBaseClassTestRule implements TestRule {
       Sets.<Class<?>> newHashSet(SmallTests.class, MediumTests.class, LargeTests.class));
 
   // Each unit test has this timeout.
-  //private static long PER_UNIT_TEST_TIMEOUT_MINS = 13;
-  private static long PER_UNIT_TEST_TIMEOUT_MS = 20000;
+  private static long PER_UNIT_TEST_TIMEOUT_MINS = 13;
 
   private final Class<?> clazz;
 
@@ -91,12 +90,9 @@ public final class HBaseClassTestRule implements TestRule {
     if (categories.length == 1) {
       for (Class<?> c : categories[0].value()) {
         if (UNIT_TEST_CLASSES.contains(c)) {
-          //long timeout = numParams * PER_UNIT_TEST_TIMEOUT_MINS;
-          //LOG.info("Test {} timeout: {} mins", clazz, timeout);
-          //return TimeUnit.MINUTES.toSeconds(timeout);
-          long timeout = numParams * PER_UNIT_TEST_TIMEOUT_MS;
-          LOG.info("Test {} timeout: {} ms", clazz, timeout);
-          return TimeUnit.MILLISECONDS.toSeconds(timeout);
+          long timeout = numParams * PER_UNIT_TEST_TIMEOUT_MINS;
+          LOG.info("Test {} timeout: {} mins", clazz, timeout);
+          return TimeUnit.MINUTES.toSeconds(timeout);
         }
         if (c == IntegrationTests.class) {
           return TimeUnit.MINUTES.toSeconds(Long.MAX_VALUE);

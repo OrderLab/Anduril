@@ -191,8 +191,8 @@ public class TestAsyncFSWALRollStuck {
 
     // we need to make sure the two edits have both been added unackedAppends, so we have two syncs
     UTIL.waitFor(10000, () -> FUTURES.size() == 2);
-    //FUTURES.poll().completeExceptionally(new IOException("inject error"));
-    //FUTURES.poll().completeExceptionally(new IOException("inject error"));
+    FUTURES.poll().completeExceptionally(new IOException("inject error"));
+    FUTURES.poll().completeExceptionally(new IOException("inject error"));
     ARRIVE.await();
     // resume after 1 seconds, to give us enough time to enter the roll state
     EXECUTOR.schedule(() -> RESUME.countDown(), 1, TimeUnit.SECONDS);

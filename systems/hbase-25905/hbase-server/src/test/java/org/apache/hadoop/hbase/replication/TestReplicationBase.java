@@ -24,6 +24,10 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -39,17 +43,23 @@ import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Delete;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.RegionInfo;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.client.TableDescriptor;
 import org.apache.hadoop.hbase.client.TableDescriptorBuilder;
+import org.apache.hadoop.hbase.regionserver.wal.AsyncFSWAL;
+import org.apache.hadoop.hbase.regionserver.wal.AsyncProtobufLogWriter;
 import org.apache.hadoop.hbase.replication.regionserver.HBaseInterClusterReplicationEndpoint;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.JVMClusterUtil;
+import org.apache.hadoop.hbase.wal.AsyncFSWALProvider;
 import org.apache.hadoop.hbase.wal.WAL;
 import org.apache.hadoop.hbase.zookeeper.MiniZooKeeperCluster;
+import org.apache.hbase.thirdparty.io.netty.channel.Channel;
+import org.apache.hbase.thirdparty.io.netty.channel.EventLoopGroup;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -185,7 +195,56 @@ public class TestReplicationBase {
     }
     htable1.put(puts);
   }
+  public static AtomicInteger INJECT = new AtomicInteger(0);
 
+  private static final AtomicInteger SYNC_COUNT = new AtomicInteger(0);
+
+  private static final Semaphore sem = new Semaphore(0);
+
+  private static BlockingQueue<CompletableFuture<Long>> FUTURE = new ArrayBlockingQueue<>(1);
+
+  public static final class TestAsyncWriter extends AsyncProtobufLogWriter {
+
+    public TestAsyncWriter(EventLoopGroup eventLoopGroup, Class<? extends Channel> channelClass) {
+      super(eventLoopGroup, channelClass);
+    }
+
+    @Override
+    public CompletableFuture<Long> sync(boolean forceSync) {
+      if (INJECT.get() == 1) {
+        int count = SYNC_COUNT.incrementAndGet();
+        LOG.info("Inject Times" + count);
+        if (count == 1) {
+          // we will mark these two futures as failure, to make sure that we have 2 edits in
+          // unackedAppends, and trigger a WAL roll
+          //CompletableFuture<Long> f = new CompletableFuture<>();
+          //try {sem.acquire();} catch (Exception ignored) {}
+          //f.completeExceptionally(new IOException("inject error"));
+          //FUTURE.offer(f);
+          return super.sync(forceSync);
+          //return f;
+        } else if (count == 2) {
+          //sem.release();
+          //CompletableFuture<Long> f = new CompletableFuture<>();
+          //f.completeExceptionally(new IOException("inject error"));
+          //return f;
+          //FUTURE.poll().completeExceptionally(new IOException("inject error"));
+          return super.sync(forceSync);
+        } else if (count == 3) {
+          // wait for log roll here
+          RegionInfo regionInfo = UTIL1.getHBaseCluster().getRegions(htable1.getName()).get(0).getRegionInfo();
+          try {
+            WAL wal = UTIL1.getHBaseCluster().getRegionServer(0).getWAL(regionInfo);
+            wal.rollWriter();
+          } catch (IOException e) {
+            LOG.error("Should never happen");
+          }
+          return super.sync(forceSync);
+        }
+      }
+      return super.sync(forceSync);
+    }
+  }
   protected static void setupConfig(HBaseTestingUtil util, String znodeParent) {
     Configuration conf = util.getConfiguration();
     conf.set(HConstants.ZOOKEEPER_ZNODE_PARENT, znodeParent);
@@ -207,6 +266,8 @@ public class TestReplicationBase {
     conf.setFloat("replication.source.ratio", 1.0f);
     conf.setBoolean("replication.source.eof.autorecovery", true);
     conf.setLong("hbase.serial.replication.waiting.ms", 100);
+    conf.setClass(AsyncFSWALProvider.WRITER_IMPL, TestAsyncWriter.class, AsyncFSWALProvider.AsyncWriter.class);
+    conf.setLong(AsyncFSWAL.WAL_BATCH_SIZE, 1);
   }
 
   static void configureClusters(HBaseTestingUtil util1,
@@ -355,6 +416,34 @@ public class TestReplicationBase {
         LOG.info("Row not deleted");
         Thread.sleep(SLEEP_TIME);
       } else {
+        break;
+      }
+    }
+  }
+
+  // Crafted by Jia Pan
+  protected static void runSimplePutTest() throws IOException, InterruptedException {
+    Put put = new Put(row);
+    put.addColumn(famName, row, row);
+
+    htable1 = UTIL1.getConnection().getTable(tableName);
+    htable1.put(put);
+
+    Put put1 = new Put(Bytes.toBytes(row+"0"));
+    put1.addColumn(famName, row, row);
+    htable1.put(put1);
+
+    Get get = new Get(row);
+    for (int i = 0; i < NB_RETRIES; i++) {
+      if (i == NB_RETRIES - 1) {
+        fail("Waited too much time for put replication");
+      }
+      Result res = htable2.get(get);
+      if (res.isEmpty()) {
+        LOG.info("Row not available");
+        Thread.sleep(SLEEP_TIME);
+      } else {
+        assertArrayEquals(row, res.value());
         break;
       }
     }
