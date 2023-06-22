@@ -476,7 +476,7 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
       if (appended) {
         // This is possible, when we fail to sync, we will add the unackedAppends back to
         // toWriteAppends, so here we may get an entry which is already in the unackedAppends.
-        if (addedToUnackedAppends || unackedAppends.isEmpty() ||
+        if (unackedAppends.isEmpty() ||
           getLastTxid(unackedAppends) < entry.getTxid()) {
           unackedAppends.addLast(entry);
           addedToUnackedAppends = true;
@@ -489,8 +489,8 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
         // There could be other ways to fix, such as changing the logic in the consume method, but
         // it will break the assumption and then (may) lead to a big refactoring. So here let's use
         // this way to fix first, can optimize later.
-        if (writer.getLength() - fileLengthAtLastSync >= batchSize &&
-          (addedToUnackedAppends || entry.getTxid() >= getLastTxid(unackedAppends))) {
+        if (writer.getLength() - fileLengthAtLastSync >= batchSize
+          ) {
           break;
         }
       }
@@ -662,8 +662,12 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
   // Added by Jia Pan in helping writing cluster tests
   private static boolean enableDelay = false;
 
-  public static void testRollStuckHelper() {
+  public static void enableAppendDelay() {
     enableDelay = true;
+  }
+
+  public static void disableAppendDelay() {
+    enableDelay = false;
   }
 
   @Override
@@ -677,7 +681,7 @@ public class AsyncFSWAL extends AbstractFSWAL<AsyncWriter> {
     // Crafted by Jia Pan
     if (enableDelay) {
       try {
-        Thread.sleep(100);
+        Thread.sleep(2000);
       } catch (Exception ignored) {
       }
     }

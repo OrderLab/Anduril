@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.hadoop.conf.Configuration;
@@ -43,7 +44,6 @@ import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Delete;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.RegionInfo;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
@@ -199,7 +199,9 @@ public class TestReplicationBase {
 
   private static final AtomicInteger SYNC_COUNT = new AtomicInteger(0);
 
-  private static final Semaphore sem = new Semaphore(0);
+  public static CountDownLatch ROLL = new CountDownLatch(1);
+
+  public static CountDownLatch SYNC = new CountDownLatch(1);
 
   private static BlockingQueue<CompletableFuture<Long>> FUTURE = new ArrayBlockingQueue<>(1);
 
@@ -217,27 +219,23 @@ public class TestReplicationBase {
         if (count == 1) {
           // we will mark these two futures as failure, to make sure that we have 2 edits in
           // unackedAppends, and trigger a WAL roll
-          //CompletableFuture<Long> f = new CompletableFuture<>();
-          //try {sem.acquire();} catch (Exception ignored) {}
-          //f.completeExceptionally(new IOException("inject error"));
-          //FUTURE.offer(f);
-          return super.sync(forceSync);
-          //return f;
+          CompletableFuture<Long> f = new CompletableFuture<>();
+          FUTURE.offer(f);
+          return f;
         } else if (count == 2) {
           //sem.release();
+          FUTURE.poll().completeExceptionally(new IOException("inject error"));
           //CompletableFuture<Long> f = new CompletableFuture<>();
           //f.completeExceptionally(new IOException("inject error"));
           //return f;
-          //FUTURE.poll().completeExceptionally(new IOException("inject error"));
           return super.sync(forceSync);
         } else if (count == 3) {
-          // wait for log roll here
-          RegionInfo regionInfo = UTIL1.getHBaseCluster().getRegions(htable1.getName()).get(0).getRegionInfo();
+
+          ROLL.countDown();
+          // 1s grace to rolling writer
           try {
-            WAL wal = UTIL1.getHBaseCluster().getRegionServer(0).getWAL(regionInfo);
-            wal.rollWriter();
-          } catch (IOException e) {
-            LOG.error("Should never happen");
+            Thread.sleep(1000);
+          } catch (Exception ignored) {
           }
           return super.sync(forceSync);
         }

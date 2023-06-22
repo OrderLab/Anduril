@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellBuilderFactory;
 import org.apache.hadoop.hbase.CellBuilderType;
@@ -55,6 +58,7 @@ import org.apache.hadoop.hbase.util.EnvironmentEdgeManager;
 import org.apache.hadoop.hbase.wal.WAL;
 import org.apache.hadoop.hbase.wal.WALEdit;
 import org.apache.hadoop.hbase.wal.WALKeyImpl;
+import org.apache.hbase.thirdparty.com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -97,6 +101,9 @@ public class TestReplicationSmallTests extends TestReplicationBase {
     cleanUp();
   }
 
+  private static ScheduledExecutorService EXECUTOR =
+    Executors.newScheduledThreadPool(1, new ThreadFactoryBuilder().setDaemon(true).build());
+
   /*Crafted by Jia */
   @Test(timeout=90000)
   public void testRollStuck() throws Exception {
@@ -117,8 +124,11 @@ public class TestReplicationSmallTests extends TestReplicationBase {
     WALKeyImpl key2 = new WALKeyImpl(regionInfo.getEncodedNameAsBytes(), tableName, key1.getWriteTime() + 1, MVCC);
     long txid2 = wal.appendData(regionInfo, key2, edit);
     LOG.info("Workloads are: " + txid1 + " " + txid2);
-    AsyncFSWAL.testRollStuckHelper();
-    //runSimplePutTest();
+    //Slow down the later appendData
+    AsyncFSWAL.enableAppendDelay();
+    EXECUTOR.schedule(AsyncFSWAL::disableAppendDelay, 2, TimeUnit.SECONDS);
+    ROLL.await();
+    wal.rollWriter();
   }
 
   /**
