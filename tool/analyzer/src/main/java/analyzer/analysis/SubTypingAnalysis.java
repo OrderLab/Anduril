@@ -16,6 +16,9 @@ public final class SubTypingAnalysis {
             "java.lang.Thread",
             "java.lang.Runnable",
             "java.lang.Throwable",
+            "java.util.concurrent.Callable",
+            "java.util.concurrent.ExecutorService",
+            "java.util.concurrent.Future",
     };
 
     private static final String[] throwableInJar = {
@@ -34,6 +37,9 @@ public final class SubTypingAnalysis {
             1<<0,
             1<<0,
             1<<1,
+            1<<2,
+            1<<3,
+            1<<5,
     };
 
     private int dfsWithMemoir(final SootClass sootClass) {
@@ -61,6 +67,18 @@ public final class SubTypingAnalysis {
 
     public boolean isThreadOrRunnable(final SootClass sootClass) {
         return (dfsWithMemoir(sootClass) & (flags[0] | flags[1])) != 0;
+    }
+
+    public boolean isCallable(final SootClass sootClass) {
+        return ((dfsWithMemoir(sootClass) & flags[3]) != 0);
+    }
+
+    public boolean isExecutorService(final SootClass sootClass) {
+        return ((dfsWithMemoir(sootClass) & flags[4]) != 0);
+    }
+
+    public boolean isFuture(final SootClass sootClass) {
+        return ((dfsWithMemoir(sootClass) & flags[5]) != 0);
     }
 
     public boolean isSubtype(final SootClass exception, final SootClass baseException) {
