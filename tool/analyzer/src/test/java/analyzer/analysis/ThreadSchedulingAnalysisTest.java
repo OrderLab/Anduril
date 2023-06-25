@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ThreadSchedulingAnalysisTest extends AnalyzerTestBase {
@@ -47,10 +48,27 @@ public class ThreadSchedulingAnalysisTest extends AnalyzerTestBase {
         //  System.out.println(unitIds.get(i).toString());
         //}
         assertTrue(threadSchedulingAnalysis.get2Call.containsKey(unitIds.get(5)));
-        assertTrue(threadSchedulingAnalysis.get2Call.get(unitIds.get(5)).size()==1);
+        assertEquals(1, threadSchedulingAnalysis.get2Call.get(unitIds.get(5)).size());
         for (SootMethod call : threadSchedulingAnalysis.get2Call.get(unitIds.get(5))) {
-            call.getSubSignature().equals("java.lang.Object call()");
+            assertEquals("java.lang.Object call()", call.getSubSignature());
         }
+    }
+
+    @Test
+    void simpleLocalLambdaCase() {
+        SootClass target = classes.get(CallableExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void submitThenGetLamda()");
+        Map<Integer, Unit> unitIds = methodUnitIds.get(targetMethod);
+        assertTrue(threadSchedulingAnalysis.get2Call.containsKey(unitIds.get(4)));
+        assertEquals(1, threadSchedulingAnalysis.get2Call.get(unitIds.get(4)).size());
+        for (SootMethod call : threadSchedulingAnalysis.get2Call.get(unitIds.get(4))) {
+            assertEquals("java.lang.Integer lambda$submitThenGetLamda$0(int)", call.getSubSignature());
+        }
+    }
+
+    @Test
+    void arrayListInBetween() {
+        
     }
 
 }

@@ -35,6 +35,18 @@ public class CallableExample {
     }
 
     public void submitThenGetLamda() {
+        int x = 1;
+        Future<Integer> zz = consume.submit(() -> {
+    Socket s = ss.accept();
+    return x;
+});
 
+        try {
+            zz.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.getCause();
+        }
     }
 }

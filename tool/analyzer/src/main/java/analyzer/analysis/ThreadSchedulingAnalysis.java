@@ -33,12 +33,33 @@ public class ThreadSchedulingAnalysis {
                             final Value lhs = ((DefinitionStmt) unit).getLeftOp();
                             if (lhs instanceof Local) {
                                 final Value rhs = ((DefinitionStmt) unit).getRightOp();
+                                // stack = new Callable
                                 if (rhs instanceof NewExpr) {
                                     final SootClass invocationClass = ((NewExpr) rhs).getBaseType().getSootClass();
                                     if (SubTypingAnalysis.v().isCallable(invocationClass)) {
                                         for (Unit futureGet : findFutureGet(unit, (Local)lhs, graph)) {
                                             get2Call.computeIfAbsent(futureGet, k -> new HashSet<>());
                                             get2Call.get(futureGet).add(invocationClass.getMethod(call));
+                                        }
+                                    }
+                                    // Lambda Expression converted to callable case
+                                } else if (rhs instanceof DynamicInvokeExpr) {
+                                    SootMethod constructor = ((DynamicInvokeExpr) rhs).getMethod();
+                                    Type returned = constructor.getReturnType();
+                                    if (returned instanceof RefType) {
+                                        if (SubTypingAnalysis.v().isCallable(((RefType) returned).getSootClass())) {
+                                            // Locate the found lambda expression
+                                            SootMethodRef dynamicCall = ((DynamicInvokeExpr) rhs).getBootstrapMethodRef();
+                                            for (final Value arg : ((DynamicInvokeExpr) rhs).getBootstrapArgs()) {
+                                                if (arg instanceof MethodHandle) {
+                                                    SootMethod lambda = ((MethodHandle) arg).getMethodRef().resolve();
+                                                    for (Unit futureGet : findFutureGet(unit, (Local)lhs, graph)) {
+                                                        get2Call.computeIfAbsent(futureGet, k -> new HashSet<>());
+                                                        get2Call.get(futureGet).add(lambda);
+                                                    }
+
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -50,8 +71,8 @@ public class ThreadSchedulingAnalysis {
         }
     }
 
-    private String submit_subsignature = "java.util.concurrent.Future submit(java.util.concurrent.Callable)";
-    private String get_subsignature = "java.lang.Object get()";
+    private final String submit_subsignature = "java.util.concurrent.Future submit(java.util.concurrent.Callable)";
+    private final String get_subsignature = "java.lang.Object get()";
 
 
     private Set<Unit> findFutureGet(final Unit newCallable, Local v, final UnitGraph graph) {
@@ -65,12 +86,20 @@ public class ThreadSchedulingAnalysis {
 
         final Set<Value> submits = new HashSet<>();
         final Set<Unit> gets = new HashSet<>();
-        // State Transition
+
         while (!q.isEmpty()) {
             final Unit node = q.pollFirst();
             // Find ExecutorService.submit() to get the returned Future first
             if (node instanceof DefinitionStmt) {
-                if (((DefinitionStmt) node).getRightOp() instanceof InvokeExpr) {
+                if (callables.contains(((DefinitionStmt) node).getRightOp())) {
+                    // alias analysis
+
+                    callables.add(((DefinitionStmt) node).getLeftOp());
+                } else if (submits.contains(((DefinitionStmt) node).getRightOp())) {
+                    // alias analysis
+
+                    submits.add(((DefinitionStmt) node).getLeftOp());
+                } else if (((DefinitionStmt) node).getRightOp() instanceof InvokeExpr) {
                     // find the ExecutorService that submit this callable in exchange of a Future
                     final SootMethod calleeMethod = ((InvokeExpr) ((DefinitionStmt) node).getRightOp()).getMethod();
                     if (SubTypingAnalysis.v().isExecutorService(calleeMethod.getDeclaringClass())) {
