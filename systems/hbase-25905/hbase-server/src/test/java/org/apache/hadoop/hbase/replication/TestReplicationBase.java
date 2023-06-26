@@ -461,7 +461,7 @@ public class TestReplicationBase {
     waitForReplication(NB_ROWS_IN_BATCH, NB_RETRIES);
   }
 
-  @AfterClass
+  //@AfterClass
   public static void tearDownAfterClass() throws Exception {
     if (htable2 != null) {
       htable2.close();
