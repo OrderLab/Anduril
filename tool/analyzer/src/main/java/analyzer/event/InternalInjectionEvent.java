@@ -42,7 +42,7 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
                 if (SubTypingAnalysis.v().isFuture(exceptionMethod.getDeclaringClass()) &&
                         exceptionMethod.getSubSignature().equals(analysisManager.threadSchedulingAnalysis.get_subsignature)) {
                     // Future.get()
-                    for (SootMethod scheduled : analysisManager.threadSchedulingAnalysis.get2Call.get(unit)) {
+                    for (SootMethod scheduled : analysisManager.threadSchedulingAnalysis.get2Call.getOrDefault(unit,new HashSet<>())) {
                         for (SootClass methodExceptionType : analysisManager.exceptionAnalysis.analyses.get(scheduled).methodExceptions.keySet()) {
                             frontiers.add(new InternalInjectionEvent(scheduled, methodExceptionType));
                         }

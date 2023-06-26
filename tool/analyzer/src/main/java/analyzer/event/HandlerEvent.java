@@ -54,7 +54,7 @@ public final class HandlerEvent extends ProgramEvent {
                         if (SubTypingAnalysis.v().isFuture(analysis.libCalls.get(unit).getDeclaringClass()) &&
                                 analysis.libCalls.get(unit).getSubSignature().equals(analysisManager.threadSchedulingAnalysis.get_subsignature)) {
                             // Future.get()
-                            for (SootMethod scheduled : analysisManager.threadSchedulingAnalysis.get2Call.get(unit)) {
+                            for (SootMethod scheduled : analysisManager.threadSchedulingAnalysis.get2Call.getOrDefault(unit,new HashSet<>())) {
                                 for (SootClass methodExceptionType : analysisManager.exceptionAnalysis.analyses.get(scheduled).methodExceptions.keySet()) {
                                     frontiers.add(new InternalInjectionEvent(scheduled, methodExceptionType));
                                 }

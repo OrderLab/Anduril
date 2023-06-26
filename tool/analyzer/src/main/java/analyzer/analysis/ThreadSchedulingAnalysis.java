@@ -16,6 +16,7 @@ public class ThreadSchedulingAnalysis {
     public final Map<Unit,Set<SootMethod>> get2Call = new HashMap<>();
 
     private final String call = "java.lang.Object call()";
+    private final String overriden_call = "void call()";
 
     ThreadSchedulingAnalysis(final List<SootClass> classes, final GlobalCallGraphAnalysis globalCallGraphAnalysis) {
         this.classes = classes;
@@ -38,7 +39,12 @@ public class ThreadSchedulingAnalysis {
                                     if (SubTypingAnalysis.v().isCallable(invocationClass)) {
                                         for (Unit futureGet : findFutureGet(unit, (Local)lhs, graph)) {
                                             get2Call.computeIfAbsent(futureGet, k -> new HashSet<>());
-                                            get2Call.get(futureGet).add(invocationClass.getMethod(call));
+                                            for (SootMethod candidate : invocationClass.getMethods()) {
+                                                if (candidate.getSubSignature().equals(call)
+                                                        || candidate.getSubSignature().equals(overriden_call)) {
+                                                    get2Call.get(futureGet).add(candidate);
+                                                }
+                                            }
                                         }
                                     }
                                     // Lambda Expression converted to callable case
