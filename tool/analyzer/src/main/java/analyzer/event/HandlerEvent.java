@@ -2,6 +2,7 @@ package analyzer.event;
 
 import analyzer.analysis.AnalysisManager;
 import analyzer.analysis.ExceptionHandlingAnalysis;
+import analyzer.analysis.SubTypingAnalysis;
 import index.ProgramLocation;
 import soot.SootClass;
 import soot.SootMethod;
@@ -49,6 +50,16 @@ public final class HandlerEvent extends ProgramEvent {
                                 new ExternalInjectionEvent(analysis.libCalls.get(unit), exception);
                         frontiers.add(injectionEvent);
                         injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
+                        // Future.get() rule
+                        if (SubTypingAnalysis.v().isFuture(analysis.libCalls.get(unit).getDeclaringClass()) &&
+                                analysis.libCalls.get(unit).getSubSignature().equals(analysisManager.threadSchedulingAnalysis.get_subsignature)) {
+                            // Future.get()
+                            for (SootMethod scheduled : analysisManager.threadSchedulingAnalysis.get2Call.get(unit)) {
+                                for (SootClass methodExceptionType : analysisManager.exceptionAnalysis.analyses.get(scheduled).methodExceptions.keySet()) {
+                                    frontiers.add(new InternalInjectionEvent(scheduled, methodExceptionType));
+                                }
+                            }
+                        }
                     } else if (unit instanceof ThrowStmt) {
                         frontiers.add(new LocationEvent(loc));
                     } else {

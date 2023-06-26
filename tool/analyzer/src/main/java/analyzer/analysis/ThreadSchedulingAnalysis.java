@@ -1,7 +1,6 @@
 package analyzer.analysis;
 
 import soot.*;
-import soot.baf.InterfaceInvokeInst;
 import soot.jimple.*;
 import soot.toolkits.graph.BriefUnitGraph;
 import soot.toolkits.graph.UnitGraph;
@@ -72,7 +71,7 @@ public class ThreadSchedulingAnalysis {
     }
 
     private final String submit_subsignature = "java.util.concurrent.Future submit(java.util.concurrent.Callable)";
-    private final String get_subsignature = "java.lang.Object get()";
+    public final String get_subsignature = "java.lang.Object get()";
 
 
     private Set<Unit> findFutureGet(final Unit newCallable, Local v, final UnitGraph graph) {
@@ -96,31 +95,84 @@ public class ThreadSchedulingAnalysis {
 
                     callables.add(((DefinitionStmt) node).getLeftOp());
                 } else if (submits.contains(((DefinitionStmt) node).getRightOp())) {
-                    // alias analysis
-
-                    submits.add(((DefinitionStmt) node).getLeftOp());
+                    // alias and array analysis
+                    Value left = ((DefinitionStmt) node).getLeftOp();
+                    if (left instanceof ArrayRef) {
+                        submits.add(((ArrayRef) left).getBase());
+                    } else {
+                        submits.add(left);
+                    }
+                } else if (((DefinitionStmt) node).getRightOp() instanceof ArrayRef) {
+                    if (submits.contains(((ArrayRef)((DefinitionStmt) node).getRightOp()).getBase())) {
+                        Value left = ((DefinitionStmt) node).getLeftOp();
+                        if (left instanceof ArrayRef) {
+                            submits.add(((ArrayRef) left).getBase());
+                        } else {
+                            submits.add(left);
+                        }
+                    }
+                } else if (((DefinitionStmt) node).getRightOp() instanceof CastExpr) {
+                    // Cast case
+                    if (submits.contains(((CastExpr) ((DefinitionStmt) node).getRightOp()).getOp())) {
+                        Value left = ((DefinitionStmt) node).getLeftOp();
+                        if (left instanceof ArrayRef) {
+                            submits.add(((ArrayRef) left).getBase());
+                        } else {
+                            submits.add(left);
+                        }
+                    }
                 } else if (((DefinitionStmt) node).getRightOp() instanceof InvokeExpr) {
                     // find the ExecutorService that submit this callable in exchange of a Future
                     final SootMethod calleeMethod = ((InvokeExpr) ((DefinitionStmt) node).getRightOp()).getMethod();
+                    InvokeExpr ie = (InvokeExpr) ((DefinitionStmt) node).getRightOp();
                     if (SubTypingAnalysis.v().isExecutorService(calleeMethod.getDeclaringClass())) {
                         if (calleeMethod.getSubSignature().equals(submit_subsignature)) {
                             // Add the Future locations
-                            for (Value param : ((InvokeExpr) ((DefinitionStmt) node).getRightOp()).getArgs()) {
+                            for (Value param : ie.getArgs()) {
                                 if (callables.contains(param)) {
                                     submits.add(((DefinitionStmt) node).getLeftOp());
                                 }
                             }
                         }
+                    } else if (submits.size() > 0 && SubTypingAnalysis.v().isFuture(calleeMethod.getDeclaringClass())) {
+                        if (calleeMethod.getSubSignature().equals(get_subsignature)) {
+                            // link the callable to the future.get()
+                            if (submits.contains(((InterfaceInvokeExpr)ie).getBase())) {
+                                gets.add(node);
+                            }
+                        }
+                    }  else {
+                        // Deal with future kicked out of a container
+                        if (ie instanceof InterfaceInvokeExpr) {
+                            Value container = ((InterfaceInvokeExpr) ie).getBase();
+                            if (submits.contains(container)) {
+                                //System.out.println("ArrayList output:" + ((DefinitionStmt) node).getLeftOp());
+                                submits.add(((DefinitionStmt) node).getLeftOp());
+                            }
+                        }
+                    }
+
+                }
+            } else if (node instanceof InvokeStmt) {
+                SootMethod calleeMethod = ((InvokeStmt)node).getInvokeExpr().getMethod();
+                InvokeExpr ie = ((InvokeStmt) node).getInvokeExpr();
+                if (submits.size() > 0) {
+                    if (SubTypingAnalysis.v().isFuture(calleeMethod.getDeclaringClass())) {
+                        if (calleeMethod.getSubSignature().equals(get_subsignature)) {
+                            // link the callable to the future.get()
+                            if (submits.contains(((InterfaceInvokeExpr)ie).getBase())) {
+                                gets.add(node);
+                            }
+                        }
                     }
                 }
-
-
-            } else if (submits.size() > 0 && node instanceof InvokeStmt) {
-                SootMethod calleeMethod = ((InvokeStmt)node).getInvokeExpr().getMethod();
-                if (SubTypingAnalysis.v().isFuture(calleeMethod.getDeclaringClass())) {
-                    if (calleeMethod.getSubSignature().equals(get_subsignature)) {
-                        // link the callable to the future.get()
-                        gets.add(node);
+                // Deal with future stored into a container
+                if (ie instanceof InterfaceInvokeExpr) {
+                    for (Value param : ie.getArgs()) {
+                        if (submits.contains(param)) {
+                            //System.out.println("ArrayList input:" + ((InterfaceInvokeExpr) ie).getBase());
+                            submits.add(((InterfaceInvokeExpr) ie).getBase());
+                        }
                     }
                 }
             }

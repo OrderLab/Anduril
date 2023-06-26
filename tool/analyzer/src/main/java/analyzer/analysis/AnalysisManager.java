@@ -21,6 +21,7 @@ public final class AnalysisManager {
     public final GlobalCallGraphAnalysis callGraphAnalysis;
     public final AnalysisInput analysisInput;
     public final GlobalIntraProceduralAnalysis globalIntraProceduralAnalysis;
+    public final ThreadSchedulingAnalysis threadSchedulingAnalysis;
 
     private int injectionCounter = 0;
     public InjectionPoint createInjectionPoint(final ProgramEvent caller, final ProgramEvent callee,
@@ -85,6 +86,7 @@ public final class AnalysisManager {
         this.exceptionAnalysis = new GlobalExceptionAnalysis(classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses);
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(classes);
         this.slicingAnalysis = new GlobalSlicingAnalysis(classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
+        this.threadSchedulingAnalysis = new ThreadSchedulingAnalysis(classes,this.callGraphAnalysis);
     }
 
 
@@ -104,6 +106,9 @@ public final class AnalysisManager {
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput.classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
         System.out.printf("\nSlicing Analysis End Time: %s\n",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+        this.threadSchedulingAnalysis = new ThreadSchedulingAnalysis(analysisInput.classes,this.callGraphAnalysis);
+        System.out.printf("\nThread Scheduling Analysis End Time: %s\n",
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
 //        SootClass c = Scene.v()
 //                .getSootClass("org.apache.zookeeper.server.quorum.Leader$LearnerCnxAcceptor$LearnerCnxAcceptorHandler");

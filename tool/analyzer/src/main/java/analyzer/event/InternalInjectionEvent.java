@@ -2,6 +2,7 @@ package analyzer.event;
 
 import analyzer.analysis.AnalysisManager;
 import analyzer.analysis.ExceptionHandlingAnalysis;
+import analyzer.analysis.SubTypingAnalysis;
 import index.ProgramLocation;
 import soot.SootClass;
 import soot.SootMethod;
@@ -36,6 +37,17 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
                         new ExternalInjectionEvent(analysis.libCalls.get(unit), this.exceptionType);
                 this.frontiers.add(injectionEvent);
                 injectionPoints.add(analysisManager.createInjectionPoint(this, injectionEvent, loc));
+
+                // Future.get() rule
+                if (SubTypingAnalysis.v().isFuture(exceptionMethod.getDeclaringClass()) &&
+                        exceptionMethod.getSubSignature().equals(analysisManager.threadSchedulingAnalysis.get_subsignature)) {
+                    // Future.get()
+                    for (SootMethod scheduled : analysisManager.threadSchedulingAnalysis.get2Call.get(unit)) {
+                        for (SootClass methodExceptionType : analysisManager.exceptionAnalysis.analyses.get(scheduled).methodExceptions.keySet()) {
+                            frontiers.add(new InternalInjectionEvent(scheduled, methodExceptionType));
+                        }
+                    }
+                }
             } else if (analysis.internalCalls.containsKey(unit)) {
                 final InternalInjectionEvent injectionEvent =
                         new InternalInjectionEvent(analysis.internalCalls.get(unit), this.exceptionType);
@@ -83,5 +95,5 @@ public final class InternalInjectionEvent extends ExceptionInjectionEvent {
     }
 
     @Override
-    public String toString() {return "internal_injection_event"+"  "+exceptionType.getName();}
+    public String toString() {return "internal_injection_event"+"  "+exceptionType.getName()+" "+exceptionMethod;}
 }

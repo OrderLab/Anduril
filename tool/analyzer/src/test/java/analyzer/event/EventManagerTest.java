@@ -1,5 +1,6 @@
 package analyzer.event;
 
+import analyzer.cases.threadSchedulingAnalysis.CallableExample;
 import index.IndexManager;
 import analyzer.AnalyzerTestBase;
 import analyzer.analysis.AnalysisInput;
@@ -63,6 +64,36 @@ class EventManagerTest extends AnalyzerTestBase {
         }
     }
 
+    ProgramEvent findSymptom2(){
+        SootClass testClass = classes.get(CallableExample.class.getName());
+        SootMethod testMethod = testClass.getMethod("void arrayListInBetween()");
+        for (final ProgramLocation location : index.get(testClass).get(testMethod).values()) {
+            for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                final Value value = valueBox.getValue();
+                if (value instanceof InvokeExpr) {
+                    //System.out.println(value);
+                    final SootMethod inv = ((InvokeExpr) value).getMethod();
+                    //System.out.println(inv.toString());
+                    if (inv.getSubSignature().equals("void printStackTrace()")) {
+                        //System.out.println("good"+location.unit);
+                        return new LocationEvent(location);
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
-
+    @Test
+    void futureGet() {
+        ProgramEvent symptomEvent = findSymptom2();
+        //Make symptom event!
+        assertTrue(symptomEvent!=null);
+        Set<ProgramLocation> logEvents = new HashSet<>();
+        EventGraph eventGraph = new EventGraph(analysisManager,symptomEvent,logEvents);
+        for (EventGraph.Node p:eventGraph.bfs()) {
+            System.out.println(p.depth);
+            System.out.println(p.event.toString());
+        }
+    }
 }

@@ -67,8 +67,31 @@ public class ThreadSchedulingAnalysisTest extends AnalyzerTestBase {
     }
 
     @Test
+    void arrayInBetween() {
+        SootClass target = classes.get(CallableExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void arrayInBetween()");
+        Map<Integer, Unit> unitIds = methodUnitIds.get(targetMethod);
+        //for (Integer i :  unitIds.keySet()) {
+        //  System.out.println(i);
+        //  System.out.println(unitIds.get(i).toString());
+        //}
+        assertTrue(threadSchedulingAnalysis.get2Call.containsKey(unitIds.get(8)));
+        assertEquals(1, threadSchedulingAnalysis.get2Call.get(unitIds.get(8)).size());
+        for (SootMethod call : threadSchedulingAnalysis.get2Call.get(unitIds.get(8))) {
+            assertEquals("java.lang.Object call()", call.getSubSignature());
+        }
+    }
+
+    @Test
     void arrayListInBetween() {
-        
+        SootClass target = classes.get(CallableExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void arrayListInBetween()");
+        Map<Integer, Unit> unitIds = methodUnitIds.get(targetMethod);
+        assertTrue(threadSchedulingAnalysis.get2Call.containsKey(unitIds.get(10)));
+        assertEquals(1, threadSchedulingAnalysis.get2Call.get(unitIds.get(10)).size());
+        for (SootMethod call : threadSchedulingAnalysis.get2Call.get(unitIds.get(10))) {
+            assertEquals("java.lang.Object call()", call.getSubSignature());
+        }
     }
 
 }

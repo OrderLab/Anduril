@@ -47,5 +47,5 @@ public final class ExternalInjectionEvent extends ExceptionInjectionEvent {
     }
 
     @Override
-    public String toString() {return "external_injection_event" +"  "+exceptionType.getName();}
+    public String toString() {return "external_injection_event" +"  "+exceptionType.getName()+" "+exceptionMethod;}
 }
