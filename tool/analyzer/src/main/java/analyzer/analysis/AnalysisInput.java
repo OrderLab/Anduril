@@ -364,15 +364,16 @@ public class AnalysisInput {
         }
 
         if (options.getFlakyCase().equals("hbase-25905")) {
-            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.regionserver.wal.TestAsyncFSWALRollStuck");
-            this.testMethod = this.testClass.getMethod("void testRoll()");
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.replication.TestReplicationSmallTests");
+            this.testMethod = this.testClass.getMethod("void testRollStuck()");
             for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
                 for (final ValueBox valueBox : location.unit.getUseBoxes()) {
                     final Value value = valueBox.getValue();
                     if (value instanceof InvokeExpr) {
                         final SootMethod inv = ((InvokeExpr) value).getMethod();
-                        if (inv.getDeclaringClass().getName().equals("org.apache.hadoop.hbase.util.Bytes") &&
-                                inv.getName().equals("toBytes")) {
+                        if (inv.getName().equals("info") &&
+                                inv.getDeclaringClass().getName().equals("org.slf4j.Logger") &&
+                                SootUtils.getLine(location.unit) == 110) {
                             this.symptomEvent = new LocationEvent(location);
                             return;
                         }
