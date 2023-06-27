@@ -47,7 +47,19 @@ object InjectionRecordsReader {
     val injections = mutable.ArrayBuffer.empty[InjectionPoint]
     while (text.hasNext) {
       line = text.next()
-      val Array(pid, id, occurrence, time, millies,thread) = line.split(",").map(_.trim)
+      //val Array(pid, id, occurrence, time, millies,thread) = line.split(",").map(_.trim)
+      val array = line.split(",")
+      val pid = array(0)
+      val id = array(1)
+      val occurrence = array(2)
+      val time = array(3)
+      val millies = array(4)
+      var thread = array(5)
+      if (array.size >= 7) {
+        for (i <- 6 to array.size) {
+          thread = thread+","+array(i)
+        }
+      }
       injections += InjectionPoint(pid.toInt, id.toInt, occurrence.toInt, LogFileParser.parseDatetime(time+","+millies), thread)
     }
     injections.toArray

@@ -347,6 +347,7 @@ public class AnalyzerMain {
 
     private static final String[] extraDependencies = new String[] {
             "io.netty.channel.ChannelFutureListener",
+            "org.apache.hbase.thirdparty.com.google.gson.JsonSerializer",
     };
 
     private static void addextraDependencies() {

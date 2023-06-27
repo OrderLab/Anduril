@@ -14,9 +14,10 @@ final class InjectionRecordsReaderTest extends ThreadTestBase {
     Path prepareTempFilesInDistributedCase(final String dirPrefix, final String csvPrefix,
                                            final int num, final Path tempDir) throws IOException {
         final Path CSVDir = tempDir.resolve("distributedCSVDir");
-        for (int i = 0; i < num; i++) {
-            String file = csvPrefix + i + ".csv";
-            LogTestUtil.initTempFile(dirPrefix+"/"+file, CSVDir.resolve(file));
+        for (int i = 1; i < num; i++) {
+            String file = csvPrefix + (i-1) + ".csv";
+            LogTestUtil.initTempFile(dirPrefix+"/"+csvPrefix + i+"/"+csvPrefix + i + ".csv",
+                    CSVDir.resolve(file));
         }
         return CSVDir;
     }
