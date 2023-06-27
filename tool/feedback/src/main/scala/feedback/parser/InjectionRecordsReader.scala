@@ -56,7 +56,7 @@ object InjectionRecordsReader {
       val millies = array(4)
       var thread = array(5)
       if (array.size >= 7) {
-        for (i <- 6 to array.size) {
+        for (i <- 6 until array.size) {
           thread = thread+","+array(i)
         }
       }
