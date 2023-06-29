@@ -258,7 +258,35 @@ public class StandbyCheckpointer {
         break;
       } catch (InterruptedException e) {
         ie = e;
-        break;
+        //if (ie == null && ioe == null) {
+        //Update only when response from remote about success or
+        lastUploadTime = monotonicNow();
+        // we are primary if we successfully updated the ANN
+        this.isPrimaryCheckPointer = success;
+        //}
+        // cleaner than copying code for multiple catch statements and better than catching all
+        // exceptions, so we just handle the ones we expect.
+
+        // cancel the rest of the tasks, and close the pool
+        for (; i < uploads.size(); i++) {
+          Future<TransferFsImage.TransferResult> upload1 = uploads.get(i);
+          // The background thread may be blocked waiting in the throttler, so
+          // interrupt it.
+          upload1.cancel(true);
+        }
+
+        // shutdown so we interrupt anything running and don't start anything new
+        executor.shutdownNow();
+        // this is a good bit longer than the thread timeout, just to make sure all the threads
+        // that are not doing any work also stop
+        executor.awaitTermination(500, TimeUnit.MILLISECONDS);
+
+        // re-throw the exception we got, since one of these two must be non-null
+        if (ie != null) {
+          throw ie;
+        } else if (ioe != null) {
+          throw ioe;
+        }
       }
     }
     //if (ie == null && ioe == null) {
