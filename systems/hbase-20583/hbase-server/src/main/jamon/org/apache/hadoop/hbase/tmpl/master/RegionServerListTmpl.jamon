@@ -1,0 +1,370 @@
+<%doc>
+Copyright The Apache Software Foundation
+
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ </%doc>
+
+<%args>
+List<ServerName> servers = null;
+HMaster master;
+</%args>
+
+<%import>
+        java.util.*;
+        org.apache.hadoop.hbase.master.HMaster;
+        org.apache.hadoop.hbase.RegionMetrics;
+        org.apache.hadoop.hbase.ServerMetrics;
+        org.apache.hadoop.hbase.ServerName;
+        org.apache.hadoop.hbase.Size;
+        org.apache.hadoop.hbase.util.VersionInfo;
+        org.apache.hadoop.util.StringUtils.TraditionalBinaryPrefix;
+</%import>
+
+
+<%if (servers != null && servers.size() > 0)%>
+
+<%java>
+ServerName [] serverNames = servers.toArray(new ServerName[servers.size()]);
+Arrays.sort(serverNames);
+</%java>
+
+<div class="tabbable">
+    <ul class="nav nav-pills">
+        <li class="active"><a href="#tab_baseStats" data-toggle="tab">Base Stats</a></li>
+        <li class=""><a href="#tab_memoryStats" data-toggle="tab">Memory</a></li>
+        <li class=""><a href="#tab_requestStats" data-toggle="tab">Requests</a></li>
+        <li class=""><a href="#tab_storeStats" data-toggle="tab">Storefiles</a></li>
+        <li class=""><a href="#tab_compactStas" data-toggle="tab">Compactions</a></li>
+    </ul>
+    <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+        <div class="tab-pane active" id="tab_baseStats">
+            <& baseStats; serverNames = serverNames; &>
+        </div>
+        <div class="tab-pane" id="tab_memoryStats">
+            <& memoryStats; serverNames = serverNames; &>
+        </div>
+        <div class="tab-pane" id="tab_requestStats">
+            <& requestStats; serverNames = serverNames; &>
+        </div>
+        <div class="tab-pane" id="tab_storeStats">
+            <& storeStats; serverNames = serverNames; &>
+        </div>
+        <div class="tab-pane" id="tab_compactStas">
+            <& compactionStats; serverNames = serverNames; &>
+        </div>
+    </div>
+</div>
+
+</%if>
+
+<%def baseStats>
+<%args>
+        ServerName [] serverNames;
+</%args>
+<table class="table table-striped">
+<tr>
+    <th>ServerName</th>
+    <th>Start time</th>
+    <th>Last contact</th>
+    <th>Version</th>
+    <th>Requests Per Second</th>
+    <th>Num. Regions</th>
+</tr>
+<%java>
+    int totalRegions = 0;
+    int totalRequestsPerSecond = 0;
+    int inconsistentNodeNum = 0;
+    String masterVersion = VersionInfo.getVersion();
+    for (ServerName serverName: serverNames) {
+
+    ServerMetrics sl = master.getServerManager().getLoad(serverName);
+    String version = master.getRegionServerVersion(serverName);
+    if (!masterVersion.equals(version)) {
+        inconsistentNodeNum ++;
+    }
+
+    double requestsPerSecond = 0.0;
+    int numRegionsOnline = 0;
+    long lastContact = 0;
+
+    if (sl != null) {
+        requestsPerSecond = sl.getRequestCountPerSecond();
+        numRegionsOnline = sl.getRegionMetrics().size();
+        totalRegions += sl.getRegionMetrics().size();
+        totalRequestsPerSecond += sl.getRequestCountPerSecond();
+        lastContact = (System.currentTimeMillis() - sl.getReportTimestamp())/1000;
+    }
+    long startcode = serverName.getStartcode();
+</%java>
+<tr>
+    <td><& serverNameLink; serverName=serverName; serverLoad = sl; &></td>
+    <td><% new Date(startcode) %></td>
+    <td><% TraditionalBinaryPrefix.long2String(lastContact, "s", 1) %></td>
+    <td><% version %></td>
+    <td><% String.format("%.0f", requestsPerSecond) %></td>
+    <td><% numRegionsOnline %></td>
+</tr>
+<%java>
+}
+</%java>
+<tr><td>Total:<% servers.size() %></td>
+<td></td>
+<td></td>
+<%if inconsistentNodeNum > 0%>
+  <td style="color:red;"><% inconsistentNodeNum %> nodes with inconsistent version</td>
+<%else>
+   <td></td>
+</%if>
+<td><% totalRequestsPerSecond %></td>
+<td><% totalRegions %></td>
+</tr>
+</table>
+</%def>
+
+<%def memoryStats>
+<%args>
+    ServerName [] serverNames;
+</%args>
+<table class="table table-striped">
+<tr>
+    <th>ServerName</th>
+    <th>Used Heap</th>
+    <th>Max Heap</th>
+    <th>Memstore Size</th>
+
+</tr>
+<%java>
+for (ServerName serverName: serverNames) {
+
+    ServerMetrics sl = master.getServerManager().getLoad(serverName);
+    if (sl != null) {
+      long memStoreSizeMB = 0;
+      for (RegionMetrics rl : sl.getRegionMetrics().values()) {
+        memStoreSizeMB += rl.getMemStoreSize().get(Size.Unit.MEGABYTE);
+      }
+</%java>
+<tr>
+    <td><& serverNameLink; serverName=serverName; serverLoad = sl; &></td>
+    <td><% TraditionalBinaryPrefix.long2String((long) sl.getUsedHeapSize().get(Size.Unit.MEGABYTE)
+      * TraditionalBinaryPrefix.MEGA.value, "B", 1) %></td>
+    <td><% TraditionalBinaryPrefix.long2String((long) sl.getMaxHeapSize().get(Size.Unit.MEGABYTE)
+      * TraditionalBinaryPrefix.MEGA.value, "B", 1) %></td>
+    <td><% TraditionalBinaryPrefix.long2String(memStoreSizeMB
+      * TraditionalBinaryPrefix.MEGA.value, "B", 1) %></td>
+
+</tr>
+<%java>
+        }  else {
+</%java>
+<& emptyStat; serverName=serverName; &>
+<%java>
+        }
+}
+</%java>
+</table>
+</%def>
+
+
+<%def requestStats>
+<%args>
+        ServerName [] serverNames;
+        </%args>
+<table class="table table-striped">
+<tr>
+    <th>ServerName</th>
+    <th>Request Per Second</th>
+    <th>Read Request Count</th>
+    <th>Filtered Read Request Count</th>
+    <th>Write Request Count</th>
+</tr>
+<%java>
+for (ServerName serverName: serverNames) {
+
+ServerMetrics sl = master.getServerManager().getLoad(serverName);
+if (sl != null) {
+  long readRequestCount = 0;
+  long writeRequestCount = 0;
+  long filteredReadRequestCount = 0;
+  for (RegionMetrics rl : sl.getRegionMetrics().values()) {
+    readRequestCount += rl.getReadRequestCount();
+    writeRequestCount += rl.getWriteRequestCount();
+    filteredReadRequestCount += rl.getFilteredReadRequestCount();
+  }
+</%java>
+<tr>
+<td><& serverNameLink; serverName=serverName; serverLoad = sl; &></td>
+<td><% sl.getRequestCountPerSecond() %></td>
+<td><% readRequestCount %></td>
+<td><% filteredReadRequestCount %></td>
+<td><% writeRequestCount %></td>
+</tr>
+<%java>
+        }  else {
+        </%java>
+<& emptyStat; serverName=serverName; &>
+<%java>
+        }
+}
+</%java>
+</table>
+</%def>
+
+
+<%def storeStats>
+<%args>
+        ServerName [] serverNames;
+        </%args>
+<table class="table table-striped">
+<tr>
+    <th>ServerName</th>
+    <th>Num. Stores</th>
+    <th>Num. Storefiles</th>
+    <th>Storefile Size Uncompressed</th>
+    <th>Storefile Size</th>
+    <th>Index Size</th>
+    <th>Bloom Size</th>
+</tr>
+<%java>
+for (ServerName serverName: serverNames) {
+
+ServerMetrics sl = master.getServerManager().getLoad(serverName);
+if (sl != null) {
+  long storeCount = 0;
+  long storeFileCount = 0;
+  long storeUncompressedSizeMB = 0;
+  long storeFileSizeMB = 0;
+  long totalStaticIndexSizeKB = 0;
+  long totalStaticBloomSizeKB = 0;
+  for (RegionMetrics rl : sl.getRegionMetrics().values()) {
+    storeCount += rl.getStoreCount();
+    storeFileCount += rl.getStoreFileCount();
+    storeUncompressedSizeMB += rl.getUncompressedStoreFileSize().get(Size.Unit.MEGABYTE);
+    storeFileSizeMB += rl.getStoreFileSize().get(Size.Unit.MEGABYTE);
+    totalStaticIndexSizeKB += rl.getStoreFileUncompressedDataIndexSize().get(Size.Unit.KILOBYTE);
+    totalStaticBloomSizeKB += rl.getBloomFilterSize().get(Size.Unit.KILOBYTE);
+  }
+</%java>
+<tr>
+<td><& serverNameLink; serverName=serverName; serverLoad = sl; &></td>
+<td><% storeCount %></td>
+<td><% storeFileCount %></td>
+<td><% TraditionalBinaryPrefix.long2String(
+  storeUncompressedSizeMB * TraditionalBinaryPrefix.MEGA.value, "B", 1) %></td>
+<td><% TraditionalBinaryPrefix.long2String(storeFileSizeMB
+  * TraditionalBinaryPrefix.MEGA.value, "B", 1) %></td>
+<td><% TraditionalBinaryPrefix.long2String(totalStaticIndexSizeKB
+  * TraditionalBinaryPrefix.KILO.value, "B", 1) %></td>
+<td><% TraditionalBinaryPrefix.long2String(totalStaticBloomSizeKB
+  * TraditionalBinaryPrefix.KILO.value, "B", 1) %></td>
+</tr>
+<%java>
+        }  else {
+        </%java>
+<& emptyStat; serverName=serverName; &>
+<%java>
+    }
+}
+</%java>
+</table>
+</%def>
+
+<%def compactionStats>
+<%args>
+        ServerName [] serverNames;
+        </%args>
+<table class="table table-striped">
+<tr>
+    <th>ServerName</th>
+    <th>Num. Compacting Cells</th>
+    <th>Num. Compacted Cells</th>
+    <th>Remaining Cells</th>
+    <th>Compaction Progress</th>
+</tr>
+<%java>
+for (ServerName serverName: serverNames) {
+
+ServerMetrics sl = master.getServerManager().getLoad(serverName);
+if (sl != null) {
+long totalCompactingCells = 0;
+long totalCompactedCells = 0;
+for (RegionMetrics rl : sl.getRegionMetrics().values()) {
+  totalCompactingCells += rl.getCompactingCellCount();
+  totalCompactedCells += rl.getCompactedCellCount();
+}
+String percentDone = "";
+if  (totalCompactingCells > 0) {
+     percentDone = String.format("%.2f", 100 *
+        ((float) totalCompactedCells / totalCompactingCells)) + "%";
+}
+</%java>
+<tr>
+<td><& serverNameLink; serverName=serverName; serverLoad = sl; &></td>
+<td><% totalCompactingCells %></td>
+<td><% totalCompactedCells %></td>
+<td><% totalCompactingCells - totalCompactedCells %></td>
+<td><% percentDone %></td>
+</tr>
+<%java>
+        }  else {
+        </%java>
+<& emptyStat; serverName=serverName; &>
+<%java>
+    }
+}
+</%java>
+</table>
+</%def>
+
+
+<%def serverNameLink>
+        <%args>
+        ServerName serverName;
+        ServerMetrics serverLoad;
+        </%args>
+        <%java>
+        int infoPort = master.getRegionServerInfoPort(serverName);
+        String url = "//" + serverName.getHostname() + ":" + infoPort + "/rs-status";
+        </%java>
+
+        <%if infoPort > 0%>
+            <a href="<% url %>"><% serverName.getServerName() %></a>
+        <%else>
+            <% serverName.getServerName() %>
+        </%if>
+</%def>
+
+<%def emptyStat>
+        <%args>
+        ServerName serverName;
+        </%args>
+    <tr>
+    <td><& serverNameLink; serverName=serverName; serverLoad = null; &></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    </tr>
+</%def>
+
+
+
+
+
+
+
