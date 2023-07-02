@@ -994,6 +994,8 @@ public class DFSInputStream extends FSInputStream
     }
   }
 
+  private static volatile int dd = 0;
+
   private LocatedBlock refetchLocations(LocatedBlock block,
       Collection<DatanodeInfo> ignoredNodes) throws IOException {
     String errMsg = getBestNodeDNAddrPairErrorString(block.getLocations(),
@@ -1039,6 +1041,7 @@ public class DFSInputStream extends FSInputStream
           "Interrupted while choosing DataNode for read.");
     }
     clearLocalDeadNodes(); //2nd option is to remove only nodes[blockId]
+    if (++dd==3) {throw new IOException("Inject Error2");}
     openInfo(true);
     block = refreshLocatedBlock(block);
     failures++;
