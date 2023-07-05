@@ -85,6 +85,8 @@ public final class Config {
     public boolean locationMulti;
     public boolean dynamicCreate;
     public boolean timeTraceCollectMode;
+    public boolean isAugFeedback;
+    public int occurrenceSize;
 
     private void setExperimentOnlyDefaultValues() {
         probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
@@ -109,6 +111,10 @@ public final class Config {
         feedbackDelta = Integer.getInteger("flakyAgent.feedbackDelta", 1);
 
         injectionTimeFile =  System.getProperty("flakyAgent.injectionTimeCSV", "#");
+
+        isAugFeedback = Boolean.getBoolean("flakyAgent.augFeedback");
+
+        occurrenceSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
 
     }
 
@@ -140,7 +146,9 @@ public final class Config {
             "flakyAgent.locationMultiplyPolicy",
             "flakyAgent.dynamicCreate",
             "flakyAgent.timeTraceCollectMode",
-            "flakyAgent.injectionTimeCSV"
+            "flakyAgent.injectionTimeCSV",
+            "flakyAgent.augFeedback",
+            "flakyAgent.occurrenceSize"
     };
 
     private Config() { }

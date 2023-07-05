@@ -107,7 +107,7 @@ public final class Driver {
                         Thread.sleep(3000);
                         final Process feedbackProcess = start(feedback);
                         consoles.add(console(feedbackProcess, LOG::debug));
-                        if (monitor(60, feedbackProcess::isAlive)) {
+                        if (monitor(180, feedbackProcess::isAlive)) {
                             kill(feedbackProcess);
                             return false;
                         }

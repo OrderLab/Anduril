@@ -51,6 +51,8 @@ public class LocalInjectionManager {
 
     protected int trialId = 0;
     protected int windowSize = TraceAgent.config.minimumTimeMode ? 1 : TraceAgent.config.slidingWindowSize;
+    protected int occurrenceSize = TraceAgent.config.occurrenceSize;
+
     protected FeedbackManager feedbackManager = null;
     protected JsonObject json = null;
 
@@ -76,7 +78,7 @@ public class LocalInjectionManager {
             return;
         }
         int start = 0;
-        if (TraceAgent.config.isTimeFeedback) {
+        if (TraceAgent.config.isTimeFeedback || TraceAgent.config.isAugFeedback) {
             this.timePriorityTable = TimePriorityTable.load(TraceAgent.config.timePriorityTable);
         }
         try (final InputStream inputStream = Files.newInputStream(Paths.get(this.specPath));
@@ -89,6 +91,8 @@ public class LocalInjectionManager {
             start = this.json.getInt("start");
             if (TraceAgent.config.isTimeFeedback) {
                 feedbackManager = new TimeFeedbackManager(this.specPath, this.json, this.timePriorityTable);
+            } else if (TraceAgent.config.isAugFeedback) {
+                feedbackManager = new AugmentedFeedbackManager(this.specPath, this.json, this.timePriorityTable);
             } else {
                 if (TraceAgent.config.minimumTimeMode) {
                     feedbackManager = new FeedbackManager(this.specPath, this.json, this.timePriorityTable);
@@ -102,14 +106,24 @@ public class LocalInjectionManager {
         }
         final File[] files = new File(this.trialsPath).listFiles((file, name) -> name.endsWith(".json"));
         int latestOK = -2; // avoid -1 + 1 == 0
+        Set<Integer> window = new HashSet<>();
+        Set<Integer> occur = new HashSet<>();
         for (final File result : files) {
             try (final InputStream inputStream = Files.newInputStream(result.toPath());
                  final JsonReader reader = Json.createReader(inputStream)) {
                 final JsonObject json = reader.readObject();
+                if (TraceAgent.config.isAugFeedback) {
+                    this.occurrenceSize = json.getInt("window_occur");
+                    window.add(json.getInt("window"));
+                    occur.add(json.getInt("window_occur"));
+                }
                 final int trialId = json.getInt("trial_id");
                 if (trialId >= this.trialId) {
                     this.trialId = trialId + 1;
                     this.windowSize = json.getInt("window");
+                    if (TraceAgent.config.isAugFeedback) {
+                        this.occurrenceSize = json.getInt("window_occur");
+                    }
                 }
                 if (!json.containsKey("id")) {
                     if (latestOK < trialId) {
@@ -136,19 +150,42 @@ public class LocalInjectionManager {
             windowSize += 1;
         } else {
             if (latestOK + 1 == this.trialId) {
-                windowSize *= 2;
+                // Alternating of increasing window and occur
+                if (TraceAgent.config.isAugFeedback) {
+                    if (window.size() == occur.size()) {
+                        windowSize *= 2;
+                    } else {
+                        occurrenceSize *= 2;
+                    }
+                } else {
+                    windowSize *= 2;
+                }
             }
             if (windowSize > INF) {
                 windowSize = INF;
             }
+            if (occurrenceSize > INF) {
+                occurrenceSize = INF;
+            }
         }
         try (final FileWriter fw = new FileWriter(this.injectionResultPath);
              final JsonWriter jsonWriter = writerFactory.createWriter(fw)) {
-            jsonWriter.writeObject(Json.createObjectBuilder()
-                    .add("trial_id", this.trialId)
-                    .add("window", windowSize).build());
+            if (!TraceAgent.config.isAugFeedback) {
+                jsonWriter.writeObject(Json.createObjectBuilder()
+                        .add("trial_id", this.trialId)
+                        .add("window", windowSize).build());
+            } else {
+                jsonWriter.writeObject(Json.createObjectBuilder()
+                        .add("trial_id", this.trialId)
+                        .add("window", windowSize)
+                        .add("window_occur", occurrenceSize).build());
+            }
         } catch (final IOException ignored) { }
-        feedbackManager.calc(windowSize);
+        if (!TraceAgent.config.isAugFeedback) {
+            feedbackManager.calc(windowSize);
+        } else {
+            ((AugmentedFeedbackManager)feedbackManager).calc(windowSize,occurrenceSize);
+        }
         if (TraceAgent.config.minimumTimeMode) {
             for (final InjectionIndex index : this.injectionSet.keySet()) {
                 feedbackManager.allowSet.merge(index.id, -1, Integer::sum);
@@ -197,7 +234,7 @@ public class LocalInjectionManager {
                 }
             }
         }
-        if (!TraceAgent.config.isTimeFeedback) {
+        if (!TraceAgent.config.isTimeFeedback && !TraceAgent.config.isAugFeedback) {
             System.out.println("injection allow set: " + feedbackManager.allowSet.keySet());
         }
     }

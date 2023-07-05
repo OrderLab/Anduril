@@ -5,10 +5,7 @@ import runtime.time.TimePriorityTable;
 import scala.Array;
 
 import javax.json.JsonObject;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class AugmentedFeedbackManager extends FeedbackManager {
@@ -31,26 +28,18 @@ public class AugmentedFeedbackManager extends FeedbackManager {
 
     @Override
     public boolean isAllowed(final int pid, final int injectionId, final int occurrence) {
-        final double[] priorities = nodes[pid].get(injectionId);
-        if (priorities == null) {
+        if (allowMap.get(injectionId) == null) {
             return false;
         }
-        if (occurrence > priorities.length) {
-            return false;
-        }
-        return priorities[occurrence - 1] <= boundary;
+        return nodes[pid].get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).getValue();
     }
 
     @Override
     public boolean isAllowed(final int injectionId, final int occurrence) {
-        final double[] priorities = standalone.get(injectionId);
-        if (priorities == null) {
+        if (allowMap.get(injectionId) == null) {
             return false;
         }
-        if (occurrence > priorities.length) {
-            return false;
-        }
-        return priorities[occurrence - 1] <= boundary;
+        return standalone.get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).getValue();
     }
 
     public void calc(final int windowSize, final int occurrenceSize) {
@@ -59,28 +48,40 @@ public class AugmentedFeedbackManager extends FeedbackManager {
             this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
         }
         this.graph.calculatePriorities((injectionId,sourceEvent) -> {
-            this.allowMap.put(injectionId,
-                    new Pair<>(sourceEvent,timePriorityTable.injection2Log2Time.get(injectionId).get(sourceEvent).get(occurrenceSize)));
+            Map<Integer, ArrayList<Integer>> buf = timePriorityTable.injection2Log2Time.get(injectionId);
+            if (buf != null && buf.get(sourceEvent) != null) {
+                if (buf.get(sourceEvent).size() >= occurrenceSize) {
+                    this.allowMap.put(injectionId,
+                            new Pair<>(sourceEvent, buf.get(sourceEvent).get(occurrenceSize - 1)));
+                } else {
+                    this.allowMap.put(injectionId, new Pair<>(sourceEvent, INF));
+                }
+            }
             return allowMap.size() >= windowSize;
         });
 
         if (this.timePriorityTable.distributed) {
-            this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, new int[v]));
+            this.timePriorityTable.boundaries.forEach((k, v) -> this.nodes[k.pid].put(k.injection, newArray(v)));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
-
-                this.nodes[k.pid].get(injection)[k.occurrence - 1] = priority;
+                if (allowMap.get(injection) != null) {
+                    this.nodes[k.pid].get(injection)[k.occurrence - 1] =
+                            v.timePriorities.get(allowMap.get(injection).getKey());
+                }
             }));
         } else {
-            Arrays.fill(new int[2],1);
-            this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, ));
+            this.timePriorityTable.boundaries.forEach((k, v) -> this.standalone.put(k.injection, newArray(v)));
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
-                this.standalone.putIfAbsent(injection,).get(injection)[k.occurrence - 1] = priority;
-                priorities.add(priority);
+                if (allowMap.get(injection) != null) {
+                    this.standalone.get(injection)[k.occurrence - 1] =
+                            v.timePriorities.get(allowMap.get(injection).getKey());
+                }
             }));
         }
     }
 
     private int[] newArray(int size) {
-
+        int[] array = new int[size];
+        Arrays.fill(array,INF);
+        return array;
     }
 }
