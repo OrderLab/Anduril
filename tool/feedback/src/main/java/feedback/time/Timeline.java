@@ -49,10 +49,16 @@ public final class Timeline {
                         table.injections.computeIfAbsent(id.injection(),
                                 k -> new TreeMap<>()).computeIfAbsent(new TimePriorityTable.Key(id.pid(), id.occurrence()),
                                 k -> new TimePriorityTable.UtilityReducer()).timePriorities.put(i, limit);
+                        table.injection2Log2Time.computeIfAbsent(id.injection(),
+                                k -> new TreeMap<>()).computeIfAbsent(i,
+                                k -> new ArrayList<>()).add(limit);
                     } else {
                         table.injections.computeIfAbsent(id.injection(),
                                 k -> new TreeMap<>()).computeIfAbsent(new TimePriorityTable.Key(id.pid(), id.occurrence()),
                                 k -> new TimePriorityTable.UtilityReducer()).timePriorities.put(i, weight);
+                        table.injection2Log2Time.computeIfAbsent(id.injection(),
+                                k -> new TreeMap<>()).computeIfAbsent(i,
+                                k -> new ArrayList<>()).add(weight);
                     }
                 }
             };
@@ -64,6 +70,7 @@ public final class Timeline {
                 LOG.warn("None of the injections can trigger event {}", i);
             }
         }
+        table.sortByInjection();
         return table;
     }
 

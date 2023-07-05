@@ -20,6 +20,9 @@ public final class TimePriorityTable implements Serializable {
     // (pid,injection) -> # of occur
     public final Map<BoundaryKey, Integer> boundaries = new HashMap<>();
 
+    // injection -> log -> sorted time priorities of all (pid,occur)
+    public final Map<Integer, Map<Integer, ArrayList<Integer>>> injection2Log2Time = new TreeMap<>();
+
     public final static class Key implements Comparable<Key>, Serializable {
         public final int pid, occurrence;
         public Key(final int pid, final int occurrence) {
@@ -78,6 +81,14 @@ public final class TimePriorityTable implements Serializable {
     public TimePriorityTable(final boolean distributed, final int nodes) {
         this.distributed = distributed;
         this.nodes = nodes;
+    }
+
+    public void sortByInjection() {
+        for (Integer id : injection2Log2Time.keySet()) {
+            for (Integer log : injection2Log2Time.get(id).keySet()) {
+                injection2Log2Time.get(id).get(log).sort(null);
+            }
+        }
     }
 
     static public TimePriorityTable load(final String timePriorityTable) {

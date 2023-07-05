@@ -6,8 +6,10 @@ import runtime.time.TimePriorityTable;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -19,6 +21,7 @@ public class PriorityGraph {
     protected final Map<Integer, ArrayList<Integer>> outcome2cause = new TreeMap<>();
     private final int[] startValues;
     private final int[] starts;
+    private final FeedbackKey[] starts1;
     public final int startNumber;
     public final TreeMap<Integer, Integer> w = new TreeMap<>();
     public final String specPath;
@@ -105,6 +108,7 @@ public class PriorityGraph {
         this.startNumber = startNumber;
         this.startValues = new int[startNumber];
         this.starts = new int[startNumber];
+        this.starts1 = new FeedbackKey[startNumber];
     }
 
     public PriorityGraph(final JsonObject json) {
@@ -156,6 +160,100 @@ public class PriorityGraph {
     public void setStartValue(final int i, final int v) {
         this.startValues[i] = v;
     }
+
+    public final static class FeedbackKey implements Serializable {
+        public final int start, now;
+        public FeedbackKey(final int start, final int now) {
+            this.now = now;
+            this.start = start;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof PriorityGraph.FeedbackKey)) return false;
+            PriorityGraph.FeedbackKey that = (PriorityGraph.FeedbackKey) o;
+            return start == that.start && now == that.now;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(start, now);
+        }
+    }
+
+    public void calculatePriorities(final BiPredicate<Integer,Integer> terminator) {
+        // the initialization must be here (not in the constructor) for the testing
+        for (int i = 0; i < startNumber; i++) {
+            starts1[i] = new FeedbackKey(i,i);
+        }
+        // O(n^2) is fine
+        for (int i = 0; i < startNumber; i++) {
+            for (int j = i + 1; j < startNumber; j++) {
+                if (startValues[starts1[i].now] > startValues[starts1[j].now]) {
+                    final FeedbackKey tmp = starts1[j];
+                    starts1[j] = starts1[i];
+                    starts1[i] = tmp;
+                }
+            }
+        }
+        final LinkedList<FeedbackKey> queue = new LinkedList<>();
+        final LinkedList<Integer> weights = new LinkedList<>();
+        final Set<Integer> visited = new TreeSet<>();
+        queue.add(starts1[0]);
+        weights.add(startValues[starts1[0].now]);
+        for (int i = 1; i < startNumber; i++) {
+            if (startValues[starts1[i].now] == startValues[starts1[0].now]) {
+                queue.add(starts1[i]);
+                weights.add(startValues[starts1[i].now]);
+                visited.add(starts1[i].now);
+            }
+        }
+        int index = queue.size();
+        w.clear();
+        while (!queue.isEmpty()) {
+            final FeedbackKey node = queue.getFirst();
+            final int weight = weights.getFirst() + 1;
+            queue.removeFirst();
+            weights.removeFirst();
+            if (this.outcome2cause.containsKey(node.now)) {
+                while (index < startNumber && startValues[starts1[index].now] == weight) {
+                    queue.add(starts1[index]);
+                    weights.add(startValues[starts1[index].now]);
+                    index++;
+                }
+                final Map<Integer, ArrayList<Integer>> m1 = caller2callee2injections.get(node.now);
+                for (final Integer child : outcome2cause.get(node.now)) {
+                    if (!visited.contains(child)) {
+                        visited.add(child);
+                        queue.add(new FeedbackKey(node.start,child));
+                        weights.add(weight);
+                    }
+                    if (m1 != null && m1.containsKey(child)) {
+                        for (final Integer injectionId : m1.get(child)) {
+                            w.putIfAbsent(injectionId, weight);
+                            if (terminator.test(injectionId,node.start)) {
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            if (queue.isEmpty() && index < startNumber) {
+                queue.add(starts1[index]);
+                weights.add(startValues[starts1[index].now]);
+                for (int i = index + 1; i < startNumber; i++) {
+                    if (startValues[starts1[i].now] == startValues[starts1[index].now]) {
+                        queue.add(starts1[i]);
+                        weights.add(startValues[starts1[i].now]);
+                    }
+                }
+                index += queue.size();
+            }
+        }
+    }
+
+
 
     public void calculatePriorities(final Predicate<Integer> terminator) {
         // the initialization must be here (not in the constructor) for the testing
@@ -226,6 +324,7 @@ public class PriorityGraph {
             }
         }
     }
+
 
     public void calculatePriorities(final int start, final int initialPriority,
                                     final BiConsumer<Integer, Integer> consumer) {
