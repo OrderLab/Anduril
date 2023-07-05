@@ -114,7 +114,7 @@ public final class Config {
 
         isAugFeedback = Boolean.getBoolean("flakyAgent.augFeedback");
 
-        occurrenceSize = Integer.getInteger("flakyAgent.slidingWindow", 10);
+        occurrenceSize = Integer.getInteger("flakyAgent.occurrenceSize", 10);
 
     }
 
