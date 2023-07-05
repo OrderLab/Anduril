@@ -1,12 +1,10 @@
 package runtime;
 
-import javafx.util.Pair;
 import runtime.time.TimePriorityTable;
-import scala.Array;
 
 import javax.json.JsonObject;
+import java.io.Serializable;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class AugmentedFeedbackManager extends FeedbackManager {
 
@@ -16,7 +14,30 @@ public class AugmentedFeedbackManager extends FeedbackManager {
 
     private final Map<Integer, int[]> standalone = new TreeMap<>();
 
-    private Map<Integer, Pair<Integer,Integer>> allowMap = new HashMap<>();
+
+    public final static class AllowValue implements Serializable {
+        public final int log, priority;
+        public AllowValue(final int log, final int priority) {
+            this.log = log;
+            this.priority = priority;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof AugmentedFeedbackManager.AllowValue)) return false;
+            AugmentedFeedbackManager.AllowValue that = (AugmentedFeedbackManager.AllowValue) o;
+            return log == that.log && priority == that.priority;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(log, priority);
+        }
+    }
+
+
+    private final Map<Integer, AugmentedFeedbackManager.AllowValue> allowMap = new HashMap<>();
 
     public AugmentedFeedbackManager(final String specPath, final JsonObject json, final TimePriorityTable timePriorityTable) {
         super(specPath, json, timePriorityTable);
@@ -31,7 +52,7 @@ public class AugmentedFeedbackManager extends FeedbackManager {
         if (allowMap.get(injectionId) == null) {
             return false;
         }
-        return nodes[pid].get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).getValue();
+        return nodes[pid].get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).priority;
     }
 
     @Override
@@ -39,7 +60,7 @@ public class AugmentedFeedbackManager extends FeedbackManager {
         if (allowMap.get(injectionId) == null) {
             return false;
         }
-        return standalone.get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).getValue();
+        return standalone.get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).priority;
     }
 
     public void calc(final int windowSize, final int occurrenceSize) {
@@ -52,9 +73,9 @@ public class AugmentedFeedbackManager extends FeedbackManager {
             if (buf != null && buf.get(sourceEvent) != null) {
                 if (buf.get(sourceEvent).size() >= occurrenceSize) {
                     this.allowMap.put(injectionId,
-                            new Pair<>(sourceEvent, buf.get(sourceEvent).get(occurrenceSize - 1)));
+                            new AugmentedFeedbackManager.AllowValue(sourceEvent, buf.get(sourceEvent).get(occurrenceSize - 1)));
                 } else {
-                    this.allowMap.put(injectionId, new Pair<>(sourceEvent, INF));
+                    this.allowMap.put(injectionId, new AugmentedFeedbackManager.AllowValue(sourceEvent, INF));
                 }
             }
             return allowMap.size() >= windowSize;
@@ -65,7 +86,7 @@ public class AugmentedFeedbackManager extends FeedbackManager {
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
                 if (allowMap.get(injection) != null) {
                     this.nodes[k.pid].get(injection)[k.occurrence - 1] =
-                            v.timePriorities.get(allowMap.get(injection).getKey());
+                            v.timePriorities.get(allowMap.get(injection).log);
                 }
             }));
         } else {
@@ -73,7 +94,7 @@ public class AugmentedFeedbackManager extends FeedbackManager {
             this.timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
                 if (allowMap.get(injection) != null) {
                     this.standalone.get(injection)[k.occurrence - 1] =
-                            v.timePriorities.get(allowMap.get(injection).getKey());
+                            v.timePriorities.get(allowMap.get(injection).log);
                 }
             }));
         }
