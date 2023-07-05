@@ -37,7 +37,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
         if (injected.get()) {
             return 0;
         }
-        if (!TraceAgent.config.isTimeFeedback && !feedbackManager.isAllowed(id)) {
+        if (!TraceAgent.config.isTimeFeedback && !TraceAgent.config.isAugFeedback && !feedbackManager.isAllowed(id)) {
             return 0;
         }
         final ProcessRecord record = processRecords[pid];
@@ -56,7 +56,7 @@ public class DistributedInjectionManager extends LocalInjectionManager {
                     return 0;
                 }
                 final InjectionIndex index = new InjectionIndex(pid, id, name, occurrence, blockId);
-                if (TraceAgent.config.isTimeFeedback) {
+                if (TraceAgent.config.isTimeFeedback || TraceAgent.config.isAugFeedback) {
                     if (feedbackManager.isAllowed(pid, id, occurrence) && !injectionSet.containsKey(index) &&
                             injected.compareAndSet(false, true)) {
                         injectionPoint = index;

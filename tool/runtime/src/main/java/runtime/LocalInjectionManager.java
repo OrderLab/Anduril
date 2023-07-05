@@ -1,5 +1,6 @@
 package runtime;
 
+import com.sun.deploy.trace.Trace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import runtime.exception.ExceptionBuilder;
@@ -113,7 +114,6 @@ public class LocalInjectionManager {
                  final JsonReader reader = Json.createReader(inputStream)) {
                 final JsonObject json = reader.readObject();
                 if (TraceAgent.config.isAugFeedback) {
-                    this.occurrenceSize = json.getInt("window_occur");
                     window.add(json.getInt("window"));
                     occur.add(json.getInt("window_occur"));
                 }
@@ -236,12 +236,14 @@ public class LocalInjectionManager {
         }
         if (!TraceAgent.config.isTimeFeedback && !TraceAgent.config.isAugFeedback) {
             System.out.println("injection allow set: " + feedbackManager.allowSet.keySet());
+        } else if (TraceAgent.config.isAugFeedback) {
+            System.out.println("injection allow set: " + ((AugmentedFeedbackManager)feedbackManager).allowMap.keySet());
         }
     }
 
     public void inject(final int id, final int blockId) throws Throwable {
         if (!injected.get()) {
-            if (!TraceAgent.config.isTimeFeedback && !feedbackManager.isAllowed(id)) {
+            if (!TraceAgent.config.isTimeFeedback && !TraceAgent.config.isAugFeedback && !feedbackManager.isAllowed(id)) {
                 return;
             }
             // System-specific exception
@@ -274,7 +276,7 @@ public class LocalInjectionManager {
                         block2times.put(blockId, 1);
                     }
                     final InjectionIndex index = new InjectionIndex(-1, id, exception.getClass().getName(), occurrence, blockId);
-                    if (TraceAgent.config.isTimeFeedback) {
+                    if (TraceAgent.config.isTimeFeedback || TraceAgent.config.isAugFeedback) {
                         if (feedbackManager.isAllowed(id, occurrence) && !injectionSet.containsKey(index) &&
                                 injected.compareAndSet(false, true)) {
                             injectionPoint = index;
@@ -312,6 +314,9 @@ public class LocalInjectionManager {
             json = Json.createObjectBuilder();
         }
         json.add("trial_id", this.trialId).add("window", windowSize);
+        if (TraceAgent.config.isAugFeedback) {
+            json.add("window_occur", occurrenceSize);
+        }
         try (final FileWriter fw = new FileWriter(this.injectionResultPath);
              final JsonWriter jsonWriter = writerFactory.createWriter(fw)) {
             jsonWriter.writeObject(json.build());

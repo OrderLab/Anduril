@@ -37,7 +37,7 @@ public class AugmentedFeedbackManager extends FeedbackManager {
     }
 
 
-    private final Map<Integer, AugmentedFeedbackManager.AllowValue> allowMap = new HashMap<>();
+    public final Map<Integer, AugmentedFeedbackManager.AllowValue> allowMap = new HashMap<>();
 
     public AugmentedFeedbackManager(final String specPath, final JsonObject json, final TimePriorityTable timePriorityTable) {
         super(specPath, json, timePriorityTable);
@@ -69,13 +69,16 @@ public class AugmentedFeedbackManager extends FeedbackManager {
             this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
         }
         this.graph.calculatePriorities((injectionId,sourceEvent) -> {
-            Map<Integer, ArrayList<Integer>> buf = timePriorityTable.injection2Log2Time.get(injectionId);
-            if (buf != null && buf.get(sourceEvent) != null) {
-                if (buf.get(sourceEvent).size() >= occurrenceSize) {
-                    this.allowMap.put(injectionId,
-                            new AugmentedFeedbackManager.AllowValue(sourceEvent, buf.get(sourceEvent).get(occurrenceSize - 1)));
-                } else {
-                    this.allowMap.put(injectionId, new AugmentedFeedbackManager.AllowValue(sourceEvent, INF));
+            // TODO: What about the case where one injection point has same distances to two different logs?
+            if (!allowMap.containsKey(injectionId)) {
+                Map<Integer, ArrayList<Integer>> buf = timePriorityTable.injection2Log2Time.get(injectionId);
+                if (buf != null && buf.get(sourceEvent) != null) {
+                    if (buf.get(sourceEvent).size() >= occurrenceSize) {
+                        this.allowMap.put(injectionId,
+                                new AugmentedFeedbackManager.AllowValue(sourceEvent, buf.get(sourceEvent).get(occurrenceSize - 1)));
+                    } else {
+                        this.allowMap.put(injectionId, new AugmentedFeedbackManager.AllowValue(sourceEvent, INF));
+                    }
                 }
             }
             return allowMap.size() >= windowSize;
