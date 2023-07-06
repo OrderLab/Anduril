@@ -52,12 +52,18 @@ public class AugmentedFeedbackManager extends FeedbackManager {
         if (allowMap.get(injectionId) == null) {
             return false;
         }
+        if (occurrence > nodes[pid].get(injectionId).length) {
+            return false;
+        }
         return nodes[pid].get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).priority;
     }
 
     @Override
     public boolean isAllowed(final int injectionId, final int occurrence) {
         if (allowMap.get(injectionId) == null) {
+            return false;
+        }
+        if (occurrence > standalone.get(injectionId).length) {
             return false;
         }
         return standalone.get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).priority;
