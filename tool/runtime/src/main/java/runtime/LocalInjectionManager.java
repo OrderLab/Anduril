@@ -154,7 +154,7 @@ public class LocalInjectionManager {
                     if (window.size() == occur.size()) {
                         windowSize *= 2;
                     } else {
-                        occurrenceSize *= 2;
+                        occurrenceSize += 1;
                     }
                 } else {
                     windowSize *= 2;

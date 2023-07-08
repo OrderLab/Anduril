@@ -16,7 +16,8 @@ public final class GlobalExceptionAnalysis {
 
     public GlobalExceptionAnalysis(final List<SootClass> classes,
                                    final GlobalCallGraphAnalysis globalCallGraphAnalysis,
-                                   final Map<SootMethod, ExceptionReturnAnalysis> exceptionReturnAnalysis) {
+                                   final Map<SootMethod, ExceptionReturnAnalysis> exceptionReturnAnalysis,
+                                   final ThreadSchedulingAnalysis threadSchedulingAnalysis) {
         // prepare the methods
         for (final SootClass sootClass : classes) {
             for (final SootMethod sootMethod : sootClass.getMethods()) {
@@ -24,7 +25,7 @@ public final class GlobalExceptionAnalysis {
                     final Body body = sootMethod.getActiveBody();
                     final UnitGraph graph = new BriefUnitGraph(body);
                     final ExceptionHandlingAnalysis analysis =
-                            new ExceptionHandlingAnalysis(classes, sootMethod, body, graph, globalCallGraphAnalysis,
+                            new ExceptionHandlingAnalysis(classes, sootMethod, body, graph, globalCallGraphAnalysis, threadSchedulingAnalysis,
                                     exceptionReturnAnalysis, enableExceptionReturn);
                     analyses.put(sootMethod, analysis);
                     for (final SootMethod method : analysis.methodOccurrences.keySet()) {

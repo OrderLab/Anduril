@@ -2,6 +2,7 @@ package analyzer.analysis;
 
 import analyzer.AnalyzerTestBase;
 import analyzer.cases.threadSchedulingAnalysis.CallableExample;
+import analyzer.cases.threadSchedulingAnalysis.RunnableExample;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -92,6 +93,14 @@ public class ThreadSchedulingAnalysisTest extends AnalyzerTestBase {
         for (SootMethod call : threadSchedulingAnalysis.get2Call.get(unitIds.get(10))) {
             assertEquals("java.lang.Object call()", call.getSubSignature());
         }
+    }
+
+    @Test
+    void runnableControlFlow() {
+        SootClass target = classes.get(RunnableExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void useMaybeMeasureLatency()");
+        Map<Integer, Unit> unitIds = methodUnitIds.get(targetMethod);
+        assertTrue(threadSchedulingAnalysis.wrapper2Call.containsKey(unitIds.get(2)));
     }
 
 }

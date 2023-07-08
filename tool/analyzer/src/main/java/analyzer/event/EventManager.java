@@ -18,6 +18,7 @@ public final class EventManager {
 //    public JsonArrayBuilder createArrayBuilder() {
 //        return jsonBuilderFactory.createArrayBuilder();
 //    }
+    public static final boolean disableUncaught = Boolean.getBoolean("analysis.disableUncaughtExceptions");
 
     public final int getId(final ProgramEvent e) {
         return this.eventGraph.nodeIds.getOrDefault(e, -1);
@@ -97,7 +98,7 @@ public final class EventManager {
     public void instrumentInjections() {
         for (final InjectionPoint injectionPoint : this.eventGraph.injectionPoints) {
             //if (injectionPoint.callee instanceof ExternalInjectionEvent) {
-            if ((injectionPoint.callee instanceof UncaughtThrowInjectionEvent) || (injectionPoint.callee instanceof ExternalInjectionEvent)) {
+            if (((injectionPoint.callee instanceof UncaughtThrowInjectionEvent) && !disableUncaught) || (injectionPoint.callee instanceof ExternalInjectionEvent)) {
                 injectionPoint.instrument();
             }
         }

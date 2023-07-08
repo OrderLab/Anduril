@@ -15,6 +15,9 @@ public class ThreadSchedulingAnalysis {
 
     public final Map<Unit,Set<SootMethod>> get2Call = new HashMap<>();
 
+    // What about the case of multiple?
+    public final Map<Unit,SootMethod> wrapper2Call = new HashMap<>();
+
     private final String call = "java.lang.Object call()";
     private final String overriden_call = "void call()";
 
@@ -47,11 +50,11 @@ public class ThreadSchedulingAnalysis {
                                             }
                                         }
                                     }
-                                    // Lambda Expression converted to callable case
                                 } else if (rhs instanceof DynamicInvokeExpr) {
                                     SootMethod constructor = ((DynamicInvokeExpr) rhs).getMethod();
                                     Type returned = constructor.getReturnType();
                                     if (returned instanceof RefType) {
+                                        // Lambda Expression converted to callable case
                                         if (SubTypingAnalysis.v().isCallable(((RefType) returned).getSootClass())) {
                                             // Locate the found lambda expression
                                             SootMethodRef dynamicCall = ((DynamicInvokeExpr) rhs).getBootstrapMethodRef();
@@ -63,6 +66,17 @@ public class ThreadSchedulingAnalysis {
                                                         get2Call.get(futureGet).add(lambda);
                                                     }
 
+                                                }
+                                            }
+                                        } else if (SubTypingAnalysis.v().isThreadOrRunnable(((RefType) returned).getSootClass())) {
+                                            // Lambda Expression converted to runnable case
+                                            SootMethodRef dynamicCall = ((DynamicInvokeExpr) rhs).getBootstrapMethodRef();
+                                            for (final Value arg : ((DynamicInvokeExpr) rhs).getBootstrapArgs()) {
+                                                if (arg instanceof MethodHandle) {
+                                                    SootMethod lambda = ((MethodHandle) arg).getMethodRef().resolve();
+                                                    for (Unit ranLambda : findRunnableUnCaughtRun(unit, (Local)lhs, graph)) {
+                                                        wrapper2Call.computeIfAbsent(ranLambda, k -> lambda);
+                                                    }
                                                 }
                                             }
                                         }
@@ -80,6 +94,65 @@ public class ThreadSchedulingAnalysis {
     public final String get_subsignature = "java.lang.Object get()";
 
 
+    private static final String[] kafka = {
+            "maybeMeasureLatency",
+    };
+
+    // Deal with runnable
+    private Set<Unit> findRunnableUnCaughtRun(final Unit newRunnable, Local v, final UnitGraph graph) {
+        final Set<Value> runnables = new HashSet<>();
+        runnables.add(v);
+        final Set<Unit> visited = new HashSet<>();
+        visited.add(newRunnable);
+        final LinkedList<Unit> q = new LinkedList<>();
+        q.add(newRunnable);
+        final Set<Unit> calledRun = new HashSet<>();
+
+        while (!q.isEmpty()) {
+            final Unit node = q.pollFirst();
+            if (node instanceof DefinitionStmt) {
+                if (runnables.contains(((DefinitionStmt) node).getRightOp())) {
+                    // alias analysis
+                    runnables.add(((DefinitionStmt) node).getLeftOp());
+                }
+            } else if (node instanceof InvokeStmt) {
+                SootMethod calleeMethod = ((InvokeStmt)node).getInvokeExpr().getMethod();
+                InvokeExpr ie = ((InvokeStmt) node).getInvokeExpr();
+                for (Value param : ie.getArgs()) {
+                    if (runnables.contains(param)) {
+                        if (ie instanceof StaticInvokeExpr) {
+                            for (String s : kafka) {
+                                if (s.equals(calleeMethod.getName())) {
+                                    calledRun.add(node);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (final Unit succ : graph.getSuccsOf(node)) {
+                if (!visited.contains(succ)) {
+                    visited.add(succ);
+                    boolean kill = false;
+                    for (final ValueBox valueBox : succ.getDefBoxes()) {
+                        if (valueBox.getValue() == v) {
+                            kill = true;
+                            break;
+                        }
+                    }
+                    if (!kill) {
+                        q.add(succ);
+                    }
+                }
+            }
+
+        }
+        return calledRun;
+    }
+
+
+    // Deal with callable
     private Set<Unit> findFutureGet(final Unit newCallable, Local v, final UnitGraph graph) {
 
         final Set<Value> callables = new HashSet<>();

@@ -69,6 +69,7 @@ public final class ExceptionHandlingAnalysis {
 
     public ExceptionHandlingAnalysis(final List<SootClass> classes, final SootMethod method, final Body body,
                                      final UnitGraph graph, final GlobalCallGraphAnalysis globalCallGraphAnalysis,
+                                     final ThreadSchedulingAnalysis threadSchedulingAnalysis,
                                      final Map<SootMethod, ExceptionReturnAnalysis> exceptionReturnAnalysis,
                                      final boolean enableExceptionReturn ) {
         this.method = method;
@@ -129,6 +130,20 @@ public final class ExceptionHandlingAnalysis {
 
         // collect the invocations
         for (final Unit unit : units) {
+            // Transparent Lambda Runnable
+            if (threadSchedulingAnalysis.wrapper2Call.containsKey(unit)) {
+                SootMethod call = threadSchedulingAnalysis.wrapper2Call.get(unit);
+                internalCalls.put(unit, call);
+                for (final SootMethod virtualMethod : globalCallGraphAnalysis.virtualCalls.get(call)) {
+                    if (virtualMethod.hasActiveBody()) {
+                        System.out.println(virtualMethod);
+                        markMethodOccurrence(virtualMethod, unit);
+                    }
+                }
+                unitThrowingException.put(unit, new HashSet<>());
+                continue;
+            }
+
             for (final ValueBox valueBox : unit.getUseBoxes()) {
                 final Value value = valueBox.getValue();
                 if (value instanceof InvokeExpr) {
@@ -151,6 +166,7 @@ public final class ExceptionHandlingAnalysis {
                     break;
                 }
             }
+            // Possible Transparent Runnable got from ThreadScheduling analysis
         }
         // update the exceptions
         updateExceptions();

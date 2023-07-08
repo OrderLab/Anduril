@@ -83,10 +83,10 @@ public final class AnalysisManager {
         this.analysisInput = null;
         this.callGraphAnalysis = new GlobalCallGraphAnalysis(classes);
         this.returnExceptionAnalysis = new GlobalReturnAnalysis(classes, this.callGraphAnalysis);
-        this.exceptionAnalysis = new GlobalExceptionAnalysis(classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses);
+        this.threadSchedulingAnalysis = new ThreadSchedulingAnalysis(classes,this.callGraphAnalysis);
+        this.exceptionAnalysis = new GlobalExceptionAnalysis(classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses, this.threadSchedulingAnalysis);
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(classes);
         this.slicingAnalysis = new GlobalSlicingAnalysis(classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
-        this.threadSchedulingAnalysis = new ThreadSchedulingAnalysis(classes,this.callGraphAnalysis);
     }
 
 
@@ -98,7 +98,8 @@ public final class AnalysisManager {
         System.out.printf("\nException Handling Analysis Start Time: %s\n",
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.returnExceptionAnalysis = new GlobalReturnAnalysis(analysisInput.classes, this.callGraphAnalysis);
-        this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses);
+        this.threadSchedulingAnalysis = new ThreadSchedulingAnalysis(analysisInput.classes,this.callGraphAnalysis);
+        this.exceptionAnalysis = new GlobalExceptionAnalysis(analysisInput.classes, this.callGraphAnalysis, this.returnExceptionAnalysis.analyses, this.threadSchedulingAnalysis);
         System.out.printf("\nIntra control flow graph Analysis Start Time: %s\n",
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.globalIntraProceduralAnalysis = new GlobalIntraProceduralAnalysis(analysisInput.classes);
@@ -106,9 +107,6 @@ public final class AnalysisManager {
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         this.slicingAnalysis = new GlobalSlicingAnalysis(analysisInput.classes, this.callGraphAnalysis, this.globalIntraProceduralAnalysis);
         System.out.printf("\nSlicing Analysis End Time: %s\n",
-                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
-        this.threadSchedulingAnalysis = new ThreadSchedulingAnalysis(analysisInput.classes,this.callGraphAnalysis);
-        System.out.printf("\nThread Scheduling Analysis End Time: %s\n",
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
 //        SootClass c = Scene.v()
 //                .getSootClass("org.apache.zookeeper.server.quorum.Leader$LearnerCnxAcceptor$LearnerCnxAcceptorHandler");

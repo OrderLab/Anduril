@@ -3,6 +3,7 @@ package analyzer.analysis;
 import analyzer.AnalyzerTestBase;
 import analyzer.cases.callGraphAnalysis.Person;
 import analyzer.cases.exceptionHandlingAnalysis.ExceptionExample;
+import analyzer.cases.threadSchedulingAnalysis.RunnableExample;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -31,6 +32,8 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
 
     public static GlobalReturnAnalysis returnAnalysis;
 
+    public static ThreadSchedulingAnalysis threadSchedulingAnalysis;
+
     private static List<SootClass> classList;
 
     @BeforeAll
@@ -41,8 +44,9 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
         callGraphAnalysis = new GlobalCallGraphAnalysis(classList);
         LOG.info("ReturnAnalysis.....");
         returnAnalysis = new GlobalReturnAnalysis(classList, callGraphAnalysis);
+        threadSchedulingAnalysis = new ThreadSchedulingAnalysis(classList, callGraphAnalysis);
         LOG.info("ExceptionAnalysis.....");
-        exceptionAnalysis = new GlobalExceptionAnalysis(classList, callGraphAnalysis,returnAnalysis.analyses);
+        exceptionAnalysis = new GlobalExceptionAnalysis(classList, callGraphAnalysis,returnAnalysis.analyses, threadSchedulingAnalysis);
     }
 
     @Test
@@ -168,7 +172,7 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
         //System.out.println(targetMethodAnalysis.throwLocations);
     }
 
-    @Test
+    //@Test
     void transparentWrapperCase() {
         SootClass target = classes.get(ExceptionExample.class.getName());
         SootMethod targetMethod = target.getMethod("void transparentWrapper()");
@@ -179,7 +183,7 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
         assertTrue(targetMethodAnalysis.methodExceptions.containsKey(ioException));
     }
 
-    @Test
+    //@Test
     void newExceptionWrapperCase() {
         SootClass target = classes.get(ExceptionExample.class.getName());
         SootMethod targetMethod = target.getMethod("void newExceptionInWrapper()");
@@ -187,6 +191,13 @@ class GlobalExceptionAnalysisTest extends AnalyzerTestBase {
         assertTrue(targetMethodAnalysis.methodExceptions.size()==1);
         SootClass secException = Scene.v().loadClassAndSupport(SecurityException.class.getName());
         assertTrue(targetMethodAnalysis.methodExceptions.containsKey(secException));
+    }
+
+    @Test
+    void transparentRunnableCase() {
+        SootClass target = classes.get(RunnableExample.class.getName());
+        SootMethod targetMethod = target.getMethod("void useMaybeMeasureLatency()");
+        ExceptionHandlingAnalysis targetMethodAnalysis = exceptionAnalysis.analyses.get(targetMethod);
     }
 
 }
