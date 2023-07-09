@@ -33,6 +33,14 @@ public final class InvocationEvent extends ProgramEvent {
                 this.frontiers.add(new LocationEvent(loc));
             }
         }
+        // Meta Handler to Calling
+        if (analysisManager.threadSchedulingAnalysis.handler2Call.containsKey(locationMethod)) {
+            for (SootMethod throwing : analysisManager.threadSchedulingAnalysis.handler2Call.getOrDefault(locationMethod,new HashSet<>())) {
+                for (SootClass methodExceptionType : analysisManager.exceptionAnalysis.analyses.get(throwing).methodExceptions.keySet()) {
+                    frontiers.add(new InternalInjectionEvent(throwing, methodExceptionType));
+                }
+            }
+        }
         return this.frontiers;
     }
 

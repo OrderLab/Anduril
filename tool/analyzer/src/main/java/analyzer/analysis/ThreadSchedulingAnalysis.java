@@ -18,6 +18,8 @@ public class ThreadSchedulingAnalysis {
     // What about the case of multiple?
     public final Map<Unit,SootMethod> wrapper2Call = new HashMap<>();
 
+    public final Map<SootMethod,Set<SootMethod>> handler2Call = new HashMap<>();
+
     private final String call = "java.lang.Object call()";
     private final String overriden_call = "void call()";
 
@@ -88,7 +90,41 @@ public class ThreadSchedulingAnalysis {
                 }
             }
         }
+        costumeHandlerCall();
     }
+
+    private static final String[] handler_classes = {
+            "org.apache.cassandra.service.CassandraDaemon$2",
+    };
+
+    private static final String[] handler_methods = {
+            "void uncaughtException(java.lang.Thread, java.lang.Throwable)",
+    };
+
+    private static final String[] calling_classes = {
+            "org.apache.cassandra.net.MessageDeliveryTask",
+    };
+
+    private static final String[] calling_methods = {
+            "void run()",
+    };
+
+    private void costumeHandlerCall () {
+        for (int i = 0; i < handler_classes.length; i++) {
+            try {
+                SootClass handlerClass = Scene.v().getSootClass(handler_classes[i]);
+                SootMethod handlerMethod = handlerClass.getMethod(handler_methods[i]);
+                SootClass callingClass = Scene.v().getSootClass(calling_classes[i]);
+                SootMethod callingMethod = callingClass.getMethod(calling_methods[i]);
+                handler2Call.computeIfAbsent(handlerMethod, k -> new HashSet<>());
+                handler2Call.get(handlerMethod).add(callingMethod);
+                System.out.println("Added Handler:"+handlerMethod+"--Caller:"+callingMethod );
+            } catch (Exception ignored) {
+
+            }
+        }
+    }
+
 
     private final String submit_subsignature = "java.util.concurrent.Future submit(java.util.concurrent.Callable)";
     public final String get_subsignature = "java.lang.Object get()";
