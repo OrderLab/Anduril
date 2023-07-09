@@ -242,7 +242,7 @@ public class LocalInjectionManager {
 
     public void inject(final int id, final int blockId) throws Throwable {
         if (!injected.get()) {
-            if (!TraceAgent.config.isTimeFeedback && !TraceAgent.config.isAugFeedback && !feedbackManager.isAllowed(id)) {
+            if (!TraceAgent.config.isTimeFeedback && !feedbackManager.isAllowed(id)) {
                 return;
             }
             // System-specific exception

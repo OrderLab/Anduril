@@ -69,6 +69,11 @@ public class AugmentedFeedbackManager extends FeedbackManager {
         return standalone.get(injectionId)[occurrence - 1] <= allowMap.get(injectionId).priority;
     }
 
+    @Override
+    public synchronized boolean isAllowed(final int injectionId) {
+        return allowMap.containsKey(injectionId);
+    }
+
     public void calc(final int windowSize, final int occurrenceSize) {
         this.allowMap.clear();
         for (int i = 0; i < this.graph.startNumber; i++) {
