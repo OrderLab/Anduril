@@ -98,7 +98,7 @@ public class ThreadSchedulingAnalysis {
     };
 
     private static final String[] handler_methods = {
-            "void uncaughtException(java.lang.Thread, java.lang.Throwable)",
+            "void uncaughtException(java.lang.Thread,java.lang.Throwable)",
     };
 
     private static final String[] calling_classes = {
