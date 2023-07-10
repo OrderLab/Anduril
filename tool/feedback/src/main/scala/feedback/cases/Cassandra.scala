@@ -9,7 +9,7 @@ final class Cassandra_17663 extends UnitTestWorkload {
 
 @unused
 final class Cassandra_6415 extends DistributedWorkload {
-  override val targetNode: Int = 0
+  override val targetNode: Int = 1
 }
 
 
