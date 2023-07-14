@@ -96,13 +96,13 @@ public class ZKSplitLogManagerCoordination extends ZKListener implements
       public Status finish(ServerName workerName, String logfile) {
         try {
           WALSplitter.finishSplitLogFile(logfile, conf);
-          if (++cc==1) {
-            throw new IOException("Inject Error");
+          //if (++cc==1) {
+           // throw new IOException("Inject Error");
           //  try {
           //    Thread.sleep(100000);
           //  } catch (Exception ignored) {
           //  }
-          }
+          //}
         } catch (IOException e) {
           LOG.warn("Could not finish splitting of log file " + logfile, e);
           return Status.ERR;
@@ -397,8 +397,8 @@ public class ZKSplitLogManagerCoordination extends ZKListener implements
           setDone(path, SUCCESS);
         } else {
           // Set by Jia Pan
-          resubmitOrFail(path, CHECK);
-          //resubmitOrFail(path, FORCE);
+          //resubmitOrFail(path, CHECK);
+          resubmitOrFail(path, FORCE);
         }
       } else {
         setDone(path, SUCCESS);
