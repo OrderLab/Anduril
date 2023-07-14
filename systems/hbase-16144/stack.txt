@@ -1,0 +1,2474 @@
+2023-06-29 17:00:01
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.331-b09 mixed mode):
+
+"Attach Listener" #823 daemon prio=9 os_prio=31 tid=0x00007fe43a896000 nid=0x12207 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"IPC Client (619257674) connection to localhost/127.0.0.1:60140 from panjia" #822 daemon prio=5 os_prio=31 tid=0x00007fe436b78000 nid=0xcf07 in Object.wait() [0x000070000949e000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.ipc.Client$Connection.waitForWork(Client.java:934)
+	- locked <0x0000000792105db0> (a org.apache.hadoop.ipc.Client$Connection)
+	at org.apache.hadoop.ipc.Client$Connection.run(Client.java:979)
+
+"Default-IPC-NioEventLoopGroup-6-8" #820 daemon prio=10 os_prio=31 tid=0x00007fe43a8f2000 nid=0x1a707 runnable [0x000070000939b000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a625b7e0> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a625c8e8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a625c808> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Timer for 'HBase' metrics system" #819 daemon prio=5 os_prio=31 tid=0x00007fe43caa2000 nid=0x17a17 in Object.wait() [0x000070000211d000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007915adb18> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"Default-IPC-NioEventLoopGroup-6-7" #818 daemon prio=10 os_prio=31 tid=0x00007fe438fe3800 nid=0xd40f runnable [0x0000700009298000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a625efc8> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a62600f0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6260010> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Default-IPC-NioEventLoopGroup-6-6" #817 daemon prio=10 os_prio=31 tid=0x00007fe436d7b000 nid=0x1b307 runnable [0x0000700007a50000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a62627d0> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a62638d8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a62637f8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Default-IPC-NioEventLoopGroup-6-5" #816 daemon prio=10 os_prio=31 tid=0x00007fe438bf7000 nid=0x35413 runnable [0x0000700008062000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6265fb8> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a62670c0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6266fe0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Default-IPC-NioEventLoopGroup-6-4" #815 daemon prio=10 os_prio=31 tid=0x00007fe43bae5800 nid=0x3280b runnable [0x0000700007f5f000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6282348> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6283450> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6283370> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"hconnection-0x14d74649-shared-pool11-t29" #814 daemon prio=5 os_prio=31 tid=0x00007fe438c7e000 nid=0x2610b in Object.wait() [0x0000700007e5c000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.hbase.client.RpcRetryingCallerImpl.callWithRetries(RpcRetryingCallerImpl.java:168)
+	- locked <0x00000007912b8648> (a java.util.concurrent.atomic.AtomicBoolean)
+	at org.apache.hadoop.hbase.client.HTable.get(HTable.java:386)
+	at org.apache.hadoop.hbase.client.HTable.get(HTable.java:360)
+	at org.apache.hadoop.hbase.MetaTableAccessor.getTableState(MetaTableAccessor.java:1078)
+	at org.apache.hadoop.hbase.client.ConnectionImplementation.getTableState(ConnectionImplementation.java:1949)
+	at org.apache.hadoop.hbase.client.ConnectionImplementation.isTableDisabled(ConnectionImplementation.java:583)
+	at org.apache.hadoop.hbase.client.ConnectionImplementation.relocateRegion(ConnectionImplementation.java:713)
+	at org.apache.hadoop.hbase.client.RpcRetryingCallerWithReadReplicas.getRegionLocations(RpcRetryingCallerWithReadReplicas.java:328)
+	at org.apache.hadoop.hbase.client.ScannerCallable.prepare(ScannerCallable.java:139)
+	at org.apache.hadoop.hbase.client.ScannerCallableWithReplicas$RetryingRPC.prepare(ScannerCallableWithReplicas.java:399)
+	at org.apache.hadoop.hbase.client.RpcRetryingCallerImpl.callWithRetries(RpcRetryingCallerImpl.java:105)
+	at org.apache.hadoop.hbase.client.ResultBoundedCompletionService$QueueingFuture.run(ResultBoundedCompletionService.java:80)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Default-IPC-NioEventLoopGroup-6-3" #707 daemon prio=10 os_prio=31 tid=0x00007fe43833c800 nid=0x2b50f runnable [0x000070001254b000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6285b30> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6286c38> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6286b58> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"IPC Parameter Sending Thread #2" #684 daemon prio=5 os_prio=31 tid=0x00007fe43aa0d800 nid=0x27d07 waiting on condition [0x00007000148b4000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000071501b0c0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RSProcedureDispatcher-pool4-t4" #619 daemon prio=5 os_prio=31 tid=0x00007fe43bb07800 nid=0x24e0b waiting on condition [0x0000700013e96000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b93580> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RSProcedureDispatcher-pool4-t3" #618 daemon prio=5 os_prio=31 tid=0x00007fe43bb07000 nid=0x24d0b waiting on condition [0x0000700013d93000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b93580> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"region-location-4" #617 daemon prio=5 os_prio=31 tid=0x00007fe438f8e000 nid=0x25807 waiting on condition [0x0000700013c90000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b59a8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1081)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"region-location-3" #616 daemon prio=5 os_prio=31 tid=0x00007fe438c13000 nid=0x25607 waiting on condition [0x0000700013b8d000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b59a8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1081)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"region-location-2" #615 daemon prio=5 os_prio=31 tid=0x00007fe43a9eb800 nid=0x26507 waiting on condition [0x0000700013a8a000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b59a8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1081)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"region-location-1" #614 daemon prio=5 os_prio=31 tid=0x00007fe437d28000 nid=0x25107 waiting on condition [0x0000700013987000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b59a8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1081)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-1-4" #433 daemon prio=10 os_prio=31 tid=0x00007fe438bf6000 nid=0x26e03 runnable [0x000070001367e000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714f96bb0> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x0000000714f97cb8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714f97bd8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Default-IPC-NioEventLoopGroup-6-2" #432 daemon prio=10 os_prio=31 tid=0x00007fe43bb02800 nid=0x24903 runnable [0x000070001357b000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a62872f0> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a64090d0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6287240> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"ReadOnlyZKClient-localhost:52738@0x33e55a02-EventThread" #431 daemon prio=5 os_prio=31 tid=0x00007fe43bb0d000 nid=0x24703 waiting on condition [0x0000700013478000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a7556eb8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:501)
+
+"ReadOnlyZKClient-localhost:52738@0x33e55a02-SendThread(localhost:52738)" #430 daemon prio=5 os_prio=31 tid=0x00007fe43bb0c800 nid=0x24603 runnable [0x0000700013375000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a7568bb8> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a7568bc8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a7568b68> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:349)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1141)
+
+"ReadOnlyZKClient-localhost:52738@0x33e55a02" #429 daemon prio=5 os_prio=31 tid=0x00007fe437d7c000 nid=0x24503 waiting on condition [0x0000700013272000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a75572d0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.DelayQueue.poll(DelayQueue.java:259)
+	at org.apache.hadoop.hbase.zookeeper.ReadOnlyZKClient.run(ReadOnlyZKClient.java:313)
+	at org.apache.hadoop.hbase.zookeeper.ReadOnlyZKClient$$Lambda$67/1255952251.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-3-4" #428 daemon prio=10 os_prio=31 tid=0x00007fe436dff800 nid=0x24303 runnable [0x000070001316f000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6a69140> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6b25b80> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6a690a0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Default-IPC-NioEventLoopGroup-6-1" #427 daemon prio=10 os_prio=31 tid=0x00007fe4383db000 nid=0x27303 runnable [0x000070001306c000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a640b8e0> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a640c9b8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a640b830> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"ReadOnlyZKClient-localhost:52738@0x06e3c829-EventThread" #425 daemon prio=5 os_prio=31 tid=0x00007fe43aba9000 nid=0x24203 waiting on condition [0x0000700012f69000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007159c5520> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:501)
+
+"ReadOnlyZKClient-localhost:52738@0x06e3c829-SendThread(localhost:52738)" #424 daemon prio=5 os_prio=31 tid=0x00007fe437d73000 nid=0x27503 runnable [0x0000700012e66000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a756aa20> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a756aa30> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a756a9d0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:349)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1141)
+
+"ReadOnlyZKClient-localhost:52738@0x06e3c829" #423 daemon prio=5 os_prio=31 tid=0x00007fe438bf3800 nid=0x27607 waiting on condition [0x0000700012d63000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007159c5cd0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.DelayQueue.poll(DelayQueue.java:259)
+	at org.apache.hadoop.hbase.zookeeper.ReadOnlyZKClient.run(ReadOnlyZKClient.java:313)
+	at org.apache.hadoop.hbase.zookeeper.ReadOnlyZKClient$$Lambda$67/1255952251.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RSProcedureDispatcher-pool4-t2" #415 daemon prio=5 os_prio=31 tid=0x00007fe437d68000 nid=0x27b0b waiting on condition [0x0000700012957000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b93580> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"region-location-0" #414 daemon prio=5 os_prio=31 tid=0x00007fe43bae4800 nid=0x23f07 waiting on condition [0x0000700012854000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b59a8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1081)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-3-3" #396 daemon prio=10 os_prio=31 tid=0x00007fe438abb800 nid=0x23503 runnable [0x0000700012448000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6aa32c0> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6ab50f0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6aa3210> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-3-2" #386 daemon prio=10 os_prio=31 tid=0x00007fe43abe3800 nid=0x28503 runnable [0x0000700011c30000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6a9f710> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6aa07e8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6a9f660> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RSProcedureDispatcher-pool4-t1" #385 daemon prio=5 os_prio=31 tid=0x00007fe43c9db000 nid=0x17307 waiting on condition [0x000070000b90a000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b93580> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-7" #382 daemon prio=10 os_prio=31 tid=0x00007fe438aa4000 nid=0x22a03 runnable [0x0000700011927000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6313558> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6afa3c0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a63134a8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-8" #381 daemon prio=10 os_prio=31 tid=0x00007fe438aa3000 nid=0x28903 runnable [0x0000700011824000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6443068> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a650e238> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6444090> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-6" #377 daemon prio=10 os_prio=31 tid=0x00007fe438c92800 nid=0x28e03 runnable [0x0000700011418000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a624ca58> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a624db30> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a624c9a8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-5" #371 daemon prio=10 os_prio=31 tid=0x00007fe43abda000 nid=0x21e03 runnable [0x0000700010e06000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a637bd60> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a637ce38> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a637bcb0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-4" #370 daemon prio=10 os_prio=31 tid=0x00007fe43abd9800 nid=0x21d03 runnable [0x0000700010d03000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a62e9080> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6b06ba8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a62e8fd0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"LeaseRenewer:panjia.hfs.1@localhost:60140" #369 daemon prio=5 os_prio=31 tid=0x00007fe43abd8800 nid=0x29403 waiting on condition [0x0000700010c00000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.LeaseRenewer.run(LeaseRenewer.java:444)
+	at org.apache.hadoop.hdfs.LeaseRenewer.access$700(LeaseRenewer.java:71)
+	at org.apache.hadoop.hdfs.LeaseRenewer$1.run(LeaseRenewer.java:304)
+	at java.lang.Thread.run(Thread.java:750)
+
+"LeaseRenewer:panjia.hfs.0@localhost:60140" #368 daemon prio=5 os_prio=31 tid=0x00007fe43ab08800 nid=0x21b03 waiting on condition [0x0000700010afd000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.LeaseRenewer.run(LeaseRenewer.java:444)
+	at org.apache.hadoop.hdfs.LeaseRenewer.access$700(LeaseRenewer.java:71)
+	at org.apache.hadoop.hdfs.LeaseRenewer$1.run(LeaseRenewer.java:304)
+	at java.lang.Thread.run(Thread.java:750)
+
+"ResponseProcessor for block BP-143119049-10.203.126.11-1688072333174:blk_1073741829_1005" #367 daemon prio=5 os_prio=31 tid=0x00007fe436e03000 nid=0x29603 runnable [0x00007000109fa000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a64eb0c0> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a64eb0b0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a64eae60> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hadoop.net.SocketIOWithTimeout$SelectorPool.select(SocketIOWithTimeout.java:335)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:157)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:161)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:131)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:118)
+	at java.io.FilterInputStream.read(FilterInputStream.java:83)
+	at java.io.FilterInputStream.read(FilterInputStream.java:83)
+	at org.apache.hadoop.hdfs.protocolPB.PBHelper.vintPrefixed(PBHelper.java:2292)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PipelineAck.readFields(PipelineAck.java:244)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer$ResponseProcessor.run(DFSOutputStream.java:847)
+
+"PacketResponder: BP-143119049-10.203.126.11-1688072333174:blk_1073741829_1005, type=HAS_DOWNSTREAM_IN_PIPELINE" #366 daemon prio=5 os_prio=31 tid=0x00007fe436e02800 nid=0x29703 runnable [0x00007000108f7000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x000000071512c800> (a sun.nio.ch.Util$3)
+	- locked <0x000000071512c7f0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000071512c5c0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hadoop.net.SocketIOWithTimeout$SelectorPool.select(SocketIOWithTimeout.java:335)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:157)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:161)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:131)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:118)
+	at java.io.FilterInputStream.read(FilterInputStream.java:83)
+	at java.io.FilterInputStream.read(FilterInputStream.java:83)
+	at org.apache.hadoop.hdfs.protocolPB.PBHelper.vintPrefixed(PBHelper.java:2292)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PipelineAck.readFields(PipelineAck.java:244)
+	at org.apache.hadoop.hdfs.server.datanode.BlockReceiver$PacketResponder.run(BlockReceiver.java:1291)
+	at java.lang.Thread.run(Thread.java:750)
+
+"PacketResponder: BP-143119049-10.203.126.11-1688072333174:blk_1073741829_1005, type=LAST_IN_PIPELINE, downstreams=0:[]" #365 daemon prio=5 os_prio=31 tid=0x00007fe438c5c800 nid=0x29903 in Object.wait() [0x00007000107f4000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:502)
+	at org.apache.hadoop.hdfs.server.datanode.BlockReceiver$PacketResponder.waitForAckHead(BlockReceiver.java:1238)
+	- locked <0x00000007a68a17c0> (a java.util.LinkedList)
+	at org.apache.hadoop.hdfs.server.datanode.BlockReceiver$PacketResponder.run(BlockReceiver.java:1309)
+	at java.lang.Thread.run(Thread.java:750)
+
+"DataXceiver for client DFSClient_NONMAPREDUCE_1378483879_13 at /127.0.0.1:60177 [Receiving block BP-143119049-10.203.126.11-1688072333174:blk_1073741829_1005]" #364 daemon prio=5 os_prio=31 tid=0x00007fe438c5c000 nid=0x29b03 runnable [0x00007000106f0000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a64ef860> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a64ef850> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a64ef600> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hadoop.net.SocketIOWithTimeout$SelectorPool.select(SocketIOWithTimeout.java:335)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:157)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:161)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:131)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	- locked <0x00000007a689f928> (a java.io.BufferedInputStream)
+	at java.io.DataInputStream.read(DataInputStream.java:149)
+	at org.apache.hadoop.io.IOUtils.readFully(IOUtils.java:200)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.doReadFully(PacketReceiver.java:213)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.doRead(PacketReceiver.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.receiveNextPacket(PacketReceiver.java:109)
+	at org.apache.hadoop.hdfs.server.datanode.BlockReceiver.receivePacket(BlockReceiver.java:503)
+	at org.apache.hadoop.hdfs.server.datanode.BlockReceiver.receiveBlock(BlockReceiver.java:903)
+	at org.apache.hadoop.hdfs.server.datanode.DataXceiver.writeBlock(DataXceiver.java:805)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Receiver.opWriteBlock(Receiver.java:137)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Receiver.processOp(Receiver.java:74)
+	at org.apache.hadoop.hdfs.server.datanode.DataXceiver.run(DataXceiver.java:253)
+	at java.lang.Thread.run(Thread.java:750)
+
+"DataXceiver for client DFSClient_NONMAPREDUCE_1378483879_13 at /127.0.0.1:60176 [Receiving block BP-143119049-10.203.126.11-1688072333174:blk_1073741829_1005]" #363 daemon prio=5 os_prio=31 tid=0x00007fe437e02000 nid=0x21703 runnable [0x00007000105ed000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a688b610> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a688b600> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a688b3b0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hadoop.net.SocketIOWithTimeout$SelectorPool.select(SocketIOWithTimeout.java:335)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:157)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:161)
+	at org.apache.hadoop.net.SocketInputStream.read(SocketInputStream.java:131)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	- locked <0x00000007a6503b78> (a java.io.BufferedInputStream)
+	at java.io.DataInputStream.read(DataInputStream.java:149)
+	at org.apache.hadoop.io.IOUtils.readFully(IOUtils.java:200)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.doReadFully(PacketReceiver.java:213)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.doRead(PacketReceiver.java:134)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.PacketReceiver.receiveNextPacket(PacketReceiver.java:109)
+	at org.apache.hadoop.hdfs.server.datanode.BlockReceiver.receivePacket(BlockReceiver.java:503)
+	at org.apache.hadoop.hdfs.server.datanode.BlockReceiver.receiveBlock(BlockReceiver.java:903)
+	at org.apache.hadoop.hdfs.server.datanode.DataXceiver.writeBlock(DataXceiver.java:805)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Receiver.opWriteBlock(Receiver.java:137)
+	at org.apache.hadoop.hdfs.protocol.datatransfer.Receiver.processOp(Receiver.java:74)
+	at org.apache.hadoop.hdfs.server.datanode.DataXceiver.run(DataXceiver.java:253)
+	at java.lang.Thread.run(Thread.java:750)
+
+"regionserver/panjiadembp:0.procedureResultReporter" #346 daemon prio=5 os_prio=31 tid=0x00007fe43ab0c800 nid=0x20f03 waiting on condition [0x000070000fdd6000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a74ba048> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.hadoop.hbase.regionserver.RemoteProcedureResultReporter.run(RemoteProcedureResultReporter.java:75)
+
+"regionserver/panjiadembp:0.procedureResultReporter" #345 daemon prio=5 os_prio=31 tid=0x00007fe43d0bc800 nid=0x20b03 waiting on condition [0x000070000facd000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a71e9110> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.hadoop.hbase.regionserver.RemoteProcedureResultReporter.run(RemoteProcedureResultReporter.java:75)
+
+"IPC Parameter Sending Thread #1" #342 daemon prio=5 os_prio=31 tid=0x00007fe43aaf7000 nid=0x20203 waiting on condition [0x000070000f4bb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000071501b0c0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"threadDeathWatcher-5-1" #331 daemon prio=1 os_prio=31 tid=0x00007fe43d0a2800 nid=0x1a603 waiting on condition [0x000070000eba0000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hbase.thirdparty.io.netty.util.ThreadDeathWatcher$Watcher.run(ThreadDeathWatcher.java:152)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Thread-118-HFileCleaner.small.0-1688072340190" #330 daemon prio=5 os_prio=31 tid=0x00007fe43aaf1800 nid=0x1a503 waiting on condition [0x000070000ea9d000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a733bb80> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.PriorityBlockingQueue.take(PriorityBlockingQueue.java:549)
+	at org.apache.hadoop.hbase.master.cleaner.HFileCleaner.consumerLoop(HFileCleaner.java:232)
+	at org.apache.hadoop.hbase.master.cleaner.HFileCleaner$2.run(HFileCleaner.java:216)
+
+"Thread-118-HFileCleaner.large.0-1688072340186" #329 daemon prio=5 os_prio=31 tid=0x00007fe438f77800 nid=0x1b703 waiting on condition [0x000070000e99a000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a733bde0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at org.apache.hadoop.hbase.util.StealJobQueue.take(StealJobQueue.java:106)
+	at org.apache.hadoop.hbase.master.cleaner.HFileCleaner.consumerLoop(HFileCleaner.java:232)
+	at org.apache.hadoop.hbase.master.cleaner.HFileCleaner$1.run(HFileCleaner.java:201)
+
+"RS-EventLoopGroup-1-3" #328 daemon prio=10 os_prio=31 tid=0x00007fe43aeff800 nid=0x1a403 runnable [0x000070000e897000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714f9a398> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x0000000714f9b4a0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714f9b3c0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"snapshot-hfile-cleaner-cache-refresher" #327 daemon prio=5 os_prio=31 tid=0x00007fe436dd3000 nid=0x1a303 in Object.wait() [0x000070000e794000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007a733b5f0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"RS-EventLoopGroup-1-2" #326 daemon prio=10 os_prio=31 tid=0x00007fe438f76000 nid=0x1a103 runnable [0x000070000e691000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714f9db80> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x0000000714f9ec88> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714f9eba8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"master/panjiadembp:0.Chore.1" #325 daemon prio=5 os_prio=31 tid=0x00007fe43af01000 nid=0x1a003 waiting on condition [0x000070000e58e000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b6ef8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RpcClient-timer-pool1-t1" #288 daemon prio=5 os_prio=31 tid=0x00007fe43af00800 nid=0x1bc03 waiting on condition [0x000070000e48b000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hbase.thirdparty.io.netty.util.HashedWheelTimer$Worker.waitForNextTick(HashedWheelTimer.java:560)
+	at org.apache.hbase.thirdparty.io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:459)
+	at java.lang.Thread.run(Thread.java:750)
+
+"OldWALsCleaner-1" #324 daemon prio=5 os_prio=31 tid=0x00007fe43d0a5800 nid=0x19e03 waiting on condition [0x000070000e388000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b49e8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.hadoop.hbase.master.cleaner.LogCleaner.deleteFile(LogCleaner.java:148)
+	at org.apache.hadoop.hbase.master.cleaner.LogCleaner.lambda$createOldWalsCleaner$0(LogCleaner.java:126)
+	at org.apache.hadoop.hbase.master.cleaner.LogCleaner$$Lambda$79/1050990779.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:750)
+
+"OldWALsCleaner-0" #323 daemon prio=5 os_prio=31 tid=0x00007fe43bcb9800 nid=0x19c03 waiting on condition [0x000070000e285000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b49e8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.hadoop.hbase.master.cleaner.LogCleaner.deleteFile(LogCleaner.java:148)
+	at org.apache.hadoop.hbase.master.cleaner.LogCleaner.lambda$createOldWalsCleaner$0(LogCleaner.java:126)
+	at org.apache.hadoop.hbase.master.cleaner.LogCleaner$$Lambda$79/1050990779.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-2" #322 daemon prio=10 os_prio=31 tid=0x00007fe438f75000 nid=0x19b03 runnable [0x000070000e182000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a62eb430> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6b06518> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a62eb380> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-3" #321 daemon prio=10 os_prio=31 tid=0x00007fe438f74800 nid=0x19903 runnable [0x000070000e07f000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a637def8> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a68671f0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a637de48> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Thread-118-EventThread" #320 daemon prio=5 os_prio=31 tid=0x00007fe436de0800 nid=0x19703 waiting on condition [0x000070000df7c000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b3d68> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:501)
+
+"Thread-118-SendThread(localhost:52738)" #319 daemon prio=5 os_prio=31 tid=0x00007fe43d0a0000 nid=0x19503 runnable [0x000070000de79000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a739b8c8> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a739b8b8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a739b448> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:349)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1141)
+
+"ProcedureDispatcherTimeoutThread" #318 daemon prio=5 os_prio=31 tid=0x00007fe43af06000 nid=0x19403 waiting on condition [0x000070000dd76000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b93380> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.DelayQueue.take(DelayQueue.java:211)
+	at org.apache.hadoop.hbase.procedure2.util.DelayedUtil.takeWithoutInterrupt(DelayedUtil.java:78)
+	at org.apache.hadoop.hbase.procedure2.RemoteProcedureDispatcher$TimeoutExecutorThread.run(RemoteProcedureDispatcher.java:293)
+
+"PEWorker-16" #316 daemon prio=5 os_prio=31 tid=0x00007fe43d0a4800 nid=0x19303 waiting on condition [0x000070000dc73000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-15" #315 daemon prio=5 os_prio=31 tid=0x00007fe43d087000 nid=0x1c003 waiting on condition [0x000070000db70000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-14" #314 daemon prio=5 os_prio=31 tid=0x00007fe43af04800 nid=0x1c103 waiting on condition [0x000070000da6d000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-13" #313 daemon prio=5 os_prio=31 tid=0x00007fe438f73800 nid=0x19003 waiting on condition [0x000070000d96a000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-12" #312 daemon prio=5 os_prio=31 tid=0x00007fe436ddf800 nid=0x18f03 waiting on condition [0x000070000d867000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-11" #311 daemon prio=5 os_prio=31 tid=0x00007fe438f73000 nid=0x1c503 waiting on condition [0x000070000d764000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-10" #310 daemon prio=5 os_prio=31 tid=0x00007fe438f72000 nid=0x1c603 waiting on condition [0x000070000d661000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-9" #309 daemon prio=5 os_prio=31 tid=0x00007fe436b28800 nid=0x1c803 waiting on condition [0x000070000d55e000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-8" #308 daemon prio=5 os_prio=31 tid=0x00007fe438f71800 nid=0x18c03 in Object.wait() [0x000070000d45b000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.hbase.master.SplitLogManager.waitForSplittingCompletion(SplitLogManager.java:339)
+	- locked <0x000000078baf5460> (a org.apache.hadoop.hbase.master.SplitLogManager$TaskBatch)
+	at org.apache.hadoop.hbase.master.SplitLogManager.splitLogDistributed(SplitLogManager.java:258)
+	at org.apache.hadoop.hbase.master.MasterWalManager.splitLog(MasterWalManager.java:293)
+	at org.apache.hadoop.hbase.master.MasterWalManager.splitLog(MasterWalManager.java:278)
+	at org.apache.hadoop.hbase.master.MasterWalManager.splitLog(MasterWalManager.java:216)
+	at org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.splitLogs(ServerCrashProcedure.java:235)
+	at org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.executeFromState(ServerCrashProcedure.java:151)
+	at org.apache.hadoop.hbase.master.procedure.ServerCrashProcedure.executeFromState(ServerCrashProcedure.java:56)
+	at org.apache.hadoop.hbase.procedure2.StateMachineProcedure.execute(StateMachineProcedure.java:184)
+	at org.apache.hadoop.hbase.procedure2.Procedure.doExecute(Procedure.java:850)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor.execProcedure(ProcedureExecutor.java:1472)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor.executeProcedure(ProcedureExecutor.java:1240)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor.access$800(ProcedureExecutor.java:75)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1760)
+
+"PEWorker-7" #307 daemon prio=5 os_prio=31 tid=0x00007fe43af04000 nid=0x1ca03 waiting on condition [0x000070000d358000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-6" #306 daemon prio=5 os_prio=31 tid=0x00007fe438f70800 nid=0x18b03 waiting on condition [0x000070000d255000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-5" #305 daemon prio=5 os_prio=31 tid=0x00007fe43af03000 nid=0x1cd03 waiting on condition [0x000070000d152000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-4" #304 daemon prio=5 os_prio=31 tid=0x00007fe43af02800 nid=0x1ce03 waiting on condition [0x000070000d04f000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-3" #303 daemon prio=5 os_prio=31 tid=0x00007fe43aef8800 nid=0x18903 waiting on condition [0x000070000cf4c000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-2" #302 daemon prio=5 os_prio=31 tid=0x00007fe43aef8000 nid=0x18803 waiting on condition [0x000070000ce49000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"PEWorker-1" #301 daemon prio=5 os_prio=31 tid=0x00007fe438f70000 nid=0x18603 waiting on condition [0x000070000cd46000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6bb4980> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:159)
+	at org.apache.hadoop.hbase.procedure2.AbstractProcedureScheduler.poll(AbstractProcedureScheduler.java:141)
+	at org.apache.hadoop.hbase.procedure2.ProcedureExecutor$WorkerThread.run(ProcedureExecutor.java:1749)
+
+"ProcExecTimeout" #300 daemon prio=5 os_prio=31 tid=0x00007fe436c86800 nid=0x18403 waiting on condition [0x000070000cc43000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6c90968> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+	at org.apache.hadoop.hbase.procedure2.util.DelayedUtil.takeWithoutInterrupt(DelayedUtil.java:78)
+	at org.apache.hadoop.hbase.procedure2.TimeoutExecutorThread.run(TimeoutExecutorThread.java:56)
+
+"DataStreamer for file /user/panjia/test-data/897318f4-7bc7-45da-a430-439258ab3d48/MasterProcWALs/pv2-00000000000000000001.log block BP-143119049-10.203.126.11-1688072333174:blk_1073741829_1005" #317 daemon prio=5 os_prio=31 tid=0x00007fe438f5f000 nid=0x1d203 in Object.wait() [0x000070000cb40000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:523)
+	- locked <0x00000007a6bb8e10> (a java.util.LinkedList)
+
+"WALProcedureStoreSyncThread" #299 daemon prio=5 os_prio=31 tid=0x00007fe438f5c000 nid=0x18203 waiting on condition [0x000070000ca3d000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6c91300> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2163)
+	at org.apache.hadoop.hbase.procedure2.store.wal.WALProcedureStore.syncLoop(WALProcedureStore.java:777)
+	at org.apache.hadoop.hbase.procedure2.store.wal.WALProcedureStore.access$000(WALProcedureStore.java:70)
+	at org.apache.hadoop.hbase.procedure2.store.wal.WALProcedureStore$1.run(WALProcedureStore.java:272)
+
+"master/panjiadembp:0" #290 daemon prio=5 os_prio=31 tid=0x00007fe436872800 nid=0x1de0f waiting on condition [0x000070000c122000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hbase.util.Threads.sleep(Threads.java:148)
+	at org.apache.hadoop.hbase.master.assignment.AssignmentManager.processAssignQueue(AssignmentManager.java:1760)
+	at org.apache.hadoop.hbase.master.assignment.AssignmentManager.access$400(AssignmentManager.java:109)
+	at org.apache.hadoop.hbase.master.assignment.AssignmentManager$2.run(AssignmentManager.java:1664)
+
+"Idle-Rpc-Conn-Sweeper-pool2-t1" #289 daemon prio=5 os_prio=31 tid=0x00007fe438c19800 nid=0x1750f waiting on condition [0x000070000c01f000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a656b798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"ReadOnlyZKClient-localhost:52738@0x7b628e48-EventThread" #287 daemon prio=5 os_prio=31 tid=0x00007fe43aeee000 nid=0x1760f waiting on condition [0x000070000bf1c000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b91d20> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:501)
+
+"ReadOnlyZKClient-localhost:52738@0x7b628e48-SendThread(localhost:52738)" #286 daemon prio=5 os_prio=31 tid=0x00007fe43aeed800 nid=0x1e10f runnable [0x000070000be19000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6b91770> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a6b91760> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6b912f0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:349)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1141)
+
+"ReadOnlyZKClient-localhost:52738@0x7b628e48" #285 daemon prio=5 os_prio=31 tid=0x00007fe43d080800 nid=0x1e00f waiting on condition [0x000070000bd16000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b8f8b8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.DelayQueue.poll(DelayQueue.java:259)
+	at org.apache.hadoop.hbase.zookeeper.ReadOnlyZKClient.run(ReadOnlyZKClient.java:313)
+	at org.apache.hadoop.hbase.zookeeper.ReadOnlyZKClient$$Lambda$67/1255952251.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:750)
+
+"master/panjiadembp:0.splitLogManager..Chore.1" #284 daemon prio=5 os_prio=31 tid=0x00007fe43d081800 nid=0x1781b waiting on condition [0x000070000bc13000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a73b84c0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.PeerCache@2810cea" #261 daemon prio=5 os_prio=31 tid=0x00007fe438eb9800 nid=0x1e403 waiting on condition [0x000070000ba0d000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.PeerCache.run(PeerCache.java:255)
+	at org.apache.hadoop.hdfs.PeerCache.access$000(PeerCache.java:46)
+	at org.apache.hadoop.hdfs.PeerCache$1.run(PeerCache.java:124)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Thread-118-MemStoreChunkPool Statistics" #259 daemon prio=5 os_prio=31 tid=0x00007fe43d06c000 nid=0x17203 waiting on condition [0x000070000b807000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a71a4100> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Thread-118-MemStoreChunkPool Statistics" #257 daemon prio=5 os_prio=31 tid=0x00007fe437e48000 nid=0x1e707 waiting on condition [0x000070000b704000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65ebe40> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Monitor thread for TaskMonitor" #253 daemon prio=5 os_prio=31 tid=0x00007fe436db3800 nid=0x16f03 waiting on condition [0x000070000b601000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hbase.monitoring.TaskMonitor$MonitorRunnable.run(TaskMonitor.java:302)
+	at java.lang.Thread.run(Thread.java:750)
+
+"M:0;panjiadembp:60154" #213 daemon prio=5 os_prio=31 tid=0x00007fe436c16000 nid=0x1ea03 in Object.wait() [0x000070000b3fb000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.hbase.util.Sleeper.sleep(Sleeper.java:92)
+	- locked <0x0000000715368218> (a java.lang.Object)
+	at org.apache.hadoop.hbase.util.Sleeper.sleep(Sleeper.java:56)
+	at org.apache.hadoop.hbase.master.HMaster.waitForMasterActive(HMaster.java:675)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.initializeZooKeeper(HRegionServer.java:884)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.preRegistrationInitialization(HRegionServer.java:828)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.run(HRegionServer.java:931)
+	at org.apache.hadoop.hbase.master.HMaster.run(HMaster.java:582)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-4-1" #234 daemon prio=10 os_prio=31 tid=0x00007fe43797d800 nid=0x15d03 runnable [0x000070000a2c8000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6444688> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a64e4938> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a64445d8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RS-EventLoopGroup-3-1" #215 daemon prio=10 os_prio=31 tid=0x00007fe438c56000 nid=0xf703 runnable [0x0000700009195000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6a6a6b0> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007a6a6b788> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6a6a600> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"RpcServer.replication.FPBQ.Fifo.handler=2,queue=0,port=60154" #212 daemon prio=5 os_prio=31 tid=0x00007fe43ae99800 nid=0xf603 waiting on condition [0x0000700009092000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65daf68> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.replication.FPBQ.Fifo.handler=1,queue=0,port=60154" #211 daemon prio=5 os_prio=31 tid=0x00007fe43ae5b800 nid=0x10e03 waiting on condition [0x0000700008f8f000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65db278> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.replication.FPBQ.Fifo.handler=0,queue=0,port=60154" #210 daemon prio=5 os_prio=31 tid=0x00007fe438976000 nid=0x10f03 waiting on condition [0x0000700008e8c000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65db568> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.priority.FPBQ.Fifo.handler=5,queue=0,port=60154" #209 daemon prio=5 os_prio=31 tid=0x00007fe43896f800 nid=0x11103 waiting on condition [0x0000700008d89000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65d5540> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.priority.FPBQ.Fifo.handler=4,queue=0,port=60154" #208 daemon prio=5 os_prio=31 tid=0x00007fe43cc0c000 nid=0x11303 waiting on condition [0x0000700008c86000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65d5a30> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.priority.FPBQ.Fifo.handler=3,queue=0,port=60154" #207 daemon prio=5 os_prio=31 tid=0x00007fe43bdeb000 nid=0xf303 waiting on condition [0x0000700008b83000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65d5d70> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.priority.FPBQ.Fifo.handler=2,queue=0,port=60154" #206 daemon prio=5 os_prio=31 tid=0x00007fe438eb7800 nid=0x11603 waiting on condition [0x0000700008a80000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65d6060> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.priority.FPBQ.Fifo.handler=1,queue=0,port=60154" #205 daemon prio=5 os_prio=31 tid=0x00007fe43ae5b000 nid=0xf203 waiting on condition [0x000070000897d000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65d6350> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.priority.FPBQ.Fifo.handler=0,queue=0,port=60154" #204 daemon prio=5 os_prio=31 tid=0x00007fe43ca4b000 nid=0xf103 waiting on condition [0x000070000887a000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65d6640> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.default.FPBQ.Fifo.handler=4,queue=0,port=60154" #203 daemon prio=5 os_prio=31 tid=0x00007fe43c573000 nid=0x11903 waiting on condition [0x0000700008777000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a639b2f8> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.default.FPBQ.Fifo.handler=3,queue=0,port=60154" #202 daemon prio=5 os_prio=31 tid=0x00007fe43ca84000 nid=0xee03 waiting on condition [0x0000700008674000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65da0e8> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.default.FPBQ.Fifo.handler=2,queue=0,port=60154" #201 daemon prio=5 os_prio=31 tid=0x00007fe4388f9000 nid=0xed03 waiting on condition [0x0000700008571000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65da408> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.default.FPBQ.Fifo.handler=1,queue=0,port=60154" #200 daemon prio=5 os_prio=31 tid=0x00007fe43c993000 nid=0xec03 waiting on condition [0x000070000846e000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65da6f8> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"RpcServer.default.FPBQ.Fifo.handler=0,queue=0,port=60154" #199 daemon prio=5 os_prio=31 tid=0x00007fe43bb55000 nid=0xeb03 waiting on condition [0x000070000836b000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a65da9e8> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:836)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:997)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:312)
+	at org.apache.hadoop.hbase.ipc.FastPathBalancedQueueRpcExecutor$FastPathHandler.getCallRunner(FastPathBalancedQueueRpcExecutor.java:104)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:304)
+
+"Time-limited test-EventThread" #198 daemon prio=5 os_prio=31 tid=0x00007fe43c80f000 nid=0x11e03 waiting on condition [0x0000700008268000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007a6b51b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:501)
+
+"Time-limited test-SendThread(localhost:52738)" #197 daemon prio=5 os_prio=31 tid=0x00007fe43ca77000 nid=0xe807 runnable [0x0000700008165000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007a6eb7ff0> (a sun.nio.ch.Util$3)
+	- locked <0x00000007a6eb7fe0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007a6eb7b70> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:349)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1141)
+
+"RS-EventLoopGroup-1-1" #191 daemon prio=10 os_prio=31 tid=0x00007fe436b2f000 nid=0xea07 runnable [0x0000700007d59000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714fa1368> (a org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x0000000714fa2470> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714fa2390> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)
+	at org.apache.hbase.thirdparty.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at org.apache.hbase.thirdparty.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:750)
+
+"HBase-Metrics2-1" #190 daemon prio=5 os_prio=31 tid=0x00007fe4369c3000 nid=0xd513 waiting on condition [0x0000700007b53000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714f307f8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"LeaseRenewer:panjia@localhost:60140" #183 daemon prio=5 os_prio=31 tid=0x00007fe436b3a000 nid=0xe103 waiting on condition [0x0000700007c56000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.LeaseRenewer.run(LeaseRenewer.java:444)
+	at org.apache.hadoop.hdfs.LeaseRenewer.access$700(LeaseRenewer.java:71)
+	at org.apache.hadoop.hdfs.LeaseRenewer$1.run(LeaseRenewer.java:304)
+	at java.lang.Thread.run(Thread.java:750)
+
+"java.util.concurrent.ThreadPoolExecutor$Worker@475b24e0[State = -1, empty queue]" #179 daemon prio=5 os_prio=31 tid=0x00007fe43af4a800 nid=0xd90b waiting on condition [0x0000700007644000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000715248458> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"java.util.concurrent.ThreadPoolExecutor$Worker@3ead6fb0[State = -1, empty queue]" #178 daemon prio=5 os_prio=31 tid=0x00007fe436cc4000 nid=0xe007 waiting on condition [0x000070000743e000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000071513a580> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"refreshUsed-/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data2/current/BP-143119049-10.203.126.11-1688072333174" #169 daemon prio=5 os_prio=31 tid=0x00007fe43af4b800 nid=0xd607 waiting on condition [0x0000700007747000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.fs.DU$DURefreshThread.run(DU.java:132)
+	at java.lang.Thread.run(Thread.java:750)
+
+"refreshUsed-/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data3/current/BP-143119049-10.203.126.11-1688072333174" #168 daemon prio=5 os_prio=31 tid=0x00007fe436bda800 nid=0x12607 waiting on condition [0x0000700007541000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.fs.DU$DURefreshThread.run(DU.java:132)
+	at java.lang.Thread.run(Thread.java:750)
+
+"refreshUsed-/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data4/current/BP-143119049-10.203.126.11-1688072333174" #167 daemon prio=5 os_prio=31 tid=0x00007fe43af63000 nid=0xdd07 waiting on condition [0x000070000794d000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.fs.DU$DURefreshThread.run(DU.java:132)
+	at java.lang.Thread.run(Thread.java:750)
+
+"refreshUsed-/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data1/current/BP-143119049-10.203.126.11-1688072333174" #166 daemon prio=5 os_prio=31 tid=0x00007fe438946000 nid=0xdb0b waiting on condition [0x000070000784a000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.fs.DU$DURefreshThread.run(DU.java:132)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.server.datanode.fsdataset.impl.FsDatasetImpl$LazyWriter@3e2d3623" #155 daemon prio=5 os_prio=31 tid=0x00007fe436d75800 nid=0x12903 waiting on condition [0x000070000733b000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.datanode.fsdataset.impl.FsDatasetImpl$LazyWriter.run(FsDatasetImpl.java:3071)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.server.datanode.fsdataset.impl.FsDatasetImpl$LazyWriter@4540ef7" #154 daemon prio=5 os_prio=31 tid=0x00007fe437cb0000 nid=0x12a03 waiting on condition [0x0000700007238000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.datanode.fsdataset.impl.FsDatasetImpl$LazyWriter.run(FsDatasetImpl.java:3071)
+	at java.lang.Thread.run(Thread.java:750)
+
+"VolumeScannerThread(/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data2)" #153 daemon prio=5 os_prio=31 tid=0x00007fe438eb3800 nid=0xd103 in Object.wait() [0x0000700007135000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000715038460> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+	at org.apache.hadoop.hdfs.server.datanode.VolumeScanner.run(VolumeScanner.java:622)
+	- locked <0x0000000715038460> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+
+"VolumeScannerThread(/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data4)" #152 daemon prio=5 os_prio=31 tid=0x00007fe43c5a1000 nid=0x12e07 in Object.wait() [0x0000700007032000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000715244a60> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+	at org.apache.hadoop.hdfs.server.datanode.VolumeScanner.run(VolumeScanner.java:622)
+	- locked <0x0000000715244a60> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+
+"VolumeScannerThread(/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data1)" #151 daemon prio=5 os_prio=31 tid=0x00007fe437b8f800 nid=0x12c07 in Object.wait() [0x0000700006f2f000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000715035010> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+	at org.apache.hadoop.hdfs.server.datanode.VolumeScanner.run(VolumeScanner.java:622)
+	- locked <0x0000000715035010> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+
+"VolumeScannerThread(/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data3)" #150 daemon prio=5 os_prio=31 tid=0x00007fe438556800 nid=0x4c0f in Object.wait() [0x0000700006e01000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000715233a78> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+	at org.apache.hadoop.hdfs.server.datanode.VolumeScanner.run(VolumeScanner.java:622)
+	- locked <0x0000000715233a78> (a org.apache.hadoop.hdfs.server.datanode.VolumeScanner)
+
+"IPC Server handler 9 on 60150" #144 daemon prio=5 os_prio=31 tid=0x00007fe437da4000 nid=0xce03 waiting on condition [0x0000700006cfe000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 8 on 60150" #143 daemon prio=5 os_prio=31 tid=0x00007fe438556000 nid=0x13203 waiting on condition [0x0000700006bfb000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 7 on 60150" #142 daemon prio=5 os_prio=31 tid=0x00007fe438555000 nid=0x13303 waiting on condition [0x0000700006af8000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 6 on 60150" #141 daemon prio=5 os_prio=31 tid=0x00007fe437da9000 nid=0xcb03 waiting on condition [0x00007000069f5000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 5 on 60150" #140 daemon prio=5 os_prio=31 tid=0x00007fe4382b3000 nid=0x13403 waiting on condition [0x00007000068f2000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 4 on 60150" #139 daemon prio=5 os_prio=31 tid=0x00007fe437caf800 nid=0xc803 waiting on condition [0x00007000067ef000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 3 on 60150" #138 daemon prio=5 os_prio=31 tid=0x00007fe4382b2800 nid=0xc703 waiting on condition [0x00007000066ec000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 2 on 60150" #137 daemon prio=5 os_prio=31 tid=0x00007fe437da3000 nid=0x13703 waiting on condition [0x00007000065e9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 1 on 60150" #136 daemon prio=5 os_prio=31 tid=0x00007fe438543800 nid=0x13903 waiting on condition [0x00007000064e6000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 0 on 60150" #135 daemon prio=5 os_prio=31 tid=0x00007fe438558000 nid=0xc503 waiting on condition [0x00007000063e3000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151f90f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server listener on 60150" #130 daemon prio=5 os_prio=31 tid=0x00007fe438402000 nid=0x13a03 runnable [0x00007000062e0000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x000000071520b828> (a sun.nio.ch.Util$3)
+	- locked <0x000000071520b818> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000071520b448> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.apache.hadoop.ipc.Server$Listener.run(Server.java:807)
+
+"IPC Server Responder" #133 daemon prio=5 os_prio=31 tid=0x00007fe437e47800 nid=0x13b03 runnable [0x00007000061dd000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x000000071520c378> (a sun.nio.ch.Util$3)
+	- locked <0x000000071520c368> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000071520c248> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hadoop.ipc.Server$Responder.doRunLoop(Server.java:982)
+	at org.apache.hadoop.ipc.Server$Responder.run(Server.java:965)
+
+"org.apache.hadoop.hdfs.server.datanode.DataXceiverServer@4057d6e2" #106 daemon prio=5 os_prio=31 tid=0x00007fe437f5e800 nid=0x13d03 runnable [0x00007000060da000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.ServerSocketChannelImpl.accept0(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:424)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:252)
+	- locked <0x000000071515d7d0> (a java.lang.Object)
+	at sun.nio.ch.ServerSocketAdaptor.accept(ServerSocketAdaptor.java:100)
+	- locked <0x000000071515d7a0> (a java.lang.Object)
+	at org.apache.hadoop.hdfs.net.TcpPeerServer.accept(TcpPeerServer.java:141)
+	at org.apache.hadoop.hdfs.server.datanode.DataXceiverServer.run(DataXceiverServer.java:135)
+	at java.lang.Thread.run(Thread.java:750)
+
+"DataNode: [[[DISK]file:/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data3/, [DISK]file:/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data4/]]  heartbeating to localhost/127.0.0.1:60140" #134 daemon prio=5 os_prio=31 tid=0x00007fe437e39800 nid=0x13f03 in Object.wait() [0x0000700005fd7000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.hdfs.server.datanode.IncrementalBlockReportManager.waitTillNextIBR(IncrementalBlockReportManager.java:130)
+	- locked <0x000000071515cfb8> (a org.apache.hadoop.hdfs.server.datanode.IncrementalBlockReportManager)
+	at org.apache.hadoop.hdfs.server.datanode.BPServiceActor.offerService(BPServiceActor.java:542)
+	at org.apache.hadoop.hdfs.server.datanode.BPServiceActor.run(BPServiceActor.java:659)
+	at java.lang.Thread.run(Thread.java:750)
+
+"IPC Server idle connection scanner for port 60150" #132 daemon prio=5 os_prio=31 tid=0x00007fe43849a000 nid=0x14003 in Object.wait() [0x0000700005ed4000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x000000071520aba8> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"Socket Reader #1 for port 60150" #131 daemon prio=5 os_prio=31 tid=0x00007fe438493000 nid=0x14103 runnable [0x0000700005dd1000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x000000071520bd90> (a sun.nio.ch.Util$3)
+	- locked <0x000000071520bd80> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000071520bc60> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.apache.hadoop.ipc.Server$Listener$Reader.doRunLoop(Server.java:745)
+	- locked <0x000000071520b9a0> (a org.apache.hadoop.ipc.Server$Listener$Reader)
+	at org.apache.hadoop.ipc.Server$Listener$Reader.run(Server.java:724)
+
+"org.apache.hadoop.util.JvmPauseMonitor$Monitor@43ef6536" #129 daemon prio=5 os_prio=31 tid=0x00007fe43c4cb000 nid=0x14203 waiting on condition [0x0000700005cce000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.util.JvmPauseMonitor$Monitor.run(JvmPauseMonitor.java:182)
+	at java.lang.Thread.run(Thread.java:750)
+
+"nioEventLoopGroup-4-1" #113 prio=10 os_prio=31 tid=0x00007fe43c2aa000 nid=0xbf03 runnable [0x0000700005bcb000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007151e7178> (a io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x0000000715205880> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007151e70d8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:622)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:310)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:116)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:137)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Timer-2" #112 daemon prio=5 os_prio=31 tid=0x00007fe438d22800 nid=0xbe03 in Object.wait() [0x0000700005ac8000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007151b0690> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"IPC Parameter Sending Thread #0" #111 daemon prio=5 os_prio=31 tid=0x00007fe437b3e000 nid=0xbd03 waiting on condition [0x00007000059c5000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000071501b0c0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"IPC Client (619257674) connection to localhost/127.0.0.1:60140 from panjia" #110 daemon prio=5 os_prio=31 tid=0x00007fe43aba4000 nid=0x14703 in Object.wait() [0x00007000058c2000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.ipc.Client$Connection.waitForWork(Client.java:934)
+	- locked <0x0000000715007af0> (a org.apache.hadoop.ipc.Client$Connection)
+	at org.apache.hadoop.ipc.Client$Connection.run(Client.java:979)
+
+"20137754@qtp-1064176374-1 - Acceptor0 HttpServer2$SelectChannelConnectorWithSafeStartup@localhost:60147" #109 daemon prio=5 os_prio=31 tid=0x00007fe43833f800 nid=0xbb03 runnable [0x00007000057bf000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007151c5200> (a sun.nio.ch.Util$3)
+	- locked <0x00000007151c51f0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007151c4e10> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.mortbay.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:498)
+	at org.mortbay.io.nio.SelectorManager.doSelect(SelectorManager.java:192)
+	at org.mortbay.jetty.nio.SelectChannelConnector.accept(SelectChannelConnector.java:124)
+	at org.mortbay.jetty.AbstractConnector$Acceptor.run(AbstractConnector.java:708)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)
+
+"1187737625@qtp-1064176374-0" #108 daemon prio=5 os_prio=31 tid=0x00007fe436e4d800 nid=0xb903 in Object.wait() [0x00007000056bc000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:626)
+	- locked <0x00000007151c5380> (a org.mortbay.thread.QueuedThreadPool$PoolThread)
+
+"pool-6-thread-1" #107 prio=5 os_prio=31 tid=0x00007fe437917800 nid=0x14913 waiting on condition [0x00007000055b9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007151b1108> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"IPC Server handler 9 on 60144" #101 daemon prio=5 os_prio=31 tid=0x00007fe43896a800 nid=0xb703 waiting on condition [0x00007000054b6000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 8 on 60144" #100 daemon prio=5 os_prio=31 tid=0x00007fe43c2a2000 nid=0xb603 waiting on condition [0x00007000053b3000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 7 on 60144" #99 daemon prio=5 os_prio=31 tid=0x00007fe43c2a1000 nid=0x14b03 waiting on condition [0x00007000052b0000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 6 on 60144" #98 daemon prio=5 os_prio=31 tid=0x00007fe43c2a0800 nid=0xb403 waiting on condition [0x00007000051ad000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 5 on 60144" #97 daemon prio=5 os_prio=31 tid=0x00007fe437c77800 nid=0x14e03 waiting on condition [0x00007000050aa000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 4 on 60144" #96 daemon prio=5 os_prio=31 tid=0x00007fe43ca23000 nid=0xb203 waiting on condition [0x0000700004fa7000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 3 on 60144" #95 daemon prio=5 os_prio=31 tid=0x00007fe437c76800 nid=0xb003 waiting on condition [0x0000700004ea4000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 2 on 60144" #94 daemon prio=5 os_prio=31 tid=0x00007fe43833f000 nid=0x14f03 waiting on condition [0x0000700004da1000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 1 on 60144" #93 daemon prio=5 os_prio=31 tid=0x00007fe43836e000 nid=0x15003 waiting on condition [0x0000700004c9e000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 0 on 60144" #92 daemon prio=5 os_prio=31 tid=0x00007fe43796f800 nid=0x15203 waiting on condition [0x0000700004b9b000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714fe4b78> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server listener on 60144" #87 daemon prio=5 os_prio=31 tid=0x00007fe43796e800 nid=0xad03 runnable [0x0000700004a98000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714fe7b68> (a sun.nio.ch.Util$3)
+	- locked <0x0000000714fe7b58> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714fe7788> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.apache.hadoop.ipc.Server$Listener.run(Server.java:807)
+
+"IPC Server Responder" #90 daemon prio=5 os_prio=31 tid=0x00007fe43836d000 nid=0xac03 runnable [0x0000700004995000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714fe86b8> (a sun.nio.ch.Util$3)
+	- locked <0x0000000714fe86a8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714fe8588> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hadoop.ipc.Server$Responder.doRunLoop(Server.java:982)
+	at org.apache.hadoop.ipc.Server$Responder.run(Server.java:965)
+
+"org.apache.hadoop.hdfs.server.datanode.DataXceiverServer@6399ac1a" #64 daemon prio=5 os_prio=31 tid=0x00007fe43834a000 nid=0xaa03 runnable [0x0000700004892000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.ServerSocketChannelImpl.accept0(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:424)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:252)
+	- locked <0x0000000715045568> (a java.lang.Object)
+	at sun.nio.ch.ServerSocketAdaptor.accept(ServerSocketAdaptor.java:100)
+	- locked <0x0000000715045538> (a java.lang.Object)
+	at org.apache.hadoop.hdfs.net.TcpPeerServer.accept(TcpPeerServer.java:141)
+	at org.apache.hadoop.hdfs.server.datanode.DataXceiverServer.run(DataXceiverServer.java:135)
+	at java.lang.Thread.run(Thread.java:750)
+
+"DataNode: [[[DISK]file:/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data1/, [DISK]file:/Users/panjia/Desktop/hbase-20583/hbase/hbase-server/target/test-data/bcca59c1-fbef-4c7a-b474-c6f9b266ba79/cluster_28d9146d-d808-4a8f-8e2f-356a552ef161/dfs/data/data2/]]  heartbeating to localhost/127.0.0.1:60140" #91 daemon prio=5 os_prio=31 tid=0x00007fe43ca27800 nid=0x7c03 in Object.wait() [0x000070000478f000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.hadoop.hdfs.server.datanode.IncrementalBlockReportManager.waitTillNextIBR(IncrementalBlockReportManager.java:130)
+	- locked <0x00000007150248f0> (a org.apache.hadoop.hdfs.server.datanode.IncrementalBlockReportManager)
+	at org.apache.hadoop.hdfs.server.datanode.BPServiceActor.offerService(BPServiceActor.java:542)
+	at org.apache.hadoop.hdfs.server.datanode.BPServiceActor.run(BPServiceActor.java:659)
+	at java.lang.Thread.run(Thread.java:750)
+
+"IPC Server idle connection scanner for port 60144" #89 daemon prio=5 os_prio=31 tid=0x00007fe43a884800 nid=0x7e03 in Object.wait() [0x000070000468c000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x0000000714fe6ee8> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"Socket Reader #1 for port 60144" #88 daemon prio=5 os_prio=31 tid=0x00007fe437f9d000 nid=0x8003 runnable [0x0000700004589000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714fe80d0> (a sun.nio.ch.Util$3)
+	- locked <0x0000000714fe80c0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714fe7fa0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.apache.hadoop.ipc.Server$Listener$Reader.doRunLoop(Server.java:745)
+	- locked <0x0000000714fe7ce0> (a org.apache.hadoop.ipc.Server$Listener$Reader)
+	at org.apache.hadoop.ipc.Server$Listener$Reader.run(Server.java:724)
+
+"org.apache.hadoop.util.JvmPauseMonitor$Monitor@6c01a80a" #86 daemon prio=5 os_prio=31 tid=0x00007fe438378000 nid=0x8203 waiting on condition [0x0000700004486000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.util.JvmPauseMonitor$Monitor.run(JvmPauseMonitor.java:182)
+	at java.lang.Thread.run(Thread.java:750)
+
+"nioEventLoopGroup-2-1" #69 prio=10 os_prio=31 tid=0x00007fe438f94800 nid=0x8307 runnable [0x0000700004383000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x00000007150ca660> (a io.netty.channel.nio.SelectedSelectionKeySet)
+	- locked <0x00000007150f8f30> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007150ca5c0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:622)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:310)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:116)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:137)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Timer-1" #68 daemon prio=5 os_prio=31 tid=0x00007fe436d76800 nid=0x8403 in Object.wait() [0x0000700004280000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x0000000715088a48> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"1208400842@qtp-1407013044-1 - Acceptor0 HttpServer2$SelectChannelConnectorWithSafeStartup@localhost:60142" #67 daemon prio=5 os_prio=31 tid=0x00007fe43a883800 nid=0x7803 runnable [0x000070000417d000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x000000071509f0c0> (a sun.nio.ch.Util$3)
+	- locked <0x000000071509f0b0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000071509ecd0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.mortbay.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:498)
+	at org.mortbay.io.nio.SelectorManager.doSelect(SelectorManager.java:192)
+	at org.mortbay.jetty.nio.SelectChannelConnector.accept(SelectChannelConnector.java:124)
+	at org.mortbay.jetty.AbstractConnector$Acceptor.run(AbstractConnector.java:708)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)
+
+"653547522@qtp-1407013044-0" #66 daemon prio=5 os_prio=31 tid=0x00007fe438ee3800 nid=0x8703 in Object.wait() [0x000070000407a000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:626)
+	- locked <0x000000071509f240> (a org.mortbay.thread.QueuedThreadPool$PoolThread)
+
+"pool-4-thread-1" #65 prio=5 os_prio=31 tid=0x00007fe43a881800 nid=0x8913 waiting on condition [0x0000700003f77000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007150894c0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"CacheReplicationMonitor(1465756273)" #59 daemon prio=5 os_prio=31 tid=0x00007fe43a87e800 nid=0x7703 waiting on condition [0x0000700003e74000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007147ddc80> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2163)
+	at org.apache.hadoop.hdfs.server.blockmanagement.CacheReplicationMonitor.run(CacheReplicationMonitor.java:181)
+
+"org.apache.hadoop.hdfs.server.namenode.FSNamesystem$LazyPersistFileScrubber@7215397d" #58 daemon prio=5 os_prio=31 tid=0x00007fe43a87d800 nid=0x8b03 waiting on condition [0x0000700003d71000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem$LazyPersistFileScrubber.run(FSNamesystem.java:4725)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.server.namenode.FSNamesystem$NameNodeEditLogRoller@27fc855a" #57 daemon prio=5 os_prio=31 tid=0x00007fe436d72000 nid=0x7403 waiting on condition [0x0000700003c6e000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem$NameNodeEditLogRoller.run(FSNamesystem.java:4642)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.server.namenode.FSNamesystem$NameNodeResourceMonitor@7a00798c" #56 daemon prio=5 os_prio=31 tid=0x00007fe437f9c800 nid=0x7203 waiting on condition [0x0000700003b6b000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem$NameNodeResourceMonitor.run(FSNamesystem.java:4598)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.server.namenode.LeaseManager$Monitor@43765765" #55 daemon prio=5 os_prio=31 tid=0x00007fe43a87b800 nid=0x7003 waiting on condition [0x0000700003a68000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.namenode.LeaseManager$Monitor.run(LeaseManager.java:431)
+	at java.lang.Thread.run(Thread.java:750)
+
+"IPC Server handler 9 on 60140" #54 daemon prio=5 os_prio=31 tid=0x00007fe437f9b000 nid=0x8c03 waiting on condition [0x0000700003965000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 8 on 60140" #53 daemon prio=5 os_prio=31 tid=0x00007fe43a879800 nid=0x8d03 waiting on condition [0x0000700003862000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 7 on 60140" #52 daemon prio=5 os_prio=31 tid=0x00007fe438f11800 nid=0x6c03 waiting on condition [0x000070000375f000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 6 on 60140" #51 daemon prio=5 os_prio=31 tid=0x00007fe437f9a000 nid=0x8f03 waiting on condition [0x000070000365c000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 5 on 60140" #50 daemon prio=5 os_prio=31 tid=0x00007fe43a878800 nid=0x9103 waiting on condition [0x0000700003559000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 4 on 60140" #49 daemon prio=5 os_prio=31 tid=0x00007fe437f96800 nid=0x9303 waiting on condition [0x0000700003456000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 3 on 60140" #48 daemon prio=5 os_prio=31 tid=0x00007fe43a86d000 nid=0x6b03 waiting on condition [0x0000700003353000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 2 on 60140" #47 daemon prio=5 os_prio=31 tid=0x00007fe436d71800 nid=0x9603 waiting on condition [0x0000700003250000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 1 on 60140" #46 daemon prio=5 os_prio=31 tid=0x00007fe43a86c800 nid=0x6a03 waiting on condition [0x000070000314d000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server handler 0 on 60140" #45 daemon prio=5 os_prio=31 tid=0x00007fe43a872800 nid=0x9803 waiting on condition [0x000070000304a000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714ce7aa8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.apache.hadoop.ipc.CallQueueManager.take(CallQueueManager.java:136)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2185)
+
+"IPC Server listener on 60140" #35 daemon prio=5 os_prio=31 tid=0x00007fe437f99800 nid=0x9903 runnable [0x0000700002f47000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714dea7f0> (a sun.nio.ch.Util$3)
+	- locked <0x0000000714dea7e0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714dea410> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.apache.hadoop.ipc.Server$Listener.run(Server.java:807)
+
+"IPC Server Responder" #38 daemon prio=5 os_prio=31 tid=0x00007fe436d68800 nid=0x630f runnable [0x0000700002935000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714deb378> (a sun.nio.ch.Util$3)
+	- locked <0x0000000714deb368> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714deb248> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.hadoop.ipc.Server$Responder.doRunLoop(Server.java:982)
+	at org.apache.hadoop.ipc.Server$Responder.run(Server.java:965)
+
+"Block report processor" #33 daemon prio=5 os_prio=31 tid=0x00007fe436d64000 nid=0x6603 waiting on condition [0x0000700002e44000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000714e394e8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ArrayBlockingQueue.take(ArrayBlockingQueue.java:403)
+	at org.apache.hadoop.hdfs.server.blockmanagement.BlockManager$BlockReportProcessingThread.processQueue(BlockManager.java:3854)
+	at org.apache.hadoop.hdfs.server.blockmanagement.BlockManager$BlockReportProcessingThread.run(BlockManager.java:3843)
+
+"org.apache.hadoop.hdfs.server.blockmanagement.BlockManager$ReplicationMonitor@90493f" #32 daemon prio=5 os_prio=31 tid=0x00007fe436d63800 nid=0x9b03 waiting on condition [0x0000700002d41000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.blockmanagement.BlockManager$ReplicationMonitor.run(BlockManager.java:3638)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.server.blockmanagement.HeartbeatManager$Monitor@72b35e7c" #34 daemon prio=5 os_prio=31 tid=0x00007fe436d37000 nid=0x6503 waiting on condition [0x0000700002c3e000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.blockmanagement.HeartbeatManager$Monitor.run(HeartbeatManager.java:381)
+	at java.lang.Thread.run(Thread.java:750)
+
+"DecommissionMonitor-0" #44 daemon prio=5 os_prio=31 tid=0x00007fe436d5b800 nid=0x9e03 waiting on condition [0x0000700002b3b000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007145980e0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.hdfs.server.blockmanagement.PendingReplicationBlocks$PendingReplicationMonitor@659d3099" #43 daemon prio=5 os_prio=31 tid=0x00007fe438f0f000 nid=0x6403 waiting on condition [0x0000700002a38000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.hdfs.server.blockmanagement.PendingReplicationBlocks$PendingReplicationMonitor.run(PendingReplicationBlocks.java:221)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.util.JvmPauseMonitor$Monitor@6646a804" #39 daemon prio=5 os_prio=31 tid=0x00007fe436d54800 nid=0x6203 waiting on condition [0x0000700002832000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.hadoop.util.JvmPauseMonitor$Monitor.run(JvmPauseMonitor.java:182)
+	at java.lang.Thread.run(Thread.java:750)
+
+"IPC Server idle connection scanner for port 60140" #37 daemon prio=5 os_prio=31 tid=0x00007fe438ebb000 nid=0xa203 in Object.wait() [0x000070000272f000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x0000000714de9b70> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"Socket Reader #1 for port 60140" #36 daemon prio=5 os_prio=31 tid=0x00007fe437f86800 nid=0x5f03 runnable [0x000070000262c000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714dead58> (a sun.nio.ch.Util$3)
+	- locked <0x0000000714dead48> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714deac28> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.apache.hadoop.ipc.Server$Listener$Reader.doRunLoop(Server.java:745)
+	- locked <0x0000000714dea968> (a org.apache.hadoop.ipc.Server$Listener$Reader)
+	at org.apache.hadoop.ipc.Server$Listener$Reader.run(Server.java:724)
+
+"Timer-0" #31 daemon prio=5 os_prio=31 tid=0x00007fe436d1b800 nid=0xa403 in Object.wait() [0x0000700002529000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007146ad3e0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"1666692663@qtp-2091342248-1 - Acceptor0 HttpServer2$SelectChannelConnectorWithSafeStartup@localhost:60139" #30 daemon prio=5 os_prio=31 tid=0x00007fe436d1a000 nid=0x5e03 runnable [0x0000700002426000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x0000000714ce4490> (a sun.nio.ch.Util$3)
+	- locked <0x0000000714ce4480> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000714ce40a0> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.mortbay.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:498)
+	at org.mortbay.io.nio.SelectorManager.doSelect(SelectorManager.java:192)
+	at org.mortbay.jetty.nio.SelectChannelConnector.accept(SelectChannelConnector.java:124)
+	at org.mortbay.jetty.AbstractConnector$Acceptor.run(AbstractConnector.java:708)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)
+
+"431870030@qtp-2091342248-0" #29 daemon prio=5 os_prio=31 tid=0x00007fe436ce1000 nid=0xa603 in Object.wait() [0x0000700002323000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:626)
+	- locked <0x0000000714ce3950> (a org.mortbay.thread.QueuedThreadPool$PoolThread)
+
+"pool-2-thread-1" #28 prio=5 os_prio=31 tid=0x00007fe437c83800 nid=0xa707 waiting on condition [0x0000700002220000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007146a7fc0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"org.apache.hadoop.fs.FileSystem$Statistics$StatisticsDataReferenceCleaner" #19 daemon prio=5 os_prio=31 tid=0x00007fe436c5d800 nid=0x5807 in Object.wait() [0x000070000201a000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:150)
+	- locked <0x000000071101fdf0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:171)
+	at org.apache.hadoop.fs.FileSystem$Statistics$StatisticsDataReferenceCleaner.run(FileSystem.java:3063)
+	at java.lang.Thread.run(Thread.java:750)
+
+"ProcessThread(sid:0 cport:52738):" #17 daemon prio=5 os_prio=31 tid=0x00007fe436bdc800 nid=0x5603 waiting on condition [0x0000700001f17000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000711020090> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper.server.PrepRequestProcessor.run(PrepRequestProcessor.java:122)
+
+"SyncThread:0" #16 daemon prio=5 os_prio=31 tid=0x00007fe436bdb800 nid=0xa903 waiting on condition [0x0000700001e14000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007110301b0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper.server.SyncRequestProcessor.run(SyncRequestProcessor.java:127)
+
+"SessionTracker" #15 daemon prio=5 os_prio=31 tid=0x00007fe436bdd800 nid=0x3c03 in Object.wait() [0x0000700001d11000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.zookeeper.server.SessionTrackerImpl.run(SessionTrackerImpl.java:146)
+	- locked <0x00000007110302b8> (a org.apache.zookeeper.server.SessionTrackerImpl)
+
+"NIOServerCxn.Factory:0.0.0.0/0.0.0.0:52738" #14 daemon prio=5 os_prio=31 tid=0x00007fe436bc3000 nid=0x3b03 runnable [0x0000700001c0e000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+	at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:198)
+	at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:117)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	- locked <0x000000071103c008> (a sun.nio.ch.Util$3)
+	- locked <0x000000071103c018> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000071103bfb8> (a sun.nio.ch.KQueueSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper.server.NIOServerCnxnFactory.run(NIOServerCnxnFactory.java:173)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Time-limited test" #13 daemon prio=5 os_prio=31 tid=0x00007fe436bc8800 nid=0x3a03 in Object.wait() [0x0000700001b0a000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:460)
+	at java.util.concurrent.TimeUnit.timedWait(TimeUnit.java:348)
+	at org.apache.hadoop.hbase.client.ResultBoundedCompletionService.pollForSpecificCompletedTask(ResultBoundedCompletionService.java:258)
+	- locked <0x0000000785e5a6c0> (a [Lorg.apache.hadoop.hbase.client.ResultBoundedCompletionService$QueueingFuture;)
+	at org.apache.hadoop.hbase.client.ResultBoundedCompletionService.pollForFirstSuccessfullyCompletedTask(ResultBoundedCompletionService.java:214)
+	at org.apache.hadoop.hbase.client.ScannerCallableWithReplicas.call(ScannerCallableWithReplicas.java:228)
+	at org.apache.hadoop.hbase.client.ScannerCallableWithReplicas.call(ScannerCallableWithReplicas.java:58)
+	at org.apache.hadoop.hbase.client.RpcRetryingCallerImpl.callWithoutRetries(RpcRetryingCallerImpl.java:192)
+	at org.apache.hadoop.hbase.client.ClientScanner.call(ClientScanner.java:269)
+	at org.apache.hadoop.hbase.client.ClientScanner.loadCache(ClientScanner.java:437)
+	at org.apache.hadoop.hbase.client.ClientScanner.nextWithSyncCache(ClientScanner.java:312)
+	at org.apache.hadoop.hbase.client.ClientScanner.next(ClientScanner.java:597)
+	at org.apache.hadoop.hbase.client.ResultScanner.next(ResultScanner.java:97)
+	at org.apache.hadoop.hbase.util.TestRegionSplitter.testSplittingLog(TestRegionSplitter.java:144)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+
+"process reaper" #11 daemon prio=10 os_prio=31 tid=0x00007fe438b17000 nid=0x4103 waiting on condition [0x0000700001a08000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000711033000> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"surefire-forkedjvm-ping-30s" #10 daemon prio=5 os_prio=31 tid=0x00007fe4388b8000 nid=0x4303 waiting on condition [0x00007000019dd000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000711033428> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+
+"surefire-forkedjvm-command-thread" #9 daemon prio=5 os_prio=31 tid=0x00007fe43789d800 nid=0x3903 runnable [0x00007000018da000]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:255)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265)
+	- locked <0x00000007110f1380> (a java.io.BufferedInputStream)
+	at java.io.DataInputStream.readInt(DataInputStream.java:387)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:391)
+	at java.lang.Thread.run(Thread.java:750)
+
+"Service Thread" #8 daemon prio=9 os_prio=31 tid=0x00007fe43781a000 nid=0x4503 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread2" #7 daemon prio=9 os_prio=31 tid=0x00007fe437818000 nid=0x3403 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" #6 daemon prio=9 os_prio=31 tid=0x00007fe438010800 nid=0x4603 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #5 daemon prio=9 os_prio=31 tid=0x00007fe43685a800 nid=0x3203 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=31 tid=0x00007fe43881d000 nid=0x4803 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" #3 daemon prio=8 os_prio=31 tid=0x00007fe436840800 nid=0x5303 in Object.wait() [0x00007000010bf000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:150)
+	- locked <0x00000007110d34b8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:171)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+"Reference Handler" #2 daemon prio=10 os_prio=31 tid=0x00007fe43881c000 nid=0x2d03 in Object.wait() [0x0000700000fbc000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000711018aa0> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	- locked <0x0000000711018aa0> (a java.lang.ref.Reference$Lock)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+"main" #1 prio=5 os_prio=31 tid=0x00007fe438809000 nid=0xf03 waiting on condition [0x00007000009aa000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007110f26b8> (a java.util.concurrent.FutureTask)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.FutureTask.awaitDone(FutureTask.java:426)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:204)
+	at org.junit.internal.runners.statements.FailOnTimeout.getResult(FailOnTimeout.java:141)
+	at org.junit.internal.runners.statements.FailOnTimeout.evaluate(FailOnTimeout.java:127)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:365)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:273)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:238)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:159)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:379)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:340)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:125)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:413)
+
+"VM Thread" os_prio=31 tid=0x00007fe43880a000 nid=0x2c03 runnable 
+
+"GC task thread#0 (ParallelGC)" os_prio=31 tid=0x00007fe438809800 nid=0x2207 runnable 
+
+"GC task thread#1 (ParallelGC)" os_prio=31 tid=0x00007fe43680c800 nid=0x2103 runnable 
+
+"GC task thread#2 (ParallelGC)" os_prio=31 tid=0x00007fe43680d000 nid=0x1f03 runnable 
+
+"GC task thread#3 (ParallelGC)" os_prio=31 tid=0x00007fe43680d800 nid=0x2a03 runnable 
+
+"VM Periodic Task Thread" os_prio=31 tid=0x00007fe437819800 nid=0x3703 waiting on condition 
+
+JNI global references: 651
+
