@@ -1,0 +1,8 @@
+./hadoop-hdfs-project/hadoop-hdfs-client/src/main/java/org/apache/hadoop/hdfs/server/namenode/ha/HAProxyFactory.class
+./hadoop-hdfs-project/hadoop-hdfs-client/src/main/java/org/apache/hadoop/hdfs/protocol/HdfsFileStatus.class
+./hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/security/token/DelegationTokenIssuer.class
+./hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/ipc/RpcScheduler.class
+./hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/UploadHandle.class
+./hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/PartHandle.class
+./hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/PathHandle.class
+./hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/FutureDataInputStreamBuilder.class

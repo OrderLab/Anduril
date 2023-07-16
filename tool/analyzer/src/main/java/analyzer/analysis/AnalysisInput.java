@@ -327,6 +327,23 @@ public class AnalysisInput {
             }
         }
 
+        if (options.getFlakyCase().equals("hdfs-15032")) {
+            this.testClass = Scene.v().getSootClass("org.apache.hadoop.hdfs.server.balancer.TestBalancerWithHANameNodes");
+            this.testMethod = this.testClass.getMethod("void testBalancerWithObserverWithFailedNode()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+                for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("testBalancerWithObserver")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         if (options.getFlakyCase().equals("hbase-20492")) {
             this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.master.assignment.TestUnexpectedStateException");
             this.testMethod = this.testClass.getMethod("void testUnableToAssign()");
@@ -455,6 +472,7 @@ public class AnalysisInput {
                 }
             }
         }
+
 
         if (options.getFlakyCase().equals("hbase-19876")) {
             this.testClass = Scene.v().getSootClass("org.apache.hadoop.hbase.client.TestMalformedCellFromClient");
