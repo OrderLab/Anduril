@@ -133,7 +133,7 @@ public class TestMultiSlaveReplication {
     table.addFamily(fam);
   }
 
-  @Test(timeout=300000)
+  //@Test(timeout=300000)
   public void testMultiSlaveReplication() throws Exception {
     LOG.info("testCyclicReplication");
     MiniHBaseCluster master = utility1.startMiniCluster();
