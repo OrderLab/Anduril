@@ -6,6 +6,8 @@ HRegionServer 1925
 WALSplitter$OutputSink 1244
 SplitLogManager 256
 HRegionServer 2132
+HRegionServer 2128
+HRegionServer 2120
 WALSplitterHandler 101
 FSHDFSUtils 283
 SplitLogManager 316

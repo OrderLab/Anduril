@@ -4,6 +4,8 @@ ZKSplitLogManagerCoordination 473
 WALSplitter 507
 ZKSplitLogManagerCoordination 516
 MiniHBaseCluster 365
+HRegionServer 2120
+HRegionServer 2128
 HRegionServer 2132
 HRegionServer 1925
 MetricsConfig 125
