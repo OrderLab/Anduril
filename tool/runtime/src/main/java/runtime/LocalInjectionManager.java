@@ -223,15 +223,15 @@ public class LocalInjectionManager {
                 } else {
                     if (event_type.equals("Uncaught_throw_injection_event")) {
                         String exception_name = spec.getString("exception");
-			if (exception_name.equals("org.apache.zookeeper.KeeperException")) {
-			  exception_name = "org.apache.zookeeper.KeeperException.SystemErrorException";
-			}
+			            if (exception_name.equals("org.apache.zookeeper.KeeperException")) {
+			                exception_name = "org.apache.zookeeper.KeeperException$SystemErrorException";
+			            }
                         id2name.put(injectionId, exception_name);
                     } else {
                         String exception_name = spec.getString("exception");
-			if (exception_name.equals("org.apache.zookeeper.KeeperException")) {
-			  exception_name = "org.apache.zookeeper.KeeperException.SystemErrorException";
-			}
+			            if (exception_name.equals("org.apache.zookeeper.KeeperException")) {
+			                exception_name = "org.apache.zookeeper.KeeperException$SystemErrorException";
+			            }
                         exception = ExceptionBuilder.createException(exception_name);
                         if (exception != null) {
                             id2exception.put(injectionId, exception);
