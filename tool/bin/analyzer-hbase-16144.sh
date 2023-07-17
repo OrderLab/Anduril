@@ -29,6 +29,9 @@ for i in `head -n1 $SRC_DIR/target/cached_classpath.txt|tr ':' '\n'`; do
   if [[ "$i" == *"netty-all"* ]]; then
     extras="$i $extras"
   fi
+  if [[ "$i" == *"zookeeper-3.4.8"* ]]; then
+    extras="$i $extras"
+  fi
 done
 rm -rf ${OUT_DIR}
 mkdir -p ${OUT_DIR}

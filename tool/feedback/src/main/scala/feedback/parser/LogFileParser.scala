@@ -29,7 +29,7 @@ object LogFileParser {
   def parseDatetime(datetimeText: String): DateTime =
     DateTime.parse(datetimeText.replace('T',' '), datetimeFormatter)
 
-  private val typeRegex = raw"(INFO |WARN |ERROR|DEBUG|TRACE)"
+  private val typeRegex = raw"(INFO |WARN |ERROR|DEBUG|TRACE|FATAL)"
 
   def parseLogType(logTypeText: String): LogType =
     logTypeText match {
@@ -38,6 +38,7 @@ object LogFileParser {
       case "ERROR" => LogType.ERROR
       case "DEBUG" => LogType.DEBUG
       case "TRACE" => LogType.TRACE
+      case "FATAL" => LogType.FATAL
     }
 
   private val thread = raw".*"

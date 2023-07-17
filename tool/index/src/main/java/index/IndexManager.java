@@ -46,6 +46,8 @@ public class IndexManager {
                             for (final ValueBox valueBox : unit.getUseBoxes()) {
                                 final Value value = valueBox.getValue();
                                 if (value instanceof InvokeExpr) {
+					//System.out.println(sootMethod);
+					//System.out.println(unit);
                                     final SootMethod log = ((InvokeExpr) value).getMethod();
                                     final String name = log.getDeclaringClass().getName();
                                     if (name.equals("org.apache.commons.logging.Log") ||
@@ -54,6 +56,7 @@ public class IndexManager {
                                             case "error":
                                             case "info" :
                                             case "warn" :
+					    case "fatal":
                                             case "debug":
                                                 logEntries.put(new LogEntry(shortClassName, getLine(unit)), loc);
                                             default : break;
