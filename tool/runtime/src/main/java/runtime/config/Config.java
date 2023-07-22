@@ -87,6 +87,9 @@ public final class Config {
     public boolean timeTraceCollectMode;
     public boolean isAugFeedback;
     public int occurrenceSize;
+    public int maxTry;
+
+    private static final int INF = 1_000_000_000;
 
     private void setExperimentOnlyDefaultValues() {
         probability = Double.parseDouble(System.getProperty("flakyAgent.probability", "0.01"));
@@ -113,9 +116,8 @@ public final class Config {
         injectionTimeFile =  System.getProperty("flakyAgent.injectionTimeCSV", "#");
 
         isAugFeedback = Boolean.getBoolean("flakyAgent.augFeedback");
-
         occurrenceSize = Integer.getInteger("flakyAgent.occurrenceSize", 10);
-
+        maxTry = Integer.getInteger("flakyAgent.maxTry", INF);
     }
 
     private static final String[] experimentProperties = new String[] {
@@ -148,7 +150,8 @@ public final class Config {
             "flakyAgent.timeTraceCollectMode",
             "flakyAgent.injectionTimeCSV",
             "flakyAgent.augFeedback",
-            "flakyAgent.occurrenceSize"
+            "flakyAgent.occurrenceSize",
+            "flakyAgent.maxTry"
     };
 
     private Config() { }

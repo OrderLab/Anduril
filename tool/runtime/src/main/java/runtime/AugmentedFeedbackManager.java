@@ -74,7 +74,7 @@ public class AugmentedFeedbackManager extends FeedbackManager {
         return allowMap.containsKey(injectionId);
     }
 
-    public void calc(final int windowSize, final int occurrenceSize) {
+    public void calc(final int windowSize, final int occurrenceSize, final Map<Integer,Integer> id2Occur, final int maxTry) {
         this.allowMap.clear();
         for (int i = 0; i < this.graph.startNumber; i++) {
             this.graph.setStartValue(i, this.active.getOrDefault(i, 0));
@@ -82,13 +82,15 @@ public class AugmentedFeedbackManager extends FeedbackManager {
         this.graph.calculatePriorities((injectionId,sourceEvent) -> {
             // TODO: What about the case where one injection point has same distances to two different logs?
             if (!allowMap.containsKey(injectionId)) {
-                Map<Integer, ArrayList<Integer>> buf = timePriorityTable.injection2Log2Time.get(injectionId);
-                if (buf != null && buf.get(sourceEvent) != null) {
-                    if (buf.get(sourceEvent).size() >= occurrenceSize) {
-                        this.allowMap.put(injectionId,
-                                new AugmentedFeedbackManager.AllowValue(sourceEvent, buf.get(sourceEvent).get(occurrenceSize - 1)));
-                    } else {
-                        this.allowMap.put(injectionId, new AugmentedFeedbackManager.AllowValue(sourceEvent, INF));
+                if (!(id2Occur.containsKey(injectionId) && id2Occur.get(injectionId) == maxTry)) {
+                    Map<Integer, ArrayList<Integer>> buf = timePriorityTable.injection2Log2Time.get(injectionId);
+                    if (buf != null && buf.get(sourceEvent) != null) {
+                        if (buf.get(sourceEvent).size() >= occurrenceSize) {
+                            this.allowMap.put(injectionId,
+                                    new AugmentedFeedbackManager.AllowValue(sourceEvent, buf.get(sourceEvent).get(occurrenceSize - 1)));
+                        } else {
+                            this.allowMap.put(injectionId, new AugmentedFeedbackManager.AllowValue(sourceEvent, INF));
+                        }
                     }
                 }
             }

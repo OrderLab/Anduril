@@ -108,6 +108,7 @@ public class LocalInjectionManager {
         int latestOK = -2; // avoid -1 + 1 == 0
         Set<Integer> window = new HashSet<>();
         Set<Integer> occur = new HashSet<>();
+        Map<Integer,Integer> id2occur = new HashMap<>();
         for (final File result : files) {
             try (final InputStream inputStream = Files.newInputStream(result.toPath());
                  final JsonReader reader = Json.createReader(inputStream)) {
@@ -129,6 +130,8 @@ public class LocalInjectionManager {
                         latestOK = trialId;
                     }
                     continue;
+                } else {
+                    id2occur.merge(json.getInt("id"),1,Integer::sum);
                 }
                 if (TraceAgent.config.allowFeedback) {
                     final JsonArray events = json.getJsonArray("feedback");
@@ -183,7 +186,7 @@ public class LocalInjectionManager {
         if (!TraceAgent.config.isAugFeedback) {
             feedbackManager.calc(windowSize);
         } else {
-            ((AugmentedFeedbackManager)feedbackManager).calc(windowSize,occurrenceSize);
+            ((AugmentedFeedbackManager)feedbackManager).calc(windowSize,occurrenceSize,id2occur, TraceAgent.config.maxTry);
         }
         if (TraceAgent.config.minimumTimeMode) {
             for (final InjectionIndex index : this.injectionSet.keySet()) {
