@@ -151,11 +151,11 @@ public class LocalInjectionManager {
             if (latestOK + 1 == this.trialId) {
                 // Alternating of increasing window and occur
                 if (TraceAgent.config.isAugFeedback) {
-                    if (window.size() == occur.size()) {
+                    //if (window.size() == occur.size()) {
                         windowSize *= 2;
-                    } else {
-                        occurrenceSize += 1;
-                    }
+                    //} else {
+                      //  occurrenceSize += 1;
+                    //}
                 } else {
                     windowSize *= 2;
                 }
