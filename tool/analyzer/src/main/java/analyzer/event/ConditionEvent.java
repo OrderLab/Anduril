@@ -10,10 +10,7 @@ import soot.jimple.*;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public final class ConditionEvent extends LocationEvent {
     public final boolean isThenBranch;
@@ -68,6 +65,32 @@ public final class ConditionEvent extends LocationEvent {
             // if the variable comes from external library (parent class), the locations are not initialized here
             if (writeLocations != null) {
                 preconditionLocations.addAll(writeLocations);
+            }
+        } else if (lhs instanceof InvokeExpr) {
+            if (rhs instanceof IntConstant) {
+                Set<Unit> target;
+                if (((IntConstant)rhs).value != 0) {
+                   if (eq) {
+                       target = analysisManager.slicingAnalysis.retTrue.get(((InvokeExpr) lhs).getMethod());
+                   } else {
+                       target = analysisManager.slicingAnalysis.retFalse.get(((InvokeExpr) lhs).getMethod());
+                   }
+                } else {
+                    if (eq) {
+                        target = analysisManager.slicingAnalysis.retFalse.get(((InvokeExpr) lhs).getMethod());
+                    } else {
+                        target = analysisManager.slicingAnalysis.retTrue.get(((InvokeExpr) lhs).getMethod());
+                    }
+                }
+                if (target != null) {
+                    SootMethod cond = ((InvokeExpr)lhs).getMethod();
+                    // TODO: Consider short-circuited case that will bypass the second condition
+                    for (final Unit returned : target) {
+                        frontiers.add(new LocationEvent(analysisManager.analysisInput.indexManager.index
+                                .get(cond.getDeclaringClass()).get(cond).get(returned)));
+                        //System.out.println("Reach:"+returned);
+                    }
+                }
             }
         }
 //        if (lhs instanceof InvokeExpr) {
