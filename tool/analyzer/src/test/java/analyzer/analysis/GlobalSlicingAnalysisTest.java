@@ -50,4 +50,30 @@ class GlobalSlicingAnalysisTest extends AnalyzerTestBase {
             assertTrue(l.unit==unitIds2.get(2));
         }
     }
+
+    @Test
+    void testCheck1() {
+        SootClass target = classes.get(SlicingExample.class.getName());
+        SootMethod targetMethod1 = target.getMethod("void write1(int)");
+        SootMethod targetMethod2 = target.getMethod("void write2(java.lang.Object)");
+        SootMethod targetMethod3 = target.getMethod("boolean check1()");
+        assert(slicingAnalysis.retTrue.get(targetMethod3).size() == 1);
+        assert(slicingAnalysis.retFalse.get(targetMethod3).size() == 1);
+        for (Unit unit : slicingAnalysis.retFalse.get(targetMethod3)) {
+            System.out.println(unit);
+        }
+    }
+
+    @Test
+    void testCheck2() {
+        SootClass target = classes.get(SlicingExample.class.getName());
+        SootMethod targetMethod1 = target.getMethod("void write1(int)");
+        SootMethod targetMethod2 = target.getMethod("void write2(java.lang.Object)");
+        SootMethod targetMethod3 = target.getMethod("boolean check2()");
+        assert(slicingAnalysis.retTrue.get(targetMethod3).size() == 1);
+        assert(slicingAnalysis.retFalse.get(targetMethod3).size() == 1);
+        for (Unit unit : slicingAnalysis.retTrue.get(targetMethod3)) {
+            System.out.println(unit);
+        }
+    }
 }
