@@ -31,7 +31,5 @@
     <url>https://hadoop.apache.org</url>
 
     <modules>
-      <module>hadoop-yarn-applications-catalog-webapp</module>
-      <module>hadoop-yarn-applications-catalog-docker</module>
     </modules>
 </project>
