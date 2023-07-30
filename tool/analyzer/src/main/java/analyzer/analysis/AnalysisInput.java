@@ -586,7 +586,7 @@ public class AnalysisInput {
                     final Value value = valueBox.getValue();
                     if (value instanceof InvokeExpr) {
                         final SootMethod inv = ((InvokeExpr) value).getMethod();
-                        if (inv.getName().equals("dummy_sym")) {
+                        if (inv.getName().equals("assertEquals")) {
                             this.symptomEvent = new LocationEvent(location);
                             return;
                         }
