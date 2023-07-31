@@ -242,7 +242,7 @@ public class LocalInjectionManager {
 			            if (exception_name.equals("org.apache.zookeeper.KeeperException")) {
 			                exception_name = "org.apache.zookeeper.KeeperException$SystemErrorException";
 			            }
-			            if () {
+			            if (!isExceptionDisable(exception_name)) {
                             id2name.put(injectionId, exception_name);
                         }
                     } else {
@@ -349,9 +349,9 @@ public class LocalInjectionManager {
 
     // Note: This method also utilize the id2Times for counter
     public void recordInjectionTime(final int id) {
-        if (this.id2times.getOrDefault(id, 0) >= 1000) {
-            return;
-        }
+        //if (this.id2times.getOrDefault(id, 0) >= 1000) {
+        //    return;
+        //}
         LocalDateTime now;
         id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
         final ConcurrentMap<Integer,ThreadTimePair> injection_trace = id2times2time.get(id);
