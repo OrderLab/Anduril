@@ -594,6 +594,22 @@ public class AnalysisInput {
                 }
             }
         }
+        if (options.getFlakyCase().equals("kafka-8755")) {
+            this.testClass = Scene.v().getSootClass("org.apache.kafka.streams.integration.StandbyTaskTest");
+            this.testMethod = this.testClass.getMethod("void shouldTestStandbyTask()");
+            for (final ProgramLocation location : indexManager.index.get(this.testClass).get(this.testMethod).values()) {
+              for (final ValueBox valueBox : location.unit.getUseBoxes()) {
+                    final Value value = valueBox.getValue();
+                    if (value instanceof InvokeExpr) {
+                        final SootMethod inv = ((InvokeExpr) value).getMethod();
+                        if (inv.getName().equals("assertThat")) {
+                            this.symptomEvent = new LocationEvent(location);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
         if (options.getFlakyCase().equals("cassandra-17663")) {
             this.testClass = Scene.v().getSootClass("org.apache.cassandra.distributed.test.RepairErrorsTest");
             this.testMethod = this.testClass.getMethod("void testRemoteStreamFailure()");
