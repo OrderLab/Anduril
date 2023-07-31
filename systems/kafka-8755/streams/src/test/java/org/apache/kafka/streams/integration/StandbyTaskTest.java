@@ -81,8 +81,8 @@ public class StandbyTaskTest {
 
     @After
     public void after() {
-        client1.close();
-        client2.close();
+        //client1.close();
+        //client2.close();
     }
 
     private Properties streamsConfiguration() {

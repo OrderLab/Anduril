@@ -1,8 +1,5 @@
-KafkaConsumer 1545
+StreamThread 1188
+KafkaProducer 1174
 KafkaStreams 899
-KafkaStreams 851
-ConsumerCoordinator 284
-StickyTaskAssignor 61
-ConsumerCoordinator 754
-StreamThread$RebalanceListener 336
-AbstractCoordinator$HeartbeatResponseHandler 946
+StreamThread 1222
+StreamThread 1202

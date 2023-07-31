@@ -1,7 +1,6 @@
 Logging 66
 KafkaStreams 264
 KafkaStreams 899
-KafkaStreams 851
 ClientCnxn$SendThread 1112
 ClientCnxn$SendThread 959
 ClientCnxn$SendThread 1394
@@ -16,11 +15,12 @@ AbstractCoordinator$1 450
 ConsumerCoordinator 267
 StreamThread$RebalanceListener 300
 ConsumerCoordinator$OffsetFetchResponseHandler 1230
+SubscriptionState 379
 RocksDBTimestampedStore 100
 KafkaConsumer 1061
 KafkaConsumer 1107
 SubscriptionState 557
-SubscriptionState 379
+StreamThread 1188
 StreamThread 1202
 KafkaProducer 1174
 StreamThread 1222
@@ -30,4 +30,5 @@ StreamThread$RebalanceListener 336
 StickyTaskAssignor 61
 ConsumerCoordinator 754
 KafkaConsumer 1545
+NetworkClient 748
 PrepRequestProcessor 155
