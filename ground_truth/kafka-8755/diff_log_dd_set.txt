@@ -1,0 +1,8 @@
+KafkaConsumer 1545
+KafkaStreams 899
+KafkaStreams 851
+ConsumerCoordinator 284
+StickyTaskAssignor 61
+ConsumerCoordinator 754
+StreamThread$RebalanceListener 336
+AbstractCoordinator$HeartbeatResponseHandler 946
