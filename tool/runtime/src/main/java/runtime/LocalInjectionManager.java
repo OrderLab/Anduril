@@ -68,6 +68,19 @@ public class LocalInjectionManager {
         writerFactory = Json.createWriterFactory(options);
     }
 
+    private static final String[] disableException = {
+            "org.apache.kafka.common.errors.InterruptException",
+    };
+
+    public boolean isExceptionDisable(String name) {
+        for (String s : disableException) {
+            if (name.equals(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public LocalInjectionManager(final String trialsPath,
                                  final String specPath,
                                  final String injectionResultPath) {
@@ -229,7 +242,9 @@ public class LocalInjectionManager {
 			            if (exception_name.equals("org.apache.zookeeper.KeeperException")) {
 			                exception_name = "org.apache.zookeeper.KeeperException$SystemErrorException";
 			            }
-                        id2name.put(injectionId, exception_name);
+			            if () {
+                            id2name.put(injectionId, exception_name);
+                        }
                     } else {
                         String exception_name = spec.getString("exception");
 			            if (exception_name.equals("org.apache.zookeeper.KeeperException")) {
@@ -334,6 +349,9 @@ public class LocalInjectionManager {
 
     // Note: This method also utilize the id2Times for counter
     public void recordInjectionTime(final int id) {
+        if (this.id2times.getOrDefault(id, 0) >= 1000) {
+            return;
+        }
         LocalDateTime now;
         id2times2time.putIfAbsent(id,new ConcurrentHashMap<>());
         final ConcurrentMap<Integer,ThreadTimePair> injection_trace = id2times2time.get(id);
