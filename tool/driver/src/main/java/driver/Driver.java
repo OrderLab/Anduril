@@ -101,8 +101,10 @@ public final class Driver {
                             move(spec.currentDir.resolve("output.txt").toFile(),
                                     outputDir.resolve("output.txt").toFile());
                             // Keep the stack_trace file if there is any
-                            move(spec.currentDir.resolve("stack_trace.txt").toFile(),
-                                    outputDir.resolve("stack_trace.txt").toFile());
+                            File stacktrace = spec.currentDir.resolve("stack_trace.txt").toFile();
+                            if (stacktrace.exists()) {
+                              move(stacktrace, outputDir.resolve("stack_trace.txt").toFile());
+                            }
                         }
                         Thread.sleep(3000);
                         final Process feedbackProcess = start(feedback);
