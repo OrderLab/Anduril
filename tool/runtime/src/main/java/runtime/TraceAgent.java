@@ -136,12 +136,12 @@ public final class TraceAgent {
             }
         }
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            LOG.info("0xfff flaky agent workload time used: {} / {} ms", injectionOverhead.get(), injectionCount.get());
+            LOG.info("0xfff flaky agent workload time used: {} / {} ns", injectionOverhead.get(), injectionCount.get());
         }));
     }
 
     static public void inject(final int id, final int blockId) throws Throwable {
-        //final long time = System.currentTimeMillis();
+        final long time = System.nanoTime();
         try {
             if (!enableInject.get()) {
                 return;
@@ -172,8 +172,11 @@ public final class TraceAgent {
                         throw exception;
                     }
                 }
-                //injectionCount.addAndGet(1);
-                //injectionOverhead.addAndGet(System.currentTimeMillis() - time);
+                long elapsed = System.nanoTime() - time;
+                if (elapsed > 0) {
+                  injectionCount.addAndGet(1);
+                  injectionOverhead.addAndGet(System.nanoTime() - time);
+                }
                 return;
             }
             try {
@@ -199,8 +202,11 @@ public final class TraceAgent {
                 throw t;
             }
         } finally {
-            //injectionCount.addAndGet(1);
-            //injectionOverhead.addAndGet(System.currentTimeMillis() - time);
+            long elapsed = System.nanoTime() - time;
+            if (elapsed > 0) {
+              injectionCount.addAndGet(1);
+              injectionOverhead.addAndGet(System.nanoTime() - time);
+            }
         }
     }
 
