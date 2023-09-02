@@ -40,6 +40,10 @@ public final class InvocationEvent extends ProgramEvent {
                     frontiers.add(new InternalInjectionEvent(throwing, methodExceptionType));
                 }
             }
+        } else if (analysisManager.threadSchedulingAnalysis.handler2Inv.containsKey(locationMethod)) {
+            for (SootMethod invoking : analysisManager.threadSchedulingAnalysis.handler2Inv.getOrDefault(locationMethod,new HashSet<>())) {
+                frontiers.add(new InvocationEvent(invoking.getDeclaringClass(),invoking));
+            }
         }
         return this.frontiers;
     }

@@ -18,7 +18,8 @@ public class ThreadSchedulingAnalysis {
     // What about the case of multiple?
     public final Map<Unit,SootMethod> wrapper2Call = new HashMap<>();
 
-    public final Map<SootMethod,Set<SootMethod>> handler2Call = new HashMap<>();
+    public final Map<SootMethod,Set<SootMethod>> handler2Call = new HashMap<>(); // directly throw
+    public final Map<SootMethod,Set<SootMethod>> handler2Inv = new HashMap<>();
 
     private final String call = "java.lang.Object call()";
     private final String overriden_call = "void call()";
@@ -95,18 +96,27 @@ public class ThreadSchedulingAnalysis {
 
     private static final String[] handler_classes = {
             "org.apache.cassandra.service.CassandraDaemon$2",
+            "org.apache.hadoop.hbase.regionserver.wal.AsyncFSWAL",
     };
 
     private static final String[] handler_methods = {
             "void uncaughtException(java.lang.Thread,java.lang.Throwable)",
+            "void syncFailed(long,java.lang.Throwable)",
     };
 
     private static final String[] calling_classes = {
             "org.apache.cassandra.net.MessageDeliveryTask",
+            "org.apache.hadoop.hbase.io.asyncfs.FanOutOneBlockAsyncDFSOutput",
     };
 
     private static final String[] calling_methods = {
             "void run()",
+            "void fakeFlush3()"
+    };
+
+    private static final Boolean[] onlyInvocation = {
+            false,
+            true,
     };
 
     private void costumeHandlerCall () {
@@ -116,9 +126,15 @@ public class ThreadSchedulingAnalysis {
                 SootMethod handlerMethod = handlerClass.getMethod(handler_methods[i]);
                 SootClass callingClass = Scene.v().getSootClass(calling_classes[i]);
                 SootMethod callingMethod = callingClass.getMethod(calling_methods[i]);
-                handler2Call.computeIfAbsent(handlerMethod, k -> new HashSet<>());
-                handler2Call.get(handlerMethod).add(callingMethod);
-                System.out.println("Added Handler:"+handlerMethod+"--Caller:"+callingMethod );
+                if (!onlyInvocation[i]) {
+                    handler2Call.computeIfAbsent(handlerMethod, k -> new HashSet<>());
+                    handler2Call.get(handlerMethod).add(callingMethod);
+                    System.out.println("Added Handler:" + handlerMethod + "--Caller:" + callingMethod);
+                } else {
+                    handler2Inv.computeIfAbsent(handlerMethod, k -> new HashSet<>());
+                    handler2Inv.get(handlerMethod).add(callingMethod);
+                    System.out.println("Added Handler:" + handlerMethod + "--Invocation:" + callingMethod);
+                }
             } catch (Exception ignored) {
 
             }
