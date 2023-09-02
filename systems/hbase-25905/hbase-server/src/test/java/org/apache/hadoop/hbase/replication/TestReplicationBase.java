@@ -21,6 +21,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -219,12 +220,20 @@ public class TestReplicationBase {
         if (count == 1) {
           // we will mark these two futures as failure, to make sure that we have 2 edits in
           // unackedAppends, and trigger a WAL roll
-          CompletableFuture<Long> f = new CompletableFuture<>();
-          FUTURE.offer(f);
-          return f;
+          //CompletableFuture<Long> f = new CompletableFuture<>();
+          //FUTURE.offer(f);
+          //return f;
+          return super.sync(forceSync);
         } else if (count == 2) {
           //sem.release();
-          FUTURE.poll().completeExceptionally(new IOException("inject error"));
+          //FUTURE.poll().completeExceptionally(new IOException("inject error"));
+          //try {
+          //  fakeSync0();
+          //} catch (IOException e) {
+          //  CompletableFuture<Long> f = new CompletableFuture<>();
+          //  f.completeExceptionally(new IOException("inject error"));
+          //  return f;
+          //}
           //CompletableFuture<Long> f = new CompletableFuture<>();
           //f.completeExceptionally(new IOException("inject error"));
           //return f;
@@ -241,6 +250,22 @@ public class TestReplicationBase {
         }
       }
       return super.sync(forceSync);
+    }
+
+    void fakeSync0() throws IOException {
+      fakeSync1();
+    }
+
+    void fakeSync1() throws IOException {
+      fakeSync2();
+    }
+
+    void fakeSync2() throws IOException {
+      fakeSync3();
+    }
+
+    void fakeSync3() throws IOException {
+      File.createTempFile("originForInjection",null);
     }
   }
   protected static void setupConfig(HBaseTestingUtil util, String znodeParent) {

@@ -26,6 +26,7 @@ import static org.apache.hadoop.hdfs.DFSConfigKeys.DFS_CLIENT_SOCKET_TIMEOUT_KEY
 import static org.apache.hbase.thirdparty.io.netty.handler.timeout.IdleState.READER_IDLE;
 import static org.apache.hbase.thirdparty.io.netty.handler.timeout.IdleState.WRITER_IDLE;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.nio.ByteBuffer;
@@ -95,7 +96,7 @@ import org.apache.hbase.thirdparty.io.netty.handler.timeout.IdleStateHandler;
  */
 @InterfaceAudience.Private
 public class FanOutOneBlockAsyncDFSOutput implements AsyncFSOutput {
-
+  private static volatile int cc = 0;
   // The MAX_PACKET_SIZE is 16MB but it include the header size and checksum size. So here we set a
   // smaller limit for data size.
   private static final int MAX_DATA_LEN = 12 * 1024 * 1024;
@@ -260,6 +261,14 @@ public class FanOutOneBlockAsyncDFSOutput implements AsyncFSOutput {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, PipelineAckProto ack) throws Exception {
       Status reply = getStatus(ack);
+      try {
+        //if (++cc == 943) {throw new IOException("inject error");}
+        File.createTempFile("originForInjection",null);
+      } catch (IOException e) {
+        failed(ctx.channel(), () -> new IOException("Bad response " + reply + " for block " +
+          block + " from datanode " + ctx.channel().remoteAddress()));
+        return;
+      }
       if (reply != Status.SUCCESS) {
         failed(ctx.channel(), () -> new IOException("Bad response " + reply + " for block " +
           block + " from datanode " + ctx.channel().remoteAddress()));
@@ -416,8 +425,26 @@ public class FanOutOneBlockAsyncDFSOutput implements AsyncFSOutput {
     nextPacketSeqno++;
   }
 
+  void fakeFlush0() {
+    fakeFlush1();
+  }
+
+  void fakeFlush1() {
+    fakeFlush2();
+  }
+
+  void fakeFlush2() {
+    fakeFlush3();
+  }
+
+  void fakeFlush3() {
+    int x = 1;
+  }
+
   private void flush0(CompletableFuture<Long> future, boolean syncBlock) {
     if (state != State.STREAMING) {
+      // Account for analysis steps
+      fakeFlush0();
       future.completeExceptionally(new IOException("stream already broken"));
       return;
     }
