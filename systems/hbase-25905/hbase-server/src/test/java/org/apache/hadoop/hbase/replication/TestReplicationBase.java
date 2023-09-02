@@ -216,7 +216,7 @@ public class TestReplicationBase {
     public CompletableFuture<Long> sync(boolean forceSync) {
       if (INJECT.get() == 1) {
         int count = SYNC_COUNT.incrementAndGet();
-        LOG.info("Inject Times" + count);
+        //LOG.info("Inject Times" + count);
         if (count == 1) {
           // we will mark these two futures as failure, to make sure that we have 2 edits in
           // unackedAppends, and trigger a WAL roll
