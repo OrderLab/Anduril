@@ -111,7 +111,7 @@ public class ThreadSchedulingAnalysis {
 
     private static final String[] calling_methods = {
             "void run()",
-            "void fakeFlush3()"
+            "void fakeFlush0()"
     };
 
     private static final Boolean[] onlyInvocation = {
