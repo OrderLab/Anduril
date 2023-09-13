@@ -5,15 +5,22 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import feedback.JsonUtil;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
-import org.joda.time.Interval;
+
 import reporter.check.Checker;
 import reporter.parser.DistributedLogLoader;
+import runtime.AugmentedFeedbackManager;
+import runtime.TraceAgent;
+import runtime.graph.PriorityGraph;
 
+import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.File;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.*;
 
 
 public class CommandLine {
@@ -30,7 +37,47 @@ public class CommandLine {
 
     //By now the most simple mode
     private void run() throws Exception {
-        computeFirstReproduction();
+        //computeFirstReproduction();
+        getRanks();
+    }
+
+    private void getRanks() throws IOException {
+        int injection = Integer.parseInt(cmd.getOptionValue("injection"));
+        final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
+        int start = spec.getInt("start");
+        final int num_trials = Objects.requireNonNull(new File(cmd.getOptionValue("trial-directory")).listFiles((file, name)
+                -> name.endsWith(".json"))).length;
+        final Map<Integer, Integer> active = new TreeMap<>();
+        for (int i = -1; i < num_trials; i++) {
+            if (i != -1) {
+                File result = new File(cmd.getOptionValue("trial") + "/injection-" + i + ".json");
+                try (final InputStream inputStream = Files.newInputStream(result.toPath());
+                     final JsonReader reader = Json.createReader(inputStream)) {
+                    final JsonObject json = reader.readObject();
+
+                    final JsonArray events = json.getJsonArray("feedback");
+                    for (int j = 0; j < events.size(); j++) {
+                        active.merge(events.getInt(j), -1, Integer::sum);
+                    }
+                    for (int j = 0; j < start; j++) {
+                        active.merge(j, 1, Integer::sum);
+                    }
+
+                } catch (final IOException ignored) {
+                    System.out.println("For debug purpose:" + ignored);
+                }
+            }
+            PriorityGraph graph = new PriorityGraph("none",spec);
+            for (int j = 0; j < graph.startNumber; j++) {
+                graph.setStartValue(j, active.getOrDefault(j, 0));
+            }
+            final Set<Integer> set = new HashSet<>();
+            graph.calculatePriorities((injectionId) -> {
+                set.add(injectionId);
+                return injectionId == 1;
+            });
+            System.out.printf("%d,%d",i+2,set.size());
+        }
     }
 
     private void computeFirstReproduction() throws IOException {
@@ -55,7 +102,6 @@ public class CommandLine {
             }
             final int injectionId = loader.getInjectionId(index);
             if (checker.checkTrial(trial, injectionId)) {
-
                 System.out.println("The Index of first trial that reproduce the bug: " + index);
 
                 //DateTime start = loader.getDistributedLog(0).logs[0].entries[0].datetime;
@@ -84,6 +130,10 @@ public class CommandLine {
         final Option dis = new Option("d", "distributed", false,
                 "it is in distributed mode");
         options.addOption(dis);
+
+        final Option injection = new Option("i", "injection", true,
+                "target injection id for calculating ranks");
+        options.addOption(injection);
 
         return options;
     }
