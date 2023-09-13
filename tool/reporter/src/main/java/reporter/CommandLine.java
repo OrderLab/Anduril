@@ -11,6 +11,7 @@ import reporter.parser.DistributedLogLoader;
 import runtime.AugmentedFeedbackManager;
 import runtime.TraceAgent;
 import runtime.graph.PriorityGraph;
+import runtime.time.TimePriorityTable;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -44,6 +45,7 @@ public class CommandLine {
     private void getRanks() throws IOException {
         int injection = Integer.parseInt(cmd.getOptionValue("injection"));
         final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
+        final TimePriorityTable timePriorityTable = TimePriorityTable.load(cmd.getOptionValue("time-table"));;
         int start = spec.getInt("start");
         final int num_trials = Objects.requireNonNull(new File(cmd.getOptionValue("trial-directory")).listFiles((file, name)
                 -> name.endsWith(".json"))).length;
@@ -73,7 +75,9 @@ public class CommandLine {
             }
             final Set<Integer> set = new HashSet<>();
             graph.calculatePriorities((injectionId) -> {
-                set.add(injectionId);
+                if (timePriorityTable.injection2Log2Time.get(injectionId) != null) {
+                    set.add(injectionId);
+                }
                 return injectionId == injection;
             });
             System.out.printf("%d,%d",i+2,set.size());
@@ -135,6 +139,10 @@ public class CommandLine {
         final Option injection = new Option("i", "injection", true,
                 "target injection id for calculating ranks");
         options.addOption(injection);
+
+        final Option time = new Option("tt", "time-table", true,
+                "path for time table");
+        options.addOption(time);
 
         return options;
     }
