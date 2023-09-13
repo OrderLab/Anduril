@@ -74,9 +74,10 @@ public class CommandLine {
             final Set<Integer> set = new HashSet<>();
             graph.calculatePriorities((injectionId) -> {
                 set.add(injectionId);
-                return injectionId == 1;
+                return injectionId == injection;
             });
             System.out.printf("%d,%d",i+2,set.size());
+            System.out.println();
         }
     }
 
