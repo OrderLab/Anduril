@@ -50,13 +50,15 @@ public class CommandLine {
         final int num_trials = Objects.requireNonNull(new File(cmd.getOptionValue("trial-directory")).listFiles((file, name)
                 -> name.endsWith(".json"))).length;
         final Map<Integer, Integer> active = new TreeMap<>();
+        final Set<Integer> injected = new HashSet<>();
         for (int i = -1; i < num_trials; i++) {
             if (i != -1) {
                 File result = new File(cmd.getOptionValue("trial-directory") + "/injection-" + i + ".json");
                 try (final InputStream inputStream = Files.newInputStream(result.toPath());
                      final JsonReader reader = Json.createReader(inputStream)) {
                     final JsonObject json = reader.readObject();
-
+                    final int trialId = json.getInt("trial_id");
+                    injected.add(trialId);
                     final JsonArray events = json.getJsonArray("feedback");
                     for (int j = 0; j < events.size(); j++) {
                         active.merge(events.getInt(j), -1, Integer::sum);
@@ -75,7 +77,7 @@ public class CommandLine {
             }
             final Set<Integer> set = new HashSet<>();
             graph.calculatePriorities((injectionId) -> {
-                if (timePriorityTable.injection2Log2Time.get(injectionId) != null) {
+                if (timePriorityTable.injection2Log2Time.get(injectionId) != null && !injected.contains(injectionId)) {
                     set.add(injectionId);
                 }
                 return injectionId == injection;
