@@ -50,7 +50,7 @@ public class CommandLine {
         final Map<Integer, Integer> active = new TreeMap<>();
         for (int i = -1; i < num_trials; i++) {
             if (i != -1) {
-                File result = new File(cmd.getOptionValue("trial") + "/injection-" + i + ".json");
+                File result = new File(cmd.getOptionValue("trial-directory") + "/injection-" + i + ".json");
                 try (final InputStream inputStream = Files.newInputStream(result.toPath());
                      final JsonReader reader = Json.createReader(inputStream)) {
                     final JsonObject json = reader.readObject();
