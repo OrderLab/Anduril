@@ -58,7 +58,9 @@ public class CommandLine {
                      final JsonReader reader = Json.createReader(inputStream)) {
                     final JsonObject json = reader.readObject();
                     final int trialId = json.getInt("trial_id");
-                    injected.add(trialId);
+		    if (json.containsKey("id")) {
+                      injected.add(json.getInt("id"));
+		    } 
                     final JsonArray events = json.getJsonArray("feedback");
                     for (int j = 0; j < events.size(); j++) {
                         active.merge(events.getInt(j), -1, Integer::sum);
@@ -77,6 +79,7 @@ public class CommandLine {
             }
             final Set<Integer> set = new HashSet<>();
             graph.calculatePriorities((injectionId) -> {
+                //if (!injected.contains(injectionId)) {
                 if (timePriorityTable.injection2Log2Time.get(injectionId) != null && !injected.contains(injectionId)) {
                     set.add(injectionId);
                 }
