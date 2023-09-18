@@ -11,6 +11,7 @@ ANALYZER_MAIN=analyzer.AnalyzerMain
 # add -e to generate .class
 # remove -e to generate jimple
 OPTS="-a wjtp.flaky -e -p jb use-original-names:true"
+echo $JAVA_OPTS
 
 if [ ! -z ${baseline+x} ]; then
   JAVA_OPTS="-Danalysis.baseline=true $JAVA_OPTS"
@@ -22,6 +23,10 @@ fi
 
 if [ ! -z ${crashtuner+x} ]; then
   JAVA_OPTS="-Danalysis.crashtuner=true $JAVA_OPTS"
+fi
+
+if [ ! -z ${stacktrace+x} ]; then
+  JAVA_OPTS="-Danalysis.stackTrace=true $JAVA_OPTS"
 fi
 
 "${JAVA}" -Danalyzer.logs.dir=${ANALYZER_HOME}/logs ${JAVA_OPTS} \
