@@ -79,6 +79,7 @@ public class StackTraceAnalyzer {
                                         Jimple.v().newStaticInvokeExpr(injectMethod.makeRef(), ij.getArgs());
                                 final InvokeStmt injectStmt = Jimple.v().newInvokeStmt(injectExpr);
                                 units.insertBefore(injectStmt, ij.unit);
+                                break;
                             }
                         }
                     }
