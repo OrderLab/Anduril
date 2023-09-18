@@ -120,9 +120,9 @@ public final class StacktraceAgent {
                 }
                 waiter.countDown();
             }));
-            final Class<?> cls = Class.forName(args[2]);
+            final Class<?> cls = Class.forName(args[3]);
             final Method method = cls.getMethod("main", String[].class);
-            method.invoke(null, (Object) Arrays.copyOfRange(args, 3, args.length));
+            method.invoke(null, (Object) Arrays.copyOfRange(args, 4, args.length));
         }
     }
 }
