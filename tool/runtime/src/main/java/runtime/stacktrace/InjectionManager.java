@@ -39,7 +39,7 @@ public final class InjectionManager {
         StackTraceElement[] es = Thread.currentThread().getStackTrace();
         StringBuilder s = new StringBuilder();
         for (StackTraceElement e : es) {
-            s.append(e.toString());
+            s.append(e.toString()+",");
         }
         // Calculate occurence
         int occurrence = -1;
