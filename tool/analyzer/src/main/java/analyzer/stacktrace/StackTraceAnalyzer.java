@@ -5,7 +5,7 @@ import analyzer.analysis.BasicBlockAnalysis;
 import analyzer.option.AnalyzerOptions;
 import feedback.LogStatistics;
 import feedback.parser.LogParser;
-import runtime.fate.FateAgent;
+import runtime.stacktrace.StacktraceAgent;
 import soot.*;
 import soot.jimple.*;
 import soot.tagkit.LineNumberTag;
@@ -39,7 +39,7 @@ public class StackTraceAnalyzer {
             }
         }
 
-        final SootClass agentClass = Scene.v().loadClassAndSupport(FateAgent.class.getCanonicalName());
+        final SootClass agentClass = Scene.v().loadClassAndSupport(StacktraceAgent.class.getCanonicalName());
         final SootMethod injectMethod = agentClass.getMethodByName("inject");
         final SootMethod initMethod = agentClass.getMethodByName("initStub");
 
