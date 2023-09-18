@@ -43,13 +43,31 @@ public class CommandLine {
         collectTimeStatistics();
     }
 
-    private void collectTimeStatistics() {
-        int injection = Integer.parseInt(cmd.getOptionValue("injection"));
-        int log = Integer.parseInt(cmd.getOptionValue("symptom-log"));
+    private void collectTimeStatistics() throws IOException {
+        int inject = Integer.parseInt(cmd.getOptionValue("injection"));
+        int sl = Integer.parseInt(cmd.getOptionValue("symptom-log"));
         final TimePriorityTable timePriorityTable = TimePriorityTable.load(cmd.getOptionValue("time-table"));
-        timePriorityTable.injections.get(injection).forEach((k, v) -> {
-            System.out.printf("%d,%d,%d,%d,%d", injection, log, k.occurrence, k.pid, v.timePriorities.get(log));
-        });
+        final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
+        if (sl != -1) {
+            timePriorityTable.injections.get(inject).forEach((k, v) -> {
+                if (v.timePriorities.containsKey(sl)) {
+                    System.out.printf("%d,%d,%d,%d,%d", sl, inject, k.occurrence, k.pid, v.timePriorities.get(sl));
+                    System.out.println();
+                }
+            });
+        } else {
+            int startNumber = spec.getInt("start");
+            for (int log = 0; log < startNumber; log++){
+                int finalLog = log;
+                timePriorityTable.injections.forEach((injection, m) -> m.forEach((k, v) -> {
+                    if (v.timePriorities.containsKey(finalLog)) {
+                        System.out.printf("%d,%d,%d,%d,%d", finalLog, injection, k.occurrence, k.pid, v.timePriorities.get(finalLog));
+                        System.out.println();
+                    }
+
+                }));
+            }
+        }
     }
 
 
