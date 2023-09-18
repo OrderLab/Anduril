@@ -13,7 +13,7 @@ runtime_classes_dir=$SCRIPT_DIR/../runtime/target/classes
 rm -rf ${OUT_DIR}
 mkdir -p ${OUT_DIR}
 
-$SCRIPT_DIR/analyzer.sh \
+JAVA_OPTS="-Danalysis.badLog=${SCRIPT_DIR}/../../ground_truth/$case_name/bad-run-log.txt" $SCRIPT_DIR/analyzer.sh \
 -o $HOME/tmp/bytecode/$case_name/sootOutput \
 -i $classes_dir $test_classes_dir $runtime_classes_dir \
 -fc $case_name \
