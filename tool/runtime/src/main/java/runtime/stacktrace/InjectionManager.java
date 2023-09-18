@@ -76,7 +76,8 @@ public final class InjectionManager {
                 final int injectionId = spec.getInt("id");
                 final JsonArray stackTrace = spec.getJsonArray("stackTrace");
                 StringBuilder s = new StringBuilder();
-                for (int j = 0; j < stackTrace.size(); j++) {
+                // There would be shift on the first one
+                for (int j = 1; j < stackTrace.size(); j++) {
                     s.append(stackTrace.getString(j)+",");
                 }
                 System.out.println(s);
