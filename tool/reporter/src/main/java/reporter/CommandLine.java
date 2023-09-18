@@ -39,8 +39,19 @@ public class CommandLine {
     //By now the most simple mode
     private void run() throws Exception {
         //computeFirstReproduction();
-        getRanks();
+        //getRanks();
+        collectTimeStatistics();
     }
+
+    private void collectTimeStatistics() {
+        int injection = Integer.parseInt(cmd.getOptionValue("injection"));
+        int log = Integer.parseInt(cmd.getOptionValue("symptom-log"));
+        final TimePriorityTable timePriorityTable = TimePriorityTable.load(cmd.getOptionValue("time-table"));
+        timePriorityTable.injections.get(injection).forEach((k, v) -> {
+            System.out.printf("%d,%d,%d,%d,%d", injection, log, k.occurrence, k.pid, v.timePriorities.get(log));
+        });
+    }
+
 
     private void getRanks() throws IOException {
         int injection = Integer.parseInt(cmd.getOptionValue("injection"));
@@ -148,6 +159,10 @@ public class CommandLine {
         final Option time = new Option("tt", "time-table", true,
                 "path for time table");
         options.addOption(time);
+
+        final Option symptomLog = new Option("sl", "symptom-log", true,
+                "symptom log");
+        options.addOption(symptomLog);
 
         return options;
     }
