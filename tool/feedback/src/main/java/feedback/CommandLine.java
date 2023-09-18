@@ -122,7 +122,7 @@ public final class CommandLine {
             LogStatistics.countUniqueFaults(LogParser.parseLog(cmd.getOptionValue("unique-count")), printer::println);
         }
         if (cmd.hasOption("stacktrace-injection")) {
-            LogStatistics.StackTraceInjection[] injectionArray = LogStatistics.collectExceptionStackTrace(LogParser.parseLog(cmd.getOptionValue("unique-count")));
+            LogStatistics.StackTraceInjection[] injectionArray = LogStatistics.collectExceptionStackTrace(LogParser.parseLog(cmd.getOptionValue("stacktrace-injection")));
             String path = "stacktrace.json";
             final JsonArrayBuilder injectionsJson = Json.createArrayBuilder();
             for (LogStatistics.StackTraceInjection injection : injectionArray) {
@@ -266,7 +266,7 @@ public final class CommandLine {
         final Option trace = new Option("tr", "trace", true, "injection trace csv");
         options.addOption(trace);
 
-        final Option stackTrace = new Option("st", "stacktrace-injection", false, "stacktrace-injection mode");
+        final Option stackTrace = new Option("st", "stacktrace-injection", true, "stacktrace-injection mode");
         options.addOption(stackTrace);
 
         return options;
