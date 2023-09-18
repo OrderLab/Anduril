@@ -4,13 +4,12 @@ import feedback.common.ActionMayThrow
 import feedback.log.entry.ExceptionLogEntry
 import feedback.log.exception.{NativeStackTraceElement, NormalStackTrace, NormalStackTraceElement, StackTraceRecord, UnknownStackTraceElement}
 import feedback.log.{DistributedWorkloadLog, Log, LogFile, NormalLogFile, TraceLogFile, UnitTestLog}
-import feedback.parser.InjectionPoint
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
 
 object LogStatistics {
   val prefix: String = System.getProperty("analysis.prefix", "org.apache.zookeeper")
+  val secondaryPrefix: String = System.getProperty("analysis.secondaryPrefix", "#")
 
   private def countExceptions(log: LogFile): Int = log.entries.count(_ match {
     case ExceptionLogEntry(logLine, showtime, logType, thread, classname, fileLogLine, msg, nestedException) => true
@@ -91,9 +90,7 @@ object LogStatistics {
               if (!found) {
                 es match {
                   case NormalStackTraceElement(className, methodName, fileName, line) =>
-                    if (className.contains(prefix)) {
-                      //println(mostInner.exception)
-                      //println(className + " " + methodName + " " + line)
+                    if (className.contains(prefix) || className.contains(secondaryPrefix)) {
                       if (!set.contains(StackTraceInjection(mostInner.exception, className, methodName, fileName, line, null))) {
                         set += StackTraceInjection(mostInner.exception, className, methodName, fileName, line, null)
                         found = true
@@ -112,7 +109,7 @@ object LogStatistics {
           }
           if (found) {
             si.stackTrace = st.toArray
-            if (si.stackTrace.size != 0) {
+            if (si.stackTrace.length != 0) {
               injections += si
             }
           }

@@ -11,6 +11,7 @@ import analyzer.event.ProgramEvent;
 import analyzer.fate.FateAnalyzer;
 import analyzer.instrument.ThreadInstrumentor;
 import analyzer.option.AnalyzerOptions;
+import analyzer.stacktrace.StackTraceAnalyzer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.*;
@@ -35,6 +36,7 @@ public class FlakyTestAnalyzer extends SceneTransformer {
     public static final boolean baseline = Boolean.getBoolean("analysis.baseline");
     public static final boolean fate = Boolean.getBoolean("analysis.fate");
     public static final boolean crashtuner = Boolean.getBoolean("analysis.crashtuner");
+    public static final boolean stackTrace = Boolean.getBoolean("analysis.stackTrace");
 
     @Override
     protected void internalTransform(String phaseName, Map<String, String> options) {
@@ -48,6 +50,10 @@ public class FlakyTestAnalyzer extends SceneTransformer {
         }
         if (fate) {
             FateAnalyzer.run(AnalyzerOptions.getInstance());
+            return;
+        }
+        if (stackTrace) {
+            StackTraceAnalyzer.run(AnalyzerOptions.getInstance());
             return;
         }
         // TODO: make it configurable
