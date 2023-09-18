@@ -9,12 +9,13 @@ import feedback.parser.LogParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
+import javax.json.stream.JsonGenerator;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -119,6 +120,32 @@ public final class CommandLine {
         }
         if (cmd.hasOption("unique-count")) {
             LogStatistics.countUniqueFaults(LogParser.parseLog(cmd.getOptionValue("unique-count")), printer::println);
+        }
+        if (cmd.hasOption("stacktrace-injection")) {
+            LogStatistics.StackTraceInjection[] injectionArray = LogStatistics.collectExceptionStackTrace(LogParser.parseLog(cmd.getOptionValue("unique-count")));
+            String path = "stacktrace.json";
+            final JsonArrayBuilder injectionsJson = Json.createArrayBuilder();
+            for (LogStatistics.StackTraceInjection injection : injectionArray) {
+                final JsonArrayBuilder stackTrace = Json.createArrayBuilder();
+                for (int i = 0; i < injection.stackTrace().length; i++) {
+                    stackTrace.add(injection.stackTrace()[i]);
+                }
+                injectionsJson.add(Json.createObjectBuilder()
+                        .add("exception", injection.exception())
+                        .add("class", injection.className())
+                        .add("method", injection.methodName())
+                        .add("line", injection.lineNumber())
+                        .add("stackTrace", stackTrace));
+            }
+            final JsonObject json = Json.createObjectBuilder()
+                    .add("injections", injectionsJson).build();
+            final Map<String, Object> options = new HashMap<>();
+            options.put(JsonGenerator.PRETTY_PRINTING, true);
+            final JsonWriterFactory writerFactory = Json.createWriterFactory(options);
+            try (final FileWriter fw = new FileWriter(path);
+                 final JsonWriter jsonWriter = writerFactory.createWriter(fw)) {
+                jsonWriter.writeObject(json);
+            } catch (final IOException ignored) { }
         }
     }
 
@@ -238,6 +265,9 @@ public final class CommandLine {
 
         final Option trace = new Option("tr", "trace", true, "injection trace csv");
         options.addOption(trace);
+
+        final Option stackTrace = new Option("st", "stacktrace-injection", false, "stacktrace-injection mode");
+        options.addOption(stackTrace);
 
         return options;
     }
