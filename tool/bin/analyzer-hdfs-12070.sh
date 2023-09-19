@@ -15,7 +15,7 @@ for i in `find $SRC_DIR/hadoop-common-project -name "test-classes"`; do alldirs=
 rm -rf ${OUT_DIR}
 mkdir -p ${OUT_DIR}
 
-JAVA_OPTS="-Danalysis.prefix=org.apache.hadoop" \
+JAVA_OPTS="-Danalysis.prefix=org.apache.hadoop -Danalysis.badLog=${SCRIPT_DIR}/../../ground_truth/$case_name/bad-run-log.txt" \
 $SCRIPT_DIR/analyzer.sh \
 -o $HOME/tmp/bytecode/$case_name/sootOutput \
 -i $alldirs \
