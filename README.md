@@ -31,6 +31,8 @@ wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-
 tar xzvf jdk-8u301-linux-x64.tar.gz
 wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
 tar xzvf apache-maven-3.9.9-bin.tar.gz
+wget https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.14-bin.tar.gz
+tar xzvf apache-ant-1.10.14-bin.tar.gz
 export PATH=$PATH:~/jdk1.8.0_301/bin:~/apache-maven-3.9.9/bin:~/apache-ant-1.10.14/bin
 export JAVA_HOME=~/jdk1.8.0_301
 
