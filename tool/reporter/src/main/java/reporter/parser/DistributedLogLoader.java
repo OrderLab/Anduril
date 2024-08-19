@@ -21,7 +21,8 @@ public class DistributedLogLoader {
         if (this.distributed) {
             return LogParser.parseLog(rootDir.getPath() + "/" + index);
         }
-        return LogParser.parseLog(rootDir.getPath() + "/output-" + index + ".txt");
+        //return LogParser.parseLog(rootDir.getPath() + "/output-" + index + ".txt");
+        return LogParser.parseLog(rootDir.getPath() + "/" + index + ".txt");
     }
 
     public int getInjectionId(int index) throws IOException {
