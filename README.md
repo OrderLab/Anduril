@@ -23,6 +23,7 @@ Table of Contents
 * Apache Maven (>= 3.6.3, for Anduril compilation)
 * Apache Ant (>= 1.10.9, artifact testing only, for zookeeper compilation)
 * JDK8 (openjdk recommended)
+* protobuf (==2.5.0, artifact testing only, for HDFS compilation)
 
 # 0. Install and configure dependencies
  
@@ -36,6 +37,14 @@ tar xzvf apache-ant-1.10.14-bin.tar.gz
 export PATH=$PATH:~/jdk1.8.0_301/bin:~/apache-maven-3.9.9/bin:~/apache-ant-1.10.14/bin
 export JAVA_HOME=~/jdk1.8.0_301
 
+cp Anduril/systems/protobuf-2.5.0.zip $HOME
+cd ~/protobuf-2.5.0/
+autoreconf -f -i -Wall,no-obsolete
+./configure --prefix=$HOME/protobuf-build
+make -j4
+make install
+export PATH=$PATH:$HOME/protobuf-build/bin
+protoc --version
 ```
 
 
