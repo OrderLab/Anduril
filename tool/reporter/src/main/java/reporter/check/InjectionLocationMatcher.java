@@ -59,6 +59,10 @@ class InjectionLocationMatcher {
     }
 
     public boolean match(JsonObject injection) {
+        if (targetPoints == null) {
+            return true;
+        }
+
         for (InjectionLocation targetPoint : targetPoints) {
             if (targetPoint.match(injection)) {
                 return true;
