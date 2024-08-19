@@ -34,8 +34,8 @@ class InjectionLocationMatcher {
         String method = null;
         String invocation = null;
         String exception = null;
-        switch("hdfs-12248") {
-        //switch(spec.getString("case")) {
+        //switch("hdfs-12248") {
+        switch(spec.getString("case")) {
             case "hdfs-4233":
                 targetPoints = new InjectionLocation[1];
                 injectionClass = "org.apache.hadoop.hdfs.server.namenode.EditLogFileOutputStream";

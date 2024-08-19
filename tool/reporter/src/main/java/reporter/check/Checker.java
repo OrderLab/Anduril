@@ -28,6 +28,6 @@ public class Checker {
     }
 
     public boolean checkTrial(Log trial, int injectionId) {
-        return targetSet.contains(injectionId) && Symptoms.hasResultEvent(trial,spec);
+        return (targetSet.contains(injectionId) || targetSet.isEmpty()) && Symptoms.hasResultEvent(trial,spec);
     }
 }

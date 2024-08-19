@@ -8,8 +8,6 @@ import feedback.JsonUtil;
 
 import reporter.check.Checker;
 import reporter.parser.DistributedLogLoader;
-import runtime.AugmentedFeedbackManager;
-import runtime.TraceAgent;
 import runtime.graph.PriorityGraph;
 import runtime.time.TimePriorityTable;
 
@@ -38,9 +36,9 @@ public class CommandLine {
 
     //By now the most simple mode
     private void run() throws Exception {
-        //computeFirstReproduction();
+        computeFirstReproduction();
         //getRanks();
-        collectTimeStatistics();
+        //collectTimeStatistics();
     }
 
     private void collectTimeStatistics() throws IOException {
@@ -135,6 +133,7 @@ public class CommandLine {
             final Log trial;
             try {trial = loader.getDistributedLog(index);}
             catch (RuntimeException e) {
+                System.out.println(e.toString());
                 System.out.println("Be not able to parse trial with id:" + index);
                 index++;
                 continue;
