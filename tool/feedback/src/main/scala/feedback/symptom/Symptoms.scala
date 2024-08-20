@@ -40,4 +40,7 @@ object Symptoms {
   def hasResultEvent(log: Log, spec: JsonObject): Boolean =
     findResultEvent(log, spec.getString("case")).isDefined
 
+  def hasResultEvent(log: Log, bug: String): Boolean =
+    findResultEvent(log, bug).isDefined
+
 }

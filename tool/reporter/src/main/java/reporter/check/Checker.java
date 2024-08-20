@@ -13,6 +13,7 @@ public class Checker {
 
     public final Set<Integer> targetSet = new TreeSet<>();
     public final JsonObject spec;
+    public final String name;
 
     public Checker(JsonObject spec) {
         this.spec = spec;
@@ -25,13 +26,19 @@ public class Checker {
                 targetSet.add(injectionId);
             }
         }
+        name = null;
+    }
+
+    public Checker(String name) {
+        spec = null;
+        this.name = name;
     }
 
     public boolean checkTrial(Log trial, int injectionId) {
-        return targetSet.contains(injectionId) && Symptoms.hasResultEvent(trial,spec);
+        return targetSet.contains(injectionId) && Symptoms.hasResultEvent(trial, spec);
     }
 
     public boolean checkBaselineTrial(Log trial) {
-        return Symptoms.hasResultEvent(trial,spec);
+        return Symptoms.hasResultEvent(trial, name);
     }
 }

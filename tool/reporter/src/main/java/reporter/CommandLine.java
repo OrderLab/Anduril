@@ -121,8 +121,13 @@ public class CommandLine {
     }
 
     private void computeFirstReproduction() throws IOException {
-        final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
-        final Checker checker = new Checker(spec);
+        Checker checker = null;
+        if (cmd.hasOption("spec")) {
+            final JsonObject spec = JsonUtil.loadJson(cmd.getOptionValue("spec"));
+            checker = new Checker(spec);
+        } else {
+            checker = new Checker(cmd.getOptionValue("case-name"));
+        }
         final DistributedLogLoader loader;
         if (cmd.hasOption("distributed")) {
             loader = new DistributedLogLoader(cmd.getOptionValue("trial-directory"), true);
@@ -203,6 +208,10 @@ public class CommandLine {
         final Option baseline = new Option("b", "baseline", false,
                 "whether it is SOTA evaluation");
         options.addOption(baseline);
+
+        final Option case_name = new Option("n", "case-name", true,
+                "case name for use in checker");
+        options.addOption(case_name);
 
         return options;
     }
