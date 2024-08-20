@@ -28,14 +28,15 @@ Table of Contents
 # 0. Install and configure dependencies
  
 ```bash
-wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" https://javadl.oracle.com/webapps/download/GetFile/1.8.0_301-b09/d3c52aa6bfa54d3ca74e617f18309292/linux-i586/jdk-8u301-linux-x64.tar.gz
-tar xzvf jdk-8u301-linux-x64.tar.gz
+# Suppose you are at ~ (or $HOME)
+wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gztar xzvf jdk-8u301-linux-x64.tar.gz
+tar xzvf openlogic-openjdk-8u422-b05-linux-x64.tar.gz
 wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
 tar xzvf apache-maven-3.9.9-bin.tar.gz
 wget https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.14-bin.tar.gz
 tar xzvf apache-ant-1.10.14-bin.tar.gz
-export PATH=$PATH:~/jdk1.8.0_301/bin:~/apache-maven-3.9.9/bin:~/apache-ant-1.10.14/bin
-export JAVA_HOME=~/jdk1.8.0_301
+export PATH=$PATH:~/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:~/apache-ant-1.10.14/bin:~/protobuf-build/bin
+export JAVA_HOME=~/openlogic-openjdk-8u422-b05-linux-x64
 
 cp Anduril/systems/protobuf-2.5.0.zip $HOME
 cd ~/protobuf-2.5.0/
