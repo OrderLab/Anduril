@@ -27,6 +27,10 @@ function compile_before_analysis() {
   kill -9 `jps -l | grep 'JUnitTestRunner' | cut -d " " -f 1`
 }
 
+function compile_after_analysis() {
+  ant jar
+}
+
 # Compile System code
 echo "Compiling system----------"
 pushd $tool_dir/systems/$case_name >/dev/null 
@@ -46,21 +50,27 @@ echo "Static analysis----------"
 pushd $tool_dir/tool/bin >/dev/null 
   ./analyzer-${case_name}.sh
   ../move/${case_name}.sh
-  cp ./tree.json $SCRIPT_DIR
+  cp ./tree.json $tool_dir/evaluation/$case_name
 popd >/dev/null
 
-# Record fault instances dynamically
 
-
-pushd $SCRIPT_DIR >/dev/null
-
-#java -jar $SCRIPT_DIR/driver.jar \
-#--experiment \
-#--spec $SCRIPT_DIR/tree.json \
-#--path $SCRIPT_DIR/trials \
-#--config $SCRIPT_DIR/config.properties \
-#--trial-limit $1 \
-#$@
-
+echo "Recompiling system----------"
+pushd $tool_dir/systems/$case_name >/dev/null 
+  compile_after_analysis
 popd >/dev/null
+
+pushd $tool_dir/evaluation/$case_name >/dev/null
+  ./update.sh
+  # Record fault instances dynamically
+  ./run-instrumented-test.sh > record-inject 2>&1  
+  # Calculate the time table
+  java -jar feedback.jar -tf -g record-inject -b bad-run-log -s tree.json -obj time.bin
+
+
+  # Perform evaluation
+  ./driver.sh 10
+  cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
+  java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
+popd >/dev/null
+
 
