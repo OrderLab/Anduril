@@ -5,7 +5,8 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 case_name=zookeeper-2247
 
 tool_dir="${SCRIPT_DIR}/../.."
-
+R='\033[0;31m'
+RESET='\033[0m'
 
 function compile_before_analysis() {
   ant clean
@@ -32,7 +33,7 @@ function compile_after_analysis() {
 }
 
 # Compile System code
-echo "Compiling system----------"
+echo -e "${R} Compiling system----------${RESET} \n"
 pushd $tool_dir/systems/$case_name >/dev/null 
 
 compile_before_analysis
@@ -40,13 +41,13 @@ compile_before_analysis
 popd >/dev/null
 
 # Filter out important log messages
-echo "Log diff----------"
+echo -e "${R} Log diff----------${RESET}"
 pushd $tool_dir/ground_truth/$case_name >/dev/null 
   ./make_diff.sh $tool_dir/tool/feedback/target/feedback-1.0-jar-with-dependencies.jar
 popd >/dev/null
 
 # Perform static analysis
-echo "Static analysis----------"
+echo -e "${R} Static analysis----------${RESET}"
 pushd $tool_dir/tool/bin >/dev/null 
   ./analyzer-${case_name}.sh
   ../move/${case_name}.sh
@@ -54,12 +55,13 @@ pushd $tool_dir/tool/bin >/dev/null
 popd >/dev/null
 
 
-echo "Recompiling system----------"
-pushd $tool_dir/systems/$case_name >/dev/null 
-  compile_after_analysis
-popd >/dev/null
+#echo -e "${R} Recompiling system----------${RESET}"
+#pushd $tool_dir/systems/$case_name >/dev/null 
+#  compile_after_analysis
+#popd >/dev/null
 
 pushd $tool_dir/evaluation/$case_name >/dev/null
+  rm -rf trials/
   ./update.sh
   # Record fault instances dynamically
   ./run-instrumented-test.sh > record-inject 2>&1  
@@ -68,7 +70,7 @@ pushd $tool_dir/evaluation/$case_name >/dev/null
 
 
   # Perform evaluation
-  ./driver.sh 10
+  ./driver.sh 20
   cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
   java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
 popd >/dev/null
