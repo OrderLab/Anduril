@@ -89,6 +89,9 @@ final class Spec {
                 "path of injection spec json");
         options.addOption(spec);
 
+        final Option limit = new Option("t", "trial-limit", true, "max number of trials");
+        options.addOption(limit);
+
         return options;
     }
 
