@@ -17,6 +17,8 @@ final class Spec {
     public final Path experimentPath;
     public final File configFile, specFile;
 
+    public final int trial_limit;
+
     Spec(final String[] args) {
         final CommandLine cmd = parseCommandLine(args);
         this.configFile = new File(cmd.getOptionValue("config"));
@@ -54,6 +56,11 @@ final class Spec {
             if (!this.specFile.exists()) {
                 throw new RuntimeException("can't find injection spec json " + this.specFile.getPath());
             }
+        }
+        if (cmd.hasOption("trial-limit")) {
+            trial_limit = Integer.parseInt(cmd.getOptionValue("trial-limit"));
+        } else {
+            trial_limit = 2000;
         }
     }
 

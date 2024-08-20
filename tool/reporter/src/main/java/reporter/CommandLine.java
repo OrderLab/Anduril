@@ -6,6 +6,8 @@ import org.apache.commons.cli.Options;
 
 import feedback.JsonUtil;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import reporter.check.Checker;
 import reporter.parser.DistributedLogLoader;
 import runtime.graph.PriorityGraph;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.util.*;
 
 
@@ -128,7 +131,7 @@ public class CommandLine {
         }
         //Traverse through all the trials
         int index = 0;
-        while (index <= 1000000) {
+        while (index <= 2000) {
             //Get parsed log files and injection points id.
             final Log trial;
             try {trial = loader.getDistributedLog(index);}
@@ -137,17 +140,33 @@ public class CommandLine {
                 System.out.println("Be not able to parse trial with id:" + index);
                 index++;
                 continue;
-            }
-            final int injectionId = loader.getInjectionId(index);
-            if (checker.checkTrial(trial, injectionId)) {
-                System.out.println("The Index of first trial that reproduce the bug: " + index);
-
-                //DateTime start = loader.getDistributedLog(0).logs[0].entries[0].datetime;
-                //int length = trial.logs[0].entries.length;
-                //DateTime end = trial.logs[0].entries[length - 1].datetime;
-                //Duration elapsed = new Duration(start,end);
-                //System.out.println("The elapsed time to reproduce is : " + elapsed.toString());
+            } catch (NoSuchFileException e) {
+                System.out.println(e.toString());
+                System.out.println("Did not find out trial with id:" + index);
                 break;
+            }
+
+            if (cmd.hasOption("baseline")) {
+                if (checker.checkBaselineTrial(trial)) {
+                    System.out.println("The Index of first trial that reproduce the bug: " + index);
+
+                    DateTime start = loader.getDistributedLog(0).showtime();
+                    DateTime end = loader.getDistributedLog(index).showtime();
+                    Duration elapsed = new Duration(start, end);
+                    System.out.println("The elapsed time to reproduce is : " + elapsed.toString());
+                    break;
+                }
+            } else {
+                final int injectionId = loader.getInjectionId(index);
+                if (checker.checkTrial(trial, injectionId)) {
+                    System.out.println("The Index of first trial that reproduce the bug: " + index);
+
+                    DateTime start = loader.getDistributedLog(0).showtime();
+                    DateTime end = loader.getDistributedLog(index).showtime();
+                    Duration elapsed = new Duration(start, end);
+                    System.out.println("The elapsed time to reproduce is : " + elapsed.toString());
+                    break;
+                }
             }
             index++;
         }
@@ -180,6 +199,10 @@ public class CommandLine {
         final Option symptomLog = new Option("sl", "symptom-log", true,
                 "symptom log");
         options.addOption(symptomLog);
+
+        final Option baseline = new Option("b", "baseline", false,
+                "whether it is SOTA evaluation");
+        options.addOption(baseline);
 
         return options;
     }

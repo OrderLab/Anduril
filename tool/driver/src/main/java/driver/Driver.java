@@ -34,7 +34,7 @@ public final class Driver {
             } else {
                 Config.checkExperimentConfig(properties);
             }
-            for (int trialId = findStart(spec.experimentPath); trialId < TRIAL_LIMIT; trialId++) {
+            for (int trialId = findStart(spec.experimentPath); trialId < spec.trial_limit; trialId++) {
                 final File injectionFile = spec.experimentPath.resolve("injection-" + trialId + ".json").toFile();
                 final Path outputDir = spec.currentDir.resolve("trial.out");
                 final Path trialDir = spec.experimentPath.resolve(trialId + ".out");

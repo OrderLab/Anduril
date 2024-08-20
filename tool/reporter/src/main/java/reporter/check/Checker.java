@@ -30,4 +30,8 @@ public class Checker {
     public boolean checkTrial(Log trial, int injectionId) {
         return targetSet.contains(injectionId) && Symptoms.hasResultEvent(trial,spec);
     }
+
+    public boolean checkBaselineTrial(Log trial) {
+        return Symptoms.hasResultEvent(trial,spec);
+    }
 }
