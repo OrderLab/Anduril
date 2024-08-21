@@ -1,0 +1,6 @@
+flakyAgent.avoidBlockMode=true
+flakyAgent.probability=0.05
+flakyAgent.timePriorityTable=time.bin
+flakyAgent.timeFeedbackMode=min_times
+flakyAgent.trialTimeout=300
+flakyAgent.recordOnthefly=true

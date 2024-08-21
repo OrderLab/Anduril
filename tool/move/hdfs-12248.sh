@@ -10,6 +10,9 @@ sootoutput_dir="$HOME/tmp/bytecode/$case_name/sootOutput"
 rm -rf $target_dir
 mkdir -p $target_dir
 
+cp -a $sootoutput_dir/. $target_dir
+
+
 for classes_dir in `find $src_dir/hadoop-common-project -name classes`; do
 for i in `cd $classes_dir && find . -name "*.class" && cd - >/dev/null 2>&1`; do
   flag=""
