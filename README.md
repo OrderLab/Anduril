@@ -36,7 +36,10 @@ Table of Contents
   - Other systems and newer JDKs may also work.
 
 * Hardware: 
-  - The basic workflow of Anduril described in this README, which should satisfy the `Artifacts Functional` requirements, can be done in just one single node.
+  - The basic workflow of Anduril described in this README can be done in just one single node.
+  - Our experiment node uses the CloudLab `c220g5` node type, which has two
+    Intel Xeon Silver 4114 10-core CPUs at 2.20 GHz, 192GB ECC DDR4-2666 memory, 
+    and a 1 TB 7200 RPM 6G SAS HDs.
 
 * Git (>= 2.16.2, version control)
 * Apache Maven (>= 3.6.3, for Anduril compilation)
