@@ -30,5 +30,6 @@ testcase="org.apache.hadoop.hdfs.server.balancer.TestBalancerWithHANameNodes"
 
 java -cp $classes_dir:$jars:$runtime_jar \
 -Dlog4j.configuration=file:$SCRIPT_DIR/log4j.properties \
-$@ runtime.TraceAgent $p1 $p2 $p3 $p4 org.junit.runner.JUnitCore $testcase \
+-Dbaseline.policy=crashtuner \
+$@ runtime.baseline.BaselineAgent $p1 $p3 $p4 org.junit.runner.JUnitCore $testcase \
 > $SCRIPT_DIR/trial.out 2>&1
