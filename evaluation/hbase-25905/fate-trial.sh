@@ -39,5 +39,5 @@ testcase="org.apache.hadoop.hbase.replication.TestReplicationSmallTests"
 java -cp $classes_dir:$jars:$runtime_jar \
 -noverify \
 -Dlog4j.configurationFile=file:$SCRIPT_DIR/log4j2.xml \
-$@ runtime.TraceAgent $p1 $p2 $p3 $p4 org.junit.runner.JUnitCore $testcase \
+$@ runtime.fate.FateAgent $p1 $p3 $p4 org.junit.runner.JUnitCore $testcase \
 > $SCRIPT_DIR/trial.out 2>&1
