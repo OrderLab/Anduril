@@ -53,11 +53,11 @@ protoc --version
 ```
 
 # 1. Running the experiments
-There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
+There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. 
 ## Compile the system codes
 The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
 
-In `zookeeper-2247` and `zookeeper-3157`, we need to run `ant test` for some time to fetch the test classes: 
+In `zookeeper-2247`, `zookeeper-3157` and Cassandra cases, we need to run `ant test` for some time to fetch the test classes: 
 ```bash
   ant clean
   ant jar
@@ -91,8 +91,9 @@ In Kafka cases that using Gradle, we need to run the targe integration test in w
   ./gradlew streams:test --tests org.apache.kafka.streams.integration.EmitOnChangeIntegrationTest
   #kafka-9374
   ./gradlew connect:runtime:test --tests org.apache.kafka.connect.integration.BlockingConnectorTest
+  #kafka-10048
+  ./gradlew connect:mirror:test --tests org.apache.kafka.connect.mirror.MirrorConnectorsIntegrationTest
 ```
-As to artifact evaluation, these are `compile_before_analysis` function in the scripts! 
 ## Find important logs
 In the second step, the goal is to filter out important log entries in the failure log. 
 
@@ -225,4 +226,7 @@ Else, it is incoporated into our reporter framework and can be checked with
 
 In artifact evaluation, after each policy, it will check the reproduction and the result is in green color. 
 
+# 2. Artifact evaluation 
+## Table II
+As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
 
