@@ -14,8 +14,8 @@ Table of Contents
 ## Requirements
 
 * OS and JDK:
-  - Anduril is developed and tested under **Ubuntu 18.04** and **JDK 8**. 
-  - Other systems and newer JDKs may also work. We tested a few functionalities on Ubuntu 18.04 but the test is not complete. 
+  - Anduril is developed and tested under **Ubuntu 18.04 to 20.04** with **JDK 8**. 
+  - Other systems and newer JDKs may also work.
 
 * Hardware: 
   - The basic workflow of Anduril described in this README, which should satisfy the `Artifacts Functional` requirements, can be done in just one single node.
