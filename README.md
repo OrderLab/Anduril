@@ -138,7 +138,7 @@ Static analysis of Crashtuner
 ```
 For artifact evaluation, the scripts do this and move `tree.json` to `evaluation/case_name` for later dynamic experiments. 
 ## Run dynamic experiments
-# Preparation of the experiment
+### Preparation of the experiment
 All the evaluation should happen in `evaluation/case_name` directory. 
 For 
 ```bash
@@ -158,10 +158,10 @@ Crashtuner:
 ```bash
   cp crashtuner-trial.sh single-trial.sh
 ```
-## Config of the experiment
+### Config of the experiment
 The configuration file is `config.properties`. 
 
-### (Artifact evaluation) FIR columns in Table II 
+#### (Artifact evaluation) FIR columns in Table II 
 There is one extra file called `config-template`. We can make the 6 corresponding `config.properties` from it by attaching extra configuration. 
 For example, in `zookeeper-2247`, `config-template`
 ```bash
@@ -181,7 +181,7 @@ The `config.properties` for Full Feedback can be generated through:
 ```
 You can refer to `fir-evaluation.sh` for all the 6 policies in FIR
 
-### (Artifact evaluation) FIR columns in Table II 
+#### (Artifact evaluation) FIR columns in Table II 
 There is one extra file called `config-sota`:
 ```bash
 flakyAgent.trialTimeout=90
@@ -200,7 +200,7 @@ If your configuration contains `flaky.timeFeedback=true` pr `flaky.augFeedback=t
   ./run-instrumnted-experiment.sh > record-inject
   java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
 ```
-## Running the experiment
+### Running the experiment
 FIR: 
 ```bash
   ./driver.sh num_trials
