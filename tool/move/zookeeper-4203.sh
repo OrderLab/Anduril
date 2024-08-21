@@ -11,6 +11,8 @@ sootoutput_dir="$HOME/tmp/bytecode/$case_name/sootOutput"
 rm -rf $target_dir
 mkdir -p $target_dir
 
+cp -a $sootoutput_dir/. $target_dir
+
 defaultList="./org/apache/zookeeper/server/auth/AuthenticationProvider.class
 ./org/apache/zookeeper/server/watch/IWatchManager.class
 ./org/apache/zookeeper/metrics/Counter.class
