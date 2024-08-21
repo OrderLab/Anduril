@@ -48,17 +48,28 @@ public final class Driver {
                     trial.add(spec.specFile.getPath());
                     trial.add(injectionFile.getPath());
                 } else {
-                    trial.add(String.valueOf(trialId));
-                    trial.add(spec.experimentPath.toString());
-                    trial.add(spec.specFile.getPath());
-                    trial.add(injectionFile.getPath());
-                    trial.add("_");
+	            if (!spec.baseline) {
+                      trial.add(String.valueOf(trialId));
+                      trial.add(spec.experimentPath.toString());
+                      trial.add(spec.specFile.getPath());
+                      trial.add(injectionFile.getPath());
+                      trial.add("_");
+		     } else {
+                      trial.add(String.valueOf(trialId));
+                      trial.add(spec.experimentPath.toString());
+                      trial.add("_");
+                      trial.add(injectionFile.getPath());
+                      trial.add("_");
+		     }
                 }
                 for (final String name: properties.stringPropertyNames()) {
                     trial.add("-D" + name + "=" + properties.getProperty(name));
                 }
                 final int timeout = Config.getTimeout(properties);
-                final List<String> feedback =
+
+		List<String> feedback;
+		if (!spec.baseline) {
+                  feedback =
                         Arrays.asList("java", "-jar", spec.currentDir.resolve("feedback.jar").toString(),
                                 "--location-feedback",
                                 "-g", spec.currentDir.resolve("good-run-log").toString(),
@@ -66,6 +77,9 @@ public final class Driver {
                                 "-t", outputDir.toString(),
                                 "-s", spec.specFile.getPath(),
                                 "-a", injectionFile.getPath());
+		} else {
+		  feedback = null;
+		}
                 loop(() -> {
                     final List<Future<Void>> consoles = new ArrayList<>();
                     try {
@@ -107,15 +121,18 @@ public final class Driver {
                             move(stacktrace, outputDir.resolve("stack_trace.txt").toFile());
                         }
                         Thread.sleep(3000);
-                        final Process feedbackProcess = start(feedback);
-                        consoles.add(console(feedbackProcess, LOG::debug));
-                        if (monitor(180, feedbackProcess::isAlive)) {
-                            kill(feedbackProcess);
-                            return false;
-                        }
-                        if (feedbackProcess.exitValue() != 0) {
-                            throw new RuntimeException("feedback exit value = " + feedbackProcess.exitValue());
-                        }
+
+			if (!spec.baseline) {
+                          final Process feedbackProcess = start(feedback);
+                          consoles.add(console(feedbackProcess, LOG::debug));
+                          if (monitor(180, feedbackProcess::isAlive)) {
+                              kill(feedbackProcess);
+                              return false;
+                          }
+                          if (feedbackProcess.exitValue() != 0) {
+                              throw new RuntimeException("feedback exit value = " + feedbackProcess.exitValue());
+                          }
+			}
                         move(outputDir.toFile(), trialDir.toFile());
                     } finally {
                         killall();
