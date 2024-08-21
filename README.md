@@ -52,7 +52,7 @@ export PATH=$PATH:$DEP/protobuf-build/bin
 protoc --version
 ```
 
-# 1. Running the experiments
+# 1. Running the experiments using existing cases
 There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. 
 ## Compile the system codes
 The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
@@ -118,7 +118,6 @@ ClientCnxn$SendThread 1181
 AppenderDynamicMBean 209
 ...
 ```
-For artifact evaluation, we do not have this stage because the results are already achived and there is no need to rerun them. 
 ## Peform static analysis
 The scripts are in directory `tool/bin`. For case `case_name`, `analyzer-${case_name}.sh` will output causal graph `tree.json` in the directory you run the script and the instrumented class files. There is another post-processing step on the generated instrumnted class files through scripts in `tool/move`. 
 ```bash
@@ -137,7 +136,6 @@ Static analysis of Crashtuner
   crashtuner= tool/bin/analyze-${case_name}.sh
   tool/move/${case_name}.sh
 ```
-For artifact evaluation, the scripts do this and move `tree.json` to `evaluation/case_name` for later dynamic experiments. 
 ## Run dynamic experiments
 ### Preparation of the experiment
 All the evaluation should happen in `evaluation/case_name` directory. 
@@ -224,9 +222,11 @@ Else, it is incoporated into our reporter framework and can be checked with
   java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
 ```
 
-In artifact evaluation, after each policy, it will check the reproduction and the result is in green color. 
+We will uniformize it soon!
 
 # 2. Artifact evaluation 
-## Table II
+
 As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
+
+
 
