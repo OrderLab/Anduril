@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-case_name=hdfs-12070
+case_name=hdfs-12248
 
 tool_dir="${SCRIPT_DIR}/../.."
 R='\033[0;31m'
