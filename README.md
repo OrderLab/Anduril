@@ -1,15 +1,33 @@
 # Anduril
 
 ## Overview
-Anduril uses static causal analysis and a novel feedback-driven algorithm
-to quickly search the enormous fault space for the root-cause
-fault and timing.
+Anduril (old codename: FIR) uses static causal analysis and a novel feedback-driven
+algorithm to quickly search the enormous fault space for the root-cause fault
+and timing.
 
 Table of Contents
 =================
 * [Requirements](#requirements)
 * [0. Install and configure dependencies](#0-install-and-configure-dependencies)
-* [1. Running the experiments](#1-running-the-experiments)
+* [1. Clone the repository](#1-clone-the-repository)
+* [2. Run the main experiments](#2-run-the-main-experiments)
+   * [2.1 Compile the system codes](#21-compile-the-system-codes)
+   * [2.2 Find important logs](#22-find-important-logs)
+   * [2.3 Peform static analysis](#23-peform-static-analysis)
+   * [2.4 Run dynamic experiments](#24-run-dynamic-experiments)
+      * [2.4.1 Preparation of the experiment](#241-preparation-of-the-experiment)
+      * [2.4.2 Config of the experiment](#242-config-of-the-experiment)
+         * [(Example from Artifact evaluation) FIR columns in Table II](#example-from-artifact-evaluation-fir-columns-in-table-ii)
+         * [(Example from Artifact evaluation) FIR columns in Table II](#example-from-artifact-evaluation-fir-columns-in-table-ii-1)
+      * [2.4.3 (Optional) Prepare time table](#243-optional-prepare-time-table)
+      * [2.4.4 Run the experiment](#244-run-the-experiment)
+      * [2.4.5 Check the reproduction result](#245-check-the-reproduction-result)
+* [3. Artifact evaluation](#3-artifact-evaluation)
+   * [Table II](#table-ii)
+      * [Edit the scripts](#edit-the-scripts)
+      * [Run the script](#run-the-script)
+      * [Inspect the result](#inspect-the-result)
+   * [Table III](#table-iii)
 
 ## Requirements
 
@@ -88,18 +106,19 @@ git clone https://github.com/OrderLab/Anduril.git
 This repository contains the evaluated systems, so it is a bit large (around 3.5 GB). Make sure you have enough disk space.
 
 
-# 2. Run the experiments using existing cases
+# 2. Run the main experiments
 
 There are 22 cases totaling up. Even though the target system of some of the
 cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may
 differ a lot so the compilation, static analysis, and dynamic experiment config
 differ a lot. 
 
-## Compile the system codes
+## 2.1 Compile the system codes
 
-The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
+The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. 
+Besides the system code, we also need to compile the test workload into classes. In some cases, our workload is the integration test or unit test.
 
-In `zookeeper-2247`, `zookeeper-3157` and Cassandra cases, we need to run `ant test` for some time to fetch the test classes: 
+In `zookeeper-2247`, `zookeeper-3157` and Cassandra cases, we need to run `ant test` for some time to produce the test classes: 
 ```bash
   ant clean
   ant jar
@@ -136,20 +155,27 @@ In Kafka cases that using Gradle, we need to run the targe integration test in w
   #kafka-10048
   ./gradlew connect:mirror:test --tests org.apache.kafka.connect.mirror.MirrorConnectorsIntegrationTest
 ```
-## Find important logs
+
+## 2.2 Find important logs
+
 In the second step, the goal is to filter out important log entries in the failure log. 
 
 In `experiments/case_name`, there is script that you can run the workload to get the logs. We run two times. 
+
 ```bash
   ./run-original-experiment.sh > good-run-log.txt 
   ./run-original-experiment.sh > good-run-log-2.txt 
 ```
+
 Then, move them to `ground_truth/case_name` together with the failure log named `bad-run-log.txt`. There is script to filter out suspicious log entries. 
+
 ```bash
   # Assume there are good-run-log.txt, good-run-log-2.txt, and bad-run-log.txt
   ./make_diff.sh
 ```
+
 The output are `diff_log_original.txt`, `diff_log_dd.txt`, and `diff_log_dd_set.txt` in the directory `ground_truth/case_name`. Take an example of the format:
+
 ```bash
 # First is the class and second is the line number
 LeaderRequestProcessor 77
@@ -160,26 +186,34 @@ ClientCnxn$SendThread 1181
 AppenderDynamicMBean 209
 ...
 ```
-## Peform static analysis
+
+## 2.3 Peform static analysis
 The scripts are in directory `tool/bin`. For case `case_name`, `analyzer-${case_name}.sh` will output causal graph `tree.json` in the directory you run the script and the instrumented class files. There is another post-processing step on the generated instrumnted class files through scripts in `tool/move`. 
+
 ```bash
   tool/bin/analyze-${case_name}.sh
   tool/move/${case_name}.sh
 ```
-For SOTA, 
+
+For the state-of-the-art baselines, 
 
 Static analysis of Fate
+
 ```bash
   fate= tool/bin/analyze-${case_name}.sh
   tool/move/${case_name}.sh
 ```
+
 Static analysis of Crashtuner
+
 ```bash
   crashtuner= tool/bin/analyze-${case_name}.sh
   tool/move/${case_name}.sh
 ```
-## Run dynamic experiments
-### Preparation of the experiment
+
+## 2.4 Run dynamic experiments
+
+### 2.4.1 Preparation of the experiment
 All the evaluation should happen in `evaluation/case_name` directory. 
 For 
 ```bash
@@ -199,10 +233,12 @@ Crashtuner:
 ```bash
   cp crashtuner-trial.sh single-trial.sh
 ```
-### Config of the experiment
+
+### 2.4.2 Config of the experiment
 The configuration file is `config.properties`. 
 
 #### (Example from Artifact evaluation) FIR columns in Table II 
+
 There is one extra file called `config-template`. We can make the 6 corresponding `config.properties` from it by attaching extra configuration. 
 For example, in `zookeeper-2247`, `config-template`
 ```bash
@@ -223,6 +259,7 @@ The `config.properties` for Full Feedback can be generated through:
 You can refer to `fir-evaluation.sh` for all the 6 policies in FIR
 
 #### (Example from Artifact evaluation) FIR columns in Table II 
+
 There is one extra file called `config-sota`:
 ```bash
 flakyAgent.trialTimeout=90
@@ -234,14 +271,15 @@ The `config.properties` for either Fate or Crashtuner can be generated through:
 ```
 You can refer to `fate-evaluation.sh` or `crashtuner-evaluation.sh` to see what happens.
 
-### (Optional) Prepare time table
+### 2.4.3 (Optional) Prepare time table
 If your configuration contains `flaky.timeFeedback=true` pr `flaky.augFeedback=true`, time table is needed. 
 ```bash
   ./make-depps.sh # If it is in evaluation/case_name
   ./run-instrumnted-experiment.sh > record-inject
   java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
 ```
-### Running the experiment
+### 2.4.4 Run the experiment
+
 Driver will run the experiments and output the trials into `trials`. For trial with index i, `injection-$i.json` records the fault injection point while `$i.out` records the system output. 
 FIR: 
 ```bash
@@ -252,7 +290,8 @@ SOTA:
   ./driver-sota.sh num_trials
 ```
 
-### Check whether reproduction
+### 2.4.5 Check the reproduction result
+
 There are two options, if `check-${case_name}.sh` is in the evaluation dir, we should use 
 ```bash
  `check-${case_name}.sh` trials 
@@ -264,16 +303,22 @@ Else, it is incoporated into our reporter framework and can be checked with
 
 We will uniformize it soon!
 
-# 2. Artifact evaluation 
+# 3. Artifact evaluation 
+
 The scripts are stored in `evaluation/scripts`. 
+
 ## Table II
+
 We need three scripts `fir-evaluation.sh`, `fate-evaluation.sh` and `crashtuner-evaluation.sh`. `fir-evaluation.sh` is for the first 6 columns while `fate-evaluation.sh` and `crashtuner-evaluation.sh` are for SOTA. 
 
 Suppose you want to get the row of `case_name`, copy the three scripts into the folder `evaluaiton/case_name`
 
 The three scripts can be ran on three different machines. Before running the script, there are some fields needed to be edited"
+
 ### Edit the scripts 
+
 In `fir-evaluation.sh`, the case_name should be changed to `case_name`. `fir-evaluation.sh` will run the 6 experiments shown in Table II sequentially and `p1-p6` designate how many trials each experiment lasts. For example, if you set `p1` to `20`, the first experiment, `Full Feedback`, would last `20` trials. A rule of thumb is to set this to be two times the data in the Table II. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. Last but not the least, `compile_before_analysis` should also be edited to reflect the system of the case. You can refer to section 1 about it. By default, it works for all system projects using Maven.  
+
 ```bach
 #!/usr/bin/env bash
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
