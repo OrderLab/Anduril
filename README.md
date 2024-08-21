@@ -29,7 +29,7 @@ Table of Contents
 # 0. Install and configure dependencies
  
 ```bash
-# Suppose you want to install dependency at $DEP
+DEP=$HOME/anduril-dep # modify this path to where you want the dependencies install
 cd $DEP
 
 wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gztar xzvf jdk-8u301-linux-x64.tar.gz
@@ -41,7 +41,7 @@ tar xzvf apache-ant-1.10.14-bin.tar.gz
 export PATH=$PATH:$DEP/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:$DEP/apache-ant-1.10.14/bin:$DEP/protobuf-build/bin
 export JAVA_HOME=$DEP/openlogic-openjdk-8u422-b05-linux-x64
 
-cp Anduril/systems/protobuf-2.5.0.zip $DEP
+cp $WHERE_YOU_DOWNLOAD_ANDURIL/Anduril/systems/protobuf-2.5.0.zip $DEP
 cd $DEP/protobuf-2.5.0/
 autoreconf -f -i -Wall,no-obsolete
 ./configure --prefix=$DEP/protobuf-build
@@ -52,9 +52,9 @@ protoc --version
 ```
 
 # 1. Running the experiments
-There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. To this end, for each unique case, we provides scripts in `evaluation/case_name` to traverse the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
+There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
 ## Compile the system codes
-In these scripts, the first section is to compile the system code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
+In these scripts, the first section is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
 
 In `zookeeper-2247` and `zookeeper-3157`, we need to run `ant test` for some time to fetch the test classes: 
 ```bash
@@ -93,7 +93,7 @@ In Kafka cases that using Gradle, we need to run the targe integration test in w
 ```
 These are `compile_before_analysis` function in the script! 
 ## Find important logs
-
+In 
 ## Peform static analysis
 
 ## Run dynamic experiments
