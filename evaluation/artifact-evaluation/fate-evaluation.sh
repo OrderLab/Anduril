@@ -49,7 +49,8 @@ popd >/dev/null
 
 pushd $tool_dir/evaluation/$case_name >/dev/null
   ./update.sh
-
+  rm -rf deps
+  ./make-deps.sh
   rm -rf fate-results
   mkdir fate-results
   cp fate-trial.sh single-trial.sh

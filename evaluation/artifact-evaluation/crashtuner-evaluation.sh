@@ -49,7 +49,8 @@ popd >/dev/null
 
 pushd $tool_dir/evaluation/$case_name >/dev/null
   ./update.sh
-
+  rm -rf deps
+  ./make-deps.sh
   rm -rf crashtuner-results
   mkdir crashtuner-results
   cp crashtuner-trial.sh single-trial.sh

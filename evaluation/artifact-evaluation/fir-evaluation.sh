@@ -55,6 +55,8 @@ popd >/dev/null
 
 pushd $tool_dir/evaluation/$case_name >/dev/null
   ./update.sh
+  rm -rf deps
+  ./make-deps.sh
   # Record fault instances dynamically
   ./run-instrumented-test.sh > record-inject 2>&1  
   # Calculate the time table
