@@ -31,8 +31,7 @@ mkdir -p $trials_dir
 java -noverify \
 -Dlog4j.configurationFile=file:$SCRIPT_DIR/log4j2.xml \
 -cp $classes_dir:$jars:$runtime_jar \
--DflakyAgent.timeTraceCollectMode=true \
--DflakyAgent.logInject=false \
+-DflakyAgent.logInject=true \
 -DflakyAgent.fixPointInjectionMode=true \
 -DflakyAgent.injectionId=1 \
 -DflakyAgent.injectionTimes=-1 \
