@@ -36,6 +36,7 @@ popd >/dev/null
 # Filter out important log messages
 echo -e "${R} Log diff----------${RESET}"
 pushd $tool_dir/ground_truth/$case_name >/dev/null 
+cp diff_log_dd.txt diff_log.txt
 #  ./make_diff.sh $tool_dir/tool/feedback/target/feedback-1.0-jar-with-dependencies.jar
 popd >/dev/null
 
