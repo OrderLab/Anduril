@@ -41,6 +41,7 @@ tar xzvf apache-ant-1.10.14-bin.tar.gz
 export PATH=$PATH:$DEP/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:$DEP/apache-ant-1.10.14/bin:$DEP/protobuf-build/bin
 export JAVA_HOME=$DEP/openlogic-openjdk-8u422-b05-linux-x64
 
+# For artifact evaluation, we provides the zip in Anduril for installing
 cp $WHERE_YOU_DOWNLOAD_ANDURIL/Anduril/systems/protobuf-2.5.0.zip $DEP
 cd $DEP/protobuf-2.5.0/
 autoreconf -f -i -Wall,no-obsolete
@@ -54,7 +55,7 @@ protoc --version
 # 1. Running the experiments
 There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
 ## Compile the system codes
-In these scripts, the first section is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
+The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
 
 In `zookeeper-2247` and `zookeeper-3157`, we need to run `ant test` for some time to fetch the test classes: 
 ```bash
@@ -91,9 +92,32 @@ In Kafka cases that using Gradle, we need to run the targe integration test in w
   #kafka-9374
   ./gradlew connect:runtime:test --tests org.apache.kafka.connect.integration.BlockingConnectorTest
 ```
-These are `compile_before_analysis` function in the script! 
+As to artifact evaluation, these are `compile_before_analysis` function in the scripts! 
 ## Find important logs
-In 
+In the second step, the goal is to filter out important log entries in the failure log. 
+
+In `experiments/case_name`, there is script that you can run the workload to get the logs. We run two times. 
+```bash
+  ./run-original-experiment.sh > good-run-log.txt 
+  ./run-original-experiment.sh > good-run-log-2.txt 
+```
+Then, move them to `ground_truth/case_name` together with the failure log named `bad-run-log.txt`. There is script to filuter out suspicious log entries. 
+```bash
+  # Assume there are good-run-log.txt, good-run-log-2.txt, and bad-run-log.txt
+  ./make_diff.sh
+```
+The output is in diff_log_dd.txt. For example, for case `zookeeper-2247`:
+```bash
+# First is the lcass and second is the line number
+LeaderRequestProcessor 77
+MBeanRegistry 128
+ZooKeeperCriticalThread 48
+PrepRequestProcessor 965
+ClientCnxn$SendThread 1181
+AppenderDynamicMBean 209
+...
+```
+For artifact evaluation, the scripts rerun `./make_diff.sh`.
 ## Peform static analysis
 
 ## Run dynamic experiments
