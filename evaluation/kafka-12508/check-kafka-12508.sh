@@ -2,7 +2,13 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-classes_dir="$SCRIPT_DIR/trials"
-for i in `find $classes_dir -name "*.out"`; do
-  grep -Pzl '(?s)died.*\n.*org.opentest4j.AssertionFailedError: Condition not met within timeout 60000' $i
+logs_dir=$1
+total=`find $logs_dir -name "*.out" | wc -l`
+for i in `seq 0 $((${total}-1))`
+do
+  res=`grep -Pzl '(?s)died.*\n.*org.opentest4j.AssertionFailedError: Condition not met within timeout 60000' "$logs_dir/$i.out"`
+  if [[ "$res" ]]; then
+    echo $res
+    break
+  fi
 done

@@ -9,6 +9,7 @@ java -jar $SCRIPT_DIR/driver.jar \
 --spec $SCRIPT_DIR/tree.json \
 --path $SCRIPT_DIR/trials \
 --config $SCRIPT_DIR/config.properties \
+--trial-limit $1 \
 $@
 
 popd >/dev/null
