@@ -201,18 +201,28 @@ If your configuration contains `flaky.timeFeedback=true` pr `flaky.augFeedback=t
   java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
 ```
 ### Running the experiment
+Driver will run the experiments and output the trials into `trials`. For trial with index i, `injection-$i.json` records the fault injection point while `$i.out` records the system output. 
 FIR: 
 ```bash
   ./driver.sh num_trials
 ```
 SOTA:
 ```bash
-  ./driver-sota.sh 
+  ./driver-sota.sh num_trials
 ```
-For artifact evaluaiton, 
-### Evaluate on reproduction
+#### (Artifact evaluation) Table II 
+In `fir-evaluation.sh`, `fate-evaluation.sh`, and `crashtuner-evaluation.sh`, the user should edit num_trials to match with the data in Table II. A rule of thumb is to set num_trials to be two times the data in the table. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. 
 
+### Check whether reproduction
+There are two options, if `check-${case_name}.sh` is in the evaluation dir, we should use 
+```bash
+ `check-${case_name}.sh` trials 
+```
+Else, it is incoporated into our reporter framework and can be checked with
+```bash
+  java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
+```
 
-
+In artifact evaluation, after each policy, it will check the reproduction and the result is in green color. 
 
 
