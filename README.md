@@ -335,5 +335,6 @@ The first index of the trial in which the case is reproduced will be printed in 
   ./check-${case_name}.sh trials
   echo -e "${RESET}"
 ```
-
+## Table III
+Same idea as Table I. Edit and run `parameter-evaluation.sh` in `evaluaiton/artifact-evaluation`.
 
