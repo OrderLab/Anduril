@@ -54,7 +54,8 @@ protoc --version
 # 1. Running the experiments
 There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. To this end, for each unique case, we provides scripts in `evaluation/case_name` to traverse the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
 ## Compile the system codes
-In these scripts, the first section is to compile the system code. There are two goal: compiling system code and test workload. Because in some cases, our workload is the integration test or unit test, we also need to make sure that the classes containing them are compiled too. \n
+In these scripts, the first section is to compile the system code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
+
 In `zookeeper-2247` and `zookeeper-3157`, we need to run `ant test` for some time to fetch the test classes: 
 ```bash
   ant clean
@@ -81,7 +82,7 @@ In `zookeeper-3006`, `zookeeper-4203`, HDFS, and HBase cases that using Maven:
   mvn install -DskipTests
 ```
 
-In Kafka cases that using Gradle, we need to run the targe integration test in workload to get its class. 
+In Kafka cases that using Gradle, we need to run the targe integration test in workload to get its class file. 
 ```bash
   ./gradlew clean
   ./gradlew jar
