@@ -117,10 +117,26 @@ ClientCnxn$SendThread 1181
 AppenderDynamicMBean 209
 ...
 ```
+For artifact evaluation, we do not have this stage because the results are already achived and there is no need to rerun them. 
 ## Peform static analysis
-The scripts are in directory `tool/bin`, for case `case_name`, 
-## Run dynamic experiments
+The scripts are in directory `tool/bin`. For case `case_name`, `analyzer-${case_name}.sh` will output causal graph `tree.json` in the directory you run the script and the instrumented class files. There is another post-processing step on the generated instrumnted class files through scripts in `tool/move`. 
+```bash
+  tool/bin/analyze-${case_name}.sh
+  tool/move/${case_name}.sh
+```
+For artifact evaluation, 
 
+Static analysis of Fate
+```bash
+  fate= tool/bin/analyze-${case_name}.sh
+  tool/move/${case_name}.sh
+```
+Static analysis of Crashtuner
+```bash
+  crashtuner= tool/bin/analyze-${case_name}.sh
+  tool/move/${case_name}.sh
+```
+## Run dynamic experiments
 ### Evaluate on reproduction
 
 
