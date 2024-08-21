@@ -14,8 +14,8 @@ Table of Contents
 ## Requirements
 
 * OS and JDK:
-  - Anduril is developed and tested under **Ubuntu 18.04** and **JDK 8**. 
-  - Other systems and newer JDKs may also work. We tested a few functionalities on Ubuntu 18.04 but the test is not complete. 
+  - Anduril is developed and tested under **Ubuntu 18.04 to 20.04** with **JDK 8**. 
+  - Other systems and newer JDKs may also work.
 
 * Hardware: 
   - The basic workflow of Anduril described in this README, which should satisfy the `Artifacts Functional` requirements, can be done in just one single node.
@@ -29,7 +29,21 @@ Table of Contents
 # 0. Install and configure dependencies
  
 ```bash
-DEP=$HOME/anduril-dep # modify this path to where you want the dependencies install
+sudo apt-get update
+sudo apt install git maven ant vim openjdk-8-jdk
+sudo update-alternatives --set java $(sudo update-alternatives --list java | grep "java-8")
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> ~/.bashrc
+```
+
+If you do not have root permissions, install the dependencies this way:
+
+<details>
+<summary>Rootless installation</summary>
+
+```bash
+DEP=$HOME/anduril-dep # modify this path to where you want the dependencies installed
 cd $DEP
 
 wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gztar xzvf jdk-8u301-linux-x64.tar.gz
@@ -38,26 +52,54 @@ wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bi
 tar xzvf apache-maven-3.9.9-bin.tar.gz
 wget https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.14-bin.tar.gz
 tar xzvf apache-ant-1.10.14-bin.tar.gz
+
 export PATH=$PATH:$DEP/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:$DEP/apache-ant-1.10.14/bin:$DEP/protobuf-build/bin
 export JAVA_HOME=$DEP/openlogic-openjdk-8u422-b05-linux-x64
 
-# For artifact evaluation, we provides the zip in Anduril for installing
-cp $WHERE_YOU_DOWNLOAD_ANDURIL/Anduril/systems/protobuf-2.5.0.zip $DEP
-cd $DEP/protobuf-2.5.0/
+echo "export PATH=$DEP/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:$DEP/apache-ant-1.10.14/bin:$DEP/protobuf-build/bin:\$PATH" >> ~/.bashrc
+echo "export JAVA_HOME=$DEP/openlogic-openjdk-8u422-b05-linux-x64" >> ~/.bashrc
+```
+
+</details>
+
+Install protobuf, which is needed for HDFS compilation:
+
+```bash
+DEP=$HOME/anduril-dep # modify this path to where you want the dependencies installed
+cd $DEP
+wget https://github.com/OrderLab/Anduril/blob/main/systems/protobuf-2.5.0.zip
+unzip protobuf-2.5.0.zip
+cd protobuf-2.5.0/
 autoreconf -f -i -Wall,no-obsolete
 ./configure --prefix=$DEP/protobuf-build
 make -j4
 make install
-export PATH=$PATH:$DEP/protobuf-build/bin
+export PATH=$DEP/protobuf-build/bin:$PATH
+echo "export PATH=$DEP/protobuf-build/bin:\$PATH" >> ~/.bashrc
 protoc --version
 ```
 
-# 1. Running the experiments
-There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
+# 1. Clone the repository
+
+```bash
+git clone https://github.com/OrderLab/Anduril.git
+```
+
+This repository contains the evaluated systems, so it is a bit large (around 3.5 GB). Make sure you have enough disk space.
+
+
+# 2. Run the experiments using existing cases
+
+There are 22 cases totaling up. Even though the target system of some of the
+cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may
+differ a lot so the compilation, static analysis, and dynamic experiment config
+differ a lot. 
+
 ## Compile the system codes
+
 The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
 
-In `zookeeper-2247` and `zookeeper-3157`, we need to run `ant test` for some time to fetch the test classes: 
+In `zookeeper-2247`, `zookeeper-3157` and Cassandra cases, we need to run `ant test` for some time to fetch the test classes: 
 ```bash
   ant clean
   ant jar
@@ -91,8 +133,9 @@ In Kafka cases that using Gradle, we need to run the targe integration test in w
   ./gradlew streams:test --tests org.apache.kafka.streams.integration.EmitOnChangeIntegrationTest
   #kafka-9374
   ./gradlew connect:runtime:test --tests org.apache.kafka.connect.integration.BlockingConnectorTest
+  #kafka-10048
+  ./gradlew connect:mirror:test --tests org.apache.kafka.connect.mirror.MirrorConnectorsIntegrationTest
 ```
-As to artifact evaluation, these are `compile_before_analysis` function in the scripts! 
 ## Find important logs
 In the second step, the goal is to filter out important log entries in the failure log. 
 
@@ -117,7 +160,6 @@ ClientCnxn$SendThread 1181
 AppenderDynamicMBean 209
 ...
 ```
-For artifact evaluation, we do not have this stage because the results are already achived and there is no need to rerun them. 
 ## Peform static analysis
 The scripts are in directory `tool/bin`. For case `case_name`, `analyzer-${case_name}.sh` will output causal graph `tree.json` in the directory you run the script and the instrumented class files. There is another post-processing step on the generated instrumnted class files through scripts in `tool/move`. 
 ```bash
@@ -136,7 +178,6 @@ Static analysis of Crashtuner
   crashtuner= tool/bin/analyze-${case_name}.sh
   tool/move/${case_name}.sh
 ```
-For artifact evaluation, the scripts do this and move `tree.json` to `evaluation/case_name` for later dynamic experiments. 
 ## Run dynamic experiments
 ### Preparation of the experiment
 All the evaluation should happen in `evaluation/case_name` directory. 
@@ -161,7 +202,7 @@ Crashtuner:
 ### Config of the experiment
 The configuration file is `config.properties`. 
 
-#### (Artifact evaluation) FIR columns in Table II 
+#### (Example from Artifact evaluation) FIR columns in Table II 
 There is one extra file called `config-template`. We can make the 6 corresponding `config.properties` from it by attaching extra configuration. 
 For example, in `zookeeper-2247`, `config-template`
 ```bash
@@ -181,7 +222,7 @@ The `config.properties` for Full Feedback can be generated through:
 ```
 You can refer to `fir-evaluation.sh` for all the 6 policies in FIR
 
-#### (Artifact evaluation) FIR columns in Table II 
+#### (Example from Artifact evaluation) FIR columns in Table II 
 There is one extra file called `config-sota`:
 ```bash
 flakyAgent.trialTimeout=90
@@ -210,8 +251,6 @@ SOTA:
 ```bash
   ./driver-sota.sh num_trials
 ```
-#### (Artifact evaluation) Table II 
-In `fir-evaluation.sh`, `fate-evaluation.sh`, and `crashtuner-evaluation.sh`, the user should edit num_trials to match with the data in Table II. A rule of thumb is to set num_trials to be two times the data in the table. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. 
 
 ### Check whether reproduction
 There are two options, if `check-${case_name}.sh` is in the evaluation dir, we should use 
@@ -223,6 +262,78 @@ Else, it is incoporated into our reporter framework and can be checked with
   java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
 ```
 
-In artifact evaluation, after each policy, it will check the reproduction and the result is in green color. 
+We will uniformize it soon!
+
+# 2. Artifact evaluation 
+The scripts are stored in `evaluation/scripts`. 
+## Table II
+We need three scripts `fir-evaluation.sh`, `fate-evaluation.sh` and `crashtuner-evaluation.sh`. `fir-evaluation.sh` is for the first 6 columns while `fate-evaluation.sh` and `crashtuner-evaluation.sh` are for SOTA. 
+
+Suppose you want to get the row of `case_name`, copy the three scripts into the folder `evaluaiton/case_name`
+
+The three scripts can be ran on three different machines. Before running the script, there are some fields needed to be edited"
+### Edit the scripts 
+In `fir-evaluation.sh`, the case_name should be changed to `case_name`. `fir-evaluation.sh` will run the 6 experiments shown in Table II sequentially and `p1-p6` designate how many trials each experiment lasts. For example, if you set `p1` to `20`, the first experiment, `Full Feedback`, would last `20` trials. A rule of thumb is to set this to be two times the data in the Table II. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. Last but not the least, `compile_before_analysis` should also be edited to reflect the system of the case. You can refer to section 1 about it. By default, it works for all system projects using Maven.  
+```bach
+#!/usr/bin/env bash
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+case_name=zookeeper-2247
+
+p1=1
+p2=1
+p3=1
+p4=1
+p5=1
+p6=1
+
+tool_dir="${SCRIPT_DIR}/../.."
+R='\033[0;31m'
+G='\033[0;32m'
+RESET='\033[0m'
+
+function compile_before_analysis() {
+  mvn clean
+  mvn install -DskipTests
+}
+```
+As to `fate-evaluation.sh` or `crashtuner-evaluation.sh`, there is only one experiment, so only `p1` exists. 
+```bash
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+case_name=zookeeper-2247
+p1=1
+
+tool_dir="${SCRIPT_DIR}/../.."
+R='\033[0;31m'
+G='\033[0;32m'
+RESET='\033[0m'
+
+function compile_before_analysis() {
+  mvn clean
+  mvn install -DskipTests
+}
+```
+Also note that for some cases, the three scripts are already there. You can directly run them and they serve as good examples for you do other experiments. 
+### Run the script
+They traverses the entire pipeline in section I, so you can just run the script to get the results. 
+```bash
+./fir-evaluation.sh
+```
+```bash
+./fate-evaluation.sh
+```
+```bash
+./crashtuner-evaluation.sh
+```
+### Inspect the result
+The first index of the trial in which the case is reproduced will be printed in `Green` color. 
+```bash
+  echo -e "${G}Full Feedback result:"
+  ./check-${case_name}.sh trials
+  echo -e "${RESET}"
+```
 
 
