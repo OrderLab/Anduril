@@ -28,23 +28,25 @@ Table of Contents
 # 0. Install and configure dependencies
  
 ```bash
-# Suppose you are at ~ (or $HOME)
+# Suppose you want to install dependency at $DEP
+cd $DEP
+
 wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gztar xzvf jdk-8u301-linux-x64.tar.gz
 tar xzvf openlogic-openjdk-8u422-b05-linux-x64.tar.gz
 wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
 tar xzvf apache-maven-3.9.9-bin.tar.gz
 wget https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.14-bin.tar.gz
 tar xzvf apache-ant-1.10.14-bin.tar.gz
-export PATH=$PATH:~/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:~/apache-ant-1.10.14/bin:~/protobuf-build/bin
-export JAVA_HOME=~/openlogic-openjdk-8u422-b05-linux-x64
+export PATH=$PATH:$DEP/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:$DEP/apache-ant-1.10.14/bin:$DEP/protobuf-build/bin
+export JAVA_HOME=$DEP/openlogic-openjdk-8u422-b05-linux-x64
 
-cp Anduril/systems/protobuf-2.5.0.zip $HOME
-cd ~/protobuf-2.5.0/
+cp Anduril/systems/protobuf-2.5.0.zip $DEP
+cd $DEP/protobuf-2.5.0/
 autoreconf -f -i -Wall,no-obsolete
-./configure --prefix=$HOME/protobuf-build
+./configure --prefix=$DEP/protobuf-build
 make -j4
 make install
-export PATH=$PATH:$HOME/protobuf-build/bin
+export PATH=$PATH:$DEP/protobuf-build/bin
 protoc --version
 ```
 
