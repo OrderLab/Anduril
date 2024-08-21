@@ -67,10 +67,11 @@ pushd $tool_dir/evaluation/$case_name >/dev/null
   rm -rf fate-results
   mkdir fate-results
   cp fate-trial.sh single-trial.sh
+  cp config-sota config.properties
 
   echo -e "${R} Fate----------${RESET}"
   rm -rf trials/
-  ./driver.sh 200 > experiment.out 2>&1 
+  ./driver-sota.sh 200 > experiment.out 2>&1 
   cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
   echo -e "${G}Fate result:"
   java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -b -n $case_name

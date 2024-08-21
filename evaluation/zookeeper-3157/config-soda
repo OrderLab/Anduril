@@ -1,0 +1,2 @@
+flakyAgent.trialTimeout=120
+flakyAgent.recordOnthefly=true
