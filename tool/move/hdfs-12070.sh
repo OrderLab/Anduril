@@ -10,6 +10,8 @@ sootoutput_dir="$HOME/tmp/bytecode/$case_name/sootOutput"
 rm -rf $target_dir
 mkdir -p $target_dir
 
+cp -a $sootoutput_dir/. $target_dir
+
 defaultList="./org/apache/hadoop/hdfs/protocol/HdfsFileStatus.class
 ./org/apache/hadoop/fs/PathHandle.class"
 
