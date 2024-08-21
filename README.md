@@ -9,6 +9,7 @@ Table of Contents
 =================
 * [Requirements](#requirements)
 * [0. Install and configure dependencies](#0-install-and-configure-dependencies)
+* [1. Running the experiments](#1-running-the-experiments)
 
 ## Requirements
 
@@ -49,5 +50,20 @@ make install
 export PATH=$PATH:$DEP/protobuf-build/bin
 protoc --version
 ```
+
+# 1. Running the experiments
+
+## Compile the system codes
+
+## Matchout important logs
+
+## Peforming the static analysis
+
+## Running dynamic experiments
+
+### Evaluate on reproduction
+
+
+
 
 
