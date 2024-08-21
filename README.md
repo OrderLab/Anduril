@@ -124,7 +124,7 @@ The scripts are in directory `tool/bin`. For case `case_name`, `analyzer-${case_
   tool/bin/analyze-${case_name}.sh
   tool/move/${case_name}.sh
 ```
-For artifact evaluation, 
+For SOTA, 
 
 Static analysis of Fate
 ```bash
@@ -136,7 +136,80 @@ Static analysis of Crashtuner
   crashtuner= tool/bin/analyze-${case_name}.sh
   tool/move/${case_name}.sh
 ```
+For artifact evaluation, the scripts do this and move `tree.json` to `evaluation/case_name` for later dynamic experiments. 
 ## Run dynamic experiments
+# Preparation of the experiment
+All the evaluation should happen in `evaluation/case_name` directory. 
+For 
+```bash
+  cd evaluation/case_name
+  cp $DIR_WHERE_YOU_PERFORM_STATIC_ANALYSIS/tree.json .
+  ./update.sh
+```
+If it is FIR:
+```bash
+  cp fir-trial.sh single-trial.sh
+```
+Fate: 
+```bash
+  cp fate-trial.sh single-trial.sh
+```
+Crashtuner: 
+```bash
+  cp crashtuner-trial.sh single-trial.sh
+```
+## Config of the experiment
+The configuration file is `config.properties`. 
+
+### (Artifact evaluation) FIR columns in Table II 
+There is one extra file called `config-template`. We can make the 6 corresponding `config.properties` from it by attaching extra configuration. 
+For example, in `zookeeper-2247`, `config-template`
+```bash
+  flakyAgent.avoidBlockMode=true
+  flakyAgent.probability=0.05
+  flakyAgent.timePriorityTable=time.bin
+  flakyAgent.timeFeedbackMode=min_times
+  flakyAgent.trialTimeout=90
+  flakyAgent.recordOnthefly=true
+```
+The `config.properties` for Full Feedback can be generated through: 
+```bash
+  cp config-template config.properties
+  echo "flakyAgent.feedback=true" >> config.properties
+  echo "flakyAgent.augFeedback=true" >> config.properties
+  echo "flakyAgent.occurrenceSize=1" >> config.properties
+```
+You can refer to `fir-evaluation.sh` for all the 6 policies in FIR
+
+### (Artifact evaluation) FIR columns in Table II 
+There is one extra file called `config-sota`:
+```bash
+flakyAgent.trialTimeout=90
+flakyAgent.recordOnthefly=true
+```
+The `config.properties` for either Fate or Crashtuner can be generated through: 
+```bash
+  cp config-sota config.properties
+```
+You can refer to `fate-evaluation.sh` or `crashtuner-evaluation.sh` to see what happens.
+
+### (Optional) Prepare time table
+If your configuration contains `flaky.timeFeedback=true` pr `flaky.augFeedback=true`, time table is needed. 
+```bash
+  ./make-depps.sh # If it is in evaluation/case_name
+  ./run-instrumnted-experiment.sh > record-inject
+  java -jar reporter-1.0-SNAPSHOT-jar-with-dependencies.jar -t trials/ -s tree.json
+```
+## Running the experiment
+FIR: 
+```bash
+  ./driver.sh num_trials
+```
+SOTA:
+```bash
+  ./driver-sota.sh 
+```
+For artifact evaluaiton, 
 ### Evaluate on reproduction
 
 
