@@ -101,14 +101,14 @@ In `experiments/case_name`, there is script that you can run the workload to get
   ./run-original-experiment.sh > good-run-log.txt 
   ./run-original-experiment.sh > good-run-log-2.txt 
 ```
-Then, move them to `ground_truth/case_name` together with the failure log named `bad-run-log.txt`. There is script to filuter out suspicious log entries. 
+Then, move them to `ground_truth/case_name` together with the failure log named `bad-run-log.txt`. There is script to filter out suspicious log entries. 
 ```bash
   # Assume there are good-run-log.txt, good-run-log-2.txt, and bad-run-log.txt
   ./make_diff.sh
 ```
-The output is in diff_log_dd.txt. For example, for case `zookeeper-2247`:
+The output are `diff_log_original.txt`, `diff_log_dd.txt`, and `diff_log_dd_set.txt` in the directory `ground_truth/case_name`. Take an example of the format:
 ```bash
-# First is the lcass and second is the line number
+# First is the class and second is the line number
 LeaderRequestProcessor 77
 MBeanRegistry 128
 ZooKeeperCriticalThread 48
@@ -117,9 +117,8 @@ ClientCnxn$SendThread 1181
 AppenderDynamicMBean 209
 ...
 ```
-For artifact evaluation, the scripts rerun `./make_diff.sh`.
 ## Peform static analysis
-
+The scripts are in directory `tool/bin`, for case `case_name`, 
 ## Run dynamic experiments
 
 ### Evaluate on reproduction
