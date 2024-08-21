@@ -52,12 +52,12 @@ protoc --version
 ```
 
 # 1. Running the experiments
-There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. To this end, for each unique case, we provides scripts in `evaluation/case_name` to traverse the entire pipeline. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
+There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. To this end, for each unique case, we provides scripts in `evaluation/case_name` to traverse the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
 ## Compile the system codes
 
-## Matchout important logs
+## Fid important logs
 
-## Peforming the static analysis
+## Peforming static analysis
 
 ## Running dynamic experiments
 
