@@ -54,12 +54,47 @@ protoc --version
 # 1. Running the experiments
 There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. To this end, for each unique case, we provides scripts in `evaluation/case_name` to traverse the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
 ## Compile the system codes
+In these scripts, the first section is to compile the system code. There are two goal: compiling system code and test workload. Because in some cases, our workload is the integration test or unit test, we also need to make sure that the classes containing them are compiled too. 
+In `zookeeper-2247` and `zookeeper-3157`, we need to run `ant test` for some time to fetch the test classes: 
+```bash
+  ant clean
+  ant jar
+  # Run until getting test classes downloaded and then kill
+  nohup ant test > $SCRIPT_DIR/compile-test.out 2>&1 &
+  pid=$!
 
-## Fid important logs
+  while :
+  do
+    if [[ $(grep 'junit.run-concurrent:' $SCRIPT_DIR/compile-test.out) ]]; then
+      break
+    fi
+    sleep 1
+  done
 
-## Peforming static analysis
+  kill -9 $pid
+  sleep 1
+  kill -9 `jps -l | grep 'JUnitTestRunner' | cut -d " " -f 1`
+```
+In `zookeeper-3006`, `zookeeper-4203`, HDFS, and HBase cases that using Maven: 
+```bash
+  mvn clean
+  mvn install -DskipTests
+```
 
-## Running dynamic experiments
+In Kafka cases that using Gradle, we need to run the targe integration test in workload to get its class. 
+```bash
+  ./gradlew clean
+  ./gradlew jar
+  #kafka-12508
+  ./gradlew streams:test --tests org.apache.kafka.streams.integration.EmitOnChangeIntegrationTest
+  #kafka-9374
+  ./gradlew connect:runtime:test --tests org.apache.kafka.connect.integration.BlockingConnectorTest
+```
+## Find important logs
+
+## Peform static analysis
+
+## Run dynamic experiments
 
 ### Evaluate on reproduction
 
