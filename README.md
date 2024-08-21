@@ -29,7 +29,21 @@ Table of Contents
 # 0. Install and configure dependencies
  
 ```bash
-DEP=$HOME/anduril-dep # modify this path to where you want the dependencies install
+sudo apt-get update
+sudo apt install git maven ant vim openjdk-8-jdk
+sudo update-alternatives --set java $(sudo update-alternatives --list java | grep "java-8")
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> ~/.bashrc
+```
+
+If you do not have root permissions, install the dependencies this way:
+
+<details>
+<summary>Rootless installation</summary>
+
+```bash
+DEP=$HOME/anduril-dep # modify this path to where you want the dependencies installed
 cd $DEP
 
 wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gztar xzvf jdk-8u301-linux-x64.tar.gz
@@ -38,23 +52,48 @@ wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bi
 tar xzvf apache-maven-3.9.9-bin.tar.gz
 wget https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.14-bin.tar.gz
 tar xzvf apache-ant-1.10.14-bin.tar.gz
+
 export PATH=$PATH:$DEP/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:$DEP/apache-ant-1.10.14/bin:$DEP/protobuf-build/bin
 export JAVA_HOME=$DEP/openlogic-openjdk-8u422-b05-linux-x64
 
-# For artifact evaluation, we provides the zip in Anduril for installing
-cp $WHERE_YOU_DOWNLOAD_ANDURIL/Anduril/systems/protobuf-2.5.0.zip $DEP
-cd $DEP/protobuf-2.5.0/
+echo "export PATH=$DEP/openlogic-openjdk-8u422-b05-linux-x64/bin:~/apache-maven-3.9.9/bin:$DEP/apache-ant-1.10.14/bin:$DEP/protobuf-build/bin:\$PATH" >> ~/.bashrc
+echo "export JAVA_HOME=$DEP/openlogic-openjdk-8u422-b05-linux-x64" >> ~/.bashrc
+```
+
+</details>
+
+Install protobuf, which is needed for HDFS compilation:
+
+```bash
+DEP=$HOME/anduril-dep # modify this path to where you want the dependencies installed
+cd $DEP
+wget https://github.com/OrderLab/Anduril/blob/main/systems/protobuf-2.5.0.zip
+unzip protobuf-2.5.0.zip
+cd protobuf-2.5.0/
 autoreconf -f -i -Wall,no-obsolete
 ./configure --prefix=$DEP/protobuf-build
 make -j4
 make install
-export PATH=$PATH:$DEP/protobuf-build/bin
+export PATH=$DEP/protobuf-build/bin:$PATH
+echo "export PATH=$DEP/protobuf-build/bin:\$PATH" >> ~/.bashrc
 protoc --version
 ```
 
-# 1. Running the experiments
+# 1. Clone the repository
+
+```bash
+git clone https://github.com/OrderLab/Anduril.git
+```
+
+This repository contains the evaluated systems, so it is a bit large (around 3.5 GB). Make sure you have enough disk space.
+
+
+# 2. Running the experiments
+
 There are 22 cases totaling up. Even though the target system of some of the cases are same (e.g. there are 4 cases in ZooKeeper), the patch version may differ a lot so the compilation, static analysis, and dynamic experiment config differ a lot. As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
+
 ## Compile the system codes
+
 The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. There are two goal here: compiling system code and test workload into classes. In some cases, our workload is the integration test or unit test.
 
 In `zookeeper-2247` and `zookeeper-3157`, we need to run `ant test` for some time to fetch the test classes: 
