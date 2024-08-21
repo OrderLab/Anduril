@@ -202,7 +202,7 @@ Crashtuner:
 ### Config of the experiment
 The configuration file is `config.properties`. 
 
-#### (Artifact evaluation) FIR columns in Table II 
+#### (Example from Artifact evaluation) FIR columns in Table II 
 There is one extra file called `config-template`. We can make the 6 corresponding `config.properties` from it by attaching extra configuration. 
 For example, in `zookeeper-2247`, `config-template`
 ```bash
@@ -222,7 +222,7 @@ The `config.properties` for Full Feedback can be generated through:
 ```
 You can refer to `fir-evaluation.sh` for all the 6 policies in FIR
 
-#### (Artifact evaluation) FIR columns in Table II 
+#### (Example from Artifact evaluation) FIR columns in Table II 
 There is one extra file called `config-sota`:
 ```bash
 flakyAgent.trialTimeout=90
@@ -251,8 +251,6 @@ SOTA:
 ```bash
   ./driver-sota.sh num_trials
 ```
-#### (Artifact evaluation) Table II 
-In `fir-evaluation.sh`, `fate-evaluation.sh`, and `crashtuner-evaluation.sh`, the user should edit num_trials to match with the data in Table II. A rule of thumb is to set num_trials to be two times the data in the table. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. 
 
 ### Check whether reproduction
 There are two options, if `check-${case_name}.sh` is in the evaluation dir, we should use 
@@ -267,8 +265,75 @@ Else, it is incoporated into our reporter framework and can be checked with
 We will uniformize it soon!
 
 # 2. Artifact evaluation 
+The scripts are stored in `evaluation/scripts`. 
+## Table II
+We need three scripts `fir-evaluation.sh`, `fate-evaluation.sh` and `crashtuner-evaluation.sh`. `fir-evaluation.sh` is for the first 6 columns while `fate-evaluation.sh` and `crashtuner-evaluation.sh` are for SOTA. 
 
-As to artifact evaluation, for each unique case, we provides scripts in `evaluation/case_name` that go through the entire pipeline. Each script goes through the entire process of compiling system code, finding important logs, performing static analysis, and running dynamic experiments. `fir-evaluation.sh` is for FIR columns of Table 2 while `fate-evaluation.sh` and `crashtuner=evaluation.sh` are for SOTA solutions. 
+Suppose you want to get the row of `case_name`, copy the three scripts into the folder `evaluaiton/case_name`
 
+The three scripts can be ran on three different machines. Before running the script, there are some fields needed to be edited"
+### Edit the scripts 
+In `fir-evaluation.sh`, the case_name should be changed to `case_name`. `fir-evaluation.sh` will run the 6 experiments shown in Table II sequentially and `p1-p6` designate how many trials each experiment lasts. For example, if you set `p1` to `20`, the first experiment, `Full Feedback`, would last `20` trials. A rule of thumb is to set this to be two times the data in the Table II. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. Last but not the least, `compile_before_analysis` should also be edited to reflect the system of the case. You can refer to section 1 about it. By default, it works for all system projects using Maven.  
+```bach
+#!/usr/bin/env bash
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+case_name=zookeeper-2247
+
+p1=1
+p2=1
+p3=1
+p4=1
+p5=1
+p6=1
+
+tool_dir="${SCRIPT_DIR}/../.."
+R='\033[0;31m'
+G='\033[0;32m'
+RESET='\033[0m'
+
+function compile_before_analysis() {
+  mvn clean
+  mvn install -DskipTests
+}
+```
+As to `fate-evaluation.sh` or `crashtuner-evaluation.sh`, there is only one experiment, so only `p1` exists. 
+```bash
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+case_name=zookeeper-2247
+p1=1
+
+tool_dir="${SCRIPT_DIR}/../.."
+R='\033[0;31m'
+G='\033[0;32m'
+RESET='\033[0m'
+
+function compile_before_analysis() {
+  mvn clean
+  mvn install -DskipTests
+}
+```
+Also note that for some cases, the three scripts are already there. You can directly run them and they serve as good examples for you do other experiments. 
+### Run the script
+They traverses the entire pipeline in section I, so you can just run the script to get the results. 
+```bash
+./fir-evaluation.sh
+```
+```bash
+./fate-evaluation.sh
+```
+```bash
+./crashtuner-evaluation.sh
+```
+### Inspect the result
+The first index of the trial in which the case is reproduced will be printed in `Green` color. 
+```bash
+  echo -e "${G}Full Feedback result:"
+  ./check-${case_name}.sh trials
+  echo -e "${RESET}"
+```
 
 
