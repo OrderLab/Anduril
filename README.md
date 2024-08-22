@@ -302,7 +302,7 @@ The three scripts can be ran on three different machines. Before running the scr
 
 ### Edit the scripts 
 
-In `fir-evaluation.sh`, the case_name should be changed to `case_name`. `fir-evaluation.sh` will run the 6 experiments shown in Table II sequentially and `p1-p6` designate how many trials each experiment lasts. For example, if you set `p1` to `20`, the first experiment, `Full Feedback`, would last `20` trials. A rule of thumb is to set this to be two times the data in the Table II. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. Last but not the least, `compile_before_analysis` should also be edited to reflect the system of the case. You can refer to section 1 about it. By default, it works for all system projects using Maven.  
+In `fir-evaluation.sh`, the case_name should be changed to `case_name`. `fir-evaluation.sh` will run the 6 experiments shown in Table II sequentially and `p1-p6` designate how many trials each experiment lasts. For example, if you set `p1` to `20`, the first experiment, `Full Feedback`, would last `20` trials. A rule of thumb is to set this to be two times the data in the Table II. It it exceeds `2000`, decrease it to `2000`. Or it can not be finished in one day. 
 
 ```bach
 #!/usr/bin/env bash
@@ -317,15 +317,6 @@ p4=1
 p5=1
 p6=1
 
-tool_dir="${SCRIPT_DIR}/../.."
-R='\033[0;31m'
-G='\033[0;32m'
-RESET='\033[0m'
-
-function compile_before_analysis() {
-  mvn clean
-  mvn install -DskipTests
-}
 ```
 As to `fate-evaluation.sh` or `crashtuner-evaluation.sh`, there is only one experiment, so only `p1` exists. 
 ```bash
