@@ -72,7 +72,7 @@ pushd $tool_dir/evaluation/$case_name >/dev/null
   echo "flakyAgent.feedback=true" >> config.properties
   echo "flakyAgent.augFeedback=true" >> config.properties
   echo "flakyAgent.occurrenceSize=1" >> config.properties
-  echo "flakyAgent.slidingwindow=1" >> config.properties
+  echo "flakyAgent.slidingWindow=1" >> config.properties
   echo "flakyAgent.feedbackDelta=1" >> config.properties
   ./driver.sh $p1 > experiment.out 2>&1 
   cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
@@ -89,7 +89,7 @@ pushd $tool_dir/evaluation/$case_name >/dev/null
   echo "flakyAgent.feedback=true" >> config.properties
   echo "flakyAgent.augFeedback=true" >> config.properties
   echo "flakyAgent.occurrenceSize=1" >> config.properties
-  echo "flakyAgent.slidingwindow=3" >> config.properties
+  echo "flakyAgent.slidingWindow=3" >> config.properties
   echo "flakyAgent.feedbackDelta=1" >> config.properties
   ./driver.sh $p2 > experiment.out 2>&1 
   cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
@@ -106,7 +106,7 @@ pushd $tool_dir/evaluation/$case_name >/dev/null
   echo "flakyAgent.feedback=true" >> config.properties
   echo "flakyAgent.augFeedback=true" >> config.properties
   echo "flakyAgent.occurrenceSize=1" >> config.properties
-  echo "flakyAgent.slidingwindow=10" >> config.properties
+  echo "flakyAgent.slidingWindow=10" >> config.properties
   echo "flakyAgent.feedbackDelta=1" >> config.properties
   ./driver.sh $p3 > experiment.out 2>&1 
   cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
@@ -123,7 +123,7 @@ pushd $tool_dir/evaluation/$case_name >/dev/null
   echo "flakyAgent.feedback=true" >> config.properties
   echo "flakyAgent.augFeedback=true" >> config.properties
   echo "flakyAgent.occurrenceSize=1" >> config.properties
-  echo "flakyAgent.slidingwindow=1" >> config.properties
+  echo "flakyAgent.slidingWindow=1" >> config.properties
   echo "flakyAgent.feedbackDelta=2" >> config.properties
   ./driver.sh $p4 > experiment.out 2>&1 
   cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
@@ -140,7 +140,7 @@ pushd $tool_dir/evaluation/$case_name >/dev/null
   echo "flakyAgent.feedback=true" >> config.properties
   echo "flakyAgent.augFeedback=true" >> config.properties
   echo "flakyAgent.occurrenceSize=1" >> config.properties
-  echo "flakyAgent.slidingwindow=10" >> config.properties
+  echo "flakyAgent.slidingWindow=10" >> config.properties
   echo "flakyAgent.feedbackDelta=10" >> config.properties
   ./driver.sh $p5 > experiment.out 2>&1 
   cp $tool_dir/tool/reporter/target/reporter-1.0-SNAPSHOT-jar-with-dependencies.jar .
