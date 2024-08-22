@@ -17,8 +17,7 @@ G='\033[0;32m'
 RESET='\033[0m'
 
 function compile_before_analysis() {
-  mvn clean
-  mvn install -DskipTests
+  ./compile.sh
 }
 
 function compile_after_analysis() {
