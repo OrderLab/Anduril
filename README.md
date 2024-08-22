@@ -36,7 +36,10 @@ Table of Contents
   - Other systems and newer JDKs may also work.
 
 * Hardware: 
-  - The basic workflow of Anduril described in this README, which should satisfy the `Artifacts Functional` requirements, can be done in just one single node.
+  - The basic workflow of Anduril described in this README can be done in just one single node.
+  - Our experiment node uses the CloudLab `c220g5` node type, which has two
+    Intel Xeon Silver 4114 10-core CPUs at 2.20 GHz, 192GB ECC DDR4-2666 memory, 
+    and a 1 TB 7200 RPM 6G SAS HDs.
 
 * Git (>= 2.16.2, version control)
 * Apache Maven (>= 3.6.3, for Anduril compilation)
@@ -115,59 +118,40 @@ differ a lot.
 
 ## 2.1 Compile the system codes
 
-The first step is to compile the system code into classes so that it can be utilized by our static analysis code. The system codes are in `system/case_name`. 
-Besides the system code, we also need to compile the test workload into classes. In some cases, our workload is the integration test or unit test.
+The first step is to compile the system code into classes so that they can be
+utilized by our static analyzer.  The system codes are in the directory
+`system/case_name`. We need to switch to that directory and then run the
+compilation commands. Besides the system code, we may also need to compile the
+tests in the system code directory, which will serve as the workload for that
+case.
 
-In `zookeeper-2247`, `zookeeper-3157` and Cassandra cases, we need to run `ant test` for some time to produce the test classes: 
+Since the compilations commands differ by cases, we prepare a `compile.sh` script
+in each case directory that you can invoke. For example:
+
 ```bash
-  ant clean
-  ant jar
-  # Run until getting test classes downloaded and then kill
-  nohup ant test > $SCRIPT_DIR/compile-test.out 2>&1 &
-  pid=$!
-
-  while :
-  do
-    if [[ $(grep 'junit.run-concurrent:' $SCRIPT_DIR/compile-test.out) ]]; then
-      break
-    fi
-    sleep 1
-  done
-
-  kill -9 $pid
-  sleep 1
-  kill -9 `jps -l | grep 'JUnitTestRunner' | cut -d " " -f 1`
-```
-In `zookeeper-3006`, `zookeeper-4203`, HDFS, and HBase cases that using Maven: 
-```bash
-  mvn clean
-  mvn install -DskipTests
+cd systems/zookeeper-3006
+./compile.sh
 ```
 
-In Kafka cases that using Gradle, we need to run the targe integration test in workload to get its class file. 
+We also provide a script to compile all cases:
+
 ```bash
-  ./gradlew clean
-  ./gradlew jar
-  #kafka-12508
-  ./gradlew streams:test --tests org.apache.kafka.streams.integration.EmitOnChangeIntegrationTest
-  #kafka-9374
-  ./gradlew connect:runtime:test --tests org.apache.kafka.connect.integration.BlockingConnectorTest
-  #kafka-10048
-  ./gradlew connect:mirror:test --tests org.apache.kafka.connect.mirror.MirrorConnectorsIntegrationTest
+cd systems
+./compile-all.sh
 ```
 
 ## 2.2 Find important logs
 
 In the second step, the goal is to filter out important log entries in the failure log. 
 
-In `experiments/case_name`, there is script that you can run the workload to get the logs. We run two times. 
+In `experiments/case_name`, there is a script that you can run the workload to get the logs. We run two times. 
 
 ```bash
   ./run-original-experiment.sh > good-run-log.txt 
   ./run-original-experiment.sh > good-run-log-2.txt 
 ```
 
-Then, move them to `ground_truth/case_name` together with the failure log named `bad-run-log.txt`. There is script to filter out suspicious log entries. 
+Then, move them to `ground_truth/case_name` together with the failure log named `bad-run-log.txt`. There is a script to filter out suspicious log entries. 
 
 ```bash
   # Assume there are good-run-log.txt, good-run-log-2.txt, and bad-run-log.txt
@@ -188,6 +172,7 @@ AppenderDynamicMBean 209
 ```
 
 ## 2.3 Peform static analysis
+
 The scripts are in directory `tool/bin`. For case `case_name`, `analyzer-${case_name}.sh` will output causal graph `tree.json` in the directory you run the script and the instrumented class files. There is another post-processing step on the generated instrumnted class files through scripts in `tool/move`. 
 
 ```bash
