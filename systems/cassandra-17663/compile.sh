@@ -2,15 +2,15 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-ant clean
-ant jar
+ant clean -Drat.skip=true
+ant jar -Drat.skip=true
 # Run until getting test classes downloaded and then kill
-nohup ant test > $SCRIPT_DIR/compile-test.out 2>&1 &
+nohup ant test -Drat.skip=true > $SCRIPT_DIR/compile-test.out 2>&1 &
 pid=$!
 
 while :
 do
-  if [[ $(grep 'junit.run-concurrent:' $SCRIPT_DIR/compile-test.out) ]]; then
+  if [[ $(grep 'running unit tests' $SCRIPT_DIR/compile-test.out) ]]; then
     break
   fi
   sleep 1

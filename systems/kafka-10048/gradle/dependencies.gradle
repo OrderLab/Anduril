@@ -63,7 +63,7 @@ versions += [
   commonsCli: "1.4",
   gradle: "6.6",
   gradleVersionsPlugin: "0.29.0",
-  grgit: "4.0.2",
+  grgit: "4.1.1",
   httpclient: "4.5.12",
   easymock: "4.2",
   jackson: "2.10.5",
