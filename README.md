@@ -88,7 +88,7 @@ Install protobuf, which is needed for HDFS compilation:
 ```bash
 DEP=$HOME/anduril-dep # modify this path to where you want the dependencies installed
 cd $DEP
-wget https://github.com/OrderLab/Anduril/blob/main/systems/protobuf-2.5.0.zip
+wget https://github.com/OrderLab/Anduril/raw/main/systems/protobuf-2.5.0.zip
 unzip protobuf-2.5.0.zip
 cd protobuf-2.5.0/
 autoreconf -f -i -Wall,no-obsolete
