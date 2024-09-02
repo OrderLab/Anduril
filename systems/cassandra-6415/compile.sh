@@ -10,7 +10,7 @@ pid=$!
 
 while :
 do
-  if [[ $(grep 'running unit tests' $SCRIPT_DIR/compile-test.out) ]]; then
+  if [[ $(grep 'Testsuite' $SCRIPT_DIR/compile-test.out) ]]; then
     break
   fi
   sleep 1
