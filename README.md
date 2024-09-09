@@ -173,6 +173,13 @@ AppenderDynamicMBean 209
 
 ## 2.3 Peform static analysis
 
+Before running static analysis, compile our toolkit first
+
+In `tool/`,
+```bash
+  mvn install -DskipTests
+```
+
 The scripts are in directory `tool/bin`. For case `case_name`, `analyzer-${case_name}.sh` will output causal graph `tree.json` in the directory you run the script and the instrumented class files. There is another post-processing step on the generated instrumnted class files through scripts in `tool/move`. 
 
 ```bash
